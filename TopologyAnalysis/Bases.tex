@@ -1,0 +1,52 @@
+\documentclass{exam}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{blindtext}
+% if you ever want to enter images use the following code%
+%\begin{center}%
+    %\includegraphics[width=0.8\textwidth]{Screenshot (22).png}%
+%\end{center}%
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{defn}{Definition}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{axm}{Axiom}[section]
+
+\fancyhf{}
+\fancyhead[R]{   Omkar Tasgaonkar\\UID: 206-624-454}
+\renewcommand\headrulewidth{0.5pt}
+\pagestyle{fancy}
+\author{Omkar Tasgaonkar}
+\setlength{\headsep}{0.5in}
+\fancyfoot[C]{(\thepage)}
+\renewcommand\footrulewidth{0.5pt}
+
+\fancypagestyle{firstpage}{
+    \fancyhf{}
+    \fancyhead[C]{\textbf{Class Homework}}
+    \fancyhead[R]{Omkar Tasgaonkar\\UID: 206-624-454}
+    \renewcommand\headrulewidth{0.5pt}
+    \fancyfoot[C]{(\thepage)}
+    \renewcommand\footrulewidth{0.5pt}
+}
+
+
+
+\begin{document}
+\thispagestyle{firstpage}
+
+\section*{Introduction}
+\begin{thm}
+test theorem
+\end{thm}
+\pagebreak
+\section*{Problem 2}
+
+\end{document}
