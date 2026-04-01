@@ -129,11 +129,11 @@ Repeating this process inductively, we can find $B_n \subseteq \bigcap_{k=1}^{n-
 \begin{cor}
 Metric spaces are first countable.
 \end{cor}
-We can show this by using the local basis $\mathcal{B}_x \coloneq \left\{B\left(x, \frac{1}{n+1}\right)\right\}$ for all $n \in \mathbb{N}$. Then by definition of an open set, there exists $B(x, r) \subseteq O$. So given any such open ball $B(x, r)$ for any $r \in \mathbb{R}$, there exists a rational $0 < q < r$ by the density of the rationals.\\
+We can show this by using the local basis $\mathcal{B}_x \coloneq \left\{B\left(x, \frac{1}{n+1}\right)\right\}$ for all $n \in \mathbb{N}$. Then by definition of an open set, there exists $B(x, r) \subseteq O$. So given any such open ball $B(x, r)$ for any $r \in \mathbb{R}$ and $r > 0$, then $\exists n \in \mathbb{N}: r(n+1) > 1$ (Archimedian Property).\\
 
-Now this $q$ will be in the form $\frac{m}{n+1}$, where $m, n \in \mathbb{Z}_{>0}$. Since $m \geqslant 1$, by rational properties we see that:
+Manipulating the inequality, we get that:
 \begin{equation*}
-  0 < \frac{1}{n+1} \leqslant \frac{m}{n+1} < r
+  0 < \frac{1}{n+1} < r
 \end{equation*}
 Thus we can find a ball $B\left(x, \frac{1}{n+1}\right) \subseteq B(x, r) \subseteq O$, satisfying Defn 0.4.\\
 
