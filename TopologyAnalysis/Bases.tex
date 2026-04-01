@@ -22,7 +22,7 @@
 \newtheorem{axm}{Axiom}[section]
 
 \fancyhf{}
-\fancyhead[R]{   Omkar Tasgaonkar\\UID: 206-624-454}
+\fancyhead[R]{   Omkar Tasgaonkar}
 \renewcommand\headrulewidth{0.5pt}
 \pagestyle{fancy}
 \author{Omkar Tasgaonkar}
@@ -95,22 +95,109 @@ From the concept of global bases appears the concept of a local basis (or a basi
   \forall O \in \uptau: x \in O \implies \exists B_x \in \mathcal{B}_x: x \in B_x \subseteq O
 \end{equation*}
 \end{defn}
+Notice how this requires a predefined topology (we will not explore the case in which we do not have a defined topology as that dips more heavily into the field of topology). We will introduce one more preliminary concept:
 \begin{defn}
-A filter $\mathcal{F}$ is a subset of $\mathcal{P}(X)$ with a certain rule/property such that:
+A filter base $\mathcal{B}$ is "the basis of a filter" with the following properties:
 \begin{enumerate}
-  \item $\forall A, B \in \mathcal{F}: A \cap B \in \mathcal{F}$
-  \item $\varnothing \notin \mathcal{F}$
-  \item $\forall A \in \mathcal{F}: A \subseteq B \implies B \in \mathcal{F}$
+  \item $\varnothing \notin \mathcal{B}$
+  \item $\forall B_1, B_2 \in \mathcal{B}, \exists B_3 \in \mathcal{B}: B_3 \subseteq B_1 \cap B_2$
 \end{enumerate}
 \end{defn}
-Observe how the first property aligns with the second property of global bases in Defn 0.1. We will talk about the exact construction of the filter bases, but let us refocus on the set we called $\mathcal{B}_x$.\\
+We bring up this definition because our local basis $\mathcal{B}_x$ acts as a filter base for the neighborhood filter of $x$ or $\mathcal{N}_x$. Definition 0.4 is equivalent, but that requires diving into filters and directed sets, which we will not do for this set of notes.\\
 
-$\mathcal{B}_x$ is called a "neighborhood filter" for the chosen point $x \in X$. We verify the conditions:
+Before we pivot to sequential characterizations, we discussed the notion of topological closure as the following:
+\begin{equation*}
+  \forall A \subseteq X: x \in \bar{A} \iff \forall B_x \in \mathcal{B}_x: B_x \cap A \neq \varnothing
+\end{equation*}
+and that we can write the closure as the disjoint union:
+\begin{equation*}
+  \bar{A} = \{\text{limit points}\} \cup \{\text{isolated points}\} = \{\text{adherent points}\}
+\end{equation*}
+Observe how in our definition, all points in the local basis intersect with the subset $A$. What if we are able to use "directed" or nested sets to approach a point! If we can approach through countable amount of those, then we have a sequence!
+\begin{defn}
+A space $X$ is first countable if we can find a countable local basis for each point $x \in X$.
+\end{defn}
+The benefit of being able to do this is that for any open neighborhood of $x$, there will always exist one of the countable basis elements that is a subset. We will see why this helps shortly.\\
+\begin{thm}
+There exists a nested local basis for all first countable spaces.
+\end{thm}
 \begin{proof}
-Condition 2 is the easiest to tackle. For all $B \in \mathcal{B}_x: x \in B$, so if $\varnothing \in \mathcal{B}_x$ then $x \in \varnothing$, which is a contradiction by definition of empty set.\\
+Consider $B_1$ and $B_2$ (basis elements from the local basis) such that $B_2 \subseteq B_1$. Then by Defn 0.5 Property 2, $\exists B_3: B_3 \subseteq B_1 \cap B_2 = B_2$.\\
 
-Condition 3 is the next easiest to tackle and follows from the definition of subsets. If $x \in A \land A \subseteq B$, then $x \in B$, so $B \in \mathcal{B}_x$.\\
+Repeating this process inductively, we can find $B_n \subseteq \bigcap_{k=1}^{n-1}B_k = B_{n-1}$, thus getting the nested property $B_{n+1} \subseteq B_n$. The fact that these are countable comes from first countability.
+\end{proof}
+\begin{cor}
+Metric spaces are first countable.
+\end{cor}
+We can show this by using the local basis $\mathcal{B}_x \coloneq \left\{B\left(x, \frac{1}{n+1}\right)\right\}$ for all $n \in \mathbb{N}$. Then by definition of an open set, there exists $B(x, r) \subseteq O$. So given any such open ball $B(x, r)$ for any $r \in \mathbb{R}$, there exists a rational $0 < q < r$ by the density of the rationals.\\
 
+Now this $q$ will be in the form $\frac{m}{n+1}$, where $m, n \in \mathbb{Z}_{>0}$. Since $m \geqslant 1$, by rational properties we see that:
+\begin{equation*}
+  0 < \frac{1}{n+1} \leqslant \frac{m}{n+1} < r
+\end{equation*}
+Thus we can find a ball $B\left(x, \frac{1}{n+1}\right) \subseteq B(x, r) \subseteq O$, satisfying Defn 0.4.\\
 
+\begin{lem}
+If $X$ is first-countable, then every convergent net has a countable convergent subnet (sequence).
+\end{lem}
+\begin{proof}
+Nets (which utilize directed open neighborhoods to establish convergence) turn into sequences. Consider the following, let $O$ be our directed set of open neighborhoods:
+\begin{equation*}
+  \omega: O \xrightarrow{} A
+\end{equation*}
+is a net that maps the directed sets to points $x_o$ creating the net $(x_o)_{o \in O}$. For this net to converge:
+\begin{equation*}
+  \forall N \in \mathcal{N}_x \exists \tilde{o} \in O, \forall o \subseteq \tilde{o}: x_o \in N
+\end{equation*}
+We can use the local bases to generate a subnet or a subsequence we call:
+\begin{equation*}
+  s: \mathcal{B}_x \xrightarrow{} A
+\end{equation*}
+For this to converge, it must satisfy the following:
+\begin{equation*}
+  \forall N \in \mathcal{N}_x, \exists b_0 \in \mathcal{B}_x, \forall b \subseteq b_0: x_b \in N
+\end{equation*}
+By the definition of local base, we can always find some $b_0 \subseteq N$. Combining that with the existence of our nested construction, the subnet converges. Since the net $\omega$ converges to $x$, then the convergent subnet $s$ must also converge to $x$, thus we have a convergent sequence to $x$.\\
+
+Note that we DID NOT use metrics here, yet we defined sequences, showing us that the concept of a sequence is independent of a metric space. However, certain properties like Cauchy cannot be defined without a metric.
+\end{proof}
+
+Equipped with the idea of adherent points and topological closure and how it is related to local bases, we can combine first countability to get sequential characterizations.
+
+\section*{Sequential Characterizations}
+\begin{thm}
+A subset $A \subset X$ is sequentially closed if:
+\begin{equation*}
+  \forall \{x_n\}_{n \in \mathbb{N}} \in A^\mathbb{N}: x_n \xrightarrow{} x \implies x \in A
+\end{equation*}
+\end{thm}
+Essentially all convergent $A$-valued sequences converge to a point in $A$, it is then sequentially closed. Recall topologically closed means $A$ contains all its adherent points. Now if we have a first countable space, we can see these notions are equivalent.\\
+
+Using first countability, we can reduce the necessity of a point being adherent to nonempty intersections of a countable set of nested local basis elements and the set $A$. This can be characterized by a sequence, which as we defined was a convergent subnet.\\
+
+\begin{thm}
+In metric spaces, topologically closed is equivalent to sequentially closed:
+\begin{equation*}
+  A \ \text{closed} \iff \forall \{x_n\}_{n \in \mathbb{N}} \in A^\mathbb{N}: x_n \xrightarrow{} x \implies x \in A
+\end{equation*}
+\end{thm}
+\begin{proof}
+This statement is true in general for first countable spaces, but we will handle metric spaces specifically.\\
+
+$\implies:$ If $A$ is topologically closed, then adherent points belong in the subset. We can rewrite sequence convergence as:
+\begin{equation*}
+  \forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: x_n \in B(x, \epsilon)
+\end{equation*}
+Here we see the local basis of nested balls pop up (it is however not a countable local basis since the sequence is predefined). Since $x_n \in A$, then $B(x, r) \cap A \neq \varnothing$, making $x$ an adherent point. Thus $x \in \bar{A} = A$.\\
+
+$\impliedby:$ The converse is tricker. We proceed by proof by contrapositive:
+\begin{equation*}
+  A \ \text{not closed} \implies \exists \{x_n\}_{n \in \mathbb{N}} \in A^\mathbb{N}: x_n \xrightarrow{} x \land x \notin A
+\end{equation*}
+If $A$ is not closed, then it does not contain all of its adherent points. Therefore, we must construct a sequence whose limit is an adherent point that is not in $A$. We take the help of all of the groundwork lemmas and theorems mentioned in the previous section.\\
+
+Consider an $x \notin A$ but in $\bar{A}$, then we can construct a convergent net. Using first countability and nested bases or in short Lemma 0.2, we can select $x_n \in B\left(x, \frac{1}{n+1}\right)$ for all $n \in \mathbb{N}$.\\
+
+We obtain a sequence such that $x_n \xrightarrow{} x \land x \notin A \land x \in \bar{A}$. 
 \end{proof}
 \end{document}
