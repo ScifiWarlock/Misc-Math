@@ -164,7 +164,7 @@ Note that we DID NOT use metrics here, yet we defined sequences, showing us that
 
 Equipped with the idea of adherent points and topological closure and how it is related to local bases, we can combine first countability to get sequential characterizations.
 
-\section*{Sequential Characterizations}
+\section*{Sequential Characterizations (Closedness)}
 \begin{thm}
 A subset $A \subset X$ is sequentially closed if:
 \begin{equation*}
@@ -200,4 +200,74 @@ Consider an $x \notin A$ but in $\bar{A}$, then we can construct a convergent ne
 
 We obtain a sequence such that $x_n \xrightarrow{} x \land x \notin A \land x \in \bar{A}$. 
 \end{proof}
+
+\section*{Sequential Characterizations (Continuity)}
+We shift our attention to solely metric spaces. Consider two metric spaces $(X, \varrho_X)$ and $(Y, \varrho_Y)$:
+\begin{defn}
+A function $f: X \xrightarrow{} Y$ is (pointwise continuous) at $x_0 \in X$ if:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta > 0, \forall x \in X: \varrho_X(x, x_0) < \delta \implies \varrho_Y(f(x), f(x_0)) < \epsilon
+\end{equation*}
+\end{defn}
+What pointwise continuity, to which going forward we will refer to solely as continuity, is the notion of "can I draw this function without lifting my pencil". In essence, it checks that there are no discontinuities or jumps at a certain point in the function's domain. Given some output range, there can always be inputs arbitrarily close to the point (we will see this is not true for discontinuities like jumps).
+
+\begin{lem}
+An alternative formulization for such continuity is:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta > 0, \forall x \in X: f(B_X(x_0, \delta)) \subseteq B_Y(f(x_0), \epsilon)
+\end{equation*}
+\end{lem}
+\begin{proof}
+Deriving equivalence is a matter of applying properties of subsets and images. We can rephrase Defn 0.7 in terms of open balls:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta > 0, \forall x \in X: x \in B_X(x_0, \delta) \implies f(x) \in B_Y(f(x_0), \epsilon)
+\end{equation*}
+By definition of image:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta > 0, \forall x \in X: f(x) \in f(B_X(x_0, \delta)) \implies f(x) \in B_Y(f(x_0), \epsilon)
+\end{equation*}
+We then apply the definition of subset to get:
+\begin{equation*}
+  \forall \epsilon >0, \exists \delta > 0, \forall x \in X: f(B_X(x_0, \delta)) \subseteq B_Y(f(x_0), \epsilon)
+\end{equation*}
+\end{proof}
+
+Now how do we prove something is not continuous at a point? Let's look at the negation:
+\begin{equation*}
+  \exists \epsilon > 0, \forall \delta > 0, \exists x \in X: \varrho_X(x, x_0) < \delta \land \varrho_Y(f(x), f(x_0)) \geqslant \epsilon
+\end{equation*}
+Now it can be quite difficult to find such an epsilon and such an $x \in X$ that satisfies the statement (it would be a matter of guess and check rather than construction), so let us look at another sequential characterization, this time of continuity.\\
+
+We will first provide a proof for the following theorem, then link it to the ideas of nets and local bases:
+\begin{thm}
+\begin{equation*}
+  f \ \text{continuous} \iff \forall \{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}, \forall x \in X: x_n \xrightarrow{} x \implies f(x_n) \xrightarrow{} f(x)
+\end{equation*}
+\end{thm}
+\begin{proof}
+  $\implies$: We will use the fact that $f$ is continuous. Now consider an $X$-valued sequence converging to $x$:
+  \begin{equation*}
+    \forall \delta > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: \varrho_X(x_n, x) < \delta
+  \end{equation*}
+  We have that $\forall \epsilon > 0, \exists \delta > 0, \forall x \in X: \varrho_X(x, x_0) < \delta \implies \varrho_Y(f(x), f(x_0)) < \epsilon$. So for each $\epsilon$, we are guaranteed some $\delta$ for which we are guaranteed some index $n_0$, so we get:
+  \begin{equation*}
+    \forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: \varrho_Y(f(x), f(x_n)) < \epsilon
+  \end{equation*}
+  which gives us the convergence $f(x_n) \xrightarrow{} f(x)$, proving the forward direction. For the converse we use contrapositive.\\
+
+  $\impliedby$: If $f$ is not continuous then:
+  \begin{equation*}
+    \exists \epsilon > 0, \forall \delta > 0, \exists x \in X: \varrho_X(x, x_0) < \delta \land \varrho_Y(f(x), f(x_0)) \geqslant \epsilon
+  \end{equation*}
+  Equivalently:
+  \begin{equation*}
+    \exists \epsilon > 0, \forall \delta > 0, \exists x \in X: f(B_X(x_0, \delta)) \supset B_Y(f(x_0), \epsilon) \implies f(B_X(x_0, \delta)) \setminus B_Y(f(x_0), \epsilon) \neq \varnothing
+  \end{equation*}
+  So using this fact, we need to construct a sequence (this requires Axiom of Choice, first countability, nested local basis properties) that converges to $x$ and $f(x_n) \nrightarrow f(x)$. We use $\delta \coloneq \frac{1}{n+1}$ for all $n \in \mathbb{N}$.\\
+  
+  Choosing $x_n \in B_X(x, \delta)\setminus f^{-1}(B_Y(f(x), \epsilon))$ means $\forall n \in \mathbb{N}: \varrho_X(x_n, x) < \frac{1}{n+1}$ showing that $x_n \xrightarrow{} x$. Then by applying the function, we get that $f(x_n) \in f(B_X(x, \delta)) \setminus B_Y(f(x), \epsilon)$. Thus $f(x_n)$ can be a convergent sequence, but it will never converge to $f(x_n)$ as any term is strictly an $\epsilon$ or more away from it.
+\end{proof}
+Now we discuss the connections to nets and previously introduced ideas we touched upon on the proof. If the function is continuous, then we have some $\epsilon$-neighborhood around $f(x)$, we have some $\delta$-neighborhood around $x$.\\
+
+Think of continuity as creating a pairing between these neighborhoods in the domain and range. What if we make these neighborhoods around $x$ into a directed set, creating a net that converges to $x$. Since these neighborhoods are "paired" together by construction, then we also get a net that converges to $f(x)$, and applying property of first countablility, we can quantify this in terms of sequences. 
 \end{document}
