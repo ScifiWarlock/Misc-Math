@@ -261,13 +261,28 @@ We will first provide a proof for the following theorem, then link it to the ide
   \end{equation*}
   Equivalently:
   \begin{equation*}
-    \exists \epsilon > 0, \forall \delta > 0, \exists x \in X: f(B_X(x_0, \delta)) \supset B_Y(f(x_0), \epsilon) \implies f(B_X(x_0, \delta)) \setminus B_Y(f(x_0), \epsilon) \neq \varnothing
+    \exists \epsilon > 0, \forall \delta > 0, \exists x \in X: f(B_X(x, \delta)) \supset B_Y(f(x), \epsilon) \implies f(B_X(x, \delta)) \setminus B_Y(f(x), \epsilon) \neq \varnothing
   \end{equation*}
   So using this fact, we need to construct a sequence (this requires Axiom of Choice, first countability, nested local basis properties) that converges to $x$ and $f(x_n) \nrightarrow f(x)$. We use $\delta \coloneq \frac{1}{n+1}$ for all $n \in \mathbb{N}$.\\
   
-  Choosing $x_n \in B_X(x, \delta)\setminus f^{-1}(B_Y(f(x), \epsilon))$ means $\forall n \in \mathbb{N}: \varrho_X(x_n, x) < \frac{1}{n+1}$ showing that $x_n \xrightarrow{} x$. Then by applying the function, we get that $f(x_n) \in f(B_X(x, \delta)) \setminus B_Y(f(x), \epsilon)$. Thus $f(x_n)$ can be a convergent sequence, but it will never converge to $f(x_n)$ as any term is strictly an $\epsilon$ or more away from it.
+  Choosing $x_n \in B_X(x, \delta)$ means $\forall n \in \mathbb{N}: \varrho_X(x_n, x) < \frac{1}{n+1}$ showing that $x_n \xrightarrow{} x$. Then by applying the function, we get that $f(x_n) \in f(B_X(x, \delta)) \setminus B_Y(f(x), \epsilon)$. Thus $f(x_n)$ can be a convergent sequence, but it will never converge to $f(x_n)$ as any term is strictly an $\epsilon$ or more away from it.
 \end{proof}
-Now we discuss the connections to nets and previously introduced ideas we touched upon on the proof. If the function is continuous, then we have some $\epsilon$-neighborhood around $f(x)$, we have some $\delta$-neighborhood around $x$.\\
+Now we discuss the connections to nets and previously introduced ideas we touched upon on the proof. We require the following lemma:
+\begin{lem}
+If $A \subseteq B$, then $f(A) \subseteq f(B)$
+\end{lem}
+\begin{proof}
+The image of a set $A$ is $f(A) \coloneq \{y \in Y: (\exists x: f(x) = y)\}$. Thus:
+\begin{equation*}
+  y \in f(A) \implies \exists x \in A: f(x) = y
+\end{equation*}
+Since $x \in B$, then $f(x) = y \in f(B)$, thus $f(A) \subseteq f(B)$. 
+\end{proof}
+Now consider $\delta' < \delta$, then $f(B_X(x, \delta')) \subseteq f(B_X(x, \delta))$. Because we have a countable local basis, we defined $\forall n \in \mathbb{N}: \delta_n = \frac{1}{n+1}$. By Lemma 0.2, we have a converging countable net $\omega: B_X(x, \delta_n) \xrightarrow{} x_n$.\\
 
-Think of continuity as creating a pairing between these neighborhoods in the domain and range. What if we make these neighborhoods around $x$ into a directed set, creating a net that converges to $x$. Since these neighborhoods are "paired" together by construction, then we also get a net that converges to $f(x)$, and applying property of first countablility, we can quantify this in terms of sequences. 
+The image of this net $f(\omega)$ could also be a converging net. We know that by Lemma 0.4, the nested structure of the directed set remains, so we need to show that if $\omega \xrightarrow{} x$, then $f(\omega) \xrightarrow{} f(x)$ is equivalent to continuity. While we can do a rigorous proof just like we did with sequences, the idea of the proof would be the same. Instead we will explore the intuitive side.\\
+
+For the image of the net to converge, we must satisfy the definition explored in Lemma 0.2 for any neighborhood. Now we can talk about arbitrary sets, but since we are talking in the context of metric spaces, by Lemma 0.1, any open neighborhood is the union of basis elements, so we can simply work with the basis elements themselves.\\
+
+Take any $B_Y(f(x), \epsilon)$. If the image net were to converge, then $\exists \delta > 0: f(B_X(x, \delta)) \subseteq B_Y(f(x), \epsilon)$. Applying first countability, there exists a specific such $\delta_n$. Notice how we have found the definition of pointwise continuity. Convergence of the net is guaranteed by Lemma 0.4 as the images of the nested bases are also nested. 
 \end{document}
