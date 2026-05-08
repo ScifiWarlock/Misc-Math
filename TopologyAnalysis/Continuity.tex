@@ -1,0 +1,150 @@
+\documentclass{exam}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{blindtext}
+\setlength{\parindent}{0pt}
+% if you ever want to enter images use the following code%
+%\begin{center}%
+    %\includegraphics[width=0.8\textwidth]{Screenshot (22).png}%
+%\end{center}%
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{defn}{Definition}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{axm}{Axiom}[section]
+
+
+\fancyhf{}
+\fancyhead[R]{   Omkar Tasgaonkar\\UID: 206-624-454}
+\renewcommand\headrulewidth{0.5pt}
+\pagestyle{fancy}
+\author{Omkar Tasgaonkar}
+\setlength{\headsep}{0.5in}
+\fancyfoot[C]{(\thepage)}
+\renewcommand\footrulewidth{0.5pt}
+
+\fancypagestyle{firstpage}{
+    \fancyhf{}
+    \fancyhead[C]{\textbf{Continuity and Lack Thereof}}
+    \fancyhead[R]{Omkar Tasgaonkar\\UID: 206-624-454}
+    \renewcommand\headrulewidth{0.5pt}
+    \fancyfoot[C]{(\thepage)}
+    \renewcommand\footrulewidth{0.5pt}
+}
+
+
+
+\begin{document}
+\thispagestyle{firstpage}
+
+\section*{More Continuity}
+We covered the idea of pointwise continuity in the previous set of notes, specifically sequential characterizations of pointwise continuity. We now cover various other types of continuity and their relation to topological properties such as compactness and completeness.\\
+
+Before we dive into more continuity, we visit an example to prove pointwise continuity. Consider the function $f: \mathbb{Q} \xrightarrow{} \mathbb{R}$:
+\begin{equation}
+  f(x) \coloneq \begin{cases*}
+    0 : x^2 < 2 \lor x < 0\\
+    1 : x^2 > 2 \land x > 0
+  \end{cases*}
+\end{equation}
+
+This is a graph which has a "jump discontinuity" at $\sqrt{2}$ (we have not defined what a discontinuity is yet). However, since $\sqrt{2}$ is not in the domain, think of it as the function does not see the jump. We want to prove the following:
+\begin{equation*}
+  \forall x \in \mathbb{Q}, \forall \epsilon > 0, \exists \delta > 0: \varrho(z, x) < \delta \implies \varrho(f(z), f(x)) < \epsilon
+\end{equation*}
+
+To prove continuity, we must split this into two separate cases (one where $x < \sqrt{2}$ and the other when $x > \sqrt{2}$). This is because the behavior of the function is different in thet two intervals but it is continuous on each. For $x < \sqrt{2}$, we choose $\delta = \min\{\epsilon, \sqrt{2} - x\}$ and for $x > \sqrt{2}$ we choose $\delta = \min\{\epsilon, x - \sqrt{2}\}$.\\ 
+
+Now image we do not have a metric, which means we cannot define open balls; thus our regular definition of pointwise continuity would fail. So we introduce the following definition:
+\begin{defn}
+A function $f: X \xrightarrow{} Y$ is topologically continuous if:
+\begin{enumerate}
+  \item $\forall O \subseteq Y: O \ \text{open} \implies f^{-1}(O) \ \text{open}$
+  \item $\forall C \subseteq Y: C \ \text{closed} \implies f^{-1}(C) \ \text{closed}$
+\end{enumerate}
+\end{defn}
+We can actually prove that our definition of pointwise continuity is equivalent to topological continuity in metric spaces:
+\begin{proof}
+$\implies:$ If $f$ is pointwise continuous on its domain, then $\forall \epsilon > 0, \exists \delta > 0, \forall x \in X: f(B_X(x, \delta)) \subseteq B_Y(f(x), \epsilon)$. Thus consider an open set $O \subseteq Y$, then for any point in this set:
+\begin{equation*}
+  \exists \epsilon > 0: B_Y(y, \epsilon) \subseteq O
+\end{equation*}
+Notice how we said $O \subseteq Y$ and not $O \subseteq f(X)$. If $O \cap f(X) = \varnothing$, then $f^{-1}(O) = \varnothing$ which is trivially open and closed (as it always belongs in the topology). Then we consider the case where $O \cap f(X) \neq \varnothing$.\\
+
+If $y$ is in such intersection, then by preimage $\exists x \in X: f(x) = y$, this $\exists \epsilon > 0: B_Y(f(x), \epsilon) \subseteq O$. Applying pointwise continuity we get:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta > 0: f(B_X(x, \delta)) \subseteq B_Y(f(x), \epsilon) \subseteq O \implies B_X(x, \delta) \subseteq f^{-1}(O)
+\end{equation*}
+Since the $y \in f(X) \cap O$ was chosen arbitrarily, its corresponding $x \in f^{-1}(O)$ is also arbitrary, thus $f^{-1}(O)$ is open.\\
+
+$\impliedby:$ (I will prove this later)
+\end{proof}
+
+\begin{defn}
+A function $f: X \xrightarrow{} Y$ that is Cauchy continuous converts Cauchy sequences into Cauchy sequences such that:
+\begin{equation*}
+  \forall \{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}: \{x_n\}_{n \in \mathbb{N}} \ \text{Cauchy} \implies \{f(x_n)\}_{n \in \mathbb{N}} \ \text{Cauchy}
+\end{equation*}
+\begin{lem}
+A Cauchy continuous function is continuous.
+\end{lem}
+\begin{proof}
+To prove this lemma, we want to show that a Cauchy continuous function converts convergent sequences into convergent sequences.\\
+
+Consider the sequence $\{x_n\}_{n \in \mathbb{N}}$ such that $x_n \xrightarrow{} x$. Then we create the sequence $\{z_n\}_{n \in \mathbb{N}}$ where:
+\begin{equation*}
+  z_{2n} \coloneq x_n \land z_{2n+1} \coloneq x
+\end{equation*} 
+We prove such a sequence is Cauchy:
+\begin{equation}
+  \forall \epsilon > 0, \exists n_0 \geqslant 0, \forall m, n \geqslant n_0: \varrho(z_m, z_n) < \epsilon
+\end{equation}
+Let $m, n$ be both even, then we use convergence of $x_n$, which implies Cauchy. When they are both odd, we have a constant subsequence, so it is Cauchy. When $m$ is even and $n$ is odd (WLOG), then we once again use the convergence of $x_n$ which implies it is Cauchy.\\
+
+Thus the image of the sequence $\{f(z_n)\}_{n \in \mathbb{N}}$ is Cauchy. Since it has a converging (constant) subsequence $\{f(z)\}_{n \in \mathbb{N}}$, then the sequence itself converges to $f(x)$.
+\end{proof}
+\end{defn}
+When we deal with Cauchy continuity, intertwining the sequences is a great way to force a Cauchy sequence whose image is Cauchy. Note that the converse is not necessarily true. Unless...
+\begin{lem}
+Given a complete space $X$, $f: X \xrightarrow{} Y$ continuous implies $f$ is Cauchy continuous.
+\end{lem}
+\begin{proof}
+Consider a Cauchy sequence in $X$. Since $X$ is complete, said sequence converges. By continuity of $f$, the image of the sequence converges in $Y$, which means it is Cauchy. 
+\end{proof}
+
+We now introduce uniform continuity, which is stronger than pointwise continuity. A function $f$ is uniformly continuous on its domain if for all epsilon, we can find some delta for the whole domain:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta > 0, \forall x, y \in X: \varrho(x, y) < \delta \implies \varrho(f(x), f(y)) < \epsilon
+\end{equation*}
+Consider the function $f(x) = x^2$. This function we prove is not uniformly continuous such that $\exists \epsilon > 0, \forall \delta > 0, \exists x, y \in X: \varrho(x, y) < \delta \land \varrho(f(x), f(y)) \geqslant \epsilon$. To prove something is not uniformly continuous, we have to find pairs $x_n, y_n$ for each $\delta > 0$ that fits the requirement.\\
+
+This generates sequences $\{x_n\}_{n \in \mathbb{N}}, \{y_n\}_{n \in \mathbb{N}}$.
+
+\pagebreak
+\section*{Connectedness and IVT}
+Connectedness is a property that can be defined in two ways.
+\begin{defn}
+A set is connected if: 
+\begin{equation*}
+  \forall E \subseteq X: E \ \text{open} \land E^c \ \text{open} \implies E = X \lor E = \varnothing
+\end{equation*}
+Alternatively, we have the following definition:
+\begin{equation*}
+  \forall A, B \subseteq X: A, B \ \text{open} \land A \cup B = X \land A \cap B = \varnothing \implies A = \varnothing \lor B = \varnothing
+\end{equation*}
+\end{defn}
+We see that these are equivalent definitions. Consider $E$ were an open subset. Then topologically $E^c$ would be closed; however assume it were open. Then $E \cup E^c = X$ and $E \cap E^c = \varnothing$. Then if $E = X$, then $E^c$ would be the empty set.\\
+
+\begin{lem}
+If $f$ is continuous (topologically) and $E$ is connected, then $f(E)$ is also connected.
+\end{lem}
+
+
+\end{document}
