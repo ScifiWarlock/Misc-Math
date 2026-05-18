@@ -1,0 +1,84 @@
+\documentclass{exam}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{blindtext}
+\setlength{\parindent}{0pt}
+% if you ever want to enter images use the following code%
+%\begin{center}%
+    %\includegraphics[width=0.8\textwidth]{Screenshot (22).png}%
+%\end{center}%
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{defn}{Definition}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{axm}{Axiom}[section]
+
+\tcolorboxenvironment{thm}{
+  colback=lime,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{lem}{
+  colback=yellow,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{defn}{
+  colback=pink,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{cor}{
+  colback=SpringGreen,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{axm}{
+  colback=white,
+  colframe=black,
+  breakable
+}
+
+
+\fancyhf{}
+\fancyhead[R]{   Omkar Tasgaonkar\\UID: 206-624-454}
+\renewcommand\headrulewidth{0.5pt}
+\pagestyle{fancy}
+\author{Omkar Tasgaonkar}
+\setlength{\headsep}{0.5in}
+\fancyfoot[C]{(\thepage)}
+\renewcommand\footrulewidth{0.5pt}
+
+\fancypagestyle{firstpage}{
+    \fancyhf{}
+    \fancyhead[C]{\textbf{Class Homework}}
+    \fancyhead[R]{Omkar Tasgaonkar\\UID: 206-624-454}
+    \renewcommand\headrulewidth{0.5pt}
+    \fancyfoot[C]{(\thepage)}
+    \renewcommand\footrulewidth{0.5pt}
+}
+
+
+
+\begin{document}
+\thispagestyle{firstpage}
+
+\section*{Note About Implicit Function Theorem}
+The Implicit Function Theorem, whose proof relies on that of the Inverse Function Theorem (by converting the given map $F$ to a map between same dimensional spaces and then inverting), gives us a ball around a solution point. So consider:
+\begin{equation*}
+  \exists (x_0, y_0) \in \text{Dom}(F): F(x_0, y_0) = 0
+\end{equation*}
+Then we see that $\exists \delta > 0, \exists y(x), \forall x \in B(x_0, \delta): F(x, y(x)) = 0$. We now discuss the idea of globally extending this solution to (possibly) all of the domain. The Implicit Function Theorem requires us to prove an invertible Jacobian $y$-minor at the point $(x_0, y_0)$. If this is true for all $(x, y) \in \mathbb{R}^{m+n}$, then we can explore global extensions (note that while the continuity of the Jacobian is sufficient, the existence of the Jacobian at each point is also sufficient).\\
+
+Now assume there exists some $\delta > 0$ such that we have an implicit solution in the ball $B(x_0, \delta)$. Then take some $0 < \delta_1 < \delta$, then we have that $F(x_0 + \delta, y)$
+\end{document}

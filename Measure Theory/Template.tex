@@ -1,0 +1,266 @@
+\documentclass{exam}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{blindtext}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\setlength{\parindent}{0pt}
+% if you ever want to enter images use the following code%
+%\begin{center}%
+    %\includegraphics[width=0.8\textwidth]{Screenshot (22).png}%
+%\end{center}%
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{defn}{Definition}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{axm}{Axiom}[section]
+
+\tcolorboxenvironment{thm}{
+  colback=lime,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{lem}{
+  colback=yellow,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{defn}{
+  colback=pink,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{cor}{
+  colback=SpringGreen,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{axm}{
+  colback=white,
+  colframe=black,
+  breakable
+}
+
+
+\fancyhf{}
+\fancyhead[R]{   Omkar Tasgaonkar\\UID: 206-624-454}
+\renewcommand\headrulewidth{0.5pt}
+\pagestyle{fancy}
+\author{Omkar Tasgaonkar}
+\setlength{\headsep}{0.5in}
+\fancyfoot[C]{(\thepage)}
+\renewcommand\footrulewidth{0.5pt}
+
+\fancypagestyle{firstpage}{
+    \fancyhf{}
+    \fancyhead[C]{\textbf{Class Homework}}
+    \fancyhead[R]{Omkar Tasgaonkar\\UID: 206-624-454}
+    \renewcommand\headrulewidth{0.5pt}
+    \fancyfoot[C]{(\thepage)}
+    \renewcommand\footrulewidth{0.5pt}
+}
+
+
+
+\begin{document}
+\thispagestyle{firstpage}
+
+\section*{Density}
+We start off by considering some topological space $X$, endowed with a topology we will call $\uptau_X$. Then for some $A \subset X$, we have the following notion of density:
+\begin{defn}
+A subset of a topological space $A \subseteq X$ is dense in $X$ if (we propose two equivalent conditions):
+\begin{enumerate}
+  \item $\forall x \in X, \forall U_x \in \uptau_X: U \cap A \neq \varnothing$
+  \item $\bar{A} = X$
+\end{enumerate}
+\end{defn}
+Intuitively, no matter how close we look to a point in $X$, we can find a point in $A$, so $A$ "covers" (perhaps an interesting adjective and intuively useful is "spans") all of $X$. We call this variety of dense as \textbf{everywhere dense}.\\
+
+It however is possible that the closure of $A$ is not ALL of $X$, but rather a subset of $X$. We will call this dense in a subset:
+\begin{defn}
+Consider $A \subseteq Y \subseteq X$, then $A$ is dense in $Y$ if $Y \subseteq \bar{A}$.
+\end{defn}
+Note that we did not give the open set definition; for the purposes of further content dealing with closures is easier. Examining the condition $Y \subseteq \bar{A}$, we see that implies by definition of closure that $\bar{Y} \subseteq \bar{A}$. Furthermore, since $A \subseteq Y$, we have that $\bar{A} = \bar{Y}$. This is an equivalent condition, which will be indispensable moving forward, and we will default to this. Additionally, using the open set condition for dense in a subset requires an additional notion:
+\begin{defn}
+The subspace topology is an induced topology on a subset $Y \subseteq X$, where:
+\begin{equation*}
+  \uptau_Y \coloneq \{O \cap Y : O \in \uptau_X\}
+\end{equation*}
+\end{defn}
+An open set relative to $Y$ (we call this relatively open as well), is open if and only if it can be represented as the intersection of an open set $O \subseteq X$ and $Y$. We talked about $A$ being dense in a subset meaning the closure of $A$ is the closure of the subset. The closure we referred to was the closure of the sets with respect to the entire space $X$.\\
+
+Consider the set $\mathbb{Q}$ in $\mathbb{Q}$ versus $\mathbb{Q}$ in $\mathbb{R}$. Then the closure of $\mathbb{Q}$ in the first case is $\mathbb{Q}$ itself; whereas, the closure in $\mathbb{R}$, is $\mathbb{R}$. Then:
+\begin{lem}
+The closure of $A$ with respect to $Y$, which we will denote as $\overline{A}^Y$ is the same as $\bar{A} \cap Y$.
+\end{lem}
+\begin{proof}
+We know that the definition of closure with respect to $X$ is:
+\begin{equation*}
+  \bar{A} \coloneq \bigcap \{C: C \ \text{closed} \land A \subseteq C\}
+\end{equation*}
+Then for all such $C$ which are closed subsets of $Y$, there exists some $B \subseteq X$ such that $B$ is closed and $C = B \cap Y$. Then:
+\begin{equation*}
+  \bar{A}^Y = \bigcap C = \bigcap (B \cap Y) = \left(\bigcap B\right) \cap Y = \bar{A} \cap Y
+\end{equation*}
+\end{proof}
+\begin{lem}
+For $A$ dense in a subset $Y$, another equivalent form of the statement is $\bar{A}^Y = Y$.
+\end{lem}
+\begin{proof}
+We first prove that $\bar{A} = \bar{Y}$ yields the equivalent statement. Simply take the intersection with $Y$ for both sets such that:
+\begin{equation*}
+  \bar{A} \cap Y = \bar{A}^Y = \bar{Y} \cap Y = Y
+\end{equation*}
+Now if we have that $\bar{A}^Y = Y$, we can write it as $\bar{A} \cap Y = Y$. Thus:
+\begin{equation*}
+  Y = \bar{A} \cap Y \subseteq \bar{A} \implies \bar{Y} \subseteq \bar{A}
+\end{equation*}
+By subset properties once more, we get $\bar{A} = \bar{Y}$.
+\end{proof}
+Notice how in Definition 0.2, we required $A \subseteq Y$. We can actually weaken this condition to simply a nonempty intersection:
+\begin{defn}
+$A$ is \textbf{somewhere dense} if there exists some open $Y \subseteq X$ such that $\overline{A \cap Y} = \bar{Y}$
+\end{defn}
+Consider some open set $Y$ such that $O \coloneq A \cap Y$ and $A \cap Y \neq \varnothing$. Then $O \subseteq Y$, so if $O$ is dense in $Y$:
+\begin{equation*}
+  \bar{O}^Y = Y \iff \bar{O} = \bar{Y} \iff \overline{A \cap Y} = \bar{Y}
+\end{equation*}
+This property of somewhere dense means part of $A$ can span some subset, not necessarily the whole set. We give a few facts without apology:
+\begin{enumerate}
+  \item A subset $A$ is everywhere dense (we will refer to this as simply dense) if and only if somewhere dense for all open subsets $Y$ of $X$
+  \item A subset $A$ is somwhere dense if and only if $\text{int}(\bar{A}) \neq \varnothing$
+\end{enumerate}
+We introduce the notion, jumping off of somewhere dense, of nowhere dense.
+\begin{defn}
+A subset $A$ is nowhere dense if and only if it is NOT somewhere dense.
+\end{defn}
+Notice by the (1) in the previous list, not dense \textbf{DOES NOT} imply nowhere dense. If a set is not dense, then there exists some $Y$ in which it is not somewhere dense (but the lack of somewhere density is not necessarily true for all such open subsets).\\
+
+However, a nowhere dense subset is not dense. By (2) we see that a subset $A$ is nowhere dense if and only if $\text{int}(\bar{A}) = \varnothing$. This will be the main criterion for proving nowhere density as we will see with examples such as the Cantor set. We state an additional corollary:
+\begin{cor}
+If $A$ is somewhere dense for some open $Y \subseteq X$, then $\overline{A \cap Y} = \bar{A} \cap \bar{Y}$
+\end{cor}
+We already have the inclusion that $\overline{A \cap Y} \subseteq \bar{A} \cap \bar{Y}$ (which is true for all sets). We prove the reverse inclusion. We see that:
+\begin{equation*}
+  \bar{Y} = \overline{A \cap Y} \land A \cap Y \subseteq A \implies \bar{Y} \subseteq \bar{A} 
+\end{equation*}
+Thus $\bar{A} \cap \bar{Y} = \bar{Y} = \overline{A \cap Y} \supseteq \bar{A} \cap \bar{Y}$.
+
+\section*{The Cantor Set}
+
+\subsection*{Properties}
+The Cantor Set is a nowhere dense, perfect set constructed by repeatedly removed the middle $1/3$ interval of each interval. We denote each step of this iterative process as $C_n$ where for all $I \subset C_{n-1}$, we remove their middle 1/3 portion, creating $C_n$.\\
+
+An interesting property of the Cantor Set is that it is uncountable. For this, we examine a representation of the elements of the Cantor Set, called the ternary expansion:
+\begin{equation*}
+  \forall x \in C: x \coloneq \sum_{i \in \mathbb{N}} \frac{2\sigma_i}{3^{i+1}}
+\end{equation*}
+where $\sigma_x$ is a sequence in $\{0, 1\}^\mathbb{N}$. This is called the ternary representation because it is in base 3. If a representation of a number in $[0, 1]$ MUST contain a $1$ in it, then that tells us it is in a middle 1/3 interval.\\
+
+Based on its place in the decimal, such a ternary expansion tells us that in order to reach the number, we must pass through the interval $[1/3^n, (2/3)^n)$ (and endpoints remain in the Cantor Set), so it belongs in the middle interval.\\
+
+This ternary expansion gives us an injection $f: \{0, 1\}^\mathbb{N} \xrightarrow{} C$. If $f(\sigma_1) = f(\sigma_2)$, then:
+\begin{equation*}
+  f(\sigma_1) = f(\sigma_2) \implies \sum_{i \in \mathbb{N}}\frac{2\sigma_{1i}}{3^{i+1}} = \sum_{i \in \mathbb{N}}\frac{2\sigma_{2i}}{3^{i+1}}
+\end{equation*}
+\begin{equation*}
+  \implies \sum_{i \in \mathbb{N}}\frac{2(\sigma_{1i} - \sigma_{2i})}{3^{i+1}} = 0
+\end{equation*}
+Since $0$ has a unique ternary expansion which is $0.00000..._3$ itself, then this means $\forall i \in \mathbb{N}: \sigma_{1i} = \sigma_{2i}$, proving equality of the sequences and injectivity of $f$.\\
+
+Now because $\{0, 1\}^\mathbb{N} \simeq \mathbb{R}$, then $\mathbb{R} \lesssim C$, so the Cantor set is uncountable (which will be an interesting result later on).\\
+
+We note that each time the iterative process doubles the amount of intervals, so each $C_n$ can be covered by $2^n$ closed balls of radius $3^{-n}/2$. This fact will be quite important when we examine integration over the indicator function on $C$. We first prove that the Cantor set is nowhere dense. 
+\begin{lem}
+The Cantor Set is nowhere dense.
+\end{lem}
+First since each $C_n$ is a closed set, then the construction of $C_{n+1}$ involves removing only OPEN middle 1/3 sets, so $C_{n+1}$ is also a finite union of $2^n$ closed sets, thus closed. $C$ is also closed because it is the arbitrary union of closed sets $C_n$, so $\bar{C} = C$.\\
+
+A point is in the interior if of a set $A$:
+\begin{equation*}
+  \exists \epsilon > 0: B(x, \epsilon) \subseteq A
+\end{equation*} 
+So we aim to prove the negation of this for all such points in the Cantor set. For all $x$ in the Cantor set, since $x \in \cap_{n \in \mathbb{N}} C_n$, then $\forall n \in \mathbb{N}: x \in C_n$. We can find the following:
+\begin{equation*}
+  \forall \epsilon > 0, \exists n \in \mathbb{N}: \frac{1}{3^n} < 2\epsilon
+\end{equation*}
+Then we have that $x$ belongs to some interval $I_{n'}$ in $C_n$. Because each interval is covered by a closed ball of radius $1/(2 \cdot 3^n)$ centered at the midpoint (which may be $x$ or not), then the ball $B(x, \epsilon)$ certainly exceeds the interval.\\
+
+(If $x$ is the midpoint, this follows from the covering. If $x$ is not the midpoint, then the ball $B(x, 1/(2 \cdot 3^n))$ already falls outside the interval, so we can extend it to the $\epsilon$-ball by subset properties). Thus:
+\begin{equation*}
+  \forall \epsilon > 0, \exists y \notin C: y \in B(x, \epsilon)
+\end{equation*}
+Thus the Cantor set has no interior points and is nowhere dense.
+\begin{lem}
+The Cantor Set is perfect, which means it is closed and has no isolated points.
+\end{lem}
+Given some $x \in C$ and some $\epsilon > 0$, the previous lemma gave us the existence of $n \in \mathbb{N}$, for which $x$ belongs to an interval in $C_n$. Once again by case work, we can show that at least one endpoint of the interval different from $x$ should fall in the ball $B(x, \epsilon)$ and since endpoints remain in $C$, we have shown that no point is isolated:
+\begin{equation*}
+  \forall x \in C, \forall \epsilon > 0: (B(x, \epsilon)\setminus \{x\}) \cap C \neq \varnothing
+\end{equation*}
+
+\smallskip
+\subsection*{Integrability}
+We now examine the following function:
+\begin{equation*}
+  1_C \coloneq \begin{cases*}
+    1 \ : \ x \in C\\
+    0 \ : \ x \notin C
+  \end{cases*}
+\end{equation*}
+We aim to show this function is Riemann integrable. We first show that it is discontinuous at all points within the Cantor set (via limsup liminf criterion):
+\begin{equation*}
+  \forall x \in C, \forall \delta > 0: \sup_{z: |z - x| < \delta}f(x) = 1 \land \inf_{z: |z - x| < \delta}f(x) = 0
+\end{equation*}
+The infimum part is true because of Lemma 0.3 (nowhere dense), which tells us that for any $\delta$-ball around $x$, we can always find some point outside the Cantor set within the ball. The supremum can also be supported by the perfect + nowhere dense properties of $C$ (if we consider the punctured open ball, perhaps to disprove existence of a limit). In that case, we have a discontinuity of second kind at each $x \in C$ as we can show both left and right limits do not exist.\\
+
+Then since the above condition is true for all $\delta$:
+\begin{equation*}
+  \lim_{\delta \xrightarrow{} 0+}\sup_{z: z \in B(x, \delta)}f(x) = 1 > \lim_{\delta \xrightarrow{} 0^+}\inf_{z: |z-x| < \delta}f(x) = 0
+\end{equation*}
+which tells us that $f$ is not continuous at all $x \in C$. So now we have a function that is nowhere dense, with an uncountable number of discontinuities, that too of the second kind YET is Riemann integrable. Then:
+\begin{enumerate}
+  \item Cardinality of the set of discontinuities while sufficient is too strong of a condition for Riemann integrability
+  \begin{enumerate}
+    \item Thomae's function in $[0, 1]$ showed that we can have countably many discontinuities (but of the first kind as limit exists at all rationals)
+  \end{enumerate}
+  \item Type of discontinuities faces the same issue as well ($1_C$ has discontinuities of the second kind)
+\end{enumerate}
+
+\begin{lem}
+The function $1_C$ is bounded and Riemann integrable on $[0, 1]$ and $\int_{0}^{1}1_C dx = 0$.
+\end{lem}
+We note that by the Darboux definition, the lower integral over any partition is always $0$. So we aim to show that the upper integral also converges to $0$. We define the following:
+\begin{equation*}
+  \Pi_n \coloneq \{I_n \cup M_n: I_n \subseteq C_n\}
+\end{equation*}
+where $I_n$ are the existing intervals after removing the middle 1/3 intervals denoted as $M_n$. Then:
+\begin{equation*}
+  \forall \Pi_n: U(f, \Pi_n) = \sum_{I_{n_i} \in I_n}1 \cdot \Delta I_{n_i} + \sum_{M_{n_j} \in M_n} 0 \cdot \Delta M_{n_j}
+\end{equation*} 
+This is because the supremum on $I_n$ is always 1 (the endpoints are in $C$) and the supremum on $M_n$ is 0 (it contains no points in the Cantor set). Then:
+\begin{equation*}
+  U(f, \Pi_n) = 1 \cdot \left(\frac{2}{3}\right)^n \implies \inf U(f, \Pi_n) = \lim_{n \xrightarrow{} 0}U(f, \Pi_n) = 0
+\end{equation*}
+Thus the upper integral and lower integral agree at the value $0$. The $(2/3)^n$ come from the fact that there are $2^n$ closed balls of radius $1/(2 \cdot 3^n)$ that cover all of $C_n$. Notice that the "length" of the Cantor set (the set of discontinuities in this case) goes to 0.
+\end{document}
+
+\medskip
+\subsection*{Measure}
+We never officially introduced the notion of length, but we now introduce it as the following:
+\begin{defn}
+The outer measure of a set $A$ is defined as:
+\begin{equation*}
+  |A| \coloneq 
+\end{equation*}
+\end{defn}
