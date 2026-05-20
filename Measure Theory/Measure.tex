@@ -161,6 +161,8 @@ Thus $\bar{A} \cap \bar{Y} = \bar{Y} = \overline{A \cap Y} \supseteq \bar{A} \ca
 \subsection*{Properties}
 The Cantor Set is a nowhere dense, perfect set constructed by repeatedly removed the middle $1/3$ interval of each interval. We denote each step of this iterative process as $C_n$ where for all $I \subset C_{n-1}$, we remove their middle 1/3 portion, creating $C_n$.\\
 
+We first note that the Cantor set is nonempty. Since for all $n$, we have that $C_{n+1} \subseteq C_n$ and because $[0, 1]$ is closed and bounded (compact), by Cantor intersection property we have that their intersection, which is $C$, is nonempty.\\
+
 An interesting property of the Cantor Set is that it is uncountable. For this, we examine a representation of the elements of the Cantor Set, called the ternary expansion:
 \begin{equation*}
   \forall x \in C: x \coloneq \sum_{i \in \mathbb{N}} \frac{2\sigma_i}{3^{i+1}}
@@ -253,14 +255,206 @@ This is because the supremum on $I_n$ is always 1 (the endpoints are in $C$) and
   U(f, \Pi_n) = 1 \cdot \left(\frac{2}{3}\right)^n \implies \inf U(f, \Pi_n) = \lim_{n \xrightarrow{} 0}U(f, \Pi_n) = 0
 \end{equation*}
 Thus the upper integral and lower integral agree at the value $0$. The $(2/3)^n$ come from the fact that there are $2^n$ closed balls of radius $1/(2 \cdot 3^n)$ that cover all of $C_n$. Notice that the "length" of the Cantor set (the set of discontinuities in this case) goes to 0.
-\end{document}
 
 \medskip
-\subsection*{Measure}
-We never officially introduced the notion of length, but we now introduce it as the following:
+\section*{Measure}
+
+\subsection*{Definitions}
+We never officially introduced the notion of length. We first say that the length of any OPEN interval $(a, b)$, (denoted by $l$) in $\mathbb{R}$ is $b-a$. Length we will consider to be a map $l: \mathcal{P}(\mathbb{R}) \xrightarrow{} [0, \infty]$ (range in extended reals). We now introduce length of a set as the following:
 \begin{defn}
-The outer measure of a set $A$ is defined as:
+The outer measure of a set $A$ is via covering sequences of intervals $\{I_n\}_{n \in \mathbb{N}}$:
 \begin{equation*}
-  |A| \coloneq 
+  |A| \coloneq \inf\left\{\sum_{n \in \mathbb{N}}l(I_n) : A \subseteq \bigcup_{n \in \mathbb{N}} I_n\right\}
 \end{equation*}
 \end{defn}
+We note that the measure of the empty set is $0$. The intuition behind this is consider all possible covers for $A$, then the smallest possible cover (the one that "hugs" or matches $A$'s shape the "tightest"), can best approximate its length. The idea of measure will give us the equivalent criterion for integrability, which we will cover later on.\\
+
+Another way we can restate this property is as the following:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \{I_n\}_{n \in \mathbb{N}}: \sum_{n \in \mathbb{N}}I_n - |A| < \epsilon
+\end{equation*} 
+First we examine some properties of measure:
+
+\begin{lem}
+The measure of a finite set of points is $0$.
+\end{lem}
+\begin{proof}
+Let our finite set of points be $A \coloneq \{x_0, ..., x_m\}$. Then we can cover $A$ by the following sequence:
+\begin{equation*}
+  I_n \coloneq \begin{cases*}
+    (x_n - \epsilon, x_n + \epsilon) \ : \ n \leqslant m\\
+    \varnothing \ : \ n > m
+  \end{cases*}
+\end{equation*}
+\begin{equation*}
+  |A| \leqslant \sum_{n \in \mathbb{N}}l(I_n) = 2m\epsilon
+\end{equation*}
+Because the length of an interval is always non-negative, we note that the measure also must be non-negative. If we assume some set were to have measure less than $0$, then by properties of infimum being adherent, there would exist a sequence of covering sets such that their length is negative (not possible). Since $\epsilon$ is an arbitrary number greater than $0$, we can find any value of $\epsilon$ less than a possible value of $|A|$, thus squeezing the measure so that $|A| = 0$. 
+\end{proof}
+This proof and non-negativity of the metric tells us that it too is a map from $\mathcal{P}(\mathbb{R}) \xrightarrow{} [0, \infty]$. We present a stronger version of Lemma 0.6:
+\begin{lem}
+The measure of a countable set of points is 0.
+\end{lem}
+\begin{proof}
+Consider a similar setup as Lemma 0.6, with $A \coloneq \{x_0, x_1,...\}$ and a specific $\{I_n\}_{n \in \mathbb{N}}$ defined as:
+\begin{equation*}
+  I_n \coloneq (x_n - 2^{-n-1}, x_n + 2^{-n-1})
+\end{equation*}
+Then:
+\begin{equation*}
+  |A| \leqslant \sum_{n \in \mathbb{N}}I_n = \sum_{n \in \mathbb{N}}\frac{\epsilon}{2^n} = 2\epsilon
+\end{equation*}
+The result comes from the sum of the geometric series of $(1/2)^n$. Once again we have a similar squeeze argument, showing $|A| = 0$. This is of interest to us as it shows that Thomae's function in $[0, 1]$ has a set of discontinuities of zero measure.
+\end{proof}
+
+So far we have only talked about measure in terms of open intervals $I_n$, however we now show that it is equivalent for closed intervals. We prove the following two Lemmas:
+\begin{lem}
+If $A \subseteq B$, then the measure of $A$ is less than or equal to the measure of $B$.
+\end{lem}
+\begin{proof}
+Consider some sequence $\{I_n\}_{n \in \mathbb{N}}$ such that the union of the intervals cover $B$. Then:
+\begin{equation*}
+  A \subseteq \bigcup_{n \in \mathbb{N}}I_n \implies |A| \leqslant \sum_{n \in \mathbb{N}}l(I_n)
+\end{equation*}
+By Definition 0.6 (infimum properties), we get that $|A|$ is a lower bound for all such sums, thus $|A| \leqslant |B|$.
+\end{proof}
+\begin{lem}
+The measure of an open interval $(a, b)$ is equal to the measure of the closed interval $[a, b]$.
+\end{lem}
+\begin{proof}
+We defined the measure of the open interval $(a, b)$ as its length $b-a$. Then consider:
+\begin{equation*}
+  \forall \epsilon > 0: [a, b] \subseteq (a - \epsilon, b + \epsilon)
+\end{equation*}
+By Lemma 0.8, we see that:
+\begin{equation*}
+  |[a, b]| \leqslant |(a- \epsilon, b+\epsilon)| = (b-a) + 2\epsilon
+\end{equation*}
+Since $\epsilon$ is arbitrary, this tells us that $|[a, b]| \leqslant b-a = |(a, b)|$. Lemma 0.8 also yields the converse:
+\begin{equation*}
+  (a, b) \subseteq [a, b] \implies |(a, b)| = b-a \leqslant |[a, b]|
+\end{equation*}
+Thus $|[a, b]| = |(a, b)| = b-a$. This allows us to define measure in terms of closed intervals $\bar{I_n}$ as well as they are of equivalent length.
+\end{proof}
+
+Lemma 0.8 allows us to further argue that the measure of the set of discontinuities (or the measure of the Cantor set) for the function in Lemma 0.5 is 0:
+\begin{equation*}
+  \forall n \in \mathbb{N}: C \subseteq C_n \implies |C| \leqslant |C_n|
+\end{equation*}
+We know that $2^n$ closed balls of radius $1/(2\cdot 3^{n})$ cover the set so that $C_n \ \cup I_n$. The measure of each $C_n$ can be calculated by the measure of each interval $I_n$, for which we require the lemma:
+\begin{lem}
+Outer measure is subadditive so that:
+\begin{equation*}
+  \forall n \in \mathbb{N}: \left|\bigcup_{n \in \mathbb{N}}A_n\right| \leqslant \sum_{n \in \mathbb{N}}|A_n|
+\end{equation*}
+\end{lem}
+This is a triangle inequality-"ish" property, while not exactly as at one side we have set unions and at the other side we have addition. Let $\textit{I}_n$ be a sequence of intervals covering its respective $A_n$, and $I_{ni}$ denoting an element in the sequence covering $A_n$. Then:
+\begin{equation*}
+  \bigcup_{n \in \mathbb{N}} A_n \subseteq \bigcup_{n \in \mathbb{N}}\textit{I}_n = \bigcup_{n \in \mathbb{N}}\bigcup_{m \in \mathbb{N}}I_{nm}
+\end{equation*}
+Since each $\textit{I}_n$ is a cover for $A_n$, we have that:
+\begin{equation*}
+  \forall n \in \mathbb{N}: |A_n| \leqslant \sum_{m \in \mathbb{N}}l(I_{nm}) \implies \sum_{n \in \mathbb{N}} |A_n| \leqslant \sum_{n \in \mathbb{N}}\sum_{m \in \mathbb{N}}l(I_{nm})
+\end{equation*}
+Now for all $\epsilon > 0$, by the equivalent definition of measure (derived from supremum), we can find sequences $\textit{I}_n$, such that:
+\begin{equation*}
+  \sum_{m \in \mathbb{N}}l(I_{nm}) \leqslant \sum_{n \in \mathbb{N}}|A_n| + \frac{\epsilon}{2^n}
+\end{equation*} 
+\begin{equation*}
+  \implies \sum_{n \in \mathbb{N}}\sum_{m \in \mathbb{N}}l(I_{nm}) \leqslant \sum_{n \in \mathbb{N}}|A_n| + 2\epsilon
+\end{equation*}
+We now need to show the existence of a covering sequence for $\cup A_n$. Consider the sequence where the indices $nm$ add up to a specific number (starting from $0$), so that we get:
+\begin{equation*}
+  \{I_{00}\}, \{I_{01}, I_{10}\}, \{I_{11}, I_{20}, I_{02}\}...
+\end{equation*}
+Then $\forall \epsilon > 0$, there exists a sequence as defined above such that:
+\begin{equation*}
+    \left|\bigcup_{n \in \mathbb{N}}A_n\right| \leqslant \sum_{n \in \mathbb{N}}\sum_{m \in \mathbb{N}}l(I_{nm}) \leqslant \sum_{n \in \mathbb{N}}|A_n| + 2\epsilon
+\end{equation*}
+Since it is true for all epsilon, then we arrive at out result. This however only proves subadditivity (which in our case to prove the zero measure of the Cantor set would be enough, but we can prove something stronger).\\
+\begin{lem}
+For a sequence of disjoint open intervals $I_n$, we have that:
+\begin{equation*}
+  \left|\bigcup_{n \in \mathbb{N}}I_n\right| = \sum_{n \in \mathbb{N}}|I_n|
+\end{equation*}
+\end{lem}
+$I_n$ is covering sequence for itself (and also we can infer by Lemma 0.10) the inequality:
+\begin{equation*}
+  \left|\bigcup_{n \in \mathbb{N}}I_n\right| \leqslant \sum_{n \in \mathbb{N}}|I_n|
+\end{equation*}
+By the definition of infimum and measure, we also have that:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \{I_n'\}_{n \in \mathbb{N}}: \sum_{n \in \mathbb{N}}|I_n'| \leqslant \left|\bigcup_{n \in \mathbb{N}}I_n\right| + \epsilon
+\end{equation*}
+In order to prove this, we need to prove disjoint additivity in the finite sense, such that:
+\begin{equation*}
+  \left|\bigcup_{n = 0}^{N}I_n\right| = \sum_{n = 0}^{N}l(I_n)
+\end{equation*}
+Once again by definition of measure, the forward inequality holds. We prove the reverse inequality by induction. Our base case is when $N = 0$, in which it follows from the definition of length and measure. Now for $N+1$, we once again have by definition:
+\begin{equation*}
+  \left|\bigcup_{n = 0}^{N+1}I_n\right| \leqslant \sum_{n = 0}^{N+1}l(I_n)
+\end{equation*}
+On the other hand:
+\begin{equation*}
+  \sum_{n = 0}^{N+1}l(I_n) = \sum_{n = 0}^{N}l(I_n) + l(I_{n+1}) = \left|\bigcup_{n=0}^{N}l(I_n)\right| + l(I_{n+1})
+\end{equation*}
+Now let $I_n'$ be an arbitrary covering sequence for the union of $I_n$ up to $N+1$, the define:
+\begin{align*}
+  J_n &\coloneq I_n' \cap I_{N+1}\\
+  J_n' &\coloneq I_n' \cap (\mathbb{R} \setminus I_{N+1})
+\end{align*}
+Because we have the condition of disjointness, we are able to separate the cover $I_n'$ into these two sequences such that $I_n' = J_n \cup J_n'$. We note that $J_n$ exclusively covers $I_{N+1}$ and does not intersect with any of the other sets, while $J_n'$ exclusively covers the rest of the union. Therefore:
+\begin{equation*}
+  \sum_{n \in \mathbb{N}} |I_n'| = \sum_{n \in \mathbb{N}}(|J_n| + |J_n'|) \geqslant \left|\bigcup_{n = 0}^{N}I_n\right| + |I_{N+1}|
+\end{equation*}
+Once again since it is a covering sequence for the union up to $N+1$, for any such sequence, the right hand side is a lower bound, so by infimum properties, we have that:
+\begin{equation*}
+  \left|\bigcup_{n = 0}^{N+1}I_n\right| \geqslant \left|\bigcup_{n= 0}^{N}I_n\right| + |I_{N+1}|
+\end{equation*}
+thereby proving equality.\\
+
+Now returning to the Cantor set, by Lemma 0.11, we see that since each $C_n$ is a closed union of disjoint intervals of length $3^{-n}$:
+\begin{equation*}
+  \forall n \in \mathbb{N}: |C_n| = \left(\frac{2}{3}\right)^n \implies \forall n \in \mathbb{N}: |C| \leqslant \left(\frac{2}{3}\right)^n
+\end{equation*}
+By a similar argument to Lemma 0.7, we see that $n \xrightarrow{} 0 \implies |C| = 0$. If we say $|C| = \epsilon > 0$, then $\exists n \in \mathbb{N}: (2/3)^n < \epsilon$, which would mean $|C_n| < |C|$ (contradiction). Now the reader may think that the Cantor set is nowhere dense, so nowhere dense sets have zero measure; however, that is false. First consider the converse:
+\begin{equation*}
+  \text{zero measure} \nRightarrow \text{nowhere dense}
+\end{equation*}
+For this consider Thomae's function in the interval $[0, 1]$. The discontinuties (of the first kind) are at $\mathbb{Q} \cap [0, 1]$. Since this is a countable set, we have that its measure is $0$. However:
+\begin{equation*}
+  \overline{\mathbb{Q} \cap [0, 1]} = \bar{\mathbb{Q}} \cap [0, 1] = [0, 1]
+\end{equation*}
+So the set of discontinuities is dense in all of $[0, 1]$ (this also shows rationals are somewhere dense within the interval by Defn 0.4). For the converse, we introduce a more intricate idea of the Fat Cantor set.
+
+\subsection*{The Fat Cantor Set}
+The Fat Cantor Set or rather the family of such sets are examples of sets which are nowhere dense but DO NOT have measure of 0. We consider a sequence $\{a_n\}_{n \in \mathbb{N}} \in (0, 1)^\mathbb{N}$, such that:
+\begin{equation*}
+  \sum_{n \in \mathbb{N}}a_n < \infty
+\end{equation*}
+We can now calculate the measure of each stage of the Fat Cantor set:
+\begin{equation*}
+  |F_n| \coloneq \prod_{n \in \mathbb{N}}(1 - \alpha_n)
+\end{equation*}
+To prove that this product does not diverge or converge to $0$, we can rewrite it in terms of sums as the following:
+\begin{equation*}
+  \prod_{n \in \mathbb{N}}(1 - a_n) = e^{\ln\left(\prod_{n \in \mathbb{N}}(1-a_n)\right)} = e^{\sum_{n \in \mathbb{N}}\ln(1-a_n)}
+\end{equation*}
+Now the convergence of the product then depends on the convergence of the sum of $\ln$ of its terms. If the sum converges to some value $L$, then the product converges to sum non-zero positive value (it only converges to zero if the sum diverges to $-\infty$). Now observe the power series for $\ln(1-x)$ around $x = 0$:
+\begin{equation*}
+  ln(1-x) < P_2(x) \coloneq 0 - x - \frac{x^2}{2}
+\end{equation*}
+The less than inequality comes from the concavity of $\ln$ (any tangent line/graph falls above it), so we see that $\ln(1-x) < -x$ for all $x \in (0, 1)$. Thus:
+\begin{equation*}
+  sum_{n \in \mathbb{N}}\ln(1-a_n) < \sum_{n \in \mathbb{N}} - a_n
+\end{equation*}
+and because we are given that the sum of $a_n's$ converge, then the sum on the right hand side also converges. Thus as $n \xrightarrow{} \infty, |F_n| \xrightarrow{} L > 0$, so the Fat Cantor set's measure is NONZERO. We now show that the Fat Cantor Set is nowhere dense. We see that the length of each interval $I_m^{(n)}$ in the nth stage can be bounded above:
+\begin{equation*}
+  |I_m^(n)| = \frac{1}{2^n}\prod_{n \in \mathbb{N}}(1- a_n) \leqslant \frac{1}{2^n}
+\end{equation*}
+So given some point $x \in F$, then given some $\epsilon > 0$, we can always find $n \in \mathbb{N}$ such that $2^{-n} < \epsilon$, which means:
+\begin{equation*}
+  \exists y \in B(x, \epsilon): y \notin F_n \implies y \notin F
+\end{equation*}
+So the Fat Cantor set is an example of a set that is nowhere dense yet not zero measure. Thus the two notions are separate (we showed the set of discontinuities in Thomae's function are dense but zero measure).
+\end{document}

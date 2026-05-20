@@ -1,7 +1,7 @@
 PWD c:\Users\rakmo\OneDrive\Desktop\Misc Math\Measure Theory
 INPUT C:\Users\rakmo\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\rakmo\OneDrive\Desktop\Misc Math\Measure Theory\Template.tex
-OUTPUT Template.log
+INPUT c:\Users\rakmo\OneDrive\Desktop\Misc Math\Measure Theory\Measure.tex
+OUTPUT Measure.log
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\latex\exam\exam.cls
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\latex\exam\exam.cls
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\latex\base\ifthen.sty
@@ -213,7 +213,7 @@ INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\generic\pgf\frontendlayer
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibraryfadings.code.tex
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\generic\pgf\libraries\pgflibraryfadings.code.tex
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\generic\pgf\libraries\pgflibraryfadings.code.tex
-OUTPUT Template.pdf
+OUTPUT Measure.pdf
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\latex\tcolorbox\tcbposter.code.tex
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\latex\graphics\dvipsnam.def
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\latex\graphics\dvipsnam.def
@@ -228,7 +228,10 @@ INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\latex\was\upgreek.sty
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\latex\was\upgreek.sty
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
-OUTPUT Template.aux
+INPUT .\Measure.aux
+INPUT .\Measure.aux
+INPUT Measure.aux
+OUTPUT Measure.aux
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
@@ -266,7 +269,7 @@ INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti7.tfm
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmti7.tfm
-INPUT Template.aux
+INPUT Measure.aux
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
@@ -275,6 +278,8 @@ INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\c
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbxti10.pfb
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmex10.pfb
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmex10.pfb
+INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cmextra\cmex7.pfb
+INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cmextra\cmex7.pfb
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi5.pfb
@@ -301,5 +306,7 @@ INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\s
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\symbols\msam10.pfb
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\symbols\msbm10.pfb
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\symbols\msbm10.pfb
+INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\symbols\msbm5.pfb
+INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\symbols\msbm5.pfb
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\symbols\msbm7.pfb
 INPUT C:\Users\rakmo\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\symbols\msbm7.pfb
