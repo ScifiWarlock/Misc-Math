@@ -53,7 +53,7 @@
 
 
 \fancyhf{}
-\fancyhead[R]{   Omkar Tasgaonkar\\UID: 206-624-454}
+% \fancyhead[R]{   Omkar Tasgaonkar\\UID: 206-624-454}
 \renewcommand\headrulewidth{0.5pt}
 \pagestyle{fancy}
 \author{Omkar Tasgaonkar}
@@ -63,8 +63,8 @@
 
 \fancypagestyle{firstpage}{
     \fancyhf{}
-    \fancyhead[C]{\textbf{Uhh Bunch of Notes Lmao}}
-    \fancyhead[R]{Omkar Tasgaonkar\\UID: 206-624-454}
+    \fancyhead[C]{\textbf{Notes on Analysis TopicsA}}
+    % \fancyhead[R]{Omkar Tasgaonkar\\UID: 206-624-454}
     \renewcommand\headrulewidth{0.5pt}
     \fancyfoot[C]{(\thepage)}
     \renewcommand\footrulewidth{0.5pt}
@@ -748,4 +748,58 @@ $f \in RS(g, [a, b])$ if and only if:
 The first part of the proof is quite straightforward, similar to what we used in Lemma 0.16 (it comes from triangle inequality). The converse follws from the completeness of $\mathbb{R}$. While we can make a convergence of nets argument, we choose not to here. Let $\Pi, \Pi'$ be partitions with the same subintervals, but different tags.
 \end{proof}
 This Lemma actually provides a good explanation as to why the converse of Lemma 0.16 is not necessarily true. Lemma 0.16 relies on one unmarked partition only, so the maximum freedom we get in the converse is choosing the marked points. However by this Cauchy Criterion, it must be true for ANY two intervals with max mesh less than $\delta$ (which means even if their subintervals are not aligned). So the result of the converse of Lemma 0.16 is too weak to prove integrability.
+
+\pagebreak
+\section*{Pointwise and Uniform Convergence}
+We now consider sequences of functions $\{f_n\}_{n \in \mathbb{N}}$ and want to see if and how they converge to some function $f$. The important of these falls under measure theory and integration theory:
+\begin{defn}
+Given two metric spaces $(X, \varrho)$ and $(Y, \varrho)$, a sequence of functions $\{f_n\}_{n \in \mathbb{N}}$ that map from $X$ to $Y$ is pointwise convergent if:
+\begin{equation*}
+\forall \epsilon > 0, \forall x \in X, \exists n_0 \geqslant 0, \forall n \geqslant n_0: \varrho(f_n(x), f(x)) < \epsilon
+\end{equation*}
+\end{defn}
+Now akin to the idea of uniform continuity, we introduce the idea of uniform convergence:
+\begin{defn}
+A sequence $\{f_n\}_{n \in \mathbb{N}}$ is called uniformly convergent if:
+\begin{equation*}
+\forall \epsilon > 0, \exists n_0 \geqslant 0, \forall x \in X, \forall n \geqslant n_0: \varrho(f_n(x), f(x)) < \epsilon
+\end{equation*}
+\end{defn}
+Note the difference here is the quantifier switch. One $n_0$ (similar to one $\delta$) works for all possible $x$ in the domain, yielding a stronger condition. As it is for continuity, we view the following lemma:
+\begin{lem}
+A uniformly convergent sequence $\{f_n\}_{n \in \mathbb{N}}$ is also pointwise convergent.
+\end{lem}
+\begin{proof}
+The proof follows from a simple quantifier switch.
+\end{proof}
+
+\medskip
+\subsection*{Examples}
+We now provide some examples of function sequences that are pointwise and uniformly convergent:\\
+
+\textbf{Pointwise}: Consider the sequence, where:
+\begin{equation*}
+  f_n(x) \coloneq \frac{n}{1+nx} \land f_n: (0, 1) \xrightarrow{} \mathbb{R}
+\end{equation*}
+We claim that this sequence converges to $f(x) = 1/x$, and is pointwise convergent. So $\forall \epsilon > 0$:
+\begin{equation*}
+\left|\frac{n}{1+nx} - \frac{1}{x}\right| = \left|\frac{1}{x^2 + nx}\right| \leqslant \left|\frac{1}{nx}\right| < \epsilon
+\end{equation*}
+So as long as we have that $n > 1/(\epsilon \cdot x)$, we know that the further functions in the sequence are within an epsilon from $1/x$. Notice how in our representation for $n$, we have $x$, showing it is dependent on what value in the domain we are looking at.\\
+
+The interesting thing about this example is that $\forall n \in \mathbb{N}$, we have that $f_n$ are bounded, yet the limit of the function $1/x$ is unbounded:
+\begin{equation*}
+  \forall x \in (0, 1): 1 + nx > 1 \implies \left|\frac{n}{1+nx}\right| < n
+\end{equation*}
+What this tells us is that pointwise convergence does not preserve bounding properties.\\
+
+We look at another example, where pointwise convergence does not preserve continuity either. Consider the sequence:
+\begin{equation*}
+  f_n(x) \coloneq x^n \land f: [0, 1] \xrightarrow{} \mathbb{R}
+\end{equation*}
+We prove this is a pointwise convergent sequence, which we claim converges to $0$ for all $x \in [0, 1)$. So $\forall \epsilon > 0$:
+\begin{equation*}
+  |x^n| < \epsilon \implies n > \frac{\ln(\epsilon)}{\ln(x)}
+\end{equation*}
+Once again it depends on $x$, showing it is not uniformly continuous. 
 \end{document}
