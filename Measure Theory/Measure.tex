@@ -63,7 +63,7 @@
 
 \fancypagestyle{firstpage}{
     \fancyhf{}
-    \fancyhead[C]{\textbf{Class Homework}}
+    \fancyhead[C]{\textbf{Uhh Bunch of Notes Lmao}}
     \fancyhead[R]{Omkar Tasgaonkar\\UID: 206-624-454}
     \renewcommand\headrulewidth{0.5pt}
     \fancyfoot[C]{(\thepage)}
@@ -154,7 +154,7 @@ We already have the inclusion that $\overline{A \cap Y} \subseteq \bar{A} \cap \
 \begin{equation*}
   \bar{Y} = \overline{A \cap Y} \land A \cap Y \subseteq A \implies \bar{Y} \subseteq \bar{A} 
 \end{equation*}
-Thus $\bar{A} \cap \bar{Y} = \bar{Y} = \overline{A \cap Y} \supseteq \bar{A} \cap \bar{Y}$.
+Thus $\bar{A} \cap \bar{Y} = \bar{Y} = \overline{A \cap Y}$, actually directly proving equality.
 
 \section*{The Cantor Set}
 
@@ -442,19 +442,310 @@ To prove that this product does not diverge or converge to $0$, we can rewrite i
 \end{equation*}
 Now the convergence of the product then depends on the convergence of the sum of $\ln$ of its terms. If the sum converges to some value $L$, then the product converges to sum non-zero positive value (it only converges to zero if the sum diverges to $-\infty$). Now observe the power series for $\ln(1-x)$ around $x = 0$:
 \begin{equation*}
-  ln(1-x) < P_2(x) \coloneq 0 - x - \frac{x^2}{2}
+  \ln(1-x) < P_2(x) \coloneq 0 - x - \frac{x^2}{2}
 \end{equation*}
 The less than inequality comes from the concavity of $\ln$ (any tangent line/graph falls above it), so we see that $\ln(1-x) < -x$ for all $x \in (0, 1)$. Thus:
 \begin{equation*}
-  sum_{n \in \mathbb{N}}\ln(1-a_n) < \sum_{n \in \mathbb{N}} - a_n
+  \sum_{n \in \mathbb{N}}\ln(1-a_n) < \sum_{n \in \mathbb{N}} - a_n
 \end{equation*}
 and because we are given that the sum of $a_n's$ converge, then the sum on the right hand side also converges. Thus as $n \xrightarrow{} \infty, |F_n| \xrightarrow{} L > 0$, so the Fat Cantor set's measure is NONZERO. We now show that the Fat Cantor Set is nowhere dense. We see that the length of each interval $I_m^{(n)}$ in the nth stage can be bounded above:
 \begin{equation*}
-  |I_m^(n)| = \frac{1}{2^n}\prod_{n \in \mathbb{N}}(1- a_n) \leqslant \frac{1}{2^n}
+  |I_m^{(n)}| = \frac{1}{2^n}\prod_{n \in \mathbb{N}}(1- a_n) \leqslant \frac{1}{2^n}
 \end{equation*}
 So given some point $x \in F$, then given some $\epsilon > 0$, we can always find $n \in \mathbb{N}$ such that $2^{-n} < \epsilon$, which means:
 \begin{equation*}
   \exists y \in B(x, \epsilon): y \notin F_n \implies y \notin F
 \end{equation*}
 So the Fat Cantor set is an example of a set that is nowhere dense yet not zero measure. Thus the two notions are separate (we showed the set of discontinuities in Thomae's function are dense but zero measure).
+
+\pagebreak
+\section*{Fundamental Theorem of Calculus}
+We first begin by defining the notion of an antiderivative as the following:
+\begin{defn}
+Given a function $f: [a, b] \xrightarrow{} \mathbb{R}$, we define the antiderivative $F: [a, b] \xrightarrow{} \mathbb{R}$ as a function that is continuous on $[a, b]$ and differentiable on $(a, b)$, such that:
+\begin{equation*}
+  \forall x \in (a, b): F'(x) = f(x)
+\end{equation*}
+\end{defn}
+Note that the definition does not tell us that $f$ is Riemann integrable. Now the continuity of $F$ will play a key role in proving the second Fundamental Theorem of Calculus.\\
+
+First, we see the following lemma:
+\begin{lem}
+If $f$ is Riemann Integrable on $[a, b]$, then $F(x) \coloneq \int_{a}^{x} f(t) dt$ and $F(a) \coloneq 0$ is lipschitz continuous on $(a, b)$ and left/right continuous at $a, b$ respectively.
+\end{lem}
+\begin{proof}
+If $f$ is Riemann Integrable, then it is bounded on $[a, b]$. So:
+\begin{equation*}
+  \forall x, y \in (a, b): |F(x) - F(y)| = \left|\int_{y}^{x}f(t)dt\right| \leqslant ||f|| \cdot |x - y|
+\end{equation*}
+\end{proof}
+
+Now this still does not tell us that our definition of $F(x)$ serves as a valid antiderivative. We further propose the following lemma, which provides us a sufficient condition to do so:
+\begin{thm}
+FTC1: If $f$ is continuous on $[a, b]$, then $\forall x \in (a, b): F'(x) = f(x)$.
+\end{thm}
+\begin{proof}
+We see the following holds:
+\begin{equation*}
+  F(y) - F(x) = \int_{x}^{y}f(t)dx \implies F(y) - F(x) - f(x)(y-x) = \int_{x}^{y}(f(t)-f(x))dt
+\end{equation*}
+\begin{equation*}
+  |y-x|\cdot \left|\frac{F(y) - F(x)}{y-x} - f(x)\right| = |y-x| \cdot \left|\int_{x}^{y}(f(t)-f(x))dt\right| \leqslant ||f(t) - f(x)||
+\end{equation*}
+\end{proof}
+Since $f$ is continuous, we note that setting $y = x + \delta$,  $\inf_{\delta > 0} \sup_{t \in B(x, \delta)}|f(t) - f(x)| = 0$, showing that $F'(x) = f(x)$. We now prove the second Fundamental Theorem of Calculus:
+\begin{thm}
+FTC2: Given an antiderivative $F: [a, b] \xrightarrow{} \mathbb{R}$ of the function $f$ with $F'$ being Riemann Integrable, then:
+\begin{equation*}
+  \int_{a}^{b} F'(x)dx = F(b) - F(a)
+\end{equation*}
+\end{thm}
+\begin{proof}
+Since $F'$ is Riemann Integrable, we have that, considering the integral evaluates to the value $L$:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta > 0, \forall \Pi: ||\Pi|| < \delta \implies |R(f, \Pi) - L| < \epsilon
+\end{equation*}
+If we can show that there exists a partition $\Pi$ with mesh less than $\delta$ and Riemann Sum $F(b) - F(a)$, then we have proven the theorem.\\
+
+We choose the partition $\Pi \coloneq \{[a + i \frac{b-a}{n}, a + (i+1)\frac{b-a}{n}]: 0 \leqslant i \leqslant n-1\}$, where $\delta \cdot n > b-a$. 
+\begin{equation*}
+  F(b) - F(a) = \sum_{i=1}^{n}(F(t_i) - F(t_{i-1}))
+\end{equation*}
+Since $F$ is continuous on $[a, b]$ and differentiable on $(a, b)$, then, we can repeatedly apply MVT, so that:
+\begin{equation*}
+  = \sum_{i=1}^{n}(f(t_i^*)(t_i - t_{i-1}))
+\end{equation*}
+Then because $F'$ is Riemann Integrable, we get that:
+\begin{equation*}
+  \forall \epsilon: \left|F(b) - F(a) - \int_{a}^{b} F'(x)dx\right| < \epsilon
+\end{equation*}
+\end{proof}
+Note that we require initial function to be Riemann Integrable. The existence of an antiderivative does not immediately give us this. For example, with Volterra's function, its derivative is discontinuous at the points in the Fat Cantor set.\\
+
+Since the set has non-zero measure, then by Lebesgue Vitali criterion, the derivative is not integrable, so neither FTC1 nor FTC2 hold. 
+
+\begin{cor}
+U-Substitution: Given some continuous function $f$ on $[c, d]$ and a continuous function $\phi: [a, b] \xrightarrow{} (c, d)$ which is continuous on $[a, b]$ and differentiable on $(a, b)$:
+\begin{equation*}
+  \int_{\phi(b)}^{\phi(a)} f(t) dt = \int_{a}^{b}f(\phi(x)) \cdot \phi'(x) dx
+\end{equation*}
+\end{cor}
+\begin{proof}
+  
+\end{proof}
+
+\subsection*{Variation}
+We define variation over an interval of $f$ as:
+\begin{equation*}
+  V(f, [a, b]) \coloneq \sup_{\Pi}\sum_{i=1}^{n}|f(t_i) - f(t_{i-1})|
+\end{equation*}
+Now considering $f$ to be continuous on $[a, b]$ and $F$ to be the antiderivative of $f$, we want to show:
+\begin{equation*}
+  V(F, [a, b]) = \int_{a}^{b}|f(x)|dx
+\end{equation*}
+We prove the forward inequality first, which is the simpler direction:
+\begin{equation*}
+  \forall \Pi: \sum_{i=1}^{n}|F(t_i) - F(t_{i-1})| = \sum_{i=1}^n \left|\int_{t_{i-1}}^{t_i} f(x) dx \right|
+\end{equation*}
+In order to prove the inequality, we must use the following lemma:
+\begin{lem}
+The integral inequality states for all Riemann integrable functions $f$ on the interval $[a, b]$:
+\begin{equation*}
+  \left|\int_{a}^{b} f(x)dx \right| \leqslant \int_{a}^{b} |f(x)| dx
+\end{equation*}
+\end{lem}
+\begin{proof}
+We see that:
+\begin{equation*}
+  \forall \Pi_{[a, b]}: |R(f, \Pi)| = \left|\sum_{i=1}^{n} f(t_i^*)(t_i - t_{i-1})\right| \leqslant \sum_{i=1}^{n}|f(t_i^*)|(t_i - t_{i-1}) = R(|f|, \Pi)
+\end{equation*}
+Since it holds true for all Riemann Sums, taking limits, we have proved the integral inequality.
+\end{proof}
+Now returning to the original problem, we get that:
+\begin{equation*}
+  \sum_{i=1}^n \left|\int_{t_{i-1}}^{t_i} f(x) dx \right| \leqslant \sum_{i=1}^n \int_{t_{i-1}}^{t_i}|f(x)|dx = \int_{a}^{b}|f(x)|dx
+\end{equation*}
+Since this holds true for all partitions, we have found an upper bound, thus proving that $V(f, [a, b])$ is less than or equal to the integral of $|f|$ by supremum properties. We now prove the opposite direction:\\
+
+Because $f$ is continuous and the composition of continuous functions is continuous, then $|f|$ is continuous thus Riemann Integrable. So:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta > 0, \forall \Pi: ||\Pi|| < \delta \implies \left|\int_{a}^{b}|f(x)|dx - R(|f|, \Pi)\right| < \epsilon
+\end{equation*}
+Now, for each $\delta$ we take a partition where $n\delta > b-a$ defined as $\Pi \coloneq \{[a+i \cdot \frac{b-a}{n}, a + (i+1)\cdot \frac{b-a}{n}] : 0 \leqslant i \leqslant n-1\}$. Then applying MVT to each interval, we get a tagged partition $\Pi^*$:
+\begin{equation*}
+  \sum_{i=1}^{n}|f(t_i^*)|(t_i - t_{i-1}) = \sum_{i=1}^{n}|F(t_i) - F(t_{i-1})|
+\end{equation*}
+Thus by integrability, we have that:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \Pi: \left|\int_{a}^{b}|f(x)|dx - \sum_{i=1}^{n}|F(t_i) - F(t_{i-1})|\right| < \epsilon
+\end{equation*}
+\begin{equation*}
+  \implies \forall \epsilon > 0, \exists \Pi: \int_{a}^{b}|f(x)|dx \leqslant \sum_{i=1}^n|F(t_i) - F(t_{i-1})| + \epsilon
+\end{equation*}
+By supremum properties of variation
+\begin{equation*}
+  \implies \forall \epsilon > 0: \int_{a}^{b}|f(x)|dx \leqslant V(F, [a, b]) + \epsilon
+\end{equation*}
+Thus proving the other direction inequality.
+\pagebreak
+
+\section*{The Stieltjes Integral}
+We discussed the idea of the Riemann integral, in which we integrated with respect to partitions on the $x$-axis. Now, we integrate with respect to another function, we call the integrator:
+\begin{defn}
+A function $f: [a, b] \xrightarrow{} \mathbb{R}$ is Stieltjes integrable with respect to $g: [a, b] \xrightarrow{} \mathbb{R}$ if:
+\begin{equation*}
+  \int_{a}^{b}f dg \coloneq \lim_{||\Pi|| \xrightarrow{} 0}\sum_{i=1}^{n}f(t_i^*)(g(t_i) - g(t_{i-1})) \ \text{exists}
+\end{equation*}
+\end{defn}
+Note that there are no restrictions (yet) on the behavior of $g$, so $g$ could have discontinuities, could be increasing, decreasing, or neither, etc. We will however observe one restriction later on. An equivalent way of restating this criterion is:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta > 0, \forall \Pi: ||\Pi|| < \delta \implies \left|S(f, g, \Pi) - \int_{a}^{b}fdg\right| < \epsilon
+\end{equation*}
+
+If we write that $f \in RS(g, [a, b])$, it means that $f$ is Stieltjes integrable wrt $g$ on the interval $[a, b]$. Additionally, the notation $S(f, g, \Pi)$ is a RS-sum over the partition $\Pi$. We first note additivity properties of both $f$ and $g$:
+\begin{lem}
+Consider $f_1, f_2 \in RS(g, [a, b])$ and $\alpha, \beta \in \mathbb{R}$, then:
+\begin{equation*}
+  \int_{a}^{b}(\alpha f_1 + \beta f_2) dg = \alpha \int_{a}^{b}f_1 dg + \beta \int_{a}^{b}f_2 dg
+\end{equation*}
+\end{lem}
+\begin{proof}
+Because $f_1$ and $f_2$ are independently RS-integrable, we have the following:
+\begin{align*}
+&\forall \epsilon > 0, \exists \delta_1 > 0, \forall \Pi: ||\Pi|| < \delta_1 \implies \left|S(f_1, g, \Pi) - \int_{a}^{b}fdg\right| < \epsilon\\
+&\forall \epsilon > 0, \exists \delta_2 > 0, \forall \Pi: ||\Pi|| < \delta_1 \implies \left|S(f_2, g, \Pi) - \int_{a}^{b}fdg\right| < \epsilon
+\end{align*}
+Then choosing $0 < \delta < \min\{\delta_1, \delta_2\}$, we get that $\forall \Pi: ||\Pi|| < \delta$:
+\begin{equation*}
+  S(\alpha f_1+\beta f_2, g, \Pi) = \sum_{i=1}^{n}(\alpha f_1(t_i^*) + \beta f_2(t_i^*))(g(t_i) - g(t_{i-1})) = \alpha \sum_{i=1}^{n}f_1(t_i^*)(g(t_i) - g(t_{i-1})) + \beta \sum_{i=1}^{n}f_2(t_i^*)(g(t_i) - g(t_{i-1}))
+\end{equation*}
+Then we get that:
+\begin{equation*}
+  \left|S(\alpha f_1 + \beta f_2, g, \Pi) - \alpha \int_{a}^{b}f+1dg - \beta \int_{a}^{b}f_2dg\right| = \left|\alpha (S(f_1, g, \Pi) - \int_{a}^{b}f_1dg) + \beta (S(f_2, g, \Pi) - \int_{a}^{b}f_2dg)\right|
+\end{equation*}
+\begin{equation*}
+  \leqslant |\alpha| \cdot \epsilon + |\beta| \cdot \epsilon = \epsilon(|\alpha| + |\beta|)
+\end{equation*}
+Thus proving the criterion proposed in Definition 0.8 for RS-integrability.
+\end{proof}
+One additional lemma we did not encounter in terms of Riemann Integrability is the following:
+\begin{lem}
+Consider $f \in RS(g, [a, b]) \cap RS(h, [a, b])$, then:
+\begin{equation*}
+\int_{a}^{b}f d(\alpha g + \beta h) = \alpha \int_{a}^{b}f dg + \beta \int_{a}^{b}f dh
+\end{equation*}
+\end{lem}
+\begin{proof}
+We note that $f$ is RS-integrable with respect to both $g$ and $h$, each of which provides us $\delta_g, \delta_h$. Choosing $0 < \delta < \min\{\delta_g, \delta_h\}$, we see that:
+\begin{equation*}
+  S(f, \alpha g + \beta h, \Pi) = \sum_{i=1}^{n}f(t_i^*)(\alpha(g(t_i) - g(t_{i-1})) + \beta(h(t_i) - h(t_{i-1})))
+\end{equation*}
+\begin{equation*}
+  \alpha \sum_{i=1}^{n}f(t_i^*)(g(t_i) - g(t_{i-1})) + \beta \sum_{i=1}^{n}f(t_i^*)(h(t_i) - h(t_{i-1}))
+\end{equation*}
+Once again applying the triangle inequality and RS-integrability wrt $g$ and $h$, we get the same bound as Lemma 0.14, proving the statement.
+\end{proof}
+
+Note an interesting consequence of this definition, which is that it does not necessarily tell us that $f$ is bounded. Consider a function unbounded within some interval. We can simply set $g$ to be constant in that interval, effectively canceling out its contributions to the RS-integral.\\
+
+There is a case we will go over in a later case, perhaps involving measure. Another interesting lemma follows, which provides a restriction on the relationship between $f$, $g$. First we prove an oscillation characterization:
+\begin{lem}
+If $f \in RS(g, [a, b])$, then:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta > 0, \forall \Pi: ||\Pi|| < \delta \implies \sum_{i=1}^{n}\text{osc}(f, [t_{i-1}, t_i])|g(t_i) - g(t_{i-1})| < \epsilon
+\end{equation*}
+\end{lem}
+\begin{proof}
+Let $\Pi, \Pi'$ be two marked partitions with mesh less than $\delta$ and the same subintervals. Then:
+\begin{equation*}
+  |S(f, g, \Pi) - S(f, g, \Pi')| = \sum_{i=1}^{n}|f(t_i^*) - f(t_i')|g(t_i) - g(t_{i-1})|
+\end{equation*}
+where we select the tagged points such that $\frac{1}{2}\text{osc}(f, [t_{i-1}, t_i]) \leqslant |f(t_i^*) - f(t_i')|$. Since $f$ is RS-integrable (represent for brevity the integral as $I$), we have that:
+\begin{equation*}
+  |S(f, g, \Pi) - S(f, g, \Pi')| = |S(f, g, \Pi) - I + I - S(f, g, \Pi')| < \epsilon/2
+\end{equation*}
+assuming we set the $\epsilon$-bound for RS-integrability as $\epsilon/4$. Then, because oscillation does not take into account marked partitions:
+\begin{equation*}
+  \forall \Pi: ||\Pi|| < \delta \implies \sum_{i=1}^{n}\text{osc}(f, [t_{i-1}, t_i])|g(t_i) - g(t_{i-1})| < \epsilon
+\end{equation*}
+We can further extend the ideas in this proof to derive a necessary and sufficient condition, a Cauchy Criterion of RS-integrability. First note however this is only a necessary condition, not a sufficient one.\\
+
+This is due to the fact that proving RS-integrability requires marked partitions; however, such a condition only deals with unmarked partitions and oscillations. \textbf{THIS IS NOT A SATISFYING EXPLANATION, I WILL COME BACK TO THIS.}
+\end{proof}
+We now use Lemma 0.16 for the following statement:
+\begin{lem}
+If $f \in RS(g, [a, b])$, then $f$ and $g$ CANNOT share points of discontinuity.
+\end{lem}
+\begin{proof}
+Assume that there exists some $x \in [a, b]$ such that both $f, g$ are discontinuous at $x$. Then:
+\begin{align*}
+  &\exists \epsilon > 0, \forall \delta > 0, \exists y \in [a, b]: |y - x| < \delta \land |f(y) - f(x)| \geqslant \epsilon\\
+  &\exists \epsilon' > 0, \forall \delta > 0, \exists y' \in [a, b]: |y' - x| < \delta \land |g(y') - g(x)| \geqslant \epsilon'
+\end{align*}
+If we select $0 < \tilde{\epsilon} < \min\{\epsilon, \epsilon'\}$, then we can consolidate the two inequalities:
+\begin{align*}
+  &\exists \tilde{\epsilon}, \forall \delta > 0: \text{osc}(f, [x + \delta]) \geqslant \tilde{\epsilon} \lor \text{osc}(f, [x - \delta, x]) \geqslant \tilde{\epsilon}\\
+  &\exists \tilde{\epsilon}, \forall \delta > 0, \exists y' \in [a, b]: |y' - x| < \delta \land |g(y') - g(x)| \geqslant \tilde{\epsilon}
+\end{align*}
+We know that a function is continuous if and only if it is left and right continuous. So in fact, the proof breaks into two cases:
+\begin{enumerate}
+\item $f, g$ are both NOT right (or left, WLOG) continuous at $x$
+\item $f$ is NOT right continuous and $g$ is NOT left continuous (or vice versa)
+\end{enumerate}
+The first characterization for $f$ comes from the fact that if $f$ is not continuous, then:
+\begin{equation*}
+\tilde{\epsilon} \coloneq lim_{\delta \xrightarrow{} 0^+}\text{osc}(f, [x - \delta, x + \delta]) > 0
+\end{equation*}
+as $m_f(x) \neq M_f(x)$. This allows us to omit the idea of intermediate points for $f$, solely focusing on intervals.
+
+\subsubsection*{Case One}
+
+We also do not have monotonicity of $g$, however we do have monotonicity of the oscillation. Then we want to show an existence of a partition with mesh less than delta, where the oscillation sum is greater than some epsilon value.\\
+
+Consider $n\delta > b-a$, then define $\Pi \coloneq \{[a + i \cdot \frac{b-a}{n}, a + (i+1) \cdot \frac{b-a}{n}] : 0 \leqslant i \leqslant n-1\}$. Then refine the partition to add $x$, the common point of discontinuity. Now take the partition point $t_j$ closest to $x$ and set $\delta = |t_j - x|$. Then within this $\delta$, we have the point $y'$ for the discontinuity of $g$.\\
+
+We refine the parition further, adding $y'$ to the partition points, getting an interval $[\min\{y', x\}, \max\{y', x\}]$. Now we know that $f, g$ are BOTH not right continuous at $x$, so setting $\delta = |y' - x|$:
+\begin{equation*}
+  \text{osc}(f, [x, y']) \geqslant \tilde{\epsilon}
+\end{equation*}
+So, we get that:
+\begin{equation*}
+  \forall \Pi: ||\Pi|| < \delta \implies \sum_{i=1}^{n}\text{osc}(f, [t_{i-1}, t_i])|g(t_i) - g(t_{i-1})| \geqslant \tilde{\epsilon}^2
+\end{equation*}
+So the discontinuities cannot appear on the same side of the functions. Now what about case 2, based on this proof, seems possible right?
+
+\subsubsection*{Case Two}
+Now instead of adding the points of discontinuity to the partition themselves, we will think in terms of partition subintervals. This proof would be easier if we had monotonicity of $g$, as considering some subtinterval such that $x \in [t_j, t_{j+1}]$, we would have some $y'$ in the interval. Using monotonicity of oscillation and the fact that $x$ is an interior point, we could say:
+\begin{equation*}
+  \exists \delta > 0: [x - \delta, x + \delta] \subseteq [t_j, t_{j+1}] \implies \text{osc}(f, [t_j, t_{j+1}]) \geqslant \text{osc}(f, [x - \delta, x + \delta]) > \tilde{\epsilon}
+\end{equation*}
+Then we simply have $|g(t_{j+1}) - g(t_j)| \geqslant |g(y') - g(x)|$ because of monotonicity, so the oscillation sum fails to be less than all epsilon. In this case, we did not need to make a distinction between left/right continuous because it did not matter which side the $y'$ appeared on (we did not have to refine any partition).\\
+
+Now assume there exists some subinterval such that $x \in [t_j, t_{j+1}]$ (this must be true by covering properties). Then we can guarantee some $y' \in [t_j, x]$ by non-left continuity of $g$. Now assume $f \in RS(g, [a, b])$, with a partition $\Pi$ such that $||\Pi|| < \delta$. Then:
+\begin{equation*}
+  \epsilon > \sum_{i=1}^{n}\text{osc}(f, [t_{i-1}, t_i])|g(t_i) - g(t_{i-1})| \geqslant \text{osc}(f, [t_j, t_{j+1}])|g(t_{j+1}) - g(t_j)| \geqslant \tilde{\epsilon}|g(t_{j+1}) - g(t_j)|
+\end{equation*}
+Because $f$ is not right continuous, this is true of any $t_j \coloneq x - \delta', t_{j+1} \coloneq x + \delta'$ where $0 < 2\delta' < \delta$. So we get that:
+\begin{equation*}
+  \forall \delta' > 0: 0 < |t_{j+1} - t_j| \leqslant 2\delta' \implies |g(t_{j+1}) - g(t_j)| < \epsilon/\tilde{\epsilon} \implies \text{osc}(g, [t_j, t_{j+1}]) \leqslant \epsilon/\tilde{\epsilon}
+\end{equation*} 
+We can make this construction with $\delta'$ as integrability must hold for ANY $\Pi$ as long as its mesh $||\Pi|| < \delta$. So, the oscillation being bounded means:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta' > 0: |s-t| \leqslant 2\delta' \implies \text{osc}(g, [s, t]) < \epsilon/\tilde{\epsilon}
+\end{equation*}
+So $m_g(x) = M_g(x)$, thus $g$ would be continuous at $x$, which contradicts our initial condition.
+\end{proof}
+NOTE: An interesting consequence of this proof is that if $f \in RS(g, [a, b])$, then $f \in RS(g, [a, c])$ and $f \in RS(g, [c, d])$. However the converse is not necessarily true. It is possible for $f \in RS(g, [a, c])$, with $f$ being NOT right continuous at $c$ and $g$ being NOT left continuous.\\
+
+On each individual interval, they do not share a discontinuity; however on all of $[a, b]$, we obtain Case 2 in Lemma 0.17, which is not possible. We now provide a sufficient and necessary condition, the Cauchy Criterion for RS-integrability:
+\begin{lem}
+$f \in RS(g, [a, b])$ if and only if:
+\begin{equation}
+\forall \epsilon > 0, \exists \delta > 0, \forall \Pi: \max\{||\Pi||, ||\Pi'||\} < \delta \implies |S(f, g, \Pi) - S(f, g, \Pi')| < \epsilon
+\end{equation}
+\end{lem}
+\begin{proof}
+The first part of the proof is quite straightforward, similar to what we used in Lemma 0.16 (it comes from triangle inequality). The converse follws from the completeness of $\mathbb{R}$. While we can make a convergence of nets argument, we choose not to here. Let $\Pi, \Pi'$ be partitions with the same subintervals, but different tags.
+\end{proof}
+This Lemma actually provides a good explanation as to why the converse of Lemma 0.16 is not necessarily true. Lemma 0.16 relies on one unmarked partition only, so the maximum freedom we get in the converse is choosing the marked points. However by this Cauchy Criterion, it must be true for ANY two intervals with max mesh less than $\delta$ (which means even if their subintervals are not aligned). So the result of the converse of Lemma 0.16 is too weak to prove integrability.
 \end{document}
