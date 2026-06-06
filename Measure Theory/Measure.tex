@@ -1,5 +1,6 @@
-\documentclass{exam}
-\usepackage{graphicx} % Required for inserting images
+\documentclass[10pt,letterpaper]{article} % exam class defaults to 10pt on letterpaper
+\usepackage[margin=1in]{geometry}         % exam class defaults to 1-inch margins
+\usepackage{graphicx} 
 \usepackage{fancyhdr}
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -9,11 +10,10 @@
 \usepackage{blindtext}
 \usepackage{amsthm}
 \usepackage{upgreek}
+\usepackage{hyperref}
+
 \setlength{\parindent}{0pt}
-% if you ever want to enter images use the following code%
-%\begin{center}%
-    %\includegraphics[width=0.8\textwidth]{Screenshot (22).png}%
-%\end{center}%
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex} % Matches the paragraph spacing of exam
 
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{lem}{Lemma}[section]
@@ -21,39 +21,14 @@
 \newtheorem{cor}{Corollary}[section]
 \newtheorem{axm}{Axiom}[section]
 
-\tcolorboxenvironment{thm}{
-  colback=lime,
-  colframe=black,
-  breakable
-}
+\tcolorboxenvironment{thm}{colback=lime, colframe=black, breakable}
+\tcolorboxenvironment{lem}{colback=yellow, colframe=black, breakable}
+\tcolorboxenvironment{defn}{colback=pink, colframe=black, breakable}
+\tcolorboxenvironment{cor}{colback=SpringGreen, colframe=black, breakable}
+\tcolorboxenvironment{axm}{colback=white, colframe=black, breakable}
 
-\tcolorboxenvironment{lem}{
-  colback=yellow,
-  colframe=black,
-  breakable
-}
-
-\tcolorboxenvironment{defn}{
-  colback=pink,
-  colframe=black,
-  breakable
-}
-
-\tcolorboxenvironment{cor}{
-  colback=SpringGreen,
-  colframe=black,
-  breakable
-}
-
-\tcolorboxenvironment{axm}{
-  colback=white,
-  colframe=black,
-  breakable
-}
-
-
+% --- Header/Footer Setup ---
 \fancyhf{}
-% \fancyhead[R]{   Omkar Tasgaonkar\\UID: 206-624-454}
 \renewcommand\headrulewidth{0.5pt}
 \pagestyle{fancy}
 \author{Omkar Tasgaonkar}
@@ -63,19 +38,28 @@
 
 \fancypagestyle{firstpage}{
     \fancyhf{}
-    \fancyhead[C]{\textbf{Notes on Analysis TopicsA}}
-    % \fancyhead[R]{Omkar Tasgaonkar\\UID: 206-624-454}
+    \fancyhead[C]{\textbf{Notes on Analysis}}
     \renewcommand\headrulewidth{0.5pt}
     \fancyfoot[C]{(\thepage)}
     \renewcommand\footrulewidth{0.5pt}
 }
-
-
-
 \begin{document}
+\tableofcontents
+\newpage
 \thispagestyle{firstpage}
 
-\section*{Density}
+\section{Characterizations of Limits and Continuity}
+The characterization of limits and continuity we will do will branch off the two following topological definitions:
+\begin{enumerate}
+\item \textbf{Adherent Point}: $\forall r > 0: B(x, r) \cap A \neq \varnothing$
+\item \textbf{Limit Point}: $\forall r > 0: B(x, r)\setminus \{x\} \cap A \neq \varnothing$
+\end{enumerate}
+We start off by formally defining a limit as the following. $L$ is a limit for a function $f$ at $x \in \overline{\text{Dom}(f)}$ if:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta > 0, \forall y \in X: 0 < \varrho(y, x) < \delta \implies \varrho(f(y), L) < \epsilon
+\end{equation*}
+Notice two things: first is that the existence of a limit does not care about what the value of $f(x)$ is (if it is defined at all). The second thing is we require $x$ to be in the closure of the domain, not the domain
+\section{Density}
 We start off by considering some topological space $X$, endowed with a topology we will call $\uptau_X$. Then for some $A \subset X$, we have the following notion of density:
 \begin{defn}
 A subset of a topological space $A \subseteq X$ is dense in $X$ if (we propose two equivalent conditions):
@@ -156,9 +140,9 @@ We already have the inclusion that $\overline{A \cap Y} \subseteq \bar{A} \cap \
 \end{equation*}
 Thus $\bar{A} \cap \bar{Y} = \bar{Y} = \overline{A \cap Y}$, actually directly proving equality.
 
-\section*{The Cantor Set}
+\section{The Cantor Set}
 
-\subsection*{Properties}
+\subsection{Properties}
 The Cantor Set is a nowhere dense, perfect set constructed by repeatedly removed the middle $1/3$ interval of each interval. We denote each step of this iterative process as $C_n$ where for all $I \subset C_{n-1}$, we remove their middle 1/3 portion, creating $C_n$.\\
 
 We first note that the Cantor set is nonempty. Since for all $n$, we have that $C_{n+1} \subseteq C_n$ and because $[0, 1]$ is closed and bounded (compact), by Cantor intersection property we have that their intersection, which is $C$, is nonempty.\\
@@ -212,7 +196,7 @@ Given some $x \in C$ and some $\epsilon > 0$, the previous lemma gave us the exi
 \end{equation*}
 
 \smallskip
-\subsection*{Integrability}
+\subsection{Integrability}
 We now examine the following function:
 \begin{equation*}
   1_C \coloneq \begin{cases*}
@@ -257,9 +241,9 @@ This is because the supremum on $I_n$ is always 1 (the endpoints are in $C$) and
 Thus the upper integral and lower integral agree at the value $0$. The $(2/3)^n$ come from the fact that there are $2^n$ closed balls of radius $1/(2 \cdot 3^n)$ that cover all of $C_n$. Notice that the "length" of the Cantor set (the set of discontinuities in this case) goes to 0.
 
 \medskip
-\section*{Measure}
+\section{Measure}
 
-\subsection*{Definitions}
+\subsection{Definitions}
 We never officially introduced the notion of length. We first say that the length of any OPEN interval $(a, b)$, (denoted by $l$) in $\mathbb{R}$ is $b-a$. Length we will consider to be a map $l: \mathcal{P}(\mathbb{R}) \xrightarrow{} [0, \infty]$ (range in extended reals). We now introduce length of a set as the following:
 \begin{defn}
 The outer measure of a set $A$ is via covering sequences of intervals $\{I_n\}_{n \in \mathbb{N}}$:
@@ -427,7 +411,7 @@ For this consider Thomae's function in the interval $[0, 1]$. The discontinuties
 \end{equation*}
 So the set of discontinuities is dense in all of $[0, 1]$ (this also shows rationals are somewhere dense within the interval by Defn 0.4). For the converse, we introduce a more intricate idea of the Fat Cantor set.
 
-\subsection*{The Fat Cantor Set}
+\subsection{The Fat Cantor Set}
 The Fat Cantor Set or rather the family of such sets are examples of sets which are nowhere dense but DO NOT have measure of 0. We consider a sequence $\{a_n\}_{n \in \mathbb{N}} \in (0, 1)^\mathbb{N}$, such that:
 \begin{equation*}
   \sum_{n \in \mathbb{N}}a_n < \infty
@@ -459,7 +443,7 @@ So given some point $x \in F$, then given some $\epsilon > 0$, we can always fin
 So the Fat Cantor set is an example of a set that is nowhere dense yet not zero measure. Thus the two notions are separate (we showed the set of discontinuities in Thomae's function are dense but zero measure).
 
 \pagebreak
-\section*{Fundamental Theorem of Calculus}
+\section{Fundamental Theorem of Calculus}
 We first begin by defining the notion of an antiderivative as the following:
 \begin{defn}
 Given a function $f: [a, b] \xrightarrow{} \mathbb{R}$, we define the antiderivative $F: [a, b] \xrightarrow{} \mathbb{R}$ as a function that is continuous on $[a, b]$ and differentiable on $(a, b)$, such that:
@@ -534,7 +518,7 @@ U-Substitution: Given some continuous function $f$ on $[c, d]$ and a continuous 
   
 \end{proof}
 
-\subsection*{Variation}
+\subsection{Variation}
 We define variation over an interval of $f$ as:
 \begin{equation*}
   V(f, [a, b]) \coloneq \sup_{\Pi}\sum_{i=1}^{n}|f(t_i) - f(t_{i-1})|
@@ -589,7 +573,7 @@ By supremum properties of variation
 Thus proving the other direction inequality.
 \pagebreak
 
-\section*{The Stieltjes Integral}
+\section{The Stieltjes Integral}
 We discussed the idea of the Riemann integral, in which we integrated with respect to partitions on the $x$-axis. Now, we integrate with respect to another function, we call the integrator:
 \begin{defn}
 A function $f: [a, b] \xrightarrow{} \mathbb{R}$ is Stieltjes integrable with respect to $g: [a, b] \xrightarrow{} \mathbb{R}$ if:
@@ -750,7 +734,7 @@ The first part of the proof is quite straightforward, similar to what we used in
 This Lemma actually provides a good explanation as to why the converse of Lemma 0.16 is not necessarily true. Lemma 0.16 relies on one unmarked partition only, so the maximum freedom we get in the converse is choosing the marked points. However by this Cauchy Criterion, it must be true for ANY two intervals with max mesh less than $\delta$ (which means even if their subintervals are not aligned). So the result of the converse of Lemma 0.16 is too weak to prove integrability.
 
 \pagebreak
-\section*{Pointwise and Uniform Convergence}
+\section{Pointwise and Uniform Convergence}
 We now consider sequences of functions $\{f_n\}_{n \in \mathbb{N}}$ and want to see if and how they converge to some function $f$. The important of these falls under measure theory and integration theory:
 \begin{defn}
 Given two metric spaces $(X, \varrho)$ and $(Y, \varrho)$, a sequence of functions $\{f_n\}_{n \in \mathbb{N}}$ that map from $X$ to $Y$ is pointwise convergent if:
@@ -774,7 +758,7 @@ The proof follows from a simple quantifier switch.
 \end{proof}
 
 \medskip
-\subsection*{Examples}
+\subsection{Examples}
 We now provide some examples of function sequences that are pointwise and uniformly convergent:\\
 
 \textbf{Pointwise}: Consider the sequence, where:
@@ -783,9 +767,19 @@ We now provide some examples of function sequences that are pointwise and unifor
 \end{equation*}
 We claim that this sequence converges to $f(x) = 1/x$, and is pointwise convergent. So $\forall \epsilon > 0$:
 \begin{equation*}
-\left|\frac{n}{1+nx} - \frac{1}{x}\right| = \left|\frac{1}{x^2 + nx}\right| \leqslant \left|\frac{1}{nx}\right| < \epsilon
+\left|\frac{n}{1+nx} - \frac{1}{x}\right| = \left|\frac{1}{x(1+nx)}\right| \leqslant \left|\frac{1}{nx}\right| < \epsilon
 \end{equation*}
 So as long as we have that $n > 1/(\epsilon \cdot x)$, we know that the further functions in the sequence are within an epsilon from $1/x$. Notice how in our representation for $n$, we have $x$, showing it is dependent on what value in the domain we are looking at.\\
+
+One way we can show is by the $\epsilon$-definition; however, another way we can show it is the limsup definition or the negation of it. We want to show:
+\begin{equation*}
+  \exists \epsilon > 0, \forall n \in \mathbb{N}: sup_{x \in (0, 1)}|f_n(x) - \frac{1}{x}| \geqslant \epsilon
+\end{equation*}
+Then we choose $\epsilon = 1$. We see that:
+\begin{equation*}
+  \forall n \in \mathbb{N}: \frac{1}{1+nx} \leqslant \frac{1}{x(1+nx)} \implies \sup_{x \in (0, 1)}\frac{1}{1+nx} \leqslant \sup_{x \in (0, 1)}\frac{1}{x(1+nx)}
+\end{equation*}
+The supremum of the smaller term is always $1$ for all $n \in \mathbb{N}$, so we have proven our statement.\\
 
 The interesting thing about this example is that $\forall n \in \mathbb{N}$, we have that $f_n$ are bounded, yet the limit of the function $1/x$ is unbounded:
 \begin{equation*}
@@ -801,5 +795,264 @@ We prove this is a pointwise convergent sequence, which we claim converges to $0
 \begin{equation*}
   |x^n| < \epsilon \implies n > \frac{\ln(\epsilon)}{\ln(x)}
 \end{equation*}
-Once again it depends on $x$, showing it is not uniformly continuous. 
+Once again it depends on $x$, showing it is not uniformly convergent. Now the interesting behavior we want to analyze here is that each function $f_n$ is continuous due to it being a polynomial. However, the limit which is $0$ everywhere in $[0, 1)$ but is $1$ at $x = 1$ is not left continuous at $x = 1$. So continuity is not preserved by pointwise convergence.\\
+
+Now we examined two sequences which are both pointwise convergent, one being bounded but the boundedness property not transferring, and the other being continuous, but continuity not transferring. So, we view the following lemma:
+\begin{lem}
+If $\forall n \in \mathbb{N}, \exists M_n, \forall x \in X: |f_n(x)| \leqslant M_n$ and $f_n \xrightarrow{} f$ uniformly, then $f(x)$ is bounded.
+\end{lem}
+\begin{proof}
+As we do many of these proofs we will notice that they utilize the triangle inequality. Now, for say $\epsilon = 1$, uniform continuity gives us an $n_0$ that satisfies the criterion on all of $X$. Then:
+\begin{equation*}
+  |f(x)| = |f(x) - f_{n_0}(x) + f_{n_0}(x)| \leqslant |f(x) - f_{n_0}(x)| + |f_{n_0}(x)| \leqslant 1 + M_{n_0}
+\end{equation*}
+Thus $f$ is bounded. Now if we did not have uniform continuity, then the same $n_0$ may not work at some other $x' \in X$. In which case, our bound at $x'$ might be something different like $1 + M_{n_1}$ which could be greater then the previous, so it may be possible that $f$ is greater than $1 + M_{n_0}$.
+\end{proof}
+
+Now we introduce a stronger theorem that talks about the preservation of continuity:
+\begin{thm}
+If $f_n \xrightarrow{} f$ uniformly, then if all $f_n$ are continuous at $x_0$, $f$ is continuous at $x_0$.
+\end{thm}
+\begin{proof}
+We use the epsilon-delta definition of continuity:
+\begin{equation*}
+  \forall n \in \mathbb{N}, \forall x_0 \in X, \forall \epsilon > 0, \exists \delta > 0, \forall x \in X: |x-x_0| < \delta \implies |f_n(x) - f_n(x_0)| < \epsilon
+\end{equation*}
+\begin{equation*}
+  \forall \epsilon > 0, \exists n_0 \geqslant 0, \forall x \in X, \forall n \geqslant n_0: |f_n(x) - f(x)| < \epsilon
+\end{equation*}
+Now, we write the following via triangle inequality expansion:
+\begin{equation*}
+\varrho(f(x), f(x_0)) \leqslant \varrho(f(x), f_n(x)) + \varrho(f_n(x), f_n(x_0)) + \varrho(f_n(x_0), f(x_0)) < 3\epsilon
+\end{equation*}
+Taking $n_0$ from uniform convergence, this inequality works for all $n \geqslant n_0$ as long as we use its $\delta_n$ provided by continuity (because each $n$ produces its own $\delta$ for some $\epsilon$).\\
+
+Note that pointwise convergence would not be enough because we would have that for each $x \in X$, there exists some $\delta_x$. Instead, we want it so that there exists a $\delta$ such that for each $x \in X$ which is delta away from $x_0$ at most... follows from definition of continuity.
+\end{proof}
+We can replace the hypothesis of continuity in Theorem 0.3 with that of the limit existing, but proving this requires the extra assumption of the completeness of $Y$ (this is what allows us to interchange limits). We can also weaken the idea of convergence, to bring about the following two ideas:
+\begin{defn}
+A sequence of functions is called pointwise Cauchy if:
+\begin{equation*}
+\forall x \in X, \forall \epsilon > 0, \exists n_0 \geqslant 0, \forall m, n \geqslant n_0: \varrho(f_n(x), f_m(x)) < \epsilon
+\end{equation*}
+Similarly such a sequence is called uniformly Cauchy if:
+\begin{equation*}
+\forall \epsilon > 0, \exists n_0 \geqslant 0, \forall m, n \geqslant n_0, \forall x \in X: \varrho(f_n(x), f_m(x)) < \epsilon
+\end{equation*}
+\end{defn}
+We now view a lemma that will yield us an interesting result (allowing us to weaken sufficient conditions):
+\begin{lem}
+If $f_n \xrightarrow{} f$ converges uniformly, then $f_n$ is uniformly Cauchy. For the converse, if $f_n$ is uniformly Cauchy, then if $Y$ is complete, $f_n$ converges uniformly. 
+\end{lem}
+\begin{proof}
+$\implies$: While not an entirely symmetric proof, we can add completeness in this direction without changing any result; but we choose to weaken it. If $f_n$ is uniformly convergent, then:
+\begin{equation*}
+  \forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0, \forall x \in X: \varrho(f_n(x), f(x)) < \epsilon
+\end{equation*}
+Then $\forall m, n \geqslant n_0$:
+\begin{equation*}
+  \varrho(f_m(x), f_n(x)) \leqslant \varrho(f_m(x), f(x)) + \varrho(f_n(x), f(x)) < 2\epsilon
+\end{equation*}
+Thus proving it to be Cauchy. Now for the converse:
+$\impliedby$: If $f_n$ is uniformly Cauchy, we have that it is pointwise Cauchy (this comes from a simple quantifier swap), which in a complete space means its pointwise convergent to some $f(x)$. Then:
+\begin{equation*}
+\forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0, \forall x \in X: \varrho(f_n(x), f(x)) \leqslant \varrho(f_n(x), f_{n_0}(x)) + \varrho(f_{n_0}(x), f(x)) < 2\epsilon
+\end{equation*}
+Note that here we only needed the condition of pointwise convergence, which is a weaker sufficient condition than completeness of $Y$. 
+\end{proof}
+
+\subsection{Equicontinuity}
+Equicontinuity is the property that allows for all functions $f_n$ in a sequence to be continuous "at the same rate" which means they have the same $\delta$ of continuity. Formally:
+\begin{equation*}
+  \forall x_0 \in X, \forall \epsilon > 0, \exists \delta > 0, \forall n \in \mathbb{N}: \varrho(x, x_0) < \delta \implies \varrho(f_n(x), f_n(x_0)) < \epsilon
+\end{equation*}
+We can extend this idea to uniform continuity to get uniform equicontinuity, which follows from a simple switch of the quantifiers. Consider the following family:
+\begin{equation*}
+  \forall n \in \mathbb{N}: f_n(x) \coloneq x^2 + \frac{(-1)^n}{n+1}
+\end{equation*}
+We first prove, by the supremum characterization, that this sequence is uniformly convergent:
+\begin{equation*}
+  \sup\left|x^2 + \frac{(-1)^n}{n+1} - x^2\right| = \sup\left|\frac{1}{n+1}\right| \xrightarrow{} 0
+\end{equation*}
+All members of this family is convex because their second derivative is greater than or equal to $0$. Now we know that the derivative of the second lines is increasing across the domain of a convex function; however, we consider a compact subinterval of the domain $[b, c]$ to get uniform equicontinuity.\\
+
+We previously derived the following property of convex functions. Consider two points $a, b$ such that $a < b < c < d$, then:
+\begin{equation*}
+\forall x < y \in [b, c]: \frac{f(a) - f(b)}{a-b} < \frac{f(b) - f(x)}{b-x} < \frac{f(x) - f(y)}{x-y} < \frac{f(y) - f(c)}{y-c} < \frac{f(c) - f(d)}{c-d}
+\end{equation*}
+Now for locally lipschitz continuity, we require some constant $C$. Notice how $(f(x) - f(y))/(x-y)$ is stuck between the fractions consisting of $a, b$ and $c, d$, which represent the slopes of the secant lines. Now, it is possible that the leftmost slope is negative, but greater in magnitude than the rightmost, so if we choose:
+\begin{equation*}
+  C \coloneq \max\left\{\left|\frac{f(a) - f(b)}{a-b}\right|, \left|\frac{f(c) - f(d)}{c-d}\right|\right\}
+\end{equation*}
+Then we see that:
+\begin{equation*}
+  \forall x, y \in [b, c]: \left|\frac{f(x) - f(y)}{x-y}\right| < C \implies |f(x) - f(y)| < C|x-y|
+\end{equation*}
+Thus proving our local lipschitz condition as long as we set $\delta = \epsilon/C$ ONLY for points within the interval $[b, c]$. Now examining our family $f_n$, we see that the $n$-term cancels out, so the same $C$ works for all $f_n$, thus the same $\delta$ works, showing it is a uniformly equicontinuous family.\\
+
+Notice the pattern we saw in the previous example. Each $f_n$ was uniformly continuous, and with the sequence being uniformly convergent, we see that they are uniformly equicontinuous. Thus:
+\begin{lem}
+$f_n \xrightarrow{} f$ uniformly and each $f_n$ is continuous, then $f_n$ is equicontinuous. 
+\end{lem}
+\begin{proof}
+First by Theorem 0.3, we see that $f$ must be continuous, which means:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta' > 0: \varrho(x, x_0) < \delta_0 \implies \varrho(f(x), f(x_0)) < \epsilon
+\end{equation*}
+Additionally by uniform convergence:
+\begin{equation*}
+  \forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: \varrho(f_n(x), f(x)) < \epsilon
+\end{equation*}
+Then we see that $\forall x \in B(x, \delta')$:
+\begin{equation*}
+  \varrho(f_n(x), f_n(x_0)) \leqslant \varrho(f_n(x), f(x)) + \varrho(f(x), f(x_0))  + \varrho(f(x_0), f_n(x_0)) < 3\epsilon
+\end{equation*}
+Thus we have shown that this $\delta_0$-ball of continuity extends to $f_n$ for $n \geqslant n_0$. Now, for $n < n_0$, we choose:
+\begin{equation*}
+  \delta'' \coloneq \min{\delta_n: 0 \leqslant n < n_0}
+\end{equation*}
+Then if we choose $\delta = \min\{\delta', \delta''\}$, we find that we have equicontinuity for all $n \in \mathbb{N}$. Now notice how the idea of uniform convergence pulls weight in the proof.\\
+
+Without uniform convergence, the $n_0$ for convergence would be different for each $x \in X$, which first would mean we could not claim continuity of $f$ AND we cannot claim equicontinuity of $f_n$ because we would have to take different minimums for each $x$.
+\end{proof}
+
+We can now extend this to uniform equicontinuity with the following corollary:
+\begin{cor}
+$f_n \xrightarrow{} f$ uniformly and each $f_n$ uniformly continuous, then $f_n$ is uniformly equicontinuous.
+\end{cor}
+\begin{proof}
+Now uniform convergence gives us the stronger condition that:
+\begin{equation*}
+  \forall n \in \mathbb{N}, \forall \epsilon > 0, \exists \delta_n > 0, \forall x, y \in X: \varrho(x, y) < \delta_n \implies \varrho(f_n(x), f_n(y)) < \epsilon
+\end{equation*}
+Now we first need to prove that $f$ is uniformly continuous, with $n_0$ coming from uniform convergence:
+\begin{equation*}
+  \varrho(f(x), f(y)) \leqslant \varrho(f(x), f_{n_0}(x)) + \varrho(f_{n_0}(x), f_{n_0}(y)) + \varrho(f_{n_0}(y), f(y))
+\end{equation*}
+Using $\delta_{n_0}$, we see that $\varrho(f(x), f(y)) < 3\epsilon$, thus we can extend Theorem 0.3 to uniform continuity. Now to prove the Corollary:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta' > 0: \varrho(x, y) < \delta' \implies \varrho(f(x), f(y)) < \epsilon
+\end{equation*}
+From uniform convergence, we get that for $n \geqslant n_0$:
+\begin{equation*}
+  \varrho(f_n(x), f_n(y)) \leqslant \varrho(f_n(x), f(x)) + \varrho(f(x), f(y)) + \varrho(f(y), f_n(y)) < 3\epsilon
+\end{equation*}
+Using a similar minimum strategy for $n < n_0$, we have proven uniform equicontinuity.
+\end{proof}
+
+Now notice one thing in Lemma 0.22 and Corollary 0.3 here. We use $f$ as a bridge to prove equicontinuity by using its (uniform or pointwise) continuity. However, we already know that all of the $f_n$ share the same property, thus it is adequate to have the uniformly Cauchy property in which we simply use $f_{n_0}$ as a bridge.
+
+\subsection{Families of Equicontinuous Functions}
+The most common way to prove a family of functions is equicontinuous is to show that they admit the same modulus of continuity, which recall is a function $\omega: [0, \infty) \xrightarrow{} [0, \infty)$ such that:
+\begin{enumerate}
+  \item $\omega$ is increasing
+  \item $|f(x) - f(y)| \leqslant \omega(|x-y|) \iff f \ \text{uniformly continuous}$
+  \item $\lim_{t \xrightarrow{} 0^+} \omega(t) = 0$
+\end{enumerate}
+In the case of Lipschitz continuous (or H\"older continuous) functions, we aim to show there is some common constant $C$ that acts as the modulus of continuity. We can show this by a uniform bound on the derivative.\\
+
+For example the following family of polynomials on $[a, b]$ up to the $n$-th degree is equicontinuous:
+\begin{equation*}
+  \left\{x \mapsto \sum_{k=0}^{n}a_kx^k: a_0 \in \mathbb{R} \land a_1,...,a_k \in [-M, M]\right\}
+\end{equation*}
+We can prove this by analyzing the derivatives of each of the polynomial expressions:
+\begin{equation*}
+  \left|\frac{d}{dx}\sum_{k=0}^{n}a_kx^k\right| = \left|\sum_{k=1}^{n}k \cdot a_k x^{k-1}\right| \leqslant \left|M\sum_{k=1}^{n}k \cdot x^{k-1}\right| \leqslant \left|M\sum_{k=1}^{n}k \cdot b^{k-1}\right|
+\end{equation*}
+Therefore, we have a bound on the derivative for all members in this family, we will call $\lambda$ represented by the expression on the right. Now consider any $x, y \in [a, b]$, specifically the interval $[x, y]$. For any $f$ within the family, we know that it is continuous on $[a, b]$ and differentiable on $(a, b)$ because it is a polynomial.\\
+
+Thus, we can apply MVT on $[x, y]$ and say that:
+\begin{equation*}
+  \exists c \in [x, y]: f'(c) = \frac{f(y) - f(x)}{y-x} \implies |f(y) - f(x)| = |f'(c)||y-x| \leqslant \lambda|y-x|
+\end{equation*}
+Since $f$ and $x, y$ were arbitrary, we have uniform continuity for each $f$ in the family. Furthermore, because the same $\lambda$ applies to all such polynomials in the family, we have uniform equicontinuity.\\
+
+This idea can be extended to show the following family in greater generality is also uniformly equicontinuous:
+\begin{equation*}
+\left\{f \in \mathbb{R}^{[a, b]}: f \ \text{continuous on } [a, b] \land f \ \text{differentiable on } (a, b) \land |f'(x)| < M\right\}
+\end{equation*}
+
+Now consider another example of the following sequence with $f_n: \mathbb{Q} \xrightarrow{} \mathbb{R}$:
+\begin{equation*}
+  f_n(x) \coloneq \begin{cases*}
+    1 \ : \ nx < \sqrt{2}\\
+    0 \ : \ nx > \sqrt{2}
+  \end{cases*}
+\end{equation*}
+We show that $f_n(x)$ is not uniformly convergent NOR uniformly Cauchy. Each $f_n$ is however continuous and the family itself is equicontinuous, so the sufficient conditions of weak Lemma 7.4 with uniform Cauchy are not satisfied. We claim it converges to $0$-function.\\
+
+First we prove it is not uniformly convergent by the supremum categorization:
+\begin{equation*}
+  \forall n_0 \geqslant 0, \exists n = n_0, \exists x \in \mathbb{Q}: 0 < x < \frac{\sqrt{2}}{n} \implies \sup_{x \in \mathbb{Q}}|f_n(x) - 0| = 1 \nrightarrow 0
+\end{equation*}
+which follows from density of the rationals. We now prove it is not uniformly Cauchy:
+\begin{equation*}
+  \exists \epsilon > 0, \forall n_0 \geqslant 0, \exists m, n \geqslant n_0, \exists x \in \mathbb{Q}: |f_n(x) - f_m(x)| \geqslant \epsilon
+\end{equation*}
+If we set $\epsilon = 1/2$, then for any $n_0 \geqslant 0$, we take $m > n = n_0$, then:
+\begin{equation*}
+  \exists x \in \mathbb{Q}: \frac{\sqrt{2}}{m} < x < \frac{\sqrt{2}}{n} \implies |f_n(x) - f_m(x)| = |0 - 1| = 1 > 1/2
+\end{equation*}
+As a side effort, we also prove the continuity of each $f_n$, which follows from the $\epsilon-\delta$ definition:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta > 0: |x - x_0| < \delta \implies |f_n(x) - f_n(x_0)| < \epsilon
+\end{equation*}
+We now have a jump, but because our domain is $\mathbb{Q}$, the function still remains continuous. If we have $x_0 < \sqrt{2}/n$, then we choose $\delta = |\sqrt{2}/n - x|/2$. The same goes for the case when $x_0 > \sqrt{2}/n$. In these $\delta$-balls, the function values agree.\\
+
+Finally, we prove the family is equicontinuous for the restricted domain $\mathbb{Q} \cap (0, 1)$:
+\begin{equation*}
+  \forall \epsilon > 0, \exists \delta > 0: |x-x_0| < \delta \implies |f_n(x) - f_n(x_0)| < \epsilon
+\end{equation*}
+If we choose $\delta \coloneq \min_{n > 2}|x_0 - \sqrt{2}/n|/2$, then we are guaranteed that we end up on one side of the closest jump; so for any further jumps, we are guaranteed that we remain ending up on only one side of the cut (because $\delta$ is a minimum distance).\\
+
+Now consider the same family of functions, but on the domain $\mathbb{Q} \cap (1, 2)$ v.s. the domain $\mathbb{Q} \cap [1, 2]$. We once again in a similar fashion can prove that $f_n$ is equicontinuous in this interval and that it converges pointwise; however, in the previous example, the point $0$ is a limit point of a sequence of shape $1/n$, so we would lose this equicontinuous structure if we considered the domain $\mathbb{Q} \cap [0, 1]$.\\
+
+However, neither $1$ nor $2$ are limit points. Now, we can prove in the same fashion that the sequence is. (this does not work) 
+
+\subsection{Mini Arzela-Ascoli}
+\begin{thm}
+Given $f_n: X \xrightarrow{} Y$, we have that:
+\begin{equation*}
+  \{f_n\}_{n \in \mathbb{N}} \ \text{equicontinuous} \land f_n \xrightarrow{} f \ \text{pointwise} \land X \ \text{compact}
+\end{equation*}
+\begin{equation*}
+  \implies f_n \xrightarrow{} f \ \text{uniformly}
+\end{equation*}
+\end{thm}
+\begin{proof}
+Now given $f_n$ is equicontinuous, we know that:
+\begin{equation*}
+\forall x_0 \in X, \forall \epsilon > 0, \exists \delta > 0, \forall n \in \mathbb{N}: \varrho(x , x_0) < \delta \implies \varrho(f_n(x), f_n(x_0)) < \epsilon
+\end{equation*}
+We then define:
+\begin{equation*}
+  \forall x \in X: \delta(x) \coloneq \frac{1}{2}\sup\{\delta \in (0, 1): (\forall n \in \mathbb{N}: f_n(B(x, \delta)) \subseteq B(f(x), \epsilon))\}
+\end{equation*}
+Because of equicontinuity, we have that $\delta(x)$ is always nonempty (because it is a subset of a delta-ball provided by equicontinuity). Now the set of $B(x, \delta(x))$ acts as an open cover for $X$.\\
+
+Since $X$ is compact, it admits a finite subcover with points $x_0,...,x_m$. Now, we can apply a $3\epsilon$ proof. Pointwise continuity gives us an $n_i$ at each $x_i$, so choosing $n' = \max\{n_i : i \in 0,...,m\}$:
+\begin{equation*}
+  \forall m, n \geqslant n', \forall x \in X, \exists i \in 0,...,m: x \in B(x_i, \delta(x_i)) \land \varrho(f_n(x), f_m(x)) \leqslant \varrho(f_n(x), f_n(x_i)) + \varrho(f_n(x_i), f_m(x_i)) + \varrho(f_m(x_i)) < 3\epsilon
+\end{equation*}
+where the middle term is taken care by pointwise convergence implying pointwise Cauchy. Having shown uniformly Cauchy, in a complete (or compact) space, this can be upgraded to uniform convergence.
+\end{proof}
+
+We can switch the sufficient conditions of this theorem to get the following:
+\begin{cor}
+Given $f_n: X \xrightarrow{} Y$, we have that:
+\begin{equation*}
+  \{f_n\}_{n \in \mathbb{N}} \ \text{ uniformly equicontinuous} \land f_n \xrightarrow{} f \ \text{pointwise} \land X \ \text{totally bounded}
+\end{equation*}
+\begin{equation*}
+  \implies f_n \xrightarrow{} f \ \text{uniformly}
+\end{equation*}
+\end{cor}
+\begin{proof}
+Totally bounded gives us a finite cover. With the same $\delta(x)$-ball construction, we can do another $3\epsilon$ proof:
+\end{proof}
+
+\pagebreak
+\section*{Metric Space of Functions}
+While we have been using these notions in the 
+
 \end{document}
