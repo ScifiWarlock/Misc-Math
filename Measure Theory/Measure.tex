@@ -54,11 +54,931 @@ The characterization of limits and continuity we will do will branch off the two
 \item \textbf{Adherent Point}: $\forall r > 0: B(x, r) \cap A \neq \varnothing$
 \item \textbf{Limit Point}: $\forall r > 0: B(x, r)\setminus \{x\} \cap A \neq \varnothing$
 \end{enumerate}
+
+\subsection{Limits}
 We start off by formally defining a limit as the following. $L$ is a limit for a function $f$ at $x \in \overline{\text{Dom}(f)}$ if:
 \begin{equation*}
   \forall \epsilon > 0, \exists \delta > 0, \forall y \in X: 0 < \varrho(y, x) < \delta \implies \varrho(f(y), L) < \epsilon
 \end{equation*}
-Notice two things: first is that the existence of a limit does not care about what the value of $f(x)$ is (if it is defined at all). The second thing is we require $x$ to be in the closure of the domain, not the domain
+Notice two things: first is that the existence of a limit does not care about what the value of $f(x)$ is (if it is defined at all). The second thing is we require $x$ to be in the closure of the domain, not the domain because isolated points are considered part of the domain, yet they are not limit points (the domain value $x$ for a limit must be a limit point).\\
+
+This is because we need to be able to find some point $y \in B(x, \delta) \setminus \{x\}$ for which $f(y)$ belongs in the $\epsilon$-ball.\\
+
+We now prove the following lemma:
+\begin{lem}
+If the limit $L$ exists at some $x \in \overline{\text{Dom}(f)}$, then $L$ is unique.
+\end{lem}
+\begin{proof}
+Assume the limit is not unique, so take $L, L'$ such that $L \neq L'$. Then we set $\epsilon = \varrho(L, L')/2 > 0$. We now see:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0, \forall y \in \text{Dom}(f): 0 < \varrho(x, y) < \delta \implies \varrho(f(y), L) < \epsilon \land \varrho(f(y), L') < \epsilon
+\end{equation*}
+\begin{equation*}
+\varrho(L, L') \leqslant \varrho(L, f(y)) + \varrho(L', f(y)) < 2\epsilon = \varrho(L, L')
+\end{equation*}
+Notice how we have a strict inequality between two equal terms (it is never possible that $\forall a \in \mathbb{R}: a < a$), so we have a contradiction, thus $L = L'$, proving the limit unique.\\
+
+Here we used the $\epsilon$-$\delta$ definition to first set an epsilon, and given the limit exists to produce a specific $y$ such that $f(y)$ was within epsilon of each $L, L'$. I will attempt to maintain this rigor throughout the text, ensuring quantifiers are explained.
+\end{proof}
+
+We now introduce an alternative characterization of limits:
+\begin{lem}
+\begin{equation*}
+\lim_{y \xrightarrow{} x}f(y) \ \text{exists} \iff \lim_{\delta \xrightarrow{} 0^+}\sup_{y \in B(x, \delta) \setminus \{x\}}f(y) = \lim_{\delta \xrightarrow{} 0^+}\inf_{y \in B(x, \delta)\setminus\{x\}}f(y)
+\end{equation*}
+\end{lem}
+\begin{proof}
+($\implies:$) If the limit exists, we proceed by the $\epsilon$-$\delta$ definition:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0, \forall y \in \text{Dom}(f): 0 < \varrho(y, x) < \delta \implies \varrho(f(y), L) < \epsilon
+\end{equation*}
+\begin{equation*}
+\implies \forall y, z \in B(x, \delta) \setminus \{x\}: \varrho(f(y), f(z)) \leqslant \varrho(f(y), L) + \varrho(f(z), L) < 2\epsilon
+\end{equation*}
+Note the $2\epsilon$ bound, which will become quite important in later characterizations. Now, since this holds true for all $y, z \in B(x, \delta)\setminus \{x\}$, then:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0: \sup_{y, z \in B(x, \delta) \setminus \{x\}}\varrho(f(y), f(z)) = \sup_{y \in B(x, \delta)\setminus\{x\}}f(y) - \inf_{z \in B(x, \delta)\setminus\{x\}}f(z) \leqslant 2\epsilon
+\end{equation*}
+We now need to convert this into a limit for $\delta$, which we do by the monotinicity of the supremum. If $A \subseteq B$, then $\sup(A) \subseteq \sup(B)$ and the opposite for infimum, so:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0: \left|\sup_{y \in B(x, \delta)\setminus\{x\}}f(y) - \inf_{z \in B(x, \delta)\setminus\{x\}}f(z)\right| \leqslant 2\epsilon
+\end{equation*}
+Now we have a convergence/limit structure for $\delta$ as a parameter (if the reader has taken a look at the notes on bases/nets, they will notice this is actually convergence of nets). Thus:
+\begin{equation*}
+  \lim_{\delta \xrightarrow{} 0^+}\left(\sup_{y \in B(x, \delta)\setminus \{x\}}f(y) - \inf_{z \in B(x, \delta) \setminus \{x\}}f(z)\right) = 0
+\end{equation*}
+\begin{equation*}
+  \implies \lim_{\delta \xrightarrow{} 0^+}\sup_{y \in B(x, \delta)\setminus \{x\}}f(y) = \lim_{\delta \xrightarrow{} 0^+}\inf_{y \in B(x, \delta)\setminus \{x\}}f(y)
+\end{equation*}
+$\impliedby:$ Now we prove the opposite direction:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0: \left|\sup_{y \in B(x, \delta)\setminus \{x\}}f(y) - \inf_{y \in B(x, \delta)\setminus \{x\}}f(y)\right| < \epsilon
+\end{equation*}
+\begin{equation*}
+\implies \forall \epsilon > 0, \forall \delta_0  0: \sup_{y \in B(x, \delta_0)\setminus\{x\}}f(y) - \inf_{z \in B(x, \delta_0)\setminus\{x\}}f(z) < \epsilon
+\end{equation*}
+Now if we define the limit as $L$, we see that the limsup and liminf always lands inbetween any infimum and supremum (by definition), thus:
+\begin{equation*}
+  \inf_{y \in B(x, \delta_0)\setminus \{x\}}f(y) \leqslant L \leqslant \sup_{y \in B(x, \delta)\setminus \{x\}}f(y)
+\end{equation*}
+Additionally, for all $y \in B(x, \delta_0) \setminus \{x\}$, we have that: 
+\begin{equation*}
+\inf_{y \in B(x, \delta_0)\setminus \{x\}}f(y) \leqslant f(y) \leqslant \sup_{y \in B(x, \delta_0)\setminus \{x\}}f(y)
+\end{equation*}
+We obtain the following inequality:
+\begin{equation*}
+  \inf_{y \in B(x, \delta_0)\setminus\{x\}}f(y) - \sup_{y \in B(x, \delta_0)\setminus\{x\}}f(y) \leqslant f(y) - L \leqslant \sup_{y \in b(x, \delta_0)\setminus \{x\}}f(y) - \inf_{y \in B(x, \delta_0)\setminus\{x\}}f(y)
+\end{equation*}
+\begin{equation*}
+  \implies \forall \epsilon > 0, \exists \delta_0 > 0, \forall y \in \text{Dom}(f): 0 < \varrho(y, x) < \delta \implies -\epsilon < f(y) - L < \epsilon \implies |f(y) - L| < \epsilon
+\end{equation*}
+Thus completing the proof. Now this actually leads us to a couple interesting results. 
+\end{proof}
+
+\begin{defn}
+We now define the oscillation on a set $A \subseteq \text{Dom}(f)$ as:
+\begin{equation*}
+\text{osc}(f, A) \coloneq \sup_{x, y \in A}|f(x) - f(y)| = \sup_{y \in A}f(y) - \inf_{y \in A}f(y)
+\end{equation*}
+The latter expression of which will be useful for integration.
+\end{defn}
+We can now define oscillation at a point $x \in \overline{\text{Dom}(f)}$ as:
+\begin{equation*}
+\text{osc}_x(f) \coloneq \lim_{\delta \xrightarrow{} 0^+}(\sup_{y \in B(x, \delta)}f(y) - \inf_{y \in B(x, \delta)}f(y))
+\end{equation*}
+Notice how this requires the function to be defined at $x$, which will be an equivalent characterization for continuity. However, we can define the oscillation of a limit at a point as:
+\begin{equation*}
+\text{osc}_{xL}(f) \coloneq \lim_{\delta \xrightarrow{} 0^+}(\sup_{y \in B(x, \delta)\setminus \{x\}}f(y) - \inf_{y \in B(x, \delta)\setminus \{x\}}f(y))
+\end{equation*}
+so restating Lemma 1.2, we can say:
+\begin{cor}
+\begin{equation*}
+\lim_{y \xrightarrow{} x}f(y) \ \text{exists} \iff \text{osc}_{xL}(f) = 0
+\end{equation*}
+\end{cor}
+
+\medskip
+Another interesting result we obtain is writing the equivalent statement in terms of $\epsilon$-$\delta$, we get:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0: 0 < \varrho(y, x) < \delta \implies \sup_{y \in B(x, \delta)\setminus \{x\}}f(y) - \inf_{y \in B(x, \delta)\setminus \{x\}}f(y) < \epsilon 
+\end{equation*}
+Now recall how we mentioned this actually models net convergence. Given the first countability of metric spaces, we can define $\delta_n \coloneq 1/(n+1)$, in which case:
+\begin{equation*}
+\forall \epsilon > 0, \exists n_0 \geqslant 0 \forall n \geqslant n_0: 0 < \varrho(x, y) < \delta_n \implies \sup_{y \in B(x, \delta_n)\setminus \{x\}}f(y) - \inf_{y \in B(x, \delta_n)\setminus \{x\}}f(y) < \epsilon 
+\end{equation*}
+We can now define sequences $y_n \xrightarrow{} x$ by definition of countable net convergence, in which case by the fact that $f(y) \leqslant \sup f(y)$ and $L \geqslant \inf f(y)$ (a similar argument to Lemma 1.2 converse), $|f(y_n) - L| < \epsilon$. Thus:
+\begin{equation*}
+\forall \epsilon > 0, \forall \{y_n\}_{n \in \mathbb{N}} \in \text{Dom}(f)^\mathbb{N}, \exists n_0 \geqslant 0, \forall n \geqslant n_0: y_n \xrightarrow{} x \implies f(y_n) \xrightarrow{} L
+\end{equation*}
+giving us a sequential characterization of the existence of the limit. This characterization will be quite important for proving the limit does not exist. Take for example:
+\begin{equation*}
+  1_{\mathbb{Q}} \coloneq \begin{cases*}
+    1 \ : \ x \in \mathbb{Q} \cap [0, 1]\\
+    0 \ : \ x \in [0, 1] \setminus \mathbb{Q}
+  \end{cases*}
+\end{equation*}
+We prove that the limit does not exist at every point in $[0, 1]$ using our different characterizations.
+\subsubsection*{$\epsilon$-$\delta$ Characterization}
+\begin{equation*}
+  \forall L \in \mathbb{R}, \exists \epsilon > 0, \forall \delta > 0, \exists y \in \text{Dom}(f): 0 < \varrho(y, x) < \delta \land |f(y) - L| \geqslant 0
+\end{equation*}
+If we can prove the existence of such an $\epsilon$ for $L = 0$, then it will hold for all such $L \in \mathbb{R}$ (we can make the assumption that $L \geqslant 0$ because of the positivity of the function). So choose $\epsilon = 1/2$.\\
+
+If $x \in [0, 1]$. By density of rationals, in all $\delta$-balls around $x$, we can find $y: f(y) = 1$, so:
+\begin{equation*}
+|f(y) - 0| = |1-0| > 1/2
+\end{equation*}
+Thus the limit does not exist, since $x$ was an arbitrary point in $[0, 1]$. Now notice we do not know the behavior of the function to the left of $0$ and the right of $1$, in which case the left and right limits do not exist at those points respectively.
+
+\medskip
+\subsubsection*{Oscillation Characterization}
+The argument is once again by density, and is easier than the previous; however, when boiled down to the $\epsilon-\delta$ net definition, it is pretty much the same. We always see that the limsup is always $1$ and that the liminf is always $0$ around a certain point, thus the limit does not exist. 
+
+\medskip
+\subsubsection*{Sequential Characterization}
+Here if we can show the existence of two sequences that converge to the same $x$ but DO NOT converge to the same $L$, then we have shown the limit is not unique, and by the contrapositive of Lemma 1.1, the limit does not exist.\\
+
+Consider $\{y_n\}_{n \in \mathbb{N}} \in (\mathbb{Q} \cap [0, 1])^\mathbb{N}$ and $\{y_n'\}_{n \in \mathbb{N}} \in ([0, 1] \setminus \mathbb{Q})^\mathbb{N}$ (NOTE, construction of these sequences requires Axiom of Choice), then:
+\begin{equation*}
+  y_n \xrightarrow{} x \land y_n' \xrightarrow{}x \ \text{BUT } \forall n \in \mathbb{N}: (f(y_n) = 1 \implies f(y_n) \xrightarrow{} 1) \land (f(y_n') = 0 \implies f(y_n') \xrightarrow{} 0)
+\end{equation*}
+Thus the limit is not unique, so the limit does not exist. Since $x$ was arbitrary, this holds for all $x \in [0, 1]$. The last two methods did not rely on specifying a certain $L$, so these methods are better at disproving the existence of a limit; while the first is better at proving.
+
+\medskip
+\subsubsection{HW2 Problem 8 Limits}
+We show the limit is $0$ at all $x \in [0, 1]$ for the following function:
+\begin{equation*}
+f(x) \coloneq \begin{cases*}
+  \frac{1}{n+1} \ : \ x = q_n \in \mathbb{Q} \cap [0, 1]\\
+  0 \ : \ x \in [0, 1] \setminus \mathbb{Q}
+\end{cases*}
+\end{equation*}
+where $q_n$ is the $n$-th rational. We prove that the limit is $0$ at each point $x \in [0, 1]$. 
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0, \forall y \in \text{Dom}(f): 0 < |x-y| < \delta \implies |f(y)| < \epsilon
+\end{equation*}
+We first prove that there are a finite number of $x \in [0, 1]$ such that $|f(x)| \geqslant \epsilon$:
+\begin{equation*}
+  \forall x \in \mathbb{Q} \cap [0, 1]: f(x) = \frac{1}{n+1} \geqslant \epsilon \implies n \leqslant \frac{1}{\epsilon} - 1
+\end{equation*}
+Thus, $n$ is bounded above, so there must be a finite number of $n$ values that satisfy the condition. Now, for all $x \in [0, 1]$, we choose:
+\begin{equation*}
+  \delta \coloneq \frac{1}{2}\min\{|x - q_n| : |f(q_n)| \geqslant \epsilon\}
+\end{equation*}
+Then for any $y \in B(x, \delta)\setminus \{x\}$, we are guaranteed that $f(y)$ is either $0$, or that $|f(y)| < \epsilon$.
+
+\subsection{Continuity}
+When we mention the term continuity, we talk about pointwise continuity at some point $x \in \text{Dom}(f)$ and not isolated, defined as:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0, \forall y \in \text{Dom}(f): \varrho(x, y) < \delta \implies \varrho(f(x), f(y)) < \epsilon
+\end{equation*}
+the reason we require $x \in \text{Dom}(f)$ and not just the closure is because we need to know the value of the function at $f$ in order to check continuity. This is the only chnage from the existence of a limit, so the two are closely related by the following:
+\begin{lem}
+\begin{equation*}
+f \ \text{is continuous at } x \iff \lim_{y \xrightarrow{} x} f(y) = f(x)
+\end{equation*}
+\end{lem}
+The equivalence follows from the similarity of the definitions. The only difference is that the limit does not check the value at $x$ or $0 < \varrho(x, y) < \delta$, which can be rectified by the fact that $x \in \text{Dom}(f)$ and that the value $f(x)$ is defined.\\
+
+The other characterizations follow, including sequential and oscillation. We do note one thing:
+\subsubsection{HW 2 Problem 7}
+\begin{lem}
+$f$ is continuous at $x$ if and only if $\text{osc}_x(f) = 0$
+\end{lem}
+\begin{proof}
+In proving the converse, we only have that the oscillation around $x$ is zero, which means $m_f(x) = M_f(x)$ where $M_f(x)$ is the limsup in a ball around $x$ and $m_f(x)$ is the liminf, we however cannot just define $f(x) = m_f(x) = M_f(x)$ like we did with the limit $L$. However, we know that:
+\begin{equation*}
+  \forall \delta > 0: \inf_{y \in B(x, \delta)}f(y) \leqslant f(x) \leqslant \sup_{y \in B(x, \delta)}f(y)
+\end{equation*}
+\begin{equation*}
+\implies \lim_{\delta \xrightarrow{} 0^+}\inf_{y \in B(x, \delta)}f(y) \leqslant f(x) \leqslant \lim_{\delta \xrightarrow{} 0^+}\sup_{y \in B(x, \delta)}f(y)
+\end{equation*}
+Given the equality of $m_f$ and $M_f$ at $x$, we see that $f(x) = m_f(x) = M_f(x)$. Then the same argument from Lemma 1.2 applies, where:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 >0, \forall \delta \leqslant \delta_0, \forall y \in \text{Dom}(f): |x-y| < \delta \implies \sup_{y \in B(x, \delta)}f(y) - \inf_{y \in B(x, \delta)}f(y) < \epsilon
+\end{equation*}
+Using the following inequalities we know for $\delta_0$ and for all $y \in B(x, \delta)$:
+\begin{align*}
+&\inf_{y \in B(x, \delta_0)}f(y) \leqslant f(x) \leqslant \sup_{y \in B(x, \delta)}f(y)\\
+&\inf_{y \in B(x, \delta)}f(y) \leqslant f(y) \leqslant \sup_{y \in B(x, \delta)}f(y)
+\end{align*}
+\begin{equation*}
+  \implies \forall \epsilon > 0, \exists \delta_0 > 0, \forall y \in B(x, \delta_0): - \epsilon < f(x) - f(y) < \epsilon \iff |f(x) - f(y)| < \epsilon
+\end{equation*}
+\end{proof}
+Also note that in using the sequential characterization to disprove continuity, it suffices to show the existence of one $y_n \xrightarrow{} x \land f(y_n) \nrightarrow f(x)$ because the value of $f(x)$ is known unlike a limit $L$ which can take on any value in $\mathbb{R}$, which is why we use two sequences to show non-uniqueness of a limit and derive a contradiction.
+
+\medskip
+We also introduce a topological notion of continuity, which will be useful when speaking about general topological/set properties such as connectedness:
+\begin{defn}
+A function $f$ is continuous iff $\forall O \subseteq \text{Ran}(f) \land \ \text{open}: f^{-1}(O) \ \text{open}$.
+\end{defn}
+
+This allows us to talk about certain properties of continuous functions such as the following:
+\begin{lem}
+Given $f$ continuous and $f: X \xrightarrow{} Y$. Then if $X$ is compact, $\text{Ran}(f) = Y$ is also compact.
+\end{lem}
+\begin{proof}
+Let $\{O_\alpha\}_{\alpha \in I}$ be an open cover of $Y$. Then:
+\begin{equation*}
+  X = f^{-1}(Y) \subseteq f^{-1}\left(\bigcup_{\alpha \in I}O_\alpha\right) = \bigcup_{\alpha \in I}f^{-1}(O_\alpha)
+\end{equation*}
+Thus, we have an open cover of $X$, which because it is compact, admits a finite subcover, thus:
+\begin{equation*}
+  X \subseteq \bigcup_{\alpha \leqslant n}f^{-1}(O_\alpha) = f^{-1}\left(\bigcup_{\alpha \leqslant n}O_\alpha\right) \implies f(X) = Y \subseteq \bigcup_{\alpha \leqslant n}O_\alpha
+\end{equation*}
+\end{proof}
+
+Using the previous lemma, we can derive a crucial theorem, the Extreme Value Theorem:
+\begin{thm}
+For any continuous $f: X \xrightarrow{} \mathbb{R}$, if $X$ compact, then $f$ achieves its minimum and maximum on $f(X)$. 
+\end{thm}
+\begin{proof}
+Since $X$ is compact, then $f(X) \subseteq \mathbb{R}$ is compact, which means it is closed and bounded. Closed means all adherent/limit points belong to it, and by density of reals, $\sup f(X) \land \inf f(X)$ are adherent.\\
+
+Thus $\sup f(X), \inf f(X) \in f(X)$, so they are in the range of $f$, thus $f^{-1}(\sup f(X)) \land f^{-1}(\inf f(x)) \neq \varnothing$, so they are attained and are max/min of $f$.
+\end{proof}
+
+\subsubsection{HW2 Problem 1}
+Call a mapping of $X$ into $Y$ open if $f(V)$ is an open set in $Y$ whenever $V$ is an open set in $X$. Prove that every continuous open mapping of $\mathbb{R}$ into $\mathbb{R}$ is monotonic.
+
+\begin{proof}
+We prove by contrapositive. Let $f$ be continuous, but not monotonic, which means:
+\begin{equation*}
+\exists x, y \in \mathbb{R}: x < y \land f(x) > f(y)
+\end{equation*}
+We now focus specifically on this interval $[x, y]$, and we apply extreme value theorem on the compact interval.\\
+
+This gives us the following cases:
+\begin{enumerate}
+\item $f(y)$ is a minimum but $f(x)$ is not a maximum
+\item $f(y)$ is not a minimum but $f(x)$ is a maximum
+\item $f(y)$ is not a minimum and $f(x)$ is not a maximum
+\item $f(y)$ is a minimum and $f(x)$ is a maximum
+\end{enumerate}
+For the sake of this problem, the continuity of $f$ is adequate to draw any following conclusions:\\
+
+In Case 1, if $f(x)$ is not a maximum, then there must exist some $a \in [x, y]$ such that $f(a) \in f[x, y]$ and $f(a)$ is the maximum, so that $f(a) = \max f[x, y] = \max f(x, y)$. We prove that $f(x, y)$ is then not open. Assume $f(a)$ were an interior point, then:
+\begin{equation}
+  \exists \epsilon > 0: (f(a) - \epsilon, f(a) + \epsilon) \subseteq f(x, y)
+\end{equation} 
+Given the monotonicity of $f$, then some element $f(a) + \epsilon/2 \in f(x, y)$, which would be greater than $f(a)$ which was the max, so we obtain a contradiction.\\
+
+Now in Case 2, if $f(x)$ is a maximum, then there is some $a \in (x, y)$ such that $f(a) = \min [x, y] = \min (x, y)$.\\
+
+In Case 3, we have $a, b$ such that $f(a)$ is the minimum and $f(a)$ is the maximum.\\
+
+Now in case 4, we see that $f(x, y)$ has supremums and infimums of $f(x), f(y)$, so we must consider closed subintervals. We check nested closed subintervals till we find one which satisfies either of the first 3 cases.
+\end{proof}
+
+
+\pagebreak
+\section{Intermediate Value Theorem and Connectedness}
+We say a space is disconnected if there exists a separation, defined as the following:
+\begin{defn}
+A topological space $X$ is disconnected if there exists a separation such that:
+\begin{equation*}
+\exists A, B \subseteq X: A \ \text{open} \land B \ \text{open} \ \land A \cup B = X \land A \cap B = \varnothing
+\end{equation*}
+\end{defn}
+In other words, $A$ and $A^c$ are open and closed by definition of topologically open and closed. A space is disconnected if there exists no such separation.\\
+
+\begin{thm}
+We now introduce the Intermediate Value Theorem in terms of topological spaces. Let $f: X \xrightarrow{} Y$:
+\begin{equation*}
+f \ \text{continuous} \land X \ \text{connected} \implies Y \ \text{connected}
+\end{equation*}
+\end{thm}
+\begin{proof}
+Assume $Y$ is disconnected, then $Y$ admits a separation such that $A \cup A^c = Y$. Then:
+\begin{equation*}
+  f^{-1}(A \cup A^c) = f^{-1}(A) \cup f^{-1}(A^c) = f^{-1}(Y) = X
+\end{equation*}
+Thus $X$ too admits a separation, showing that it is disconnected.
+\end{proof}
+
+Now in terms of $\mathbb{R}$, any interval $[a, b]$ (or $(a, b)$) is connected (in fact it is more strongly path connected), so a continuous function $f$ means that its image $f[a, b]$ is connected and furthermore compact and $f$ is uniformly continuous (follows from theorems in the previous section).\\
+
+Now the statement of IVT in the reals is:
+\begin{equation*}
+\forall y \in [f(a), f(b)] \exists x \in [a, b]: y = f(x)
+\end{equation*}
+Assume there exists some $y \in (f(a), f(b))$ such that $y \notin f[a, b]$, then $f[a, b]$ admits a separation:
+\begin{equation*}
+  f[a,b] = \{f(z) : z \in [a, b] \land z \leqslant y\} \cup \{f(z): z \in [a, b] \land z > y\}
+\end{equation*}
+Both sets of these separation are guaranteed to be nonempty because $f(a) < y < f(b)$ and $f(a), f(b) \in f[a, b]$, so this contradicts the connectedness of $f[a, b]$, thus proving IVT in the reals.\\
+
+So the important condition to takeaway from this is to apply IVT, one requires a connected domain $X$ and a continuous function $f$. 
+
+\medskip
+\subsubsection{HW2 Problem 3}
+Let $I = [0, 1]$ be the closed unit interval. Suppose $f$ is a continuous mapping of $I$ into $I$. Prove that $f(x) = x$ for at least one $x \in I$.\\
+
+Since the function $f(x)$ is continuous, the function $g(x) = f(x) - x$ is continuous because it is a linear combination of continuous functions. We aim to prove that it admits a root. Since $f[0, 1] \subseteq [0, 1]$, then:
+\begin{equation*}
+f(0) \geqslant 0 \land f(1) \leqslant 1 \implies g(0) = f(0) - 0 \geqslant 0 \land g(1) = f(1) - 1 \leqslant 0
+\end{equation*}
+In the case that both $g(a), g(b)$ are 0, the fixed points are the endpoints of the interval. Now in the case where $g(0) > 0$ and $g(1) < 0$, then $g$ admits the IVT property so:
+\begin{equation*}
+\exists x \in [0, 1]: g(x) \in [g(b), g(a)] \land g(x) = 0
+\end{equation*}
+This means there exists some $x \in [0, 1]$ such that $f(x) = x$. What we did in this problem is used the following corollary:
+\begin{cor}
+Let $f$ be continuous on some interval $[a, b]$. If there exists some $c \in [a, b]$ such that if $f(a) < 0$ and $f(b) > 0$, then $\exists c \in [a, b]: f(c) = 0$.
+\end{cor}
+\begin{proof}
+Since $f$ is continuous, it admits the intermediate value property for the interval $[f(a), f(b)]$. Then because $0 \in [f(a), f(b)]$, we see that there must be some $c \in [a, b]$ such that $f(c) = 0$.
+\end{proof}
+
+Consider as a counterexample we have a discontinuous function:
+\begin{equation*}
+f(x) \coloneq \begin{cases*}
+  \frac{1}{2} \ : \ x \in [0, 1/2)\\
+  0 \ : \ x \in [1/2, 1]
+\end{cases*}
+\end{equation*}
+Such a function maps $[0, 1] \xrightarrow{} [0, 1]$ more specifically $\{0, 1/2\} \subseteq [0, 1]$. Then we see that $g(x) = f(x) - x$ is greater than zero when $x \in [0, 1/2)$ and is less than zero when $x \in [1/2, 1]$.\\
+
+Then $g(0) > 0$ and $g(1) < 0$, so ideally by IVT it should possess a root, which it does not (due to the jump discontinuity). 
+
+\medskip
+\subsubsection{Midterm 1 Problem 1}
+\begin{lem}
+Let $X$ and $Y$ be metric spaces and $f: X \xrightarrow{} Y$ such that $\text{Dom}(f) = X$ and $\text{Ran}(f) = Y$. Assuming $f$ to be continuous, prove
+\begin{equation*}
+\forall A \subseteq X: A \ \text{dense in } X \implies f(A) \ \text{dense in } Y
+\end{equation*}
+\end{lem}
+\begin{proof}
+Here we use the sequential definition of density:
+\begin{equation*}
+\forall x \in X, \exists \{a_n\}_{n \in \mathbb{N}} \in A^\mathbb{N}: a_n \xrightarrow{} x
+\end{equation*}
+Then consider any $y \in Y$. Then $\exists x \in X: f(x) = y$, so:
+\begin{equation*}
+\exists \{a_n\}_{n \in \mathbb{N}} \in A^\mathbb{N}: a_n \xrightarrow{} x
+\end{equation*}
+which by continuity implies that $f(a_n) \xrightarrow{} f(x) = y$, thus:
+\begin{equation*}
+\forall y \in Y, \exists x \in X, \exists \{f(a_n)\}_{n \in \mathbb{N}} \in f(A)^\mathbb{N}: y = f(x) \land f(a_n) \xrightarrow{} f(x)
+\end{equation*}
+
+\end{proof}
+\pagebreak
+\section{Uniform Continuity}
+Uniform continuity states a relationship between two points and has a global $\delta$ such that:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0, \forall x, y \in \text{Dom}(f): \varrho(x, y) < \delta \implies \varrho(f(x), f(y)) < \epsilon
+\end{equation*}
+So uniform continuity gives us a direct bound (no need for triangle inequality) on $\text{osc}(f, [x, y])$. We note an interesting property of uniform continuity:
+\begin{defn}
+A modulus of continuity is a function $\omega: [0, \infty) \xrightarrow{} [0, \infty)$ such that it is non-decreasing and $\omega(0) = 0$.
+\end{defn}
+We can find out that a uniformly continuous function $f$ always admits a modulus of continuity $\omega_f$ such that:
+\begin{equation*}
+\forall x, y \in \text{Dom}(f): |f(x) - f(y)| \leqslant \omega(|x-y|)
+\end{equation*}
+in which case we see that $\epsilon = \omega(\delta)$. In the case of Lipschitz continuous functions:
+\begin{equation*}
+\exists C \in \mathbb{R}: |f(x) - f(y)| \leqslant C|x-y| \implies \epsilon = C\delta
+\end{equation*}
+and in H\"older continuous functions:
+\begin{equation*}
+\exists C \in \mathbb{R}, \exists \alpha > 0: |f(x) - f(y)| \leqslant C(|x-y|)^\alpha \implies \epsilon = C\delta^\alpha
+\end{equation*}
+
+We now view some useful lemmas regarding uniform continuity, given some $f: X \xrightarrow{} Y$:
+\begin{lem}
+$f  \ \text{continuous} \land X  \ \text{compact} \implies f \ \text{uniformly continuous}$
+\end{lem}
+\begin{proof}
+We prove by contradiction. $X$ being compact means it is sequentially compact, so consider some sequences $\{x_n\}_{n \in \mathbb{N}}, \{y_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}$.\\
+
+Now if $f$ is not uniformly continuous, we have that:
+\begin{equation*}
+\exists \epsilon > 0, \forall \delta > 0, \exists x_n, y_n \in \text{Dom}(f): |x_n - y_n| < \delta \land |f(x_n) - f(y_n)| \geqslant 2\epsilon
+\end{equation*}
+However, compactness of $X$ gives us subsequences $x_{n_k} \xrightarrow{} x \land y_{n_j} \xrightarrow{} y$. Then:
+\begin{equation*}
+  \forall \epsilon > 0, \forall n \in \mathbb{N}, \exists n_{k_x} \geqslant 0, \forall n_k \geqslant n_{k_x}: |x_{n_k} - x| < \frac{1}{n + 1} \implies |f(x_{n_k}) - f(x)| < \epsilon
+\end{equation*}
+\begin{equation*}
+  \forall \epsilon > 0, \forall n \in \mathbb{N}, \exists n_{j_y} \geqslant 0, \forall n_j \geqslant n_{j_y}: |y_{n_j} - y| < \frac{1}{n+1} \implies |f(y_{n_j}) - f(x)| < \epsilon
+\end{equation*}
+Then choosing $n_0 \coloneq \max\{n_{k_x}, n_{j_y}\}$, we define:
+\begin{equation*}
+\{z_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}, \forall k \in \mathbb{N}: z_{2k} \coloneq x_{n_k} \land z_{2k+1} \coloneq y_{n_k}
+\end{equation*}
+Then, we see that $\forall 2k, 2j+1 \geqslant n_0$
+\begin{equation*}
+  |f(z_{2k}) - f(z_{2j+1})| = |f(x_{n_k}) - f(y_{n_j})| \leqslant |f(x_{n_k}) - f(x)| + |f(y_{n_j}) - f(x)| < 2\epsilon
+\end{equation*}
+which contradicts the fact that $f$ is not uniformly continuous, since the above inequality is true for all $\epsilon > 0$. 
+\end{proof}
+
+
+\subsubsection{HW 2 Problem 2}
+\begin{lem}
+Let $X$ and $Y$ be metric spaces with $X$ totally bounded. Prove that for each $f: X \xrightarrow{} Y$
+\begin{equation*}
+f \ \text{ Cauchy continuous} \implies f \ \text{uniformly continuous}
+\end{equation*}
+\end{lem}
+
+Cauchy continuous means:
+\begin{equation*}
+\forall \{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}: \{x_n\}_{n \in \mathbb{N}} \ \text{Cauchy} \implies \{f(x_n)\}_{n \in \mathbb{N}} \ \text{Cauchy}
+\end{equation*}
+We can prove (not now however) that any sequence in a totally bounded space has a Cauchy subsequence. Now assume $f$ is not uniformly continuous and consider $\{x_n\}_{n \in \mathbb{N}}, \{y_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}$.\\
+
+Now, we have subsequences $\{x_{n_k}\}_{k \in \mathbb{N}}, \{y_{n_j}\}_{j \in \mathbb{N}}$ which are Cauchy, so that:
+\begin{equation*}
+\forall \epsilon > 0, \forall n \in \mathbb{N}, \exists n_{k_x} \geqslant 0, \forall n_k, n_k' \geqslant n_{k_x}: |x_{n_k} - x_{n_k}'| < \frac{1}{n+1} \implies |f(x_{n_k}) - f(x_{n_k'})| < \epsilon
+\end{equation*}
+\begin{equation*}
+\forall \epsilon > 0, \forall n \in \mathbb{N}, \exists n_{j_y} \geqslant 0, \forall n_j, n_j' \geqslant n_{j_y}: |y_{n_j} - y_{n_j'}| < \frac{1}{n+1} \implies |f(y_{n_j}) - f(y_{n_j'})| < \epsilon
+\end{equation*}
+If $f$ is not uniformly continuous, then:
+\begin{equation*}
+\exists \epsilon > 0, \forall \delta > 0, \exists x_n, y_n \in \text{Dom}(f): |x_n - y_n| < \delta \land |f(x_n) - f(y_n)| \geqslant \epsilon
+\end{equation*}
+We use a same interlacing technique as the previous problem. Setting $n_0 \coloneq \max\{n_{k_x}, n_{j_i}\}$, we define:
+\begin{equation*}
+\{z_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}, \forall k \in \mathbb{N}: z_{2k} \coloneq x_{n_k} \land z_{2k+1} \coloneq y_{n_k}
+\end{equation*}
+Then $\forall 2k, 2j+1, 2m \geqslant n_0$:
+\begin{equation*}
+|f(z_{2k}) - f(z_{2m}) + f(z_{2m}) - f(z_{2j+1})| \leqslant |f(x_{n_k}) - f(x_{n_m})| + |f(x_{n_m}) - f(y_{n_m})| + |f(y_{n_m}) - f(y_{n_j})|
+\end{equation*}
+By the negation of uniform continuity, we had the existence of these two sequences such that $\forall \delta > 0, \exists n \in \mathbb{N}: |x_n - y_n| < \delta$, so the above inequality is bounded by:
+\begin{equation*}
+  < 2\epsilon + \delta \implies \lim_{\delta \xrightarrow{}0^+}(2\epsilon + \delta) = 2\epsilon
+\end{equation*}
+
+\medskip
+The idea behind the sequences is that for all $\delta > 0$ there must exist some pair of points that does not satisfy uniform continuity. So for all values $\delta$ can take on (in fact this becomes a net vs sequence matter, so for all $\delta_n \coloneq \frac{1}{n+1}$, we are guaranteed the existence of some pair, which becomes the $n$-th pair. Thus such a construction does not require Axiom of Choice.)
+
+
+\pagebreak
+\section{Discontinuities}
+The main types of discontinuities are discontinuities of the first kind, which come in 2 types:
+\begin{equation*}
+  f(x^+) \neq f(x^-) \lor f(x^+) = f(x^-) \neq f(x)
+\end{equation*}
+where $f(x^+), f(x^-)$ are the right and left limits respectively, defined as:
+\begin{equation*}
+f(x^+) \coloneq \lim_{z\xrightarrow{}x^+}f(z) = \lim_{z \xrightarrow{} x \land z \in (x, \infty)}f(x)
+\end{equation*}
+\begin{equation}
+f(x^-) \coloneq \lim_{z \xrightarrow{} x \land z \in (\infty, x)}f(z)
+\end{equation}
+Discontinuities of the second kind are ones where either the left or right limit does not exist.\\
+
+Consider $1_C$ where $C$ is the Cantor set. Because the Cantor Set is perfect (meaning around every point in the Cantor Set in an arbitrary radius, one can find a point in the Cantor set) and nowhere dense, which means:
+\begin{equation*}
+\text{int}(\overline{C}) = \text{int}(C) = \varnothing
+\end{equation*}
+so, we can always find a point outside the Cantor set in an arbitrary radius around a point in $C$. Now, we see that:
+\begin{equation*}
+\forall x \in C: \lim_{z \xrightarrow{} x}1_C(z) \ \text{does not exist}
+\end{equation*}
+This can be proven by the supremum/limit-oscillation characterization:
+\begin{equation*}
+\forall \delta > 0, \forall x \in C, \exists x' \in C, \exists y \notin C: x', y \in B(x, \delta)
+\end{equation*}
+Thus:
+\begin{equation*}
+\forall \delta > 0, \sup_{z \in B(x, \delta)\setminus \{x\}}1_C(z) = 1 \land \inf_{z \in B(x, \delta)\setminus \{x\}}1_C(z) = 0
+\end{equation*}
+\begin{equation*}
+\implies \lim_{\delta \xrightarrow{} 0^+}\sup_{z \in B(x, \delta)\setminus \{x\}}1_C(z) \neq \lim_{\delta \xrightarrow{} 0^+}\inf_{z \in B(x, \delta)\setminus \{x\}}1_C(z)
+\end{equation*}
+Thus the limit does not exist. HOWEVER, this does not narrow it down to whether it is a discontinuity of the first kind or the second kind. However, if we run the same argument for half balls $(x, x+\delta)$ or $(x-\delta, x)$, we see that the left AND right limits do not exist.\\
+
+Thus the function has discontinuities of the second kind at each point in the Cantor set. So the takeaway is to use left and right limits when wanting to analyze the discontinuities, and using negation of continuity to prove discontinuity.\\
+
+Now the function for $x \notin C$ is actually continuous. We can show this by noting that $C$ is closed, to $C^c$ is open. Thus for all points $x \notin C$ or $x \in C^c$:
+\begin{equation*}
+\exists \delta > 0: B(x, \delta) \subseteq C^c
+\end{equation*}
+Thus, $\forall \epsilon > 0, \exists \delta > 0, \forall y \in [0, 1]: |x-y| < \delta \implies |f(x) -f(y)| = 0 < \epsilon$, by the definition of an open set, thus $1_C$ is continuous at all points not in the Cantor Set.\\
+
+\begin{lem}
+A monotone function (without loss of generality consider monotonically increasing) can only have discontinuities of the first kind.
+\end{lem}
+\begin{proof}
+Consider some $x \in \text{Dom}(f)$ at with the function has a discontinuity. We also have that:
+\begin{equation*}
+\forall x, y \in \text{Dom}(f): x < y \implies f(x) \leqslant f(y)
+\end{equation*}
+Then, we can define the right limit as $f(x^+) \coloneq \inf\{f(z): z > x\}$ and the left limit as $f(x^-) \coloneq \sup\{f(z): z < x\}$. We know that the supremum and infimum exist because of the monotonic nature of $f$, allowing us to find an upper and lower bound.\\
+
+Now, we prove these are the correct representations of the limits:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0, \forall z \in (x, x+\delta): |f(z) - f(x^+)| < \epsilon
+\end{equation*}
+By the definition of infimum, we see that $\forall \epsilon > 0, \exists z_0 > x: f(x^+) \leqslant f(z_0) \leqslant f(x^+) + \epsilon$. Then, setting $\delta = z_0 - x$, we see that $\forall z \in (x, x+\delta): f(x^+) \leqslant f(y) \leqslant f(z_0)$:
+\begin{equation*}
+\implies f(x^+) - \epsilon \leqslant f(y) \leqslant f(x^+) + \epsilon \implies |f(x^+) - f(z)| < \epsilon
+\end{equation*}
+A similar argument can be made for $f(x^-)$. The arguments follow from the fact that the supremum and infimum are adherent in the reals.
+\end{proof}
+
+\subsubsection{HW3 Problem 1}
+\begin{lem}
+Let $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ be non-decreasing with $\text{Dom}(f) = \mathbb{R}$. Prove that $x \mapsto f(x^+)$ is right continuous while $x \mapsto f(x^-)$ is left continuous with both functions non-decreasing. In addition, prove that
+\begin{equation*}
+\forall x \in \mathbb{R}: f(x^-) \leqslant f(x) \leqslant f(x^+)
+\end{equation*}
+and
+\begin{equation*}
+\forall x, y \in \mathbb{R}: x < y \implies f(x^+) \leqslant f(y^-)
+\end{equation*}
+\end{lem}
+We provide a proof SPECIFICALLY based on monotonicity first:
+\begin{proof}[Monotonicity Dependent]
+Consider all $y \in (x, x + \delta_{x})$ where $\delta_{x}$ comes from the existence of the right limit. Then, we can find some $z$ such that:
+\begin{equation*}
+x < y < z \implies f(x) \leqslant f(y) \leqslant f(z) \implies f(x^+) \leqslant f(y) \leqslant f(z)
+\end{equation*}
+\begin{equation*}
+\implies f(x^+) \leqslant f(y^+) \leqslant f(z)
+\end{equation*}
+To justify the inequality between the right limits at $x$ versus $y$, we know that:
+\begin{equation*}
+A \subseteq B \implies \inf B \leqslant \sup A
+\end{equation*}
+So because $\{f(z): z > y\} \subseteq \{f(z): z > x\}$ because $y > x$, then:
+\begin{equation*}
+f(x^+) = \inf\{f(z): z > x\} \leqslant \inf\{f(z): z > y\} = f(y^+)
+\end{equation*}
+This shows monotonicity of the function mapping $x$ to its right limit; similar logic can be applied for the left limit. Then if we set $\delta = z - x$, we have continuity of the right limit map.\\
+
+This argument however is not possible without monotonicity!
+\end{proof}
+
+Now one WITHOUT monotonicity:
+\begin{proof}[Without Monotonicity]
+To show right continuity, we want to show:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0, \forall y \in [x, x+\delta): |f(y^+) - f(x^+)| < \epsilon
+\end{equation*}
+Now if $y = x$ the property is trivial. If $y \in (x, x + \delta)$, it is an interior point, so $\exists \delta' > 0: (y, y + \delta') \subseteq (x, x+\delta)$. Now from the definition of right limits, we get the following:
+\begin{align*}
+&\forall \epsilon > 0, \exists \delta_{x} > 0, \forall y \in (x, x+\delta_{x}): |f(y) - f(x^+)| < \epsilon\\
+&\forall \epsilon > 0, \exists \delta_y > 0, \forall z \in (y, y+\delta_y): |f(z) - f(y^+)| < \epsilon
+\end{align*}
+Now take $\delta_{m} \coloneq \min\{\delta_y, \delta\}$ such that the half-ball around $y$ lies within the $\delta_{x_0}$ half ball and the right limit property is preserved, that way for any $z \in (y, y+\delta_m)$, $f(z)$ satisfies the right limit condition at both $x$ and $y$. Then:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta = \delta_{x}, \forall y \in (x, x + \delta), \forall z \in (y, y+\delta_m): |f(x^+) - f(y^+)| \leqslant |f(x^+) - f(z)| + |f(z) - f(y^+)| < 2\epsilon
+\end{equation*}
+The proof is the same for the left limits, except that we utilize left half-open balls.
+\end{proof}
+
+We now prove the remaining inequalities. By definition of infimum, we have that:
+\begin{equation*}
+\forall \epsilon > 0, \exists y > x: f(x^+) \leqslant f(y) \leqslant f(x^+) + \epsilon
+\end{equation*}
+Then by monotonicity, we see that $\forall \epsilon > 0: f(x) \leqslant f(x^+) + \epsilon \implies f(x) \leqslant f(x^+)$ proving one side of the inequality. Similarly, by supremum:
+\begin{equation*}
+\forall \epsilon > 0, \exists y < x: f(x^-) - \epsilon \leqslant f(y) \leqslant f(x^-)
+\end{equation*}
+\begin{equation*}
+\implies \forall \epsilon > 0: f(x^-) - \epsilon \leqslant f(x) \implies f(x^-) \leqslant f(x)
+\end{equation*}
+
+Now we prove the third part. We have that if $x < y$, then we have that by definition of left limit at $y$ and infimum properties, and likewise by supremum properties:
+\begin{equation*}
+f(x) \leqslant f(y^-) \land f(x^+) \leqslant f(y)
+\end{equation*}
+This however does not allow us to combine the inequalities, so we need a bridge point. Consider $x < z < y$, then $f(x) \leqslant f(z) \leqslant f(y)$, so:
+\begin{equation*}
+z < y \implies f(z) \leqslant f(y^-)
+\end{equation*}
+by supremum definition. Furthermore:
+\begin{equation*}
+x < z \implies f(x^+) \leqslant f(z)
+\end{equation*}
+thus giving us our last inequality, that $\forall x, y \in \mathbb{R}: x < y \implies f(x^+) \leqslant f(y^-)$.
+
+\subsubsection{Midterm 1 Problem 2}
+Let $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ with $\text{Dom}(f) = \mathbb{R}$ be such that
+\begin{equation*}
+  h(x) \coloneq \lim_{z \xrightarrow{} x^+} f(z)
+\end{equation*}
+exists for all $x \in \mathbb{R}$. Prove that $h$ is right continuous:\\
+
+The proof is the same as the one given for part one of the previous Lemma (the one without monotonicity). To rehash it, we use the $\delta$ given by the existence of the right limit as the radius of continuity. Then for all $y$ in that half-ball, we see that it is an interior point (by definition of open set), giving rise to a radius/containment around $y$ within the $\delta$ half-ball.\\
+
+Now existence of a right limit at $y$ also gives another radius, so taking minimum of interior/existence of limit radii around $y$, we get $\delta_m$ which ensures that choosing any point within that is also within the $\delta$ half-ball around $x$, the point of investigation.\\
+
+Then using triangle inequality, we can choose an arbitrary $z$ in the $\delta_m$ half ball and use its value $f(z)$ as a pivot point in triangle inequality to get a bound of $2\epsilon$.\\
+
+NOTE: This ONLY guarantees right continuity of this function $h(x)$. Left continuity is not guaranteed because $y$ is not an interior point, so an intersection between the two balls from limit existence around $x, y$ is not guaranteed. Thus the $\delta_m$ construction falls apart.
+
+\pagebreak
+\section{Variation (Continuity)}
+\subsubsection{HW2 Problem 9}
+Consider a function $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ and given reals $a < b$, define its total variation on $[a, b]$ by
+\begin{equation*}
+V(f, [a, b]) \coloneq \sup_{\Pi}\sum_{i=1}^{n}|f(t_i) - f(t_{i-1})|
+\end{equation*}
+where $\Pi$ denotes a partition $\{t_i\}_{i =0}^{n}$ of $[a, b]$. For any $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ with $V(f, [a, b]) < \infty$, prove
+\begin{enumerate}
+\item total variation is additive in the sense that
+\begin{equation*}
+\forall t \in (a, b): V(f, [a, b]) = V(f, [a, t]) + V(f, [t, b])
+\end{equation*}
+\item if $f$ is continuous at $x \in [a, b]$, then so is $v$, where $v(t) = V(f, [a, t])$
+\end{enumerate}
+
+\begin{proof}
+We cover the easy case for additivity first. Consider $\Pi$ such that $t \in \Pi$. Then, additivity trivially follows. Now, consider the following:
+\begin{equation*}
+\exists j \in 1,...,n: t \in [t_{j-1}, t_j]
+\end{equation*}
+Then one side of the inequality is apparent:
+\begin{equation*}
+\sum_{i=1}^{n}|f(t_i) - f(t_{i-1})| = \sum_{i=1}^{j-1}|f(t_{i}) - f(t_{i-1})| + |f(t_j) - f(t_{j-1})| + \sum_{i=j+1}^{n}|f(t_{i}) - f(t_{i-1})|
+\end{equation*}
+Now, we refine the partition by inserting $T$, so that $t \in \Pi'$ and:
+\begin{equation*}
+  \leqslant \sum_{i=1}^{j-1}|f(t_{i}) - f(t_{i-1})| + |f(t_j) - f(t)| + |f(t) - f(t_{j-1})| + \sum_{i=j+1}^{n}|f(t_{i}) - f(t_{i-1})|
+\end{equation*}
+Now by supremum properties over all possible partitions:
+\begin{equation*}
+\implies V(f, [a, b]) \leqslant V(f, [a, t]) + V(f, [t, b])
+\end{equation*}
+To prove the opposite direction inequality, it suffices to show there exists a partition where the reverse inequality holds for the partition sums, and then apply the supremum.\\
+
+Consider a partition $\Pi_a$ of $[a, t]$ and a partition $\Pi_b$ of $[t, b]$. Then $\Pi = \Pi_a \cup \Pi_b$ is a partition for all of $[a, b]$. In that case, we see that:
+\begin{equation*}
+\sum_{\Pi_a}|f(t_i) - f(t_{i-1})| + \sum_{\Pi_b}|f(t_i) - f(t_{i-1})| = \sum_{\Pi}|f(t_i) - f(t_{i-1})| \leqslant V(f, [a, b])
+\end{equation*}
+Once again applying supremum properties to the left side, we obtain $V(f, [a, t]) + V(f, [t, b]) \leqslant V(f, [a, b])$. 
+\end{proof}
+
+We now prove the continuity of the function $v(t)$:
+\begin{proof}
+\begin{equation*}
+\forall x \in (a, b) \forall \epsilon > 0, \exists \delta > 0, \forall y \in B(x, \delta): |v(y) - v(x)| < \epsilon
+\end{equation*}
+What this means is:
+\begin{equation*}
+|v(y) - v(x)| = |V(f, [a, y]) - V(f, [a, x])| < \epsilon
+\end{equation*}
+It does not matter whether $y < x$ or $x < y$ but without loss of generality assume the initial, but we see that by the previous result of additivity:
+\begin{equation*}
+|V(f, [a, y]) - V(f, [a, x])| = |V(f, [y, x])| < \epsilon
+\end{equation*}
+so proving left continuity is adequate for this problem. Now, we are given continuity of $f$ (which implies left continuity):
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall y \in (x- \delta_0, x]: |f(y) - f(x)| < \epsilon
+\end{equation*}
+Now we see that $\forall \epsilon > 0$:
+\begin{equation*}
+\exists \Pi_{[a, x]}: V(f, [a, x]) - \epsilon \leqslant \sum_{\Pi}|f(t_i) - f(t_{i-1})|
+\end{equation*}
+Now choosing $\delta \coloneq \frac{1}{2}\min\{\delta_0, |t_i - x|\}$  and refining the partition to add $y$ in this ball, we see that:
+\begin{equation*}
+\exists \Pi'_{[a, y]}: V(f, [a, x]) - \epsilon \leqslant \sum_{\Pi'}|f(t_i) - f(t_{i-1})| + |f(y) - f(x)| \leqslant V(f, [a, y]) + \epsilon
+\end{equation*}
+\begin{equation*}
+\implies V(f, [a, x]) - V(f, [a, y]) < 2\epsilon
+\end{equation*}
+\end{proof}
+
+The takeaway is that the existence of a partition is always a bridge to apply supremum and bring out the variation.
+
+\subsubsection{Midterm 1 Problem 3}
+\begin{lem}
+For real $a < b$, let $f: [a, b] \xrightarrow{} \mathbb{R}$ (with $\text{Dom}(f) = [a, b]$) be a function of bounded variation. Define $h: [a, b] \xrightarrow{} \mathbb{R}$ by:
+\begin{equation*}
+h(x) \coloneq V(f, [a, x]) - f(x)
+\end{equation*}
+Prove that $h(x)$ is nondecreasing.
+\end{lem}
+\begin{proof}
+We want to show that $x < y \implies h(x) \leqslant h(y)$. So $h(y) - h(x)$ is:
+\begin{equation*}
+h(y) - h(x) = V(f, [a, y]) - f(y) - V(f, [a, x]) + f(x) = V(f, [x, y]) - (f(y) - f(x))
+\end{equation*}
+If $f(y) < f(x)$, then this is trivial as total variation is always a positive quantity. If $f(y) > f(x)$, then we can simple add some $z \in (x, y)$ to create a partition $\Pi$ such that:
+\begin{equation*}
+(f(y) - f(x)) \leqslant |f(y) - f(x)| \leqslant |f(y) - f(z)| + |f(z) - f(x)| \leqslant V(f, [x, y]) \implies h(y) - h(x) \geqslant 0
+\end{equation*}
+\end{proof}
+
+\pagebreak
+\section{Differentiation}
+\subsection{Important Statements}
+We will quickly go through sufficient/necessary conditions and important definitions.
+
+\begin{defn}
+For a function $f: [a, b] \xrightarrow{} \mathbb{R}$, the derivative at some point $x \in (a, b)$ is defined as:
+\begin{equation*}
+f'(x) \coloneq \lim_{z \xrightarrow{} x}\frac{f(z) - f(x)}{z-x}
+\end{equation*}
+or alternatively
+\begin{equation*}
+f'(x) \coloneq \lim_{h \xrightarrow{} 0^+}\frac{f(x+h) - f(x)}{h}
+\end{equation*}
+\end{defn}
+
+\medskip
+\begin{lem}
+If a function $f$ is differentiable on $(a, b)$ then it is continuous on $(a, b)$.
+\end{lem}
+\begin{proof}
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta' > 0, \forall z \in B(x, \delta') \setminus \{x\}: \left|\frac{f(z) - f(x)}{z-x} - f'(x)\right| < \epsilon'
+\end{equation*}
+Thus:
+\begin{equation*}
+|f(z) - f(x)| = |z-x| \cdot \left|\frac{f(z)-f(x)}{z-x} - f'(x) + f'(x)\right| \leqslant |z-x|\cdot \left|\frac{f(z)- f(x)}{z-x} - f'(x)\right| + |f'(x)||z-x|
+\end{equation*}
+\begin{equation*}
+< |z-x|(\epsilon' + |f'(x)|) < \epsilon \implies \delta \coloneq \min\left\{\delta_0, \frac{\epsilon}{\epsilon' + |f'(x)|}\right\}
+\end{equation*}
+Thus proving the $\epsilon$-$\delta$ definition of continuity, we simply add the point $x$ to consideration, because $f$ is defined on all of $(a, b)$.
+\end{proof}
+
+\begin{thm}
+The Mean Value Theorem states that:
+\begin{equation*}
+f: [a, b] \xrightarrow{} \mathbb{R} \land f \ \text{continuous on } [a, b] \land f \ \text{differentiable on } (a, b) \implies \exists z \in (a, b): f'(z) = \frac{f(b) - f(a)}{b-a}
+\end{equation*}
+\end{thm}
+The proof, which we will not cover, follows from the following notion:
+
+\medskip
+\begin{defn}
+A local max is a point $x \in (a, b)$ such that:
+\begin{equation*}
+\exists \delta_0 > 0, \forall z \in B(x, \delta_0): f(z) \leqslant f(x)
+\end{equation*}
+A local min is a point $x \in (a, b)$ such that:
+\begin{equation*}
+\exists \delta_0 > 0, \forall z \in B(x, \delta_0): f(z) \geqslant f(x)
+\end{equation*}
+\end{defn}
+Now if it is known that $f$ is differentiable on $(a, b)$, we see that for a local max:
+\begin{equation*}
+\forall z \in (x - \delta_0, x): \frac{f(z) - f(x)}{z-x} \geqslant 0 \land \forall z \in (x, x+\delta_0): \frac{f(z) - f(x)}{z-x} \leqslant 0
+\end{equation*}
+Because $f$ is differentiable, we can define $f'(x)$ as per its limit definition, so:
+\begin{equation*}
+lim_{z \xrightarrow{} x^-}\frac{f(z) - f(x)}{z-x} = f'(x^-) \geqslant 0
+\end{equation*}
+\begin{equation*}
+\lim_{z \xrightarrow{} x^+}\frac{f(z) - f(x)}{z-x} = f'(x^+) \leqslant 0
+\end{equation*}
+Since the derivative exists, we have that $f'(x) = f'(x^-) = f'(x^+)$, which is analogue to the existence of a limit where the left limit equals the right limit. Then:
+\begin{equation*}
+f'(x) \leqslant 0 \land f'(x) \geqslant 0 \implies f'(x) = 0
+\end{equation*}
+A similar argument can be made for local minimums. This idea gives rise to Rolle's theorem:
+
+\medskip
+\begin{thm}
+Rolle's Theorem: Let $f$ be continuous on $[a, b]$ and differentiable on $(a, b)$ and $f(a) = f(b)$, then $\exists z \in (a, b): f'(z) = 0$.
+\end{thm}
+\begin{proof}
+If $f$ is continuous on a compact interval, it achieves its maximum and minimum by Extreme Value Theorem. The endpoints can either be one or neither (if they are both, then $f$ is constant, which follows from definition of min/max).\\
+
+Thus, there exists another extremum within the interval that is not at the endpoints (either a local min or local max), in which case:
+\begin{equation*}
+\exists z \in (a, b): f'(z) = 0
+\end{equation*}
+by the previous definition. Notice how continuity was required to apply the Extreme Value Theorem. 
+\end{proof}
+
+\medskip
+\begin{lem}
+L'Hopital's Rule helps evaluate derivatives and says if $f, g: [a, b] \xrightarrow{} \mathbb{R}$ is continuous on $[a, b]$ and differentiable on $(a, b)\setminus \{x\}$, then:
+\begin{equation*}
+\lim_{z \xrightarrow{} x}\frac{f(z)}{g(z)} = \lim_{z \xrightarrow{} x}\frac{f'(z)}{g'(z)}
+\end{equation*}
+Notice how, because we are taking limits of derivatives once again, we do not care about the value of the derivatives at the point $x$ itself. 
+\end{lem}
+
+\medskip
+\subsubsection{Midterm 1 Problem 4}
+Let $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ be twice differentiable but do not assume that $f''$ is continuous. Prove that, for each $x \in \mathbb{R}$:
+\begin{equation*}
+\lim_{h \xrightarrow{} 0}\frac{f(x+2h) + f(x) - 2f(x+h)}{h^2} = f''(x)
+\end{equation*}
+\begin{proof}
+We are able to apply L'Hopitals because $f$ is continuous and differentiable:
+\begin{equation*}
+\lim_{h \xrightarrow{} 0}\frac{f(x+2h) + f(x) - 2f(x+h)}{h^2} = \lim_{h \xrightarrow{} 0}\frac{2f'(x+2h) - 2f'(x+h)}{2h}
+\end{equation*}
+\begin{equation*}
+= \lim_{h \xrightarrow{} 0}\frac{2f'(x+2h) - 2f'(x) + 2f'(x) - 2f'(x+h)}{2h}
+\end{equation*}
+\begin{equation*}
+= \lim_{h \xrightarrow{} 0}\left(2\frac{f'(x+2h)-f'(x)}{2h} - \frac{f'(x+h) - f'(x)}{h}\right) = 2f''(x) - f''(x) = f''(x)
+\end{equation*}
+Now assume we were to apply L'Hopital a second time, we would get the expression:
+\begin{equation*}
+\lim_{h \xrightarrow{} 0}(2f''(x+2h)- f''(x+h)) = \lim_{z \xrightarrow{}x}(2f''(2z-x) - f''(z))
+\end{equation*}
+For this, we would need to know the limit behavior or continuity of $f''$, which we are not aware of. This is because we first want the limit to exist and the limit to agree with the value of the function $f''(x)$; however, twice differentiability only gives us continuity of $f'$.\\
+
+Which leads us to an interesting example of a function which has a derivative BUT the derivative is not continuous. Consider:
+\begin{equation*}
+f(x) \coloneq \begin{cases*}
+  0 \ : \ x = 0\\
+  x^2\sin(1/x) \ : \ x \in \mathbb{R}\setminus \{0\}
+\end{cases*}
+\end{equation*}
+Then, we find that the derivative is:
+\begin{equation*}
+f'(x) = 2x\sin(1/x) - \cos(1/x)
+\end{equation*}
+So it is differentiable at all $x \neq 0$, but at $x=0$, we see that:
+\begin{equation*}
+f'(0) = \lim_{z \xrightarrow{} 0}\frac{z^2\sin(1/z) - f(0)}{z} = \lim_{z \xrightarrow{} 0}z\sin(1/z)
+\end{equation*}
+By bounding the limit by the range of the sine function, we see:
+\begin{equation*}
+-z \leqslant z\sin(1/z) \leqslant z \implies 0 \leqslant \lim_{z \xrightarrow{} 0}z\sin(1/z) \leqslant 0
+\end{equation*}
+so $f'(0) = 0$, thus the function $f$ is differentiable. However the derivative $f'(x)$ is not continuous at $x = 0$ because the limit does not exist. In fact, we can prove it is a discontinuity of the second kind:
+\begin{equation*}
+\forall \delta > 0, \exists n \in \mathbb{N}, \exists z, z' \in (0, \delta): z = \frac{1}{2n\pi} \land z' = \frac{1}{n\pi} 
+\end{equation*}
+Then:
+\begin{equation*}
+f'(z) = 1, f'(z') = -1
+\end{equation*}
+\begin{equation*}
+\exists \epsilon = 1/2, \forall \delta > 0: \sup_{z \in (0, \delta)}f(z) - \inf_{z \in (0, \delta)}f(z) = 1 - (-1) = 2 > 1/2
+\end{equation*}
+\begin{equation*}
+\lim_{\delta \xrightarrow{} 0^+}\sup_{z \in (0, \delta)}f(z) = 1 \neq \lim_{\delta \xrightarrow{} 0^+}\inf_{z \in (0, \delta)}f(z) = -1
+\end{equation*}
+Thus showing the right limit does not exist (limit-oscillation on the right is non-zero), showing the derivative is not continuous even though the function is differentiable. Functions which have a continuous derivative are continuously differentiable.
+\end{proof}
+
+\medskip
+\subsubsection{HW3 Problem 2}
+We can also characterize the existence of the derivative by linear approximation:
+\begin{lem}
+Given a function $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ and $a \in \text{int}(\text{Dom}(f))$, prove:
+\begin{equation*}
+f'(a) \ \text{exists} \iff \exists b \in \mathbb{R}: \lim_{\delta \xrightarrow{} 0^+}\frac{1}{\delta}\sup_{x \in (a-\delta, a+\delta)}|f(x) - f(a) - b(x-a)| = 0
+\end{equation*}
+Also prove that $b$ satisfying the condition on the right is necessarily unique.
+\end{lem}
+\begin{proof}
+$\implies:$ If $f'(a)$ exists, then we can define $b \coloneq f'(a)$ and:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0, \forall x \in (a-\delta, a+\delta)\setminus\{a\}: \left|\frac{f(x) - f(a)}{x-a} - b\right| < \epsilon
+\end{equation*}
+\begin{equation*}
+\implies |f(x) - f(a) - b(x-a)| < \epsilon \cdot |x-a| < \epsilon \cdot \delta
+\end{equation*}
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall x \in B(a, \delta)\setminus\{a\}: \frac{1}{\delta_0}\sup_{x \in (a - \delta, a + \delta)}|f(x) - f(a) - b(x-a)| \leqslant \epsilon
+\end{equation*}
+Now by the monotonicity of supremum, we see that:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0: \frac{1}{\delta_0} \sup_{x \in B(a, \delta)}|f(x) - f(a) - b(x-a)| \leqslant \epsilon
+\end{equation*}
+\begin{equation*}
+\implies \lim_{\delta \xrightarrow{} 0^+}\frac{1}{\delta}\sup_{x \in B(a, \delta)}|f(x) - f(a) - b(x-a)| = 0
+\end{equation*}
+
+$\impliedby:$ Now to prove the converse, we right the limit in terms of $\epsilon$-$\delta$ net convergence:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0: \frac{1}{\delta}\sup_{x \in B(a, \delta)}|f(x) - f(a) - b(x-a)| \leqslant \epsilon
+\end{equation*}
+\begin{equation*}
+\implies \sup_{x \in B(a, \delta)}|f(x) - f(a) - b(x-a)| \leqslant \epsilon \cdot \delta \leqslant \epsilon \cdot \delta_0
+\end{equation*}
+Now by supremum properties, since the inequality is satisfied by $\delta = \delta_0$:
+\begin{equation*}
+\implies \forall x \in B(a, \delta_0):  |f(x) - f(a) - b(x-a)| \leqslant \epsilon \cdot \delta_0
+\end{equation*}
+\begin{equation*}
+\implies \forall x \in B(a, \delta_0): \left|\frac{f(x) - f(a)}{x-a} - b\right| \leqslant \frac{1}{\delta_0}|f(x) - f(a) - b(x-a)| \leqslant \epsilon
+\end{equation*}
+So now we have the following statement:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall x \in B(x, \delta)\setminus\{a\}: \left|\frac{f(x) - f(a)}{x-a} - b\right| \leqslant \epsilon < 2\epsilon
+\end{equation*}
+\end{proof}
+
+\subsection{Taylor's Theorem}
+\subsubsection{Lagrange Remainder}
+\begin{thm}
+
+\end{thm}
+
+
+\pagebreak
 \section{Density}
 We start off by considering some topological space $X$, endowed with a topology we will call $\uptau_X$. Then for some $A \subset X$, we have the following notion of density:
 \begin{defn}
@@ -67,6 +987,7 @@ A subset of a topological space $A \subseteq X$ is dense in $X$ if (we propose t
   \item $\forall x \in X, \forall U_x \in \uptau_X: U \cap A \neq \varnothing$
   \item $\bar{A} = X$
 \end{enumerate}
+
 \end{defn}
 Intuitively, no matter how close we look to a point in $X$, we can find a point in $A$, so $A$ "covers" (perhaps an interesting adjective and intuively useful is "spans") all of $X$. We call this variety of dense as \textbf{everywhere dense}.\\
 
@@ -140,6 +1061,7 @@ We already have the inclusion that $\overline{A \cap Y} \subseteq \bar{A} \cap \
 \end{equation*}
 Thus $\bar{A} \cap \bar{Y} = \bar{Y} = \overline{A \cap Y}$, actually directly proving equality.
 
+\pagebreak
 \section{The Cantor Set}
 
 \subsection{Properties}
@@ -240,7 +1162,7 @@ This is because the supremum on $I_n$ is always 1 (the endpoints are in $C$) and
 \end{equation*}
 Thus the upper integral and lower integral agree at the value $0$. The $(2/3)^n$ come from the fact that there are $2^n$ closed balls of radius $1/(2 \cdot 3^n)$ that cover all of $C_n$. Notice that the "length" of the Cantor set (the set of discontinuities in this case) goes to 0.
 
-\medskip
+\pagebreak
 \section{Measure}
 
 \subsection{Definitions}
@@ -473,11 +1395,21 @@ We see the following holds:
 \begin{equation*}
   F(y) - F(x) = \int_{x}^{y}f(t)dx \implies F(y) - F(x) - f(x)(y-x) = \int_{x}^{y}(f(t)-f(x))dt
 \end{equation*}
+We now get the following:
 \begin{equation*}
-  |y-x|\cdot \left|\frac{F(y) - F(x)}{y-x} - f(x)\right| = |y-x| \cdot \left|\int_{x}^{y}(f(t)-f(x))dt\right| \leqslant ||f(t) - f(x)||
+  \left|F(y) - F(x) - f(x)(y-x)\right| = \left|\int_{x}^{y}(f(t)-f(x))dt\right| \leqslant ||f(t) - f(x)|| \cdot |y-x| = ||f(t) - f(x)|| \delta_0
 \end{equation*}
+Since $f$ is continuous, we obtain a $\delta_0$-ball for each $\epsilon$. Then choosing $y, t \in B(x, \delta)$, we see:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0: \frac{1}{\delta_0}\sup_{y \in B(x, \delta)}|F(y) - F(x) - f(x)(y-x)| \leqslant \epsilon
+\end{equation*}
+\begin{equation*}
+\implies \lim_{\delta \xrightarrow{} 0^+}\frac{1}{\delta}\sup_{y \in B(x, \delta)}|F(y) - F(x) - f(x)(y-x)| = 0
+\end{equation*}
+so by the linear approximation characterization of the derivative, we see that $F'(x) = f(x)$.
 \end{proof}
-Since $f$ is continuous, we note that setting $y = x + \delta$,  $\inf_{\delta > 0} \sup_{t \in B(x, \delta)}|f(t) - f(x)| = 0$, showing that $F'(x) = f(x)$. We now prove the second Fundamental Theorem of Calculus:
+
+We now prove the second Fundamental Theorem of Calculus:
 \begin{thm}
 FTC2: Given an antiderivative $F: [a, b] \xrightarrow{} \mathbb{R}$ of the function $f$ with $F'$ being Riemann Integrable, then:
 \begin{equation*}
@@ -571,8 +1503,8 @@ By supremum properties of variation
   \implies \forall \epsilon > 0: \int_{a}^{b}|f(x)|dx \leqslant V(F, [a, b]) + \epsilon
 \end{equation*}
 Thus proving the other direction inequality.
-\pagebreak
 
+\pagebreak
 \section{The Stieltjes Integral}
 We discussed the idea of the Riemann integral, in which we integrated with respect to partitions on the $x$-axis. Now, we integrate with respect to another function, we call the integrator:
 \begin{defn}
@@ -729,7 +1661,17 @@ $f \in RS(g, [a, b])$ if and only if:
 \end{equation}
 \end{lem}
 \begin{proof}
-The first part of the proof is quite straightforward, similar to what we used in Lemma 0.16 (it comes from triangle inequality). The converse follws from the completeness of $\mathbb{R}$. While we can make a convergence of nets argument, we choose not to here. Let $\Pi, \Pi'$ be partitions with the same subintervals, but different tags.
+The first part of the proof is quite straightforward, similar to what we used in Lemma 0.16 (it comes from triangle inequality). The converse follws from the completeness of $\mathbb{R}$. While we can make a convergence of nets argument, we choose not to here. Instead:\\
+
+Define $\epsilon_n \coloneq \frac{1}{n+1}$. Then we can generate a sequence of partitions such that $||\Pi_n|| < \delta_n$ and:
+\begin{equation*}
+\forall m \geqslant n: |S(f, g, \Pi_n) - S(f, g, \Pi_m)| \leqslant \frac{1}{n+1}
+\end{equation*}
+Then, we see that:
+\begin{equation*}
+\forall \epsilon_n, \exists \delta_n, \exists n_0 = n, \forall m, j \geqslant n: ||\Pi_m||, ||\Pi_j|| < \delta_n \land |S(f, g, \Pi_m) - S(f, g, \Pi_j)| \leqslant \frac{2}{n+1} 
+\end{equation*}
+Thus the Stieltjes Sums are Cauchy, so they converge to a limit $L$, which we define to be the Stieltjes integral.
 \end{proof}
 This Lemma actually provides a good explanation as to why the converse of Lemma 0.16 is not necessarily true. Lemma 0.16 relies on one unmarked partition only, so the maximum freedom we get in the converse is choosing the marked points. However by this Cauchy Criterion, it must be true for ANY two intervals with max mesh less than $\delta$ (which means even if their subintervals are not aligned). So the result of the converse of Lemma 0.16 is too weak to prove integrability.
 

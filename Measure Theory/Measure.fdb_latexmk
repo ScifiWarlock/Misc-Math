@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1780555188.54311 "c:/Users/rakmo/OneDrive/Desktop/Misc Math/Measure Theory/Measure.tex" "Measure.pdf" "Measure" 1780555192.06925 0
-  "C:/Users/rakmo/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1771990024 80937 91001db6d4ae332437b4b739862cda02 ""
+["pdflatex"] 1780964308.22318 "c:/Users/rakmo/OneDrive/Desktop/Misc Math/Measure Theory/Measure.tex" "Measure.pdf" "Measure" 1780964311.99785 0
+  "C:/Users/rakmo/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1780724765 80937 91001db6d4ae332437b4b739862cda02 ""
   "C:/Users/rakmo/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1767734946 13333486 6e8880235e8136b7d2c51b0092a0547f ""
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/euler/eurm10.tfm" 1233951852 1228 9be37fdf0dc0e1f4df4af3594876d628 ""
@@ -35,6 +35,7 @@
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb" 1247596670 30457 bc0868ebece724ed7c3d37e3d9bff7bd ""
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/euler/eurm10.pfb" 1335366146 22644 35cfbc2e737f53c1da991002473b4310 ""
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb" 1247596673 31764 459c573c03a4949a528c2cc7f557e217 ""
+  "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam7.pfb" 1247596673 33366 60462f3d16c3d0f024f1f856e64b09cd ""
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1247596673 34694 870c211f62cb72718a00e353f14f254d ""
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm5.pfb" 1247596673 35457 884c5a936fbb3fae6a4c18058662d654 ""
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb" 1247596673 35309 940e81a5b9e04201a07e8b33a3ae6e64 ""
@@ -192,11 +193,11 @@
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/tex/latex/was/upgreek.sty" 1665850770 5794 9054e31be15d93f1e6bd28cca2b6643f ""
   "C:/Users/rakmo/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
-  "Measure.aux" 1780555191 2107 1170eb8d5288f796a957a570cf56da4a "pdflatex"
-  "Measure.out" 1780555191 2349 8b5ee710aac6e3c2a9276cdbf7c19e24 "pdflatex"
-  "Measure.tex" 1780555183 71387 05f05f0d40ebbad410ffc10e7803ce12 ""
-  "Measure.toc" 1780555191 1288 e10b426b2512002e7759328cbb2bc592 "pdflatex"
-  "c:/Users/rakmo/OneDrive/Desktop/Misc Math/Measure Theory/Measure.tex" 1780555183 71387 05f05f0d40ebbad410ffc10e7803ce12 ""
+  "Measure.aux" 1780964311 4951 e3d6cbb272e2cf0e3653a26590c5c0a5 "pdflatex"
+  "Measure.out" 1780964311 5684 116499369570e74d87597171b1541d9e "pdflatex"
+  "Measure.tex" 1780964303 126862 46633084a538a49df9f836f8d492a9be ""
+  "Measure.toc" 1780964311 3230 f9c1336046fae350ae2e84c29be562ce "pdflatex"
+  "c:/Users/rakmo/OneDrive/Desktop/Misc Math/Measure Theory/Measure.tex" 1780964303 126862 46633084a538a49df9f836f8d492a9be ""
   (generated)
   "Measure.aux"
   "Measure.log"

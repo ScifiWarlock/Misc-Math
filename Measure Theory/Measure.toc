@@ -1,16 +1,38 @@
-\contentsline {section}{\numberline {1}Characterizations of Limits and Continuity}{2}{section.1}%
-\contentsline {section}{\numberline {2}Density}{2}{section.2}%
-\contentsline {section}{\numberline {3}The Cantor Set}{4}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Properties}{4}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Integrability}{5}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Measure}{6}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Definitions}{6}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}The Fat Cantor Set}{10}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Fundamental Theorem of Calculus}{12}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Variation}{13}{subsection.5.1}%
-\contentsline {section}{\numberline {6}The Stieltjes Integral}{15}{section.6}%
-\contentsline {section}{\numberline {7}Pointwise and Uniform Convergence}{19}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Examples}{19}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Equicontinuity}{21}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3}Families of Equicontinuous Functions}{23}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4}Mini Arzela-Ascoli}{25}{subsection.7.4}%
+\contentsline {section}{\numberline {1}Characterizations of Limits and Continuity}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Limits}{3}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}HW2 Problem 8 Limits}{6}{subsubsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.2}Continuity}{6}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}HW 2 Problem 7}{7}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}HW2 Problem 1}{8}{subsubsection.1.2.2}%
+\contentsline {section}{\numberline {2}Intermediate Value Theorem and Connectedness}{9}{section.2}%
+\contentsline {subsubsection}{\numberline {2.0.1}HW2 Problem 3}{9}{subsubsection.2.0.1}%
+\contentsline {subsubsection}{\numberline {2.0.2}Midterm 1 Problem 1}{10}{subsubsection.2.0.2}%
+\contentsline {section}{\numberline {3}Uniform Continuity}{11}{section.3}%
+\contentsline {subsubsection}{\numberline {3.0.1}HW 2 Problem 2}{11}{subsubsection.3.0.1}%
+\contentsline {section}{\numberline {4}Discontinuities}{13}{section.4}%
+\contentsline {subsubsection}{\numberline {4.0.1}HW3 Problem 1}{14}{subsubsection.4.0.1}%
+\contentsline {subsubsection}{\numberline {4.0.2}Midterm 1 Problem 2}{15}{subsubsection.4.0.2}%
+\contentsline {section}{\numberline {5}Variation (Continuity)}{17}{section.5}%
+\contentsline {subsubsection}{\numberline {5.0.1}HW2 Problem 9}{17}{subsubsection.5.0.1}%
+\contentsline {subsubsection}{\numberline {5.0.2}Midterm 1 Problem 3}{18}{subsubsection.5.0.2}%
+\contentsline {section}{\numberline {6}Differentiation}{19}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Important Statements}{19}{subsection.6.1}%
+\contentsline {subsubsection}{\numberline {6.1.1}Midterm 1 Problem 4}{20}{subsubsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.2}HW3 Problem 2}{21}{subsubsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.2}Taylor's Theorem}{22}{subsection.6.2}%
+\contentsline {subsubsection}{\numberline {6.2.1}Lagrange Remainder}{22}{subsubsection.6.2.1}%
+\contentsline {section}{\numberline {7}Density}{23}{section.7}%
+\contentsline {section}{\numberline {8}The Cantor Set}{25}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Properties}{25}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Integrability}{26}{subsection.8.2}%
+\contentsline {section}{\numberline {9}Measure}{28}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Definitions}{28}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}The Fat Cantor Set}{31}{subsection.9.2}%
+\contentsline {section}{\numberline {10}Fundamental Theorem of Calculus}{33}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Variation}{34}{subsection.10.1}%
+\contentsline {section}{\numberline {11}The Stieltjes Integral}{36}{section.11}%
+\contentsline {section}{\numberline {12}Pointwise and Uniform Convergence}{41}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Examples}{41}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Equicontinuity}{43}{subsection.12.2}%
+\contentsline {subsection}{\numberline {12.3}Families of Equicontinuous Functions}{45}{subsection.12.3}%
+\contentsline {subsection}{\numberline {12.4}Mini Arzela-Ascoli}{47}{subsection.12.4}%
