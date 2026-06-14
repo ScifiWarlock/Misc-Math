@@ -3,6 +3,8 @@
 *.fls
 *.log
 *.synctex.gz
+*.out
+*.toc
 Continuity.aux
 Continuity.fdb_latexmk
 Continuity.fls
