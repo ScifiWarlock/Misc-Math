@@ -1,8 +1,8 @@
-Bases.aux
-Bases.fdb_latexmk
-Bases.fls
-Bases.log
-Bases.synctex.gz
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
 Continuity.aux
 Continuity.fdb_latexmk
 Continuity.fls

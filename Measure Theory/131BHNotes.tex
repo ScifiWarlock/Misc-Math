@@ -974,10 +974,236 @@ So now we have the following statement:
 \subsection{Taylor's Theorem}
 \subsubsection{Lagrange Remainder}
 \begin{thm}
+Given a function $f: [a, b] \xrightarrow{} \mathbb{R}$ that is $n+1$-times differentiable within $(a, b)$:
+\begin{equation*}
+\forall x_0 \in (a, b), \exists z \in (a, b): f(x) - \sum_{i=0}^{n}\frac{f^{(i)}(x_0)}{i!}(x-x_0)^i = \frac{f^{(n+1)}(z)}{(n+1)!}(x-x_0)^{n+1}
+\end{equation*}
+\end{thm}
+Notice that the Lagrange Remainder requires differentiability $n+1$ times on the whole interval. The proof follows from repeated applications of the Mean Value Theorem, which we will omit.\\
 
+\subsubsection{Peano's Remainder: HW4 Problem 4}
+\begin{thm}
+Let $I \subseteq \mathbb{R}$ be an open interval, $n \in \mathbb{N}\setminus \{0\}$ and, given $a \in I$, assume that $f: I \xrightarrow{} \mathbb{R}$ (with $\text{Dom}(f) = I$) is $(n-1)$-times differentiable on $I$ and $n$-times differentiable at $a$. Prove that
+\begin{equation*}
+\lim_{x \xrightarrow{} a}\frac{f(x) - P_n(x)}{(x-a)^n} = 0
+\end{equation*} 
+\end{thm}
+\begin{proof}
+The $n-1$ times differentiability in the punctured interval tells us that the $n-2$ derivative is continuous in the puncutured interval. It is further continuous in the whole interval $I$ because of $n-1$ differentiability at $a$. So the $n-2$ derivative is continuous on all of $I$ and differentiable on the punctured interval. So applying L'Hopital, we get:
+\begin{equation*}
+\lim_{x \xrightarrow{} a}\frac{f^{(n-2)}(x) - f^{(n-2)}(a) - \frac{f^{(n-1)}(a)(x-a)}{1} - \frac{f^{(n)}(a)(x-a)^2}{2}}{(n!/2)(x-a)^2}
+\end{equation*}
+\begin{equation*}
+= \lim_{x \xrightarrow{} a}\frac{f^{(n-1)}(x) - f^{(n-1)}(a) - f^{(n)}(a)(x-a)}{n!(x-a)}
+\end{equation*}
+\begin{equation*}
+= \frac{1}{n!}\lim_{x \xrightarrow{} a}\left(\frac{f^{(n-1)}(x) - f^{(n-1)}(a)}{(x-a)} - f^{(n)}(a)\right)
+\end{equation*}
+Since the function is $n$-times differentiable at $a$, we see that by the derivative definition that the limit goes to $0$. Notice the weaker conditions where we do not require $n$-times differentiability in the whole interval, rather only at the center point $a$.
+\end{proof}
+
+\subsection{Convexity}
+\subsubsection{HW3 Problem 9}
+Recall that the right and left derivatives of $f$ at $x_0$ are defined by the right and left limits:
+\begin{equation*}
+f^{'\pm}(x_0) \coloneq \lim_{x \xrightarrow{} x_0^{\pm}}\frac{f(x) - f(x_0)}{x-x_0}
+\end{equation*}
+Let $a < b$ be reals and let $f: [a, b] \xrightarrow{} \mathbb{R}$ be convex in the sense that
+\begin{equation*}
+\forall x, y \in [a, b], \forall \alpha \in [0, 1]: f(\alpha x + (1-\alpha)y) \leqslant \alpha f(x) + (1-\alpha) f(y)
+\end{equation*}
+Prove that
+\begin{enumerate}
+\item $f^{'+}(x)$ exists for all $x \in [a, b)$ and $f^{'-}(x)$ exists for all $x \in (a, b]$
+\item $f$ is continuous on $(a, b)$ but not necessarily on $[a, b]$
+\item $\forall x \in (a, b)$
+\end{enumerate}
+
+\subsection{Multivariate Differentiation}
+\begin{lem}[Change of Variables for limits]
+
+\end{lem}
+\subsubsection{HW3 Problem 3}
+Let $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ be injective and let $x \in \text{int}(\text{Dom}(f))$ be such that $f(x) \in \text{int}(\text{Ran}(f))$ and such that the inverse function $f^{-1}$ of $f$ is continuous at the point $f(x)$. Assuming $f'(x) \neq 0$, prove that $f^{-1}$ is also differentiable at the point $f(x)$ with
+\begin{equation*}
+(f^{-1})'(f(x)) = \frac{1}{f'(x)}
+\end{equation*}
+
+\begin{proof}
+If $f^{-1}$ is continuous at the point $f(x)$, then we have that:
+\begin{equation*}
+\forall \{y\}_{n \in \mathbb{N}} \in \text{Ran}(f)^\mathbb{N}, \exists \{x_n\}_{n \in \mathbb{N}} \in \text{Dom}(f)^\mathbb{N}: \forall n \in \mathbb{N}: y_n = f(x_n) \land f(x_n) \xrightarrow{} f(x) \implies x_n \xrightarrow{} x
+\end{equation*}
+Then, we see that because $f$ is differentiable at $x$, it is then continuous, so:
+\begin{equation*}
+x_n \xrightarrow{} x \implies f(x_n) \xrightarrow{} f(x)
+\end{equation*}
+And so we have a double implication that $x_n \xrightarrow{} x \iff f(x_n) \xrightarrow{} f(x)$. So:
+\begin{equation*}
+\lim_{y_n \xrightarrow{} f(x)}\frac{f^{-1}(y_n) - f^{-1}(f(x))}{y_n - f(x)} = \lim_{y_n \xrightarrow{} f(x)}\frac{x_n - x}{f(x_n) - f(x)}
+\end{equation*}
+\begin{equation*}
+= \lim_{x_n \xrightarrow{} x}\frac{x_n - x}{f(x_n) - f(x)} = \frac{1}{\lim_{x_n \xrightarrow{} x}\frac{f(x_n) - f(x)}{x_n - x}} = \frac{1}{f'(x)} 
+\end{equation*}
+\end{proof}
+
+We now discuss the extensions in the multivariate case:
+\begin{lem}
+A multivariate function $f$ is totally differentiable (in other words its Jacobian $Df$ exists) if and only if its partial derivatives exist AND are continuous (existence is not sufficient).
+\end{lem}
+\medskip
+\begin{thm}
+The Inverse Function theorem states that if $f$ is a continously differentiable multivariate function at a point $x \in \text{Dom}(f)$, then there exists some local ball $B(x, \delta)$ such that $f$ is injective on $f(B(x, \delta))$ and its local inverse is continuously differentiable.
+\end{thm}
+It also suffices to weaken the sufficient condition to $f$ being differentiable and the derivative $Df$ simply existing and being invertible.
+
+\medskip
+We view the next important theorem which arises from Theorem 6.5:
+\begin{thm}
+The Implicit Function Theorem says that a continuously differentiable function with an invertible $y$-minor, for example, $F(x, y)$. For some:
+\begin{equation*}
+  (x_0, y_0) \in \text{int}(\text{Dom}(f)): F(x_0, y_0) = 0 \implies \exists \delta > 0, \forall x \in B(x_0, \delta): y \coloneq y(x) \land y(x_0) = y_0
+\end{equation*}
 \end{thm}
 
+\subsubsection{HW4 Problem 8}
+Put $f(0, 0) = 0$, and
+\begin{equation*}
+f(x, y) = \frac{xy(x^2 - y^2)}{x^2 + y^2}
+\end{equation*}
+if $(x, y) \neq (0, 0)$. Prove that
+\begin{enumerate}
+\item $f, D_1f, D_2f$ are continuous in $\mathbb{R}^2$
+\item $D_{12}f$ and $D_{21}f$ exist at every point in $\mathbb{R}^2$, and are continuous except at $(0, 0)$
+\item $(D_{12}f)(0, 0) = 1$ and $(D_{21}f)(0, 0) = -1$
+\end{enumerate}
 
+\begin{proof}
+We first prove the continuity of $f$ at $(0, 0)$:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0: \sqrt{x^2 + y^2} < \delta \implies \left|\frac{xy(x^2 - y^2)}{x^2 + y^2}\right| < \epsilon
+\end{equation*}
+\end{proof}
+By the AM-GM Inequality, we have that:
+\begin{equation*}
+xy \leqslant \frac{x^2 + y^2}{2} \implies \frac{xy(x^2-y^2)}{x^2 + y^2} \leqslant \frac{x^2 - y^2}{2} \leqslant \frac{(\sqrt{x^2+y^2})^2}{2} \leqslant \epsilon
+\end{equation*}
+Then choosing $\delta = \sqrt{2\epsilon}$, we see that $f$ is continuous at $(0, 0)$. We can conclude $f$ is continuous elsewhere in $\mathbb{R}$ because it is an algebraic combination of continuous functions.\\
+
+Now we look at the partial derivatives:
+\begin{equation*}
+D_1f = \frac{(x^2+y^2)}{}
+\end{equation*}
+
+\subsubsection{Midterm 2 Problem 1}
+Let $U \subseteq \mathbb{R}^2$ be open and connected and let $f: \mathbb{R}^2 \xrightarrow{} \mathbb{R}$ with $\text{Dom}(f) = U$ be a function such that the partial derivatives of $f$ exist and are zero at all points of $U$. Prove that $f$ is constant.
+\begin{proof}
+Consider any arbitrary $x$ in $U$. Since $U$ is open, we see that there exists some $r > 0$ such that $B(x, r) \subseteq U$. Then we define the following:
+\begin{equation*}
+h(t) \coloneq f(x + t(z-x))
+\end{equation*}
+The choosing any arbitrary $z \in B(x, r)$, we observe that:
+\begin{equation*}
+f(z) - f(x) = h(1) - h(0)
+\end{equation*}
+Now that we have reduced the problem to one variable, we can apply MVT (we know $f$ is totally differentiable because all partial derivatives being zero means they are continuous):
+\begin{equation*}
+\exists c \in (0, 1): f(z) - f(x) = h'(c) = Df(x+c(z-x))(z-x) = 0 \implies f(z) = f(x)
+\end{equation*}
+Now we define $C \coloneq \{z \in U: f(z) = f(x)\}$. While we only tested points in $B(x, r)$, we can extend this equality to points outside the ball because the center was arbitrary, so by chaining centers and equalities, we find that $\exists r_z > 0: B(z, r_z) \subseteq C$, thus $C$ is open.\\
+
+Now since $f$ is totally differentiable, it is continuous, thus $C \coloneq f^{-1}\{f(x)\}$. Since singletons are closed and continuous function preimages preserve closedness, $C$ is closed. However, $U$ being connected means it does not admit a separation, so $C = \varnothing$ or $C = U$. We know $C$ cannot be empty by the previous logic, so $C= U$.
+\end{proof}
+
+NOTE: A tip from Apostol is that writing $f$ in terms of a function $h: [0, 1] \xrightarrow{} \mathbb{R}$, where:
+\begin{equation*}
+h(t) = f(tx + (1-t)y) \implies f(x) - f(y) = Df(cx + (1-c)y)(x-y)
+\end{equation*}
+\pagebreak
+\section{Integration}
+We recap the important definitions and statements of integration and solve example problems:
+\begin{defn}
+A function $f$ is Riemann integrable on an interval $[a, b]$ if:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0, \forall \Pi: ||\Pi|| < \delta \implies \left|R(f, \Pi) - \int_{a}^{b}f(x)dx\right| < \epsilon
+\end{equation*}
+where $R(f, \Pi)$ is the Riemann sum over the partition $\Pi$, defined as:
+\begin{equation*}
+R(f, \Pi) \coloneq \sum_{i=1}^{n}f(t_i^*)(t_i - t_{i-1})
+\end{equation*}
+\end{defn}
+
+Some important lemmas are that any continuous function is Riemann integrable (on a bounded interval), and any Riemann integrable function is bounded.\\
+
+We now define the equivalent Darboux definition:
+\begin{defn}
+The upper Darboux sum is:
+\begin{equation*}
+U(f, \Pi) \coloneq \sum_{i=1}^{n}\sup_{z \in [t_{i-1}, t_i]}f(z)(t_i - t_{i-1})
+\end{equation*}
+and the lower Darboux sum is:
+\begin{equation*}
+L(f, \Pi) \coloneq \sum_{i=1}^{n}\inf_{z \in [t_{i-1}, t_i]}f(z) (t_i - t_{i-1})
+\end{equation*}
+\end{defn}
+We see that refining the partitions decreases the upper sums and increases the lower sums and that the upper sums are always greater than the lower sums no matter the partition. Then function is Darboux integrable if:
+\begin{equation*}
+\overline{\int_{a}^{b}}f(x)dx \coloneq \inf_\Pi U(f, \Pi) = \underline{\int_{a}^{b}}f(x)dx \coloneq \sup_\Pi L(f, \Pi)
+\end{equation*}
+In otherwords, when the upper and lower integrals are equal, then they equal the Riemann integral. The criterion for this is the following:
+\begin{lem}
+A function $f$ is Darboux integrable on $[a, b]$ if:
+\begin{equation*}
+\forall \epsilon > 0, \exists \Pi_{[a, b]}: \sum_{i=1}^{n}\text{osc}(f, [t_{i-1}, t_i])(t_i - t_{i-1}) < \epsilon
+\end{equation*}
+\end{lem}
+
+\subsubsection{Midterm 2 Problem 3}
+Prove that the upper Darboux Integral is subadditive; namely, that for all real numbers $a < b$ and all bounded functions $f, g: [a, b] \xrightarrow{} \mathbb{R}$:
+\begin{equation*}
+\overline{\int_{a}^{b}}(f+g)(x)dx \leqslant \overline{\int_{a}^{b}}f(x)dx + \overline{\int_{a}^{b}}g(x)dx
+\end{equation*}
+By the infimum definition, we see that:
+\begin{equation*}
+\forall \epsilon > 0, \exists \Pi_f, \Pi_g: U(f, \Pi_f) \leqslant \overline{\int_{a}^{b}}f(x)dx + \epsilon \land U(g, \Pi_g) \leqslant \overline{\int_{a}^{b}}g(x)dx + \epsilon
+\end{equation*}
+Now considering the partition $\Pi \coloneq \Pi_f, \Pi_g$, we see that:
+\begin{equation*}
+U(f+g, \Pi) \leqslant U(f, \Pi) + U(g, \Pi) \leqslant U(f, \Pi_f) + U(g, \Pi_g) \leqslant \overline{\int_{a}^{b}}f(x)dx + \overline{\int_{a}^{b}}g(x)dx + 2\epsilon
+\end{equation*}
+\begin{equation*}
+\implies \forall \epsilon > 0: \overline{\int_{a}^{b}}(f+g)(x)dx \leqslant \overline{\int_{a}^{b}}f(x)dx + \overline{\int_{a}^{b}}g(x)dx + 2\epsilon
+\end{equation*}
+which proves subadditivity. We can now prove superadditivity of the lower integral:
+\begin{equation*}
+\underline{\int_{a}^{b}}f(x)dx + \underline{\int_{a}^{b}}g(x)dx \leqslant \underline{\int_{a}^{b}}(f+g)(x)dx 
+\end{equation*}
+
+\medskip
+\begin{lem}
+Monotone functions are always Riemann integrable.
+\end{lem}
+\begin{proof}
+Consider some monotonically increasing function $f$ on $[a, b]$, then we know that it can only have discontinuities of the first kind, which are at most countable. We use the oscillation characterization. The oscillation over an interval is always the left endpoint minus the right endpoint.\\
+
+So construct a partition $\Pi$ such that $(b-a)/n < \epsilon$:
+\begin{equation*}
+\Pi \coloneq \{[a + j\frac{b-a}{n}, a+(j+1)\frac{b-a}{n}] : 0 \leqslant j \leqslant n-1\}
+\end{equation*}
+\begin{equation*}
+\forall \epsilon > 0, \exists \Pi: \sum_{i=1}^{n}\text{osc}(f, [t_{i-1}, t_i])(t_i - t_{i-1}) < \epsilon \sum_{i=1}^{n}(f(t_i) - f(t_{i-1})) = \epsilon (f(b) - f(a))
+\end{equation*}
+\end{proof}
+
+\subsection{Counterexamples}
+We can have a function that is Riemann Integrable yet its derivative is NOT Riemann Integrable. Consider this previous example:
+\begin{equation*}
+f(x) \coloneq \begin{cases*}
+  x^2\sin(1/x) \ : \ x \neq 0\\
+  0 \ : \ x = 0
+\end{cases*}
+\end{equation*}
+The function is differentiable on all of $(-2, 2)$, thus continuous on $[-1, 1]$, so it is Riemann Integrable. However, it is discontinuous at $x = 0$.
 \pagebreak
 \section{Density}
 We start off by considering some topological space $X$, endowed with a topology we will call $\uptau_X$. Then for some $A \subset X$, we have the following notion of density:
@@ -1675,6 +1901,114 @@ Thus the Stieltjes Sums are Cauchy, so they converge to a limit $L$, which we de
 \end{proof}
 This Lemma actually provides a good explanation as to why the converse of Lemma 0.16 is not necessarily true. Lemma 0.16 relies on one unmarked partition only, so the maximum freedom we get in the converse is choosing the marked points. However by this Cauchy Criterion, it must be true for ANY two intervals with max mesh less than $\delta$ (which means even if their subintervals are not aligned). So the result of the converse of Lemma 0.16 is too weak to prove integrability.
 
+\subsubsection{Integration By Parts: HW7 Problem 2}
+The following problem discusses the idea of reducing the Stieltjes integral to a Riemann integral whenever the integrator is continuous, differentiable, and its derivative is Riemann integrable.\\
+
+Let $a < b$ be reals and let $f, g: [a, b] \xrightarrow{} \mathbb{R}$ be functions such that
+\begin{enumerate}
+\item $f$ is Riemann integrable on $[a, b]$, and
+\item $g$ is continuous on $[a, b]$, differentiable on $(a, b)$ with $g'$ Riemann integrable
+\end{enumerate}
+Prove that $f \in \text{RS}(g, [a, b])$ and
+\begin{equation*}
+\int_{a}^{b}fdg = \int_{a}^{b}f(x)g'(x)dx
+\end{equation*}
+Then show that also $g \in \text{RS}(f, [a, b])$and
+\begin{equation*}
+\int_{a}^{b}g df = f(b)g(b) - f(a)g(a) - \int_{a}^{b}f(x)g'(x)dx
+\end{equation*}
+
+\begin{proof}
+To solve the first part, given $g'$ is Riemann integrable (so the product of two Riemann integrable functions is Riemann integrable), we want to show:
+\begin{equation*}
+\forall \epsilon > 0: \left|\int_{a}^{b}fdg - \int_{a}^{b}f(x)g'(x)dx\right| < \epsilon
+\end{equation*}
+\begin{equation*}
+S(f, g, \Pi) = \sum_{i=1}^{n}f(t_i^*)(g(t_i) - g(t_{i-1}))
+\end{equation*}
+By application of the mean value theorem, we see that for each $T \in \Pi$, there exists some $t_i'$ such that:
+\begin{equation*}
+S(f, g, \Pi) = \sum_{i=1}^{n}f(t_i^*)g(t_i')(t_i - t_{i-1})
+\end{equation*}
+
+Now we observe that $fg'$ is Riemann integrable, so:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_r > 0, \forall \Pi: ||\Pi|| < \delta_r \implies \left|R(fg', \Pi) - \int_{a}^{b}f(x)g'(x)dx\right| < \epsilon
+\end{equation*}
+\end{proof}
+Now $g'$ being continuous on $[a, b]$ means it is uniformly continuous, thus:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_g > 0, \forall x, y \in [a, b]: |x-y| < \delta_g \implies |g'(x) - g'(y)| < \frac{\epsilon}{1 + ||f||(b-a)}
+\end{equation*}
+Now as for the Stieltjes integrbability, we see that:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_s > 0 , \forall \Pi: ||\Pi|| < \delta_s \implies \left|S(f, g, \Pi) - \int_{a}^{b}fdg\right| < \epsilon
+\end{equation*}
+Now, for all partitions with mesh less than $\delta_m \coloneq \min\{\delta_s, \delta_g, \delta_r\}$, we see that:
+\begin{equation*}
+|S(f, g, \Pi) - R(fg', \Pi)| = \left|\sum_{i=1}^{n}f(t_i^*)(g(t_i') - g(t_i^*))(t_i - t_{i-1})\right| < \frac{\epsilon}{1 + ||f||(b-a)} \cdot ||f||(b-a) < \epsilon
+\end{equation*}
+Thus:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta = \delta_m: \left|\int_{a}^{b}fdg - \int_{a}^{b}f(x)g'(x)dx\right|
+\end{equation*}
+\begin{equation*}
+ \leqslant \left|\int_{a}^{b}fdg - S(f, g, \Pi)\right| + |S(f, g, \Pi) - R(fg', \Pi)| + \left|R(fg', \Pi) - \int_{a}^{b}f(x)g'(x)dx\right| < 3\epsilon
+\end{equation*}
+
+Now we prove the second part. Consider Stieltjes sums of the function $f$ with respect to the integrator $g$:
+\begin{equation*}
+S(g, f, \Pi) = \sum_{i=1}^{n}g(t_i')(f(t_i) - f(t_{i-1}))
+\end{equation*}
+Then we see that $f(b)g(b) - f(a)g(a)$ can be written as:
+\begin{equation*}
+\sum_{i=1}^{n}(f(t_i)g(t_i) - f(t_{i-1})g(t_{i-1})) \implies f(b)g(b) - f(a)g(a) - S(g, f, \Pi)
+\end{equation*}
+\begin{equation*}
+= \sum_{i=1}^{n}(g(t_i) - g(t_i'))f(t_i) - \sum_{i=1}^{n}(g(t_{i-1}) - g(t_i'))f(t_{i-1})
+\end{equation*}
+Now we can refine the partition $\Pi$ to add each $t_i'$ so that the sum we obtained above ends up becoming a Stieltjes sum $S(f, g, \Pi')$, so using the $\delta$ provided by Stieltjes integrability of $g$:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0: ||\Pi|| < \delta \implies \left|f(b)g(b) - f(a)g(a) - S(g, f, \Pi) - \int_{a}^{b}fdg\right| < \epsilon
+\end{equation*}
+Thus:
+\begin{equation*}
+\int_{a}^{b}gdf = f(b)g(b) - f(a)g(a) - \int_{a}^{b}f(x)g'(x)dx
+\end{equation*}
+
+\subsubsection{Mean Value Theorems}
+Prove the following Mean-Value Theorems: Let $f, g: [a, b] \xrightarrow{} \mathbb{R}$ be such that $f$ is continuous and $g$ non-decreasing. Then $f \in \text{RS}(g, [a, b])$ and
+\begin{equation*}
+\exists c \in [a, b]: \int_{a}^{b}fdg = f(c)[g(b) - g(a)]
+\end{equation*}
+Assuming only that $f$ is Riemann integrable and $g$ is non-decreasing, prove that then
+\begin{equation*}
+\exists c \in [a, b]: \int_{a}^{b}f(x)g(x)dx = g(a)\int_{a}^{c}f(x)dx + g(b)\int_{c}^{b}f(x)dx
+\end{equation*}
+
+\begin{proof}
+Because $f$ is continuous, we see that $f$ achieves its max, $M$, and min, $m$, so it is bounded. Thus:
+\begin{equation*}
+m[g(b) - g(a)] \leqslant \int_{a}^{b}fdg \leqslant M[g(b) - g(a)] \implies m \leqslant \frac{1}{g(b) - g(a)}\int_{a}^{b}fdg \leqslant M
+\end{equation*}
+Now IVT guarantees that $f[a, b]$ is the interval $[m, M]$ because $f$ is continuous, so every value is achieved within that, which means:
+\begin{equation*}
+\exists c \in [a, b]: \int_{a}^{b}fdg = c[g(b) - g(a)]
+\end{equation*}
+
+We now prove the second part by using the first and the integration by parts formula. By FTC1, $f$ continuous means it admits an antiderivative $F$, which is differentiable thereby continuous, so:
+\begin{equation*}
+\int_{a}^{b}gdF = F(b)g(b) - F(a)g(a) - \int_{a}^{b}Fdg
+\end{equation*}
+\begin{equation*}
+\implies \int_{a}^{b}gdF = F(b)g(b) - F(a)g(a) - F(c)g(b) + F(c)g(a) = (F(b) - F(c))g(b) - (F(a) - F(c))g(a)
+\end{equation*}
+\begin{equation*}
+\implies \int_{a}^{b}f(x)g(x)dx = g(a)\int_{a}^{c}f(x)dx + g(b)\int_{c}^{b}f(x)dx
+\end{equation*}
+The justification of switching $f(x)dx$ to $dF$ follows from the fact that $F$ is continuous, differentiable, and its derivative $f$ is Riemann Integrable by definition (proved in previous problem).
+\end{proof}
+
 \pagebreak
 \section{Pointwise and Uniform Convergence}
 We now consider sequences of functions $\{f_n\}_{n \in \mathbb{N}}$ and want to see if and how they converge to some function $f$. The important of these falls under measure theory and integration theory:
@@ -1993,6 +2327,16 @@ Given $f_n: X \xrightarrow{} Y$, we have that:
 Totally bounded gives us a finite cover. With the same $\delta(x)$-ball construction, we can do another $3\epsilon$ proof:
 \end{proof}
 
+\subsubsection{HW8 Problem 6}
+Letting $(x)$ denote the fractional part of the real number $x$, consider the function
+\begin{equation*}
+f(x) = \sum_{n=1}^{\infty}\frac{(nx)}{n^2}
+\end{equation*}
+Find all discontinuities of $f$, and show that they form a countable dense set. Show that $f$ is nevertheless Riemann-integrable on every bounded interval.
+
+\begin{proof}
+
+\end{proof}
 \pagebreak
 \section*{Metric Space of Functions}
 While we have been using these notions in the 

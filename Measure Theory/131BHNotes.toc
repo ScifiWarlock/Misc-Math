@@ -1,0 +1,51 @@
+\contentsline {section}{\numberline {1}Characterizations of Limits and Continuity}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Limits}{3}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}HW2 Problem 8 Limits}{6}{subsubsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.2}Continuity}{6}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}HW 2 Problem 7}{7}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}HW2 Problem 1}{8}{subsubsection.1.2.2}%
+\contentsline {section}{\numberline {2}Intermediate Value Theorem and Connectedness}{9}{section.2}%
+\contentsline {subsubsection}{\numberline {2.0.1}HW2 Problem 3}{9}{subsubsection.2.0.1}%
+\contentsline {subsubsection}{\numberline {2.0.2}Midterm 1 Problem 1}{10}{subsubsection.2.0.2}%
+\contentsline {section}{\numberline {3}Uniform Continuity}{11}{section.3}%
+\contentsline {subsubsection}{\numberline {3.0.1}HW 2 Problem 2}{11}{subsubsection.3.0.1}%
+\contentsline {section}{\numberline {4}Discontinuities}{13}{section.4}%
+\contentsline {subsubsection}{\numberline {4.0.1}HW3 Problem 1}{14}{subsubsection.4.0.1}%
+\contentsline {subsubsection}{\numberline {4.0.2}Midterm 1 Problem 2}{15}{subsubsection.4.0.2}%
+\contentsline {section}{\numberline {5}Variation (Continuity)}{17}{section.5}%
+\contentsline {subsubsection}{\numberline {5.0.1}HW2 Problem 9}{17}{subsubsection.5.0.1}%
+\contentsline {subsubsection}{\numberline {5.0.2}Midterm 1 Problem 3}{18}{subsubsection.5.0.2}%
+\contentsline {section}{\numberline {6}Differentiation}{19}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Important Statements}{19}{subsection.6.1}%
+\contentsline {subsubsection}{\numberline {6.1.1}Midterm 1 Problem 4}{20}{subsubsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.2}HW3 Problem 2}{21}{subsubsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.2}Taylor's Theorem}{22}{subsection.6.2}%
+\contentsline {subsubsection}{\numberline {6.2.1}Lagrange Remainder}{22}{subsubsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.2}Peano's Remainder: HW4 Problem 4}{22}{subsubsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.3}Convexity}{23}{subsection.6.3}%
+\contentsline {subsubsection}{\numberline {6.3.1}HW3 Problem 9}{23}{subsubsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.4}Multivariate Differentiation}{23}{subsection.6.4}%
+\contentsline {subsubsection}{\numberline {6.4.1}HW3 Problem 3}{24}{subsubsection.6.4.1}%
+\contentsline {subsubsection}{\numberline {6.4.2}HW4 Problem 8}{24}{subsubsection.6.4.2}%
+\contentsline {subsubsection}{\numberline {6.4.3}Midterm 2 Problem 1}{25}{subsubsection.6.4.3}%
+\contentsline {section}{\numberline {7}Integration}{26}{section.7}%
+\contentsline {subsubsection}{\numberline {7.0.1}Midterm 2 Problem 3}{26}{subsubsection.7.0.1}%
+\contentsline {subsection}{\numberline {7.1}Counterexamples}{27}{subsection.7.1}%
+\contentsline {section}{\numberline {8}Density}{28}{section.8}%
+\contentsline {section}{\numberline {9}The Cantor Set}{30}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Properties}{30}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Integrability}{31}{subsection.9.2}%
+\contentsline {section}{\numberline {10}Measure}{33}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Definitions}{33}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}The Fat Cantor Set}{36}{subsection.10.2}%
+\contentsline {section}{\numberline {11}Fundamental Theorem of Calculus}{38}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Variation}{39}{subsection.11.1}%
+\contentsline {section}{\numberline {12}The Stieltjes Integral}{41}{section.12}%
+\contentsline {subsubsection}{\numberline {12.0.1}Integration By Parts: HW7 Problem 2}{45}{subsubsection.12.0.1}%
+\contentsline {subsubsection}{\numberline {12.0.2}Mean Value Theorems}{46}{subsubsection.12.0.2}%
+\contentsline {section}{\numberline {13}Pointwise and Uniform Convergence}{48}{section.13}%
+\contentsline {subsection}{\numberline {13.1}Examples}{48}{subsection.13.1}%
+\contentsline {subsection}{\numberline {13.2}Equicontinuity}{50}{subsection.13.2}%
+\contentsline {subsection}{\numberline {13.3}Families of Equicontinuous Functions}{52}{subsection.13.3}%
+\contentsline {subsection}{\numberline {13.4}Mini Arzela-Ascoli}{54}{subsection.13.4}%
+\contentsline {subsubsection}{\numberline {13.4.1}HW8 Problem 6}{54}{subsubsection.13.4.1}%
