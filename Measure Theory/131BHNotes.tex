@@ -227,6 +227,52 @@ Thus, $n$ is bounded above, so there must be a finite number of $n$ values that 
 \end{equation*}
 Then for any $y \in B(x, \delta)\setminus \{x\}$, we are guaranteed that $f(y)$ is either $0$, or that $|f(y)| < \epsilon$.
 
+\subsection{Cauchy Characterization}
+We explore another useful characterization that will aide us in proving facts about discontinuities. 
+\begin{lem}
+$\lim_{z \xrightarrow{} x}f(z) \ \text{exists} \iff \forall \epsilon > 0, \exists \delta > 0, \forall z, y \in B(x, \delta) \setminus \{x\}: |f(z) - f(y)| < \epsilon$
+\end{lem}
+\begin{proof}
+$\implies$: This direction follows trivially from triangle inequality and the existence of the limit.\\
+
+$\impliedby$: For this direction, we use the following equivalent characterization of a limit at $x \in \text{Dom}(f)$:
+\begin{equation*}
+\exists L \in \mathbb{R}, \forall \{x_n\}_{n \in \mathbb{N}} \in (\text{Dom}(f)\setminus \{x\})^\mathbb{N}: x_n \xrightarrow{} x \implies f(x_n) \xrightarrow{} L
+\end{equation*}
+Now consider some arbitrary sequence $x_n \xrightarrow{} x$, we have that:
+\begin{equation*}
+\forall \delta > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: |x_n - x| < \delta
+\end{equation*}
+\begin{equation*}
+\implies \forall \epsilon > 0, \exists \delta > 0, \exists n_0 \geqslant 0, \forall m, n \geqslant n_0: x_m, x_n \in B(x, \delta)\setminus\{x\} \implies |f(x_m) - f(x_n)| < \epsilon
+\end{equation*}
+Now $\delta$ can be omitted and since the original sequence was arbitrary, then we have proven it holds for any sequence. We however, need to prove a shared limit $L$ holds. We see that $\{f(x_n)\}_{n \in \mathbb{N}}$ is Cauchy, which implies it converges to some limit $L$, which we must prove is unique.\\
+
+Consider $\{x_n\}_{n \in \mathbb{N}}, \{x_n'\}_{n \in \mathbb{N}} \in (\text{Dom}(f)\setminus \{x\})^\mathbb{N}$ such that:
+\begin{equation*}
+x_n \xrightarrow{} x \land x_n' \xrightarrow{} x \land f(x_n) \xrightarrow{} L \land f(x_n') \xrightarrow{} L' \land L \neq L'
+\end{equation*}
+Then, we set $\epsilon \coloneq \frac{1}{6}|L - L'|$ and use the following construction:
+\begin{equation*}
+\{z_n\}_{n \in \mathbb{N}} \in (\text{Dom}(f)\setminus \{x\})^\mathbb{N}: z_{2n} \coloneq x_n \land z_{2n+1} \coloneq x_n'
+\end{equation*}
+We see that if we choose $n_z \coloneq \max\{2n_0, 2n_0' + 1\}$, we see that $z_n \xrightarrow{} x$, which means that $\{f(z_n)\}_{n \in \mathbb{N}}$ is Cauchy. So choosing $n_1 \coloneq \max\{n_z, 2n_1, 2n_1' + 1\}$, where $n_1, n_1'$ come from convergence of the images of the sequences $x_n, x_n'$ to $L, L'$ respectively.\\
+
+Then, without loss of generality, consider some $2n \geqslant n_1$ whereby $n$ is even:
+\begin{equation*}
+|L - L'| \leqslant |L - f(z_{2n})| + |f(z_{2n}) -f(z_{2n+1})| + |f(z_{2n+1}) - L'|
+\end{equation*}
+\begin{equation*}
+= |L - f(x_n)| + |f(x_n) - f(x_n')| + |f(x_n') - L'| < \frac{1}{2}|L - L'|
+\end{equation*}
+which is a contradiction. Thus the limit $L$ is unique for any arbitrary sequence, proving equivalence of the two statements.
+\end{proof}
+
+We now use this idea to prove an interesting consequence of discontinuities of the first kind (covered in a later section):
+\begin{lem}
+Discontinuities of the first kind are always countable. 
+\end{lem}
+
 \subsection{Continuity}
 When we mention the term continuity, we talk about pointwise continuity at some point $x \in \text{Dom}(f)$ and not isolated, defined as:
 \begin{equation*}

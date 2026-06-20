@@ -1,0 +1,102 @@
+\documentclass{exam}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{blindtext}
+\setlength{\parindent}{0pt}
+% if you ever want to enter images use the following code%
+%\begin{center}%
+    %\includegraphics[width=0.8\textwidth]{Screenshot (22).png}%
+%\end{center}%
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{defn}{Definition}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{axm}{Axiom}[section]
+
+\tcolorboxenvironment{thm}{
+  colback=lime,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{lem}{
+  colback=yellow,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{defn}{
+  colback=pink,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{cor}{
+  colback=SpringGreen,
+  colframe=black,
+  breakable
+}
+
+\tcolorboxenvironment{axm}{
+  colback=white,
+  colframe=black,
+  breakable
+}
+
+
+\fancyhf{}
+\fancyhead[R]{   Omkar Tasgaonkar\\UID: 206-624-454}
+\renewcommand\headrulewidth{0.5pt}
+\pagestyle{fancy}
+\author{Omkar Tasgaonkar}
+\setlength{\headsep}{0.5in}
+\fancyfoot[C]{(\thepage)}
+\renewcommand\footrulewidth{0.5pt}
+
+\fancypagestyle{firstpage}{
+    \fancyhf{}
+    \fancyhead[C]{\textbf{Notes on ROS}}
+    \fancyhead[R]{Omkar Tasgaonkar\\UID: 206-624-454}
+    \renewcommand\headrulewidth{0.5pt}
+    \fancyfoot[C]{(\thepage)}
+    \renewcommand\footrulewidth{0.5pt}
+}
+
+
+
+\begin{document}
+\thispagestyle{firstpage}
+
+\section{Nodes}
+The idea of nodes is that each system within a robot is a node in and of itself; with nodes being able to send and receive messages from other nodes. To find a list of active nodes, we use the command:
+\begin{verbatim}
+$ros2 node list
+\end{verbatim}
+So if we run the following command to open turtlesim, we get the following output:
+\begin{verbatim}
+Input: 
+$ros2 run turtlesim turtlesim_node
+$ros2 node list
+
+Output:
+/turtlesim
+\end{verbatim}
+
+\subsection{Remapping}
+We can change values that each node possesses via remapping commands. For example, the following command changes our turtlesim node's name:
+\begin{verbatim}
+$ros2 run turtlesim turtlesim_node --ros-args --remap__node:=my_turtle
+\end{verbatim}
+In this case, we run the turtlesim once more, creating a new sim instance; however, the node is now named my\_turtle.
+
+\section{Topics}
+The fundamental idea behind topics is the publisher-subscriber model. The publishers are the nodes who send the message and the subscribers receive it. Multiple publishers and subscribers can connect to one topic at the same time.\\
+
+A message sent from one publisher is transmitted to all subscribers. 
+\end{document}
