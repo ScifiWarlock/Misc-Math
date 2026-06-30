@@ -272,6 +272,7 @@ We now use this idea to prove an interesting consequence of discontinuities of t
 \begin{lem}
 Discontinuities of the first kind are always countable. 
 \end{lem}
+Now consider a function $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ with an uncountable number of discontinuities. Then $\exists n \in \mathbb{N}$ such that $[-n, n]$ has an uncountable number of discontinuities. 
 
 \subsection{Continuity}
 When we mention the term continuity, we talk about pointwise continuity at some point $x \in \text{Dom}(f)$ and not isolated, defined as:
@@ -721,7 +722,17 @@ Now existence of a right limit at $y$ also gives another radius, so taking minim
 
 Then using triangle inequality, we can choose an arbitrary $z$ in the $\delta_m$ half ball and use its value $f(z)$ as a pivot point in triangle inequality to get a bound of $2\epsilon$.\\
 
-NOTE: This ONLY guarantees right continuity of this function $h(x)$. Left continuity is not guaranteed because $y$ is not an interior point, so an intersection between the two balls from limit existence around $x, y$ is not guaranteed. Thus the $\delta_m$ construction falls apart.
+NOTE: This ONLY guarantees right continuity of this function $h(x)$. Left continuity is not guaranteed because $y$ is not an interior point, so an intersection between the two balls from limit existence around $x, y$ is not guaranteed. Thus the $\delta_m$ construction falls apart.\\
+
+Now this method offers a unique insight and another way to solve the problem. We see that the right limits are adherent points because we get an initial $\delta$ ball from the existence of the right limit at some $x \in \mathbb{R}$. Then using the same interior point, right limit existence argument, we get that:
+\begin{equation*}
+\forall \epsilon > 0, \forall y \in [x, x + \delta): B(h(y), \epsilon) \cap f(x, x+\delta) \neq \varnothing
+\end{equation*}
+which means the right limits are adherent points. Thus, by definition of closure and then definition of the right limit, we have that:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0: h[x, x+\delta) \subseteq \overline{f(x, x+\delta)} \subseteq [h(x) - \epsilon, h(x) + \epsilon] \subseteq (h(x) - 2\epsilon, h(x) + 2\epsilon)
+\end{equation*}
+showing by the open ball definition that $h$ is right continuous.
 
 \pagebreak
 \section{Variation (Continuity)}
@@ -1953,7 +1964,7 @@ The following problem discusses the idea of reducing the Stieltjes integral to a
 Let $a < b$ be reals and let $f, g: [a, b] \xrightarrow{} \mathbb{R}$ be functions such that
 \begin{enumerate}
 \item $f$ is Riemann integrable on $[a, b]$, and
-\item $g$ is continuous on $[a, b]$, differentiable on $(a, b)$ with $g'$ Riemann integrable
+\item $g$ is continuous on $[a, b]$, differentiable on $(a, b)$ with $g'$ continuous on $[a, b]$
 \end{enumerate}
 Prove that $f \in \text{RS}(g, [a, b])$ and
 \begin{equation*}
@@ -2020,6 +2031,12 @@ Now we can refine the partition $\Pi$ to add each $t_i'$ so that the sum we obta
 Thus:
 \begin{equation*}
 \int_{a}^{b}gdf = f(b)g(b) - f(a)g(a) - \int_{a}^{b}f(x)g'(x)dx
+\end{equation*}
+
+\subsubsection{HW7 Problem 2 Iteration}
+The decomposition of the Stieltjes Integral into the Riemann Integral can have its sufficient conditions weakened to solely Riemann Integrability of $g$, in which case, we see that:
+\begin{equation*}
+will finish this later
 \end{equation*}
 
 \subsubsection{Mean Value Theorems}
