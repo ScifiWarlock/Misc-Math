@@ -303,10 +303,19 @@ However, it can be that the limit exists but does not agree with the function va
 \begin{equation*}
 D_{1/n} \coloneq \{x \in [-m, m] : |f(x) - L_x| \geqslant 1/n\}
 \end{equation*}
-where $L_x$ is the limit at the point $x$. Assume $D_{1/n}$ to not be finite for some $n \in \mathbb{N}$, then we once again have a limit point $x_L$. 
-So:
+where $L_x$ is the limit at the point $x$. Assume $D_{1/n}$ to not be finite for some $n \in \mathbb{N}$, then we once again have a limit point $x_L$. Because $f$ only has discontinuities of the 1st kind, the left limit of $x_L$ must exist so that:
 \begin{equation*}
-\forall m, n \in \mathbb{N}: S_{1/n} \ \text{is finite}
+\forall k \in \mathbb{N}, \exists \delta > 0, \forall y \in (x_L - \delta, x_L): |f(y) - f(x_L^-)| < 1/k
+\end{equation*}
+Choosing $k = 4n$ and using the fact that the limit at a point is an adherent point, so $L_y \in \overline{f(x_L - \delta, x_L)} \subseteq [f(x_L^-) - 1/4n, f(x_L^-) + 1/4n]$, telling us that:
+\begin{equation*}
+\forall y \in (x_L - \delta, x_L): |f(y) - L_y| \leqslant |f(y) - f(x_L^-)| + |L_y - f(x_L^-)| \leqslant \frac{1}{2n} < \frac{1}{n}
+\end{equation*}
+which is a contradiction because $x_L$ is a limit/accumulation point which means there must exist some $x_{n_k} \in D_{1/n}$. \\
+
+So
+\begin{equation*}
+\forall m, n \in \mathbb{N}: S_{1/n} \text{ and } D_{1/n} \  \text{is finite}
 \end{equation*}
 thus the countable union of finite sets is countable, proving that discontinuities of the first kind are countable. 
 \end{proof}
