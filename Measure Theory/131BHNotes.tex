@@ -267,6 +267,14 @@ Then, without loss of generality, consider some $2n \geqslant n_1$ whereby $n$ i
 \end{equation*}
 which is a contradiction. Thus the limit $L$ is unique for any arbitrary sequence, proving equivalence of the two statements.
 \end{proof}
+This characterization is in essence the oscillation characterization. Taking the supremum, we get that:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0: \text{osc}(f, B(x, \delta)\setminus\{x\}) \leqslant \epsilon
+\end{equation*}
+and converting it to net based convergence with respect to $\delta$ as the variable, we find:
+\begin{equation*}
+\lim_{\delta \xrightarrow{} 0^+}\text{osc}(f, B(x, \delta)\setminus \{x\}) = \text{osc}_x(f) = 0
+\end{equation*}
 
 We now use this idea to prove an interesting consequence of discontinuities of the first kind (covered in a later section):
 \begin{lem}
