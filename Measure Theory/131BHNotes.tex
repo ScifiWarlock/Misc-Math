@@ -280,7 +280,36 @@ We now use this idea to prove an interesting consequence of discontinuities of t
 \begin{lem}
 Discontinuities of the first kind are always countable. 
 \end{lem}
-Now consider a function $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ with an uncountable number of discontinuities. Then $\exists n \in \mathbb{N}$ such that $[-n, n]$ has an uncountable number of discontinuities. 
+\begin{proof}
+Now consider a function $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ where for some $m, n \in \mathbb{N}$ the following set is not finite:
+\begin{equation*}
+S_{1/n} \coloneq \{x \in [-m, m] : (\forall \delta > 0, \exists y, z \in B(x, \delta)\setminus \{x\}: |f(z) - f(y)| \geqslant \frac{1}{n})\}
+\end{equation*}
+Now the interval $[-m, m]$ is compact. Since the set $S_{1/n}$ is not finite (it is either countably infinite or uncountable), taking a sequence of points $x_n \in S_{1/n}$; compactness entails a convergent subsequence such that:
+\begin{equation*}
+\exists x_L \in [-m, m]: x_{n_k} \xrightarrow{} x_L
+\end{equation*}
+Now by the "pigeonhole principle" either the left or right $\epsilon$-neighborhoods of $x_L$ must contain countably infinite values from $x_n$; assume this to be the left neighborhoods. Then:
+\begin{equation*}
+\exists \epsilon = \frac{1}{n}, \forall \delta > 0, \exists x, y \in (x_L - \delta, x_L): |f(x) - f(y)| \geqslant  1/n
+\end{equation*}
+This is because $\forall \delta > 0, \exists x_{n_k} \in (x_L - \delta, x_L)$ and because it is an interior point, $\exists \delta_{k} > 0$ such that:
+\begin{equation*}
+B(x_n, \delta_{k}) \subseteq (x_L - \delta, x_L)
+\end{equation*}
+and because $x_{n_k} \in S_{1/n}$ the claim follows. Thus, the left limit of $x_L$ does not exist, showing that we have a discontinuity of the second kind (contradiction). Now here we only addressed a specific type of discontinuity of the first kind (where the limit does not exist).\\
+
+However, it can be that the limit exists but does not agree with the function value, so define:
+\begin{equation*}
+D_{1/n} \coloneq \{x \in [-m, m] : |f(x) - L_x| \geqslant 1/n\}
+\end{equation*}
+where $L_x$ is the limit at the point $x$. Assume $D_{1/n}$ to not be finite for some $n \in \mathbb{N}$, then we once again have a limit point $x_L$. 
+So:
+\begin{equation*}
+\forall m, n \in \mathbb{N}: S_{1/n} \ \text{is finite}
+\end{equation*}
+thus the countable union of finite sets is countable, proving that discontinuities of the first kind are countable. 
+\end{proof}
 
 \subsection{Continuity}
 When we mention the term continuity, we talk about pointwise continuity at some point $x \in \text{Dom}(f)$ and not isolated, defined as:
