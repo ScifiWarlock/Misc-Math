@@ -1,5 +1,6 @@
-\documentclass{exam}
-\usepackage{graphicx} % Required for inserting images
+\documentclass[10pt,letterpaper]{article} % exam class defaults to 10pt on letterpaper
+\usepackage[margin=1in]{geometry}         % exam class defaults to 1-inch margins
+\usepackage{graphicx} 
 \usepackage{fancyhdr}
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -7,11 +8,12 @@
 \usepackage[most]{tcolorbox}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{blindtext}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{hyperref}
+
 \setlength{\parindent}{0pt}
-% if you ever want to enter images use the following code%
-%\begin{center}%
-    %\includegraphics[width=0.8\textwidth]{Screenshot (22).png}%
-%\end{center}%
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex} % Matches the paragraph spacing of exam
 
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{lem}{Lemma}[section]
@@ -19,39 +21,14 @@
 \newtheorem{cor}{Corollary}[section]
 \newtheorem{axm}{Axiom}[section]
 
-\tcolorboxenvironment{thm}{
-  colback=lime,
-  colframe=black,
-  breakable
-}
+\tcolorboxenvironment{thm}{colback=lime, colframe=black, breakable}
+\tcolorboxenvironment{lem}{colback=yellow, colframe=black, breakable}
+\tcolorboxenvironment{defn}{colback=pink, colframe=black, breakable}
+\tcolorboxenvironment{cor}{colback=SpringGreen, colframe=black, breakable}
+\tcolorboxenvironment{axm}{colback=white, colframe=black, breakable}
 
-\tcolorboxenvironment{lem}{
-  colback=yellow,
-  colframe=black,
-  breakable
-}
-
-\tcolorboxenvironment{defn}{
-  colback=pink,
-  colframe=black,
-  breakable
-}
-
-\tcolorboxenvironment{cor}{
-  colback=SpringGreen,
-  colframe=black,
-  breakable
-}
-
-\tcolorboxenvironment{axm}{
-  colback=white,
-  colframe=black,
-  breakable
-}
-
-
+% --- Header/Footer Setup ---
 \fancyhf{}
-\fancyhead[R]{   Omkar Tasgaonkar\\UID: 206-624-454}
 \renewcommand\headrulewidth{0.5pt}
 \pagestyle{fancy}
 \author{Omkar Tasgaonkar}
@@ -61,23 +38,18 @@
 
 \fancypagestyle{firstpage}{
     \fancyhf{}
-    \fancyhead[C]{\textbf{Notes on Controls}}
-    \fancyhead[R]{Omkar Tasgaonkar\\UID: 206-624-454}
+    \fancyhead[C]{\textbf{Notes on Analysis}}
     \renewcommand\headrulewidth{0.5pt}
     \fancyfoot[C]{(\thepage)}
     \renewcommand\footrulewidth{0.5pt}
 }
-
-
-
 \begin{document}
+\tableofcontents
 \thispagestyle{firstpage}
 
-\section*{Introduction}
-\begin{thm}
-test theorem
-\end{thm}
 \pagebreak
-\section*{Problem 2}
+
+\section{Compactness}
+
 
 \end{document}
