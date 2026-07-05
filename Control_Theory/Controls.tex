@@ -52,6 +52,9 @@
 \section{Compactness}
 We will now discuss the equivalence of topological and sequential compactness in the reals and in general metric spaces. Let us view the following theorem:
 
+\subsection{Adherent Points}
+We will discuss adherent points briefly in order to support rigorous discussion in further sections.
+
 \subsection{Sequential Compactness}
 \begin{thm}[Sequential Bolzano Weierstrass]
 Any bounded sequence has a convergent subsequence.
@@ -70,6 +73,43 @@ In which case we are guaranteed that $\forall k \in \mathbb{N}: n_{k+1} > n_k$ w
 \begin{equation*}
 n_0 \coloneq \sup(P) + 1
 \end{equation*}
-that way the peaks are fully ommited from the subsequence, as they will prove to be problematic in the construction. 
+that way the peaks are fully ommited from the subsequence, as they will prove to be problematic in the construction. Then for any $k \in \mathbb{N}$, we are guaranteed that $n_k \notin P$ (since $\{n_k\}_{k \in \mathbb{N}}$ is strictly increasing and $n_0 \notin P$), which means:
+\begin{equation*}
+\exists j > n_k: x_j \geqslant x_{n_k}
+\end{equation*}
+So we simple define:
+\begin{equation*}
+\forall k \in \mathbb{N}: n_{k+1} \coloneq \inf\{j > n_k: x_j \geqslant x_{n_k}\}
+\end{equation*}
+in which case we obtain a non-decreasing subsequence. Now any bounded sequence has a monotone subsequence, which converges. What this means is given some sequence $\{x_n\}_{n \in \mathbb{N}}$, we have that:
+\begin{equation*}
+\exists y \in \mathbb{R}, \exists r > 0, \forall n \in \mathbb{N}: x_n \in B(y, r)
+\end{equation*}
+so the sequence has a convergent subsequence within the ball, but such a subsequence may not converge within the ball. This is due to the topological idea that the limit point certainly belongs in the closure of the set but not necessarily in the open set. Consider the bounded sequence:
+\begin{equation*}
+\{x_n\}_{n \in \mathbb{N}} \in (0, 1)^\mathbb{N}: \left(\forall n \in \mathbb{N}: x_n \coloneq \frac{1}{n+2}\right)
+\end{equation*}
+Then $x_n \xrightarrow{} 0$ yet $0 \notin (0, 1)$. This idea of closedness plays a key role in sequential compactness. 
+\end{proof}
+
+\begin{defn}
+A sequentially compact interval of $\mathbb{R}$ is one for which every sequence has a convergent subsequence that converges to a point within the interval. 
+\end{defn}
+The previous Theorem 1.1 leads to a key theorem:
+\begin{thm}
+An interval of $\mathbb{R}$ is sequentially compact if and only if it is closed and bounded. 
+\end{thm}
+\begin{proof}
+$\impliedby$: This direction follows from Sequential Bolzano Weierstrass. If the interval is bounded, then any sequence has a convergent monotone subsequence. Since it is closed, the limit of the sequence, which is an adherent point, belongs in the closure.\\
+
+$\implies$: Consider any convergent sequence $\{x_n\}_{n \in \mathbb{N}}$ such that $\forall n \in \mathbb{N}: x_n \in I$. Then by sequential compactness:
+\begin{equation*}
+\exists \{n_k\}_{k \in \mathbb{N}}: x_{n_k} \xrightarrow{} x \land x \in I
+\end{equation*}
+which forces $x_n \xrightarrow{} x$. Thus all convergent sequences converge to points within the set (which by sequential closure) means $I$ is closed. Now assume the interval is not bounded, in which case:
+\begin{equation*}
+\forall r > 0, \forall y \in \mathbb{R}: I \nsubseteq B(y, r)
+\end{equation*}
+Then consider some sequence $\{x_n\}_{n \in \mathbb{N}} \in I^\mathbb{N}$. Then choose some $\epsilon > 0$ for which for all 
 \end{proof}
 \end{document}
