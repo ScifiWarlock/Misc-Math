@@ -58,6 +58,18 @@ Any bounded sequence has a convergent subsequence.
 \end{thm}
 To prove this fact, we show first that any sequence in $\mathbb{R}$ has a monotonic subsequence. 
 \begin{proof}
-
+Let us define the following set, we call "peaks" of a sequence:
+\begin{equation*}
+P \coloneq \{n \in \mathbb{N}: (\forall j > n: x_j < x_n)\}
+\end{equation*}
+In the case that $P$ is countably infinite, then we set:
+\begin{equation*}
+n_0 \coloneq \inf P \land \forall k > 0: n_k \coloneq \inf \left(P \setminus \{n_0,...,n_{k-1}\}\right)
+\end{equation*}
+In which case we are guaranteed that $\forall k \in \mathbb{N}: n_{k+1} > n_k$ which tells us that $x_{n_{k+1}} < x_{n_k}$, showing that there exists a strictly decreasing subsequence. In the case that $P$ is finite, we choose the following:
+\begin{equation*}
+n_0 \coloneq \sup(P) + 1
+\end{equation*}
+that way the peaks are fully ommited from the subsequence, as they will prove to be problematic in the construction. 
 \end{proof}
 \end{document}
