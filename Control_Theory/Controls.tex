@@ -52,8 +52,21 @@
 \section{Compactness}
 We will now discuss the equivalence of topological and sequential compactness in the reals and in general metric spaces. Let us view the following theorem:
 
-\subsection{Adherent Points}
-We will discuss adherent points briefly in order to support rigorous discussion in further sections.
+\subsection{Limit Points}
+The limits of sequences ARE NOT necessarily limit points. Given some subset $E \subseteq \mathbb{R}$, $x$ is a limit point of $E$ if:
+\begin{equation*}
+\forall \epsilon > 0: B(x, \epsilon) \cap E \neq \varnothing
+\end{equation*}
+Notice how this only requires the intersection to be nonempty; which means there could possibly be a finite number of points in the intersection (but we will see this is not possible). Let us look at the following lemma:
+\begin{lem}
+$x$ is a limit point of $E$ if and only if
+\begin{equation*}
+\exists \{x_n\}_{n \in \mathbb{N}} \in (E \setminus \{x\})^\mathbb{N}: x_n \xrightarrow{} x
+\end{equation*}
+\begin{proof}
+
+\end{proof}
+\end{lem}
 
 \subsection{Sequential Compactness}
 \begin{thm}[Sequential Bolzano Weierstrass]
@@ -110,6 +123,10 @@ which forces $x_n \xrightarrow{} x$. Thus all convergent sequences converge to p
 \begin{equation*}
 \forall r > 0, \forall y \in \mathbb{R}: I \nsubseteq B(y, r)
 \end{equation*}
-Then consider some sequence $\{x_n\}_{n \in \mathbb{N}} \in I^\mathbb{N}$. Then choose some $\epsilon > 0$ for which for all 
+Then consider some sequence $\{x_n\}_{n \in \mathbb{N}} \in I^\mathbb{N}$. For this, we need the following notion:
 \end{proof}
+
+\begin{lem}
+For any set $I \subseteq \mathbb{R}$, $I$ is bounded if and only if it is totally bounded (ONLY for $\mathbb{R}$).
+\end{lem} 
 \end{document}
