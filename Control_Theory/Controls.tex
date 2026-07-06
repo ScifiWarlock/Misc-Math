@@ -36,6 +36,9 @@
 \fancyfoot[C]{(\thepage)}
 \renewcommand\footrulewidth{0.5pt}
 
+\title{A Treatise on Differential Equations of the Ordinary Kind \\[0.5em] \large With an Analytical Lens}
+\author{Omkar Tasgaonkar \\ \small otasgaonkar@ucla.edu}
+
 \fancypagestyle{firstpage}{
     \fancyhf{}
     \fancyhead[C]{\textbf{Notes on Differential Equations}}
@@ -44,6 +47,7 @@
     \renewcommand\footrulewidth{0.5pt}
 }
 \begin{document}
+\maketitle
 \tableofcontents
 \thispagestyle{firstpage}
 
@@ -63,10 +67,50 @@ $x$ is a limit point of $E$ if and only if
 \begin{equation*}
 \exists \{x_n\}_{n \in \mathbb{N}} \in (E \setminus \{x\})^\mathbb{N}: x_n \xrightarrow{} x
 \end{equation*}
-\begin{proof}
-
-\end{proof}
 \end{lem}
+\begin{proof}
+$\implies$: If $x$ is a limit point, then using the first countability of metric spaces, consider:
+\begin{equation*}
+\epsilon_n \coloneq \frac{1}{n+1}
+\end{equation*} 
+Then by axiom of choice, choose $x_n \in B(x, \epsilon_n) \cap E \setminus \{x\}$, so that:
+\begin{equation*}
+\forall n \in \mathbb{N}: |x_n - x| < \frac{1}{n+1} \implies x_n \xrightarrow{} x
+\end{equation*}
+
+$\impliedby$: Now for the converse. If there exists such a sequence $\{x_n\}_{n \in \mathbb{N}}$ such that:
+\begin{equation*}
+\forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: |x_n - x| < \epsilon
+\end{equation*}
+then we see that
+\begin{equation*}
+\forall \epsilon > 0: B(x, \epsilon) \cap E \setminus \{x\} \neq \varnothing
+\end{equation*}
+as $\forall n \geqslant n_0: x_n \in B(x, \epsilon)$ and by definition of the sequence $x_n \in E \setminus \{x\}$. Thus proving equivalence.
+\end{proof}
+
+Now we introduce the following notion:
+\begin{defn}
+An $\omega$-limit point of a set $E$ is one for which there exists a countably infinite number of points of $E$ within each punctured $\epsilon$-ball around $x$.
+\end{defn}
+It follows that every limit point in $\mathbb{R}$ is an $\omega$-limit point from Lemma 1.1, the sequential definition. This is because:
+\begin{equation*}
+\forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: x_n \in B(x, \epsilon) \cap E \setminus \{x\}
+\end{equation*}
+and the natural numbers $n_0$ and beyond are countably infinite (an injection of $\mathbb{N}$ into this set can easily be shown), thus $x$ is an $\omega$-accumulation point. The weakest sufficient condition is a $T_1$ space for such equivalence.\\
+
+Observe the definition of sequential closure of some subset $E$:
+\begin{defn}
+$\overline{E}$ is the closure of $E$ if and only if
+\begin{equation*}
+\forall \{x_n\}_{n \in \mathbb{N}} \in E^\mathbb{N}: x_n \xrightarrow{} x \implies x \in \overline{E}
+\end{equation*}
+\end{defn}
+So by the equivalence stated in Lemma 1.1, $\{x_n\}_{n \in \mathbb{N}}$ belongs to $E^\mathbb{N}$ as well (it is not guaranteed that $x \in E$), but by sequential closure $x$ or the limit point must belong in $\overline{E}$.\\
+
+Now steering our attention back to sequences, the limit of a sequence may not be a limit point. Consider an eventually constant or constant sequence. We see that it converges to whatever value it is eventually constant at; but there is an empty $\epsilon$-punctured ball intersection. So a limit point is a limit of a specific type of sequence, but not vice versa.\\
+
+This distinction will be quite crucial in the following section.
 
 \subsection{Sequential Compactness}
 \begin{thm}[Sequential Bolzano Weierstrass]
@@ -112,7 +156,6 @@ The previous Theorem 1.1 leads to a key theorem:
 \begin{thm}
 An interval of $\mathbb{R}$ is sequentially compact if and only if it is closed and bounded. 
 \end{thm}
-\begin{proof}
 $\impliedby$: This direction follows from Sequential Bolzano Weierstrass. If the interval is bounded, then any sequence has a convergent monotone subsequence. Since it is closed, the limit of the sequence, which is an adherent point, belongs in the closure.\\
 
 $\implies$: Consider any convergent sequence $\{x_n\}_{n \in \mathbb{N}}$ such that $\forall n \in \mathbb{N}: x_n \in I$. Then by sequential compactness:
@@ -124,9 +167,19 @@ which forces $x_n \xrightarrow{} x$. Thus all convergent sequences converge to p
 \forall r > 0, \forall y \in \mathbb{R}: I \nsubseteq B(y, r)
 \end{equation*}
 Then consider some sequence $\{x_n\}_{n \in \mathbb{N}} \in I^\mathbb{N}$. For this, we need the following notion:
-\end{proof}
+
 
 \begin{lem}
 For any set $I \subseteq \mathbb{R}$, $I$ is bounded if and only if it is totally bounded (ONLY for $\mathbb{R}$).
-\end{lem} 
+\end{lem}
+\begin{proof}
+$\implies$: If $I$ is bounded, then:
+\begin{equation*}
+\exists \epsilon > 0, \exists y \in \mathbb{R}: I \subseteq B(y, \epsilon)
+\end{equation*}
+We aim to show $I$ is totally bounded, which means:
+\begin{equation*}
+\forall \epsilon > 0, \exists x_0, ..., x_m \in I: I \subseteq \bigcup_{i=0}^{m}B(x_i, \epsilon)
+\end{equation*}
+\end{proof} 
 \end{document}
