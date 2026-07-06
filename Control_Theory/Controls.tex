@@ -173,7 +173,7 @@ Then consider some sequence $\{x_n\}_{n \in \mathbb{N}} \in I^\mathbb{N}$. For t
 For any set $I \subseteq \mathbb{R}$, $I$ is bounded if and only if it is totally bounded (ONLY for $\mathbb{R}$).
 \end{lem}
 \begin{proof}
-$\implies$: If $I$ is bounded, then:
+$\impliedby$: If $I$ is bounded, then:
 \begin{equation*}
 \exists \epsilon > 0, \exists y \in \mathbb{R}: I \subseteq B(y, \epsilon)
 \end{equation*}
@@ -181,5 +181,20 @@ We aim to show $I$ is totally bounded, which means:
 \begin{equation*}
 \forall \epsilon > 0, \exists x_0, ..., x_m \in I: I \subseteq \bigcup_{i=0}^{m}B(x_i, \epsilon)
 \end{equation*}
+This converse direction is necessarily true; however, the forward direction is not necessarily true in all spaces. Consider the following:
+\begin{equation*}
+M \coloneq \max\{|x_i - x_j| : 0 \leqslant i, j \leqslant m\}
+\end{equation*}
+Then, choose some $x_i$; so without loss of generality, we choose $x_0$:
+\begin{equation*}
+\forall x \in I, \exists x_i: x \in B(x_i, \epsilon) \implies |x-x_0| \leqslant |x-x_i| + |x_i - x_0| < \epsilon + M
+\end{equation*}
+
+$\implies:$ Now to prove the forward direction. Assume $I$ is not totally bounded:
+\begin{equation*}
+\exists \epsilon > 0, \forall x_0,...,x_m \in I: I \nsubseteq \bigcup_{i=0}^{m}B(x_i, \epsilon)
+\end{equation*}
 \end{proof} 
+
+\subsection{Limit Point Compactness}
 \end{document}
