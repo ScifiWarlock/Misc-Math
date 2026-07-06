@@ -778,7 +778,38 @@ which means the right limits are adherent points. Thus, by definition of closure
 \begin{equation*}
 \forall \epsilon > 0, \exists \delta > 0: h[x, x+\delta) \subseteq \overline{f(x, x+\delta)} \subseteq [h(x) - \epsilon, h(x) + \epsilon] \subseteq (h(x) - 2\epsilon, h(x) + 2\epsilon)
 \end{equation*}
-showing by the open ball definition that $h$ is right continuous.
+showing by the open ball definition that $h$ is right continuous.\\
+
+%-------------------------------------------------------------------%
+%NEED TO WORK ON THIS PROOF STILL; WILL REVISIT IT AT A LATER MOMENT%
+Interestingly, we can also solve this problem via sequences. We want to show that:
+\begin{equation*}
+\forall \{x_n\}_{n \in \mathbb{N}} \in \mathbb{R}^\mathbb{N}: (\forall n \in \mathbb{N}: x_{n+1} \leqslant x_n)
+\end{equation*}
+that if $x_n \xrightarrow{} x$ then $h(x_n) \xrightarrow{} h(x)$. We know that by the existence of the right limit:
+\begin{equation*}
+\forall x_n \in \{x_n\}_{n \in \mathbb{N}}, \forall \{x^{n}_{j}\}_{j \in \mathbb{N}} \in \mathbb{R}^\mathbb{N}: x^{n}_j \xrightarrow{} x_n \implies f(x^{n}_j) \xrightarrow{} h(x_n)
+\end{equation*}
+where $x^{n}_j$ is a non-decreasing sequence. Then:
+\begin{equation*}
+|x^{n}_j - x| \leqslant |x^{n}_j - x_n| + |x_n - x| \xrightarrow{} 0
+\end{equation*}
+To put more rigorously:
+\begin{equation*}
+\forall \epsilon > 0, \exists j_0, n_0 \geqslant 0, \forall j, n \geqslant j_0, n_0: |x^{n}_j - x| < 2\epsilon
+\end{equation*}
+So combining all terms of the $n$ sequences $\{x^{n}_j\}_{j \in \mathbb{N}}$, we find that $x^{n}_j \geqslant x$ for all $n, j \in \mathbb{N}$.\\
+
+Thus the sequence of values in the sequences $x^{n}_j$ converge to $x$ from the right as $j, n \xrightarrow{} \infty$, which by existence of a right limit implies that $f(x^{n}_j) \xrightarrow{} h(x)$, so:
+\begin{equation*}
+|h(x_n) - h(x)| \leqslant |h(x) - f(x^{n}_j)| + |f(x^{n}_j) - h(x_n)| \xrightarrow{} 0
+\end{equation*}
+or in $\epsilon$-terms:
+\begin{equation*}
+\forall \epsilon > 0, \exists j_0, n_0 \geqslant 0, \forall n \geqslant n_0: |h(x_n) - h(x)| < 2\epsilon
+\end{equation*}
+thus proving right continuity.
+%------------------------------------------------------------------%
 
 \pagebreak
 \section{Variation (Continuity)}

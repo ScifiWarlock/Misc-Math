@@ -38,10 +38,11 @@
 
 \title{A Treatise on Differential Equations of the Ordinary Kind \\[0.5em] \large With an Analytical Lens}
 \author{Omkar Tasgaonkar \\ \small otasgaonkar@ucla.edu}
+\date{}
 
 \fancypagestyle{firstpage}{
     \fancyhf{}
-    \fancyhead[C]{\textbf{Notes on Differential Equations}}
+    \fancyhead[C]{\textbf{Notes in Analysis}}
     \renewcommand\headrulewidth{0.5pt}
     \fancyfoot[C]{(\thepage)}
     \renewcommand\footrulewidth{0.5pt}
@@ -166,8 +167,26 @@ which forces $x_n \xrightarrow{} x$. Thus all convergent sequences converge to p
 \begin{equation*}
 \forall r > 0, \forall y \in \mathbb{R}: I \nsubseteq B(y, r)
 \end{equation*}
-Then consider some sequence $\{x_n\}_{n \in \mathbb{N}} \in I^\mathbb{N}$. For this, we need the following notion:
-
+Or equivalently (to bring about the sequential format, we use first countability):
+\begin{equation*}
+\forall n \in \mathbb{N}, \forall y \in \mathbb{R}, \exists x \in I: x \notin B(y, n+1)
+\end{equation*}
+Choose some arbitrary $y \in \mathbb{R}$. Then $\forall n \in \mathbb{N}$ choose $x_n$ such that $x_n \notin B(y, n+1)$, so that:
+\begin{equation*}
+\forall n \in \mathbb{N}: |x_n - y| > n+1 > 1/2
+\end{equation*}
+Now assume there existed some $z$ such that some subsequence indexed by $\{n_k\}_{k \in \mathbb{N}}$ converged to $z$. Then:
+\begin{equation*}
+\forall k \in \mathbb{N}: |x_{n_k} - y| \leqslant |x_{n_k} - z| + |y-z|
+\end{equation*}
+\begin{equation*}
+\implies \forall k \in \mathbb{N}: ||x_{n_k} - y| - |y-z|| \leqslant |x_{n_k} - z|
+\end{equation*}
+Taking limit $k \xrightarrow{} \infty$ we see that $n_k \xrightarrow{} \infty$, thus:
+\begin{equation*}
+||x_{n_k} - y| - |y-z|| \xrightarrow{} 0
+\end{equation*}
+which is a contradiction because $|x_{n_k} - y| > n_k + 1$ which tells us that $|x_{n_k} - y| \xrightarrow{} \infty$, so $x_{n_k} \nrightarrow z$ and since $z$ is arbitrary, this holds true for all such $z \in \mathbb{R}$. 
 
 \begin{lem}
 For any set $I \subseteq \mathbb{R}$, $I$ is bounded if and only if it is totally bounded (ONLY for $\mathbb{R}$).
@@ -175,7 +194,7 @@ For any set $I \subseteq \mathbb{R}$, $I$ is bounded if and only if it is totall
 \begin{proof}
 $\impliedby$: If $I$ is bounded, then:
 \begin{equation*}
-\exists \epsilon > 0, \exists y \in \mathbb{R}: I \subseteq B(y, \epsilon)
+\exists r > 0, \exists y \in \mathbb{R}: I \subseteq B(y, r) \iff \exists r > 0, \exists y \in \mathbb{R}, \forall x \in I: x \in B(y, r)
 \end{equation*}
 We aim to show $I$ is totally bounded, which means:
 \begin{equation*}
@@ -192,7 +211,11 @@ Then, choose some $x_i$; so without loss of generality, we choose $x_0$:
 
 $\implies:$ Now to prove the forward direction. Assume $I$ is not totally bounded:
 \begin{equation*}
-\exists \epsilon > 0, \forall x_0,...,x_m \in I: I \nsubseteq \bigcup_{i=0}^{m}B(x_i, \epsilon)
+\exists \epsilon > 0, \forall x_0,...,x_m \in I, \exists x \in I: x \notin \bigcup_{i=0}^{m}B(x_i, \epsilon)
+\end{equation*}
+then we aim to show:
+\begin{equation*}
+\forall r > 0, \forall y \in \mathbb{R}, \exists x \in I: x \notin B(y, r)
 \end{equation*}
 \end{proof} 
 
