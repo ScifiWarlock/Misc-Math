@@ -36,7 +36,7 @@
 \fancyfoot[C]{(\thepage)}
 \renewcommand\footrulewidth{0.5pt}
 
-\title{A Treatise on Differential Equations of the Ordinary Kind \\[0.5em] \large With an Analytical Lens}
+\title{A Treatise on Differential Equations of the Ordinary Kind \\[0.5em] \large With Notes on Integration}
 \author{Omkar Tasgaonkar \\ \small otasgaonkar@ucla.edu}
 \date{}
 
@@ -51,9 +51,11 @@
 \maketitle
 \tableofcontents
 \thispagestyle{firstpage}
+\setcounter{section}{-1}
 
 \pagebreak
 
+\section{Another Try at Nets}
 \section{Compactness}
 We will now discuss the equivalence of topological and sequential compactness in the reals and in general metric spaces. Let us view the following theorem:
 
@@ -209,15 +211,73 @@ Then, choose some $x_i$; so without loss of generality, we choose $x_0$:
 \forall x \in I, \exists x_i: x \in B(x_i, \epsilon) \implies |x-x_0| \leqslant |x-x_i| + |x_i - x_0| < \epsilon + M
 \end{equation*}
 
-$\implies:$ Now to prove the forward direction. Assume $I$ is not totally bounded:
+$\implies:$ Now to prove the forward direction. We have that $I$ is bounded, which means:
 \begin{equation*}
-\exists \epsilon > 0, \forall x_0,...,x_m \in I, \exists x \in I: x \notin \bigcup_{i=0}^{m}B(x_i, \epsilon)
+\exists y \in \mathbb{R}, \exists r > 0: I \subseteq B(y, r)
 \end{equation*}
-then we aim to show:
+Now we can show that $B(y, r)$ is totally bounded. Simply consider the uniform partition:
 \begin{equation*}
-\forall r > 0, \forall y \in \mathbb{R}, \exists x \in I: x \notin B(y, r)
+\Pi_B \coloneq \left\{(y-r) + \frac{2r}{n}i: 0 \leqslant i \leqslant n\right\}
 \end{equation*}
-\end{proof} 
+whereby:
+\begin{equation*}
+\exists n \in \mathbb{N}: \frac{2r}{n} < \frac{\epsilon}{2}
+\end{equation*}
+\begin{equation*}
+\implies \forall \epsilon > 0, \exists \Pi_B: I \subseteq B(y, r) \subseteq \bigcup_{x_i \in \Pi_B}B(x_i, \epsilon/2)
+\end{equation*}
+Now $\forall x_i \in \Pi_B$ where $B(x_i, \epsilon/2) \cap I \neq \varnothing$, choose $x_i'$ such that:
+\begin{equation*}
+x_i' \in B(x_i, \epsilon/2) \cap I
+\end{equation*}
+and add it to the partition $\Pi_I$. Then we observe that:
+\begin{equation*}
+\forall x \in I, \exists x_i \in \Pi_B: x \in B(x_i, \epsilon/2)
+\end{equation*}
+\begin{equation*}
+\implies \exists x_i' \in \Pi_I: |x - x_i'| \leqslant |x - x_i| + |x_i - x_i'| < \epsilon/2 + \epsilon/2 = \epsilon
+\end{equation*}
+thus, $I$ is totally bounded such that,
+\begin{equation*}
+\forall \epsilon > 0, \exists \Pi_I: I \subseteq \bigcup_{x_i' \in \Pi_I}B(x_i', \epsilon)
+\end{equation*}
+\end{proof}
+Now the main assumption we made here is that every open ball in $\mathbb{R}$ is totally bounded (which we can show via uniform partitions). The rest of the argument is not unique to $\mathbb{R}$. This can give insight into what spaces obey this Heine-Borel compactness property.\\
+
+NOTE: I will look into this later, it has something to do with finite dimensions/functional analysis.
 
 \subsection{Limit Point Compactness}
+We now discuss an equivalent form of compactness called limit point compactness (which due to the first countability of $\mathbb{R}$) is essentially equivalent to the sequential characterization.
+
+\begin{defn}
+A set $K \subseteq \mathbb{R}$ is limit point compact if for all infinite (countably or uncountably) sets $E \subseteq K$, there exists a limit point of $E$ in $K$.
+\end{defn}
+
+\begin{thm}
+A set $K$ is limit point compact if and only if it is sequentially compact in $\mathbb{R}$.
+\end{thm}
+\begin{proof}
+$\implies$: Now consider any sequence $\{x_n\}_{n \in \mathbb{N}} \in K^\mathbb{N}$, which is an infinite subset, so by limit point compactness it admits a limit point. Now:
+\begin{equation*}
+\forall n \in \mathbb{N}: \{x_n\}_{n \in \mathbb{N}} \cap B\left(x, \frac{1}{n+1}\right) \neq \varnothing
+\end{equation*}
+So to construct the converging subsequence (note this requires the Axiom of Choice), we choose:
+\begin{equation*}
+\forall k \in \mathbb{N}: x_{n_k} \in \{x_n\}_{n \in \mathbb{N}} \cap B\left(x, \frac{1}{k+1}\right)
+\end{equation*}
+such that $\forall k \in \mathbb{N}: n_{k+1} > n_k$.\\
+
+$\impliedby:$ Consider any infinite subset of $K$. Then taking a countable infinite subset of that, we obtain a sequence $\{x_n\}_{n \in \mathbb{N}} \in K^\mathbb{N}$ of DISTINCT points.\\
+
+By sequential compactness, there exists a convergent subsequence converging to a point $x$. Notice that we do not want one value repeating infinitely many times; otherwise we may not satisfy sequential characterization of limit points.\\
+
+Now it is possible that $x$ appears as a value, but at most once within the subsequence. Ommission of $x$ from this subsequence still results in a convergent subsequence. Assume $x$ appears at some index $n_j$, then:
+\begin{equation*}
+\forall \epsilon > 0, \exists k_0 \geqslant 0, \forall k \geqslant k_0: |x_{n_k} - x| < \epsilon
+\end{equation*}
+so if $j \geqslant k_0$, we still have infinite values other than $x$ from the subsequence within the $\epsilon$-ball around $x$. This is trivial if $j < k_0$, thus $x$ is an $\omega$-limit point or equivalently a limit point.
+\end{proof}
+Notice that the $\implies$ direction is not always true in general topological spaces as we used the first countability of metric spaces. The equivalence really stems from the idea of nets/countable nets or sequences. Limit point compactness is identical to sequential compactness in first countable spaces; the only difference being the former describes net-wise behavior, while the latter describes sequential.\\
+
+But the equivalence fundamentally comes from the equivalent characterization of limit points. 
 \end{document}
