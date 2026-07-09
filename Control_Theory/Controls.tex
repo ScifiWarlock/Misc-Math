@@ -58,9 +58,36 @@
 \section{Another Try at Nets}
 Uh yeah \dots nets. Basically what I have been trying to get to click the whole past quarter. Attempt 2 \dots\\
 
+\subsection{First Countability}
+What has been giving us sequential equivalence in $\mathbb{R}$ is the first countability of $\mathbb{R}$ (which means around any point $x$, there exists a countable basis). We used this to prove the more general properties implied sequential properties (by using the first countable property to construct/apply subsequences).\\
+
+All metric spaces are first countable; but there are some topological spaces that are not first countable. Consider the following topology on $\mathbb{R}$:
+\begin{equation*}
+\uptau \coloneq \{\varnothing\} \cup \{\mathbb{R} \setminus F: F \ \text{is finite}\}
+\end{equation*}
+Now take some point $x \in \mathbb{R}$ and assume it has some countable basis $\mathcal{B}_x \coloneq \{B_n\}_{n \in \mathbb{N}}$, in which case:
+\begin{equation*}
+\forall n \in \mathbb{N}: B_n = \mathbb{R}\setminus F_n
+\end{equation*}
+Then, the following set should be countably infinite:
+\begin{equation*}
+\bigcup_{n \in \mathbb{N}}(\mathbb{R}\setminus B_n)
+\end{equation*}
+since each $F_n$ is finite. We note that:
+\begin{equation*}
+\bigcup_{n \in \mathbb{N}}(\mathbb{R}\setminus B_n) = \mathbb{R} \setminus \bigcap_{n \in \mathbb{N}} B_n = \mathbb{R}\setminus \{x\}    
+\end{equation*}
+which is a contradiction, since $\mathbb{R}$ is not countably infinite and removing one point does not change this fact. Notice the intersection of the basis elements is solely $x$. That is because the topology is $T_1$, which means we can find some open set containing $x$ that separates $x$ and any other arbitrary point. Then by basis definition, there is some $B_n \subseteq O_x$.\\
+
+This same $T_1$ condition idea with basis elements gives equivalence of a limit point and $\omega$-limit point in the next section. 
+
+\subsection{Nets \dots Finally}
 We begin by introducing the notion of a directed set:
 \begin{defn}
-We define an ordering relation $\leq$ for the set $D$
+We define an ordering relation $\leq$ for the set $D$ and call it a directed set under the following conditions:
+\begin{enumerate}
+\item 
+\end{enumerate}
 \end{defn}
 
 \pagebreak
@@ -68,6 +95,29 @@ We define an ordering relation $\leq$ for the set $D$
 We will now discuss the equivalence of topological and sequential compactness in the reals and in general metric spaces. Let us view the following theorem:
 
 \subsection{Limit Points}
+We start off with a topological proof, which will be key to discussing limit and adherent points:
+\begin{lem}
+The closure of a set $A$ is equal to all of its adherent points. 
+\end{lem}
+\begin{proof}
+$\implies:$ We prove by contrapositive. If $x$ is not an adherent point, then:
+\begin{equation*}
+\exists \epsilon > 0: B(x, \epsilon) \cap A = \varnothing \implies B(x, \epsilon) \subseteq X \setminus A
+\end{equation*} 
+So $x$ is an interior point of $X \setminus A$, which means:
+\begin{equation*}
+x \in \text{int}(X \setminus A) = X \setminus \overline{A}
+\end{equation*} 
+
+$\impliedby:$ We once again prove by contrapositive. If $x \notin \overline{A}$, then:
+\begin{equation*}
+x \in X \setminus \overline{A} \subseteq X \setminus A \implies x \in X \setminus A
+\end{equation*}
+Since $x \setminus \overline{A}$ is open, then $x$ must be an interior point, so:
+\begin{equation*}
+\exists \epsilon > 0: B(x, r) \subseteq X \setminus A \implies \exists \epsilon > 0: B(x, r) \cap A = \varnothing
+\end{equation*}
+\end{proof}
 The limits of sequences ARE NOT necessarily limit points. Given some subset $E \subseteq \mathbb{R}$, $x$ is a limit point of $E$ if:
 \begin{equation*}
 \forall \epsilon > 0: B(x, \epsilon) \cap E \neq \varnothing
@@ -104,7 +154,7 @@ Now we introduce the following notion:
 \begin{defn}
 An $\omega$-limit point of a set $E$ is one for which there exists a countably infinite number of points of $E$ within each punctured $\epsilon$-ball around $x$.
 \end{defn}
-It follows that every limit point in $\mathbb{R}$ is an $\omega$-limit point from Lemma 1.1, the sequential definition. This is because:
+It follows that every limit point in $\mathbb{R}$ is an $\omega$-limit point from Lemma 1.2, the sequential definition. This is because:
 \begin{equation*}
 \forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: x_n \in B(x, \epsilon) \cap E \setminus \{x\}
 \end{equation*}
@@ -117,7 +167,7 @@ $\overline{E}$ is the closure of $E$ if and only if
 \forall \{x_n\}_{n \in \mathbb{N}} \in E^\mathbb{N}: x_n \xrightarrow{} x \implies x \in \overline{E}
 \end{equation*}
 \end{defn}
-So by the equivalence stated in Lemma 1.1, $\{x_n\}_{n \in \mathbb{N}}$ belongs to $E^\mathbb{N}$ as well (it is not guaranteed that $x \in E$), but by sequential closure $x$ or the limit point must belong in $\overline{E}$.\\
+So by the equivalence stated in Lemma 1.2, $\{x_n\}_{n \in \mathbb{N}}$ belongs to $E^\mathbb{N}$ as well (it is not guaranteed that $x \in E$), but by sequential closure $x$ or the limit point must belong in $\overline{E}$.\\
 
 Now steering our attention back to sequences, the limit of a sequence may not be a limit point. Consider an eventually constant or constant sequence. We see that it converges to whatever value it is eventually constant at; but there is an empty $\epsilon$-punctured ball intersection. So a limit point is a limit of a specific type of sequence, but not vice versa.\\
 
@@ -289,4 +339,7 @@ so if $j \geqslant k_0$, we still have infinite values other than $x$ from the s
 Notice that the $\implies$ direction is not always true in general topological spaces as we used the first countability of metric spaces. The equivalence really stems from the idea of nets/countable nets or sequences. Limit point compactness is identical to sequential compactness in first countable spaces; the only difference being the former describes net-wise behavior, while the latter describes sequential.\\
 
 But the equivalence fundamentally comes from the equivalent characterization of limit points. 
+
+\pagebreak
+\section{Integration and Nets}
 \end{document}
