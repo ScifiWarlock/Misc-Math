@@ -9,4 +9,4 @@ $date = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 git commit -m "Daily-push: $date"
 
 # Push to the remote repository
-git push origin main
+git push origin master
