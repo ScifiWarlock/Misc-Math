@@ -95,9 +95,43 @@ We begin by introducing the notion of a directed set:
 \begin{defn}
 We define an ordering relation $\leq$ for the set $D$ and call it a directed set under the following conditions:
 \begin{enumerate}
-\item 
+\item Reflexive: $\forall x \in D: x \leq x$
+\item Transitive: $\forall x, y, z \in D: x \leq y \land y \leq z \implies x \leq z$
+\item Directed: $\forall x, y \in D, \exists z \in D: (x \leq z \land y \leq z) \lor (z \leq x \land z \leq y)$
 \end{enumerate}
 \end{defn}
+Notice that the first two properties align with a partial order. However a partial order also requires antisymmetry, which means:
+\begin{equation*}
+x \leq y \land y \leq x \implies x = y
+\end{equation*}
+which is not required for a directed set. This will become quite important later on. The third property (which is direction) tells us whether the net is upward directed (the left side condition) or downward directed (the right side), or both! We view an equivalent property, for which WLOG, we assume an upward directed set $D$:
+\begin{lem}
+Given $(D, \leq)$ an upward directed set, then for all finite subsets $S$ of $D$:
+\begin{equation*}
+\forall S \subseteq D, \exists z \in D, \forall x \in S: x \leq z \iff \forall x, y \in D, \exists z \in D: x \leq z \land y \leq z 
+\end{equation*}
+In other words, all finite subsets of the directed set admit an upper bound.
+\end{lem}
+\begin{proof}
+$\implies:$ The forward direction is trivial as a two element subset is finite.
+
+$\impliedby:$ For the converse we prove via induction. The base case is a finite set of two elements, which we are given is true. Now assume it holds for a finite set of $n$ elements such that:
+\begin{equation*}
+S_n \coloneq \{x_i: 0 \leqslant i \leqslant n-1\} \land \forall x_i \in S_n, \exists z \in D: x_i \leq z
+\end{equation*}
+Now consider $S_{n+1} \coloneq S_n \cup \{x_n\}$ where $x_n$ is different from all elements in $S_n$. Then we get that, by the base case:
+\begin{equation*}
+\exists w \in D: x_n \leq w \land z \leq w
+\end{equation*}
+and finally by transitivity, we obtain that $\forall x_i \in S_{n+1}: x_i \leq w$. 
+\end{proof} 
+
+For the remainder of these notes, we assume a directed set $D$ is upward directed unless stated otherwise (the downward directed set notion will also be useful). Now a net is built on a directed set by the following:
+\begin{defn}
+A net is a function $\omega: D \xrightarrow{} X$ where $D$ is a directed set.  
+\end{defn}
+
+%some change%another one%and another one%and another one haha%
 
 \pagebreak
 \section{Compactness}
