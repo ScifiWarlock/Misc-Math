@@ -138,9 +138,19 @@ Now in full generality of an arbitrary topological space, we say that the net co
 \end{equation*}
 where $U_y$ is an arbitrary open neighborhood of the point $y \in X$ with the topology $\uptau_X$. Now, we will work for the remainder of these notes in metric spaces $(X, \varrho)$, so we can instead say:
 \begin{equation*}
-\forall \epsilon > 0, \exists \alpha_0 \in D, \forall \alpha \geq \alpha_0: x_\alpha \in B(c, \epsilon) \iff |x_\alpha - x| < \epsilon
+\forall \epsilon > 0, \exists \alpha_0 \in D, \forall \alpha \geq \alpha_0: x_\alpha \in B(c, \epsilon) \iff \varrho(x_\alpha, x) < \epsilon
 \end{equation*}
-so if our directed set $D = \mathbb{N}$, we obtain a sequence.
+so if our directed set $D = \mathbb{N}$, we obtain a sequence. We can alternatively characterize convergence by the following definition:
+\begin{defn}
+The tail of a net at $\alpha_0$ is defined as:
+\begin{equation*}
+T_{\alpha_0} \coloneq \{x_\alpha : \alpha \geq \alpha_0\}
+\end{equation*}  
+\end{defn}
+Then a net converges to some $x$ if and only if $\forall \epsilon > 0, \exists \alpha_0 \in D$ such that:
+\begin{equation*}
+T_{\alpha_0} \subseteq B(x, \epsilon) 
+\end{equation*}
 
 %some change%another one%and another one%and another one haha%
 %allright i am making some changes let us see!%another one!%
@@ -216,6 +226,11 @@ It follows that every limit point in $\mathbb{R}$ is an $\omega$-limit point fro
 \forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: x_n \in B(x, \epsilon) \cap E \setminus \{x\}
 \end{equation*}
 and the natural numbers $n_0$ and beyond are countably infinite (an injection of $\mathbb{N}$ into this set can easily be shown), thus $x$ is an $\omega$-accumulation point. The weakest sufficient condition is a $T_1$ space for such equivalence.\\
+
+Now if the set $E$ consists of some sequence $\{x_n\}_{n \in \mathbb{N}}$, then $E \coloneq \{x_n : n \in \mathbb{N}\}$, we see that $x$ is a limit point of $E$ if and only if there exists a convergent \textbf{subsequence} converging to $x$. This is not immediately trivial as one of the conditions we require for a subsequence is that:
+\begin{equation*}
+\forall \{n_k\}_{k \in \mathbb{N}}: n_k < n_{k+1s}
+\end{equation*}
 
 Observe the definition of sequential closure of some subset $E$:
 \begin{defn}
