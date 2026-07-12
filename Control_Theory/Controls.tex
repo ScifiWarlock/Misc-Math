@@ -130,6 +130,17 @@ For the remainder of these notes, we assume a directed set $D$ is upward directe
 \begin{defn}
 A net is a function $\omega: D \xrightarrow{} X$ where $D$ is a directed set.  
 \end{defn}
+We define net convergence as the following. Now, to bring about the similarity to sequences, we shall denote a net as $\{x_\alpha\}_{\alpha \in D}$ where $D$ is the directed set. This is still a function where $x_\alpha = \omega(\alpha)$, but this representation shows $D$ as an indexing set.\\
+
+Now in full generality of an arbitrary topological space, we say that the net converges or that $x_\alpha \xrightarrow{} x$ if:
+\begin{equation*}
+\forall U_y \in \uptau_X, \exists \alpha_0 \in D, \forall \alpha \geq \alpha_0: x_\alpha \in U_y
+\end{equation*}
+where $U_y$ is an arbitrary open neighborhood of the point $y \in X$ with the topology $\uptau_X$. Now, we will work for the remainder of these notes in metric spaces $(X, \varrho)$, so we can instead say:
+\begin{equation*}
+\forall \epsilon > 0, \exists \alpha_0 \in D, \forall \alpha \geq \alpha_0: x_\alpha \in B(c, \epsilon) \iff |x_\alpha - x| < \epsilon
+\end{equation*}
+so if our directed set $D = \mathbb{N}$, we obtain a sequence.
 
 %some change%another one%and another one%and another one haha%
 %allright i am making some changes let us see!%another one!%
