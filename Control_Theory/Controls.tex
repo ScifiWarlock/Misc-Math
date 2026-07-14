@@ -151,7 +151,10 @@ Then a net converges to some $x$ if and only if $\forall \epsilon > 0, \exists \
 \begin{equation*}
 T_{\alpha_0} \subseteq B(x, \epsilon) 
 \end{equation*}
-We say that a net converges if it is eventually in all open neighborhoods of $x$. We introduce a related concept from the lens of sequences:
+We say that a net converges if it is eventually in all open neighborhoods of $x$. 
+
+\subsection{Sequences/Cluster Points}
+We introduce a related concept from the lens of sequences:
 \begin{defn}
 A sequence frequently visits a set $A$ if:
 \begin{equation*}
@@ -195,9 +198,13 @@ $\impliedby:$ If there exists a convergent subsequence, then:
 \begin{equation*}
 \forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: x_n \in B(x, \epsilon)
 \end{equation*}
-This lemma shows us that the limit of a sequence is always a cluster point (not the converse)
+This lemma shows us that the limit of a sequence is always a cluster point (not necessarily the converse) because convergence is a stricter condition. We see that:
+\begin{equation*}
+\forall \epsilon > 0, \forall n_0' \geqslant 0, \exists n \geqslant n_0': x_n \in B(x, \epsilon)
+\end{equation*}
+because if $n_0' < n_0$, then $n = n_0$ satisfies the condition of a cluset point. If $n_0' \geqslant n_0$, then simply choosing $n = n_0'$ satisifes the condition because by convergence $T_{n_0} \subseteq B(x, \epsilon)$. 
 \end{proof}
-
+Notice how (aside from the construction of the subsequence) did not use any properties specific to that of integers. This gives rise to nets as we only require the properties of directed sets. 
 
 %some change%another one%and another one%and another one haha%
 %allright i am making some changes let us see!%another one!%
@@ -291,6 +298,53 @@ So by the equivalence stated in Lemma 1.2, $\{x_n\}_{n \in \mathbb{N}}$ belongs 
 Now steering our attention back to sequences, the limit of a sequence may not be a limit point. Consider an eventually constant or constant sequence. We see that it converges to whatever value it is eventually constant at; but there is an empty $\epsilon$-punctured ball intersection. So a limit point is a limit of a specific type of sequence, but not vice versa.\\
 
 This distinction will be quite crucial in the following section.
+
+\subsection{Limit Points and Sequences}
+In the previous section, we introduced the notion of a cluster point of a sequence, for which we proved:
+\begin{equation*}
+x \ \text{is a cluster point of } \{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N} \iff \exists \{n_k\}_{k \in \mathbb{N}} \in \mathbb{N}^\mathbb{N}: x_{n_k} \xrightarrow{} x
+\end{equation*}
+but nothing prevented $x_{n_k}$ from being perhaps a constant sequence such that all terms equal $x$ itself. Now this section focused on limit points of \textbf{sets}. So consider the set:
+\begin{equation*}
+S \coloneq \{x_n : n \in \mathbb{N}\}
+\end{equation*}
+which is the set of all possible values that appear in the sequence. Notice that the sequence allows for the repetition of values, while $S$ does not. So if $S$ is finite such that:
+\begin{equation*}
+S = \{x_0, ..., x_m\}
+\end{equation*}
+we notice that because a metric space is $T_1$, each of these points can be isolated from eachother. Thus, $S$ has no limit point. Now assume $S$ were countabily infinite, which means the sequence has infinitely many distinct terms. Then:
+\begin{lem}
+\begin{equation*}
+x \ \text{is a limit point of } S \iff \exists \{n_k\}_{k \in \mathbb{N}} \in \mathbb{N}^\mathbb{N}: x_{n_k} \xrightarrow{} x \land (\forall k \in \mathbb{N}: x_{n_k} \neq x)
+\end{equation*}
+\end{lem}
+This aligns with Lemma 1.2 with the \textbf{extra condition} that it must be a subsequence, which implies:
+\begin{equation*}
+n_k \xrightarrow{} \infty \land \forall k \in \mathbb{N}: n_k < n_{k+1}
+\end{equation*}
+\begin{proof}
+$\implies:$ Define $\epsilon_m \coloneq 1/(m+1)$. Then:
+\begin{equation*}
+\forall k \in \mathbb{N}: B(x, \epsilon_k) \cap S \setminus \{x\} \neq \varnothing
+\end{equation*}
+Then we have some $x_n \in S$ that belongs to the ball $B(x, \epsilon_k)$. Define this as the $n_k$ term of the "sub"-sequence. Now, this does not necessarily guarantee that the sequence we constructed $\{n_k\}_{k \in \mathbb{N}}$ is necessarily strictly increasing.
+
+$\impliedby:$ If there exists a convergent subsequence, then:
+\begin{equation*}
+\forall \epsilon > 0, \exists k_0 \geqslant 0, \forall k \geqslant k_0: x_{n_k} \in B(x, \epsilon)
+\end{equation*}
+Now given all terms of the subsequence do not equal $x$ and $S$ is countably infinite, we see that:
+\begin{equation*}
+\forall \epsilon > 0: B(x, \epsilon) \cap S \setminus \{x\} \neq \varnothing
+\end{equation*}
+and furthermore $x$ is an $\omega$-limit point. 
+\end{proof}
+This lemma is the engine behind the equivalence of limit point compactness and sequential compactness (the forward direction utilizes first countability).\\
+
+Going forward, we shall separate the terminologies so that we talk about cluster points of sequences/nets and limit/adherent points of sets. We provide a lemma for their equivalence below:
+\begin{lem}
+  
+\end{lem}
 
 \subsection{Sequential Compactness}
 \begin{thm}[Sequential Bolzano Weierstrass]
@@ -473,4 +527,7 @@ But the equivalence fundamentally comes from the equivalent characterization of 
 
 \pagebreak
 \section{Integration and Nets}
+
+\pagebreak
+\section{Arzela-Ascoli and Nets}
 \end{document}
