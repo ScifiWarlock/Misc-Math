@@ -204,7 +204,7 @@ This lemma shows us that the limit of a sequence is always a cluster point (not 
 \end{equation*}
 because if $n_0' < n_0$, then $n = n_0$ satisfies the condition of a cluset point. If $n_0' \geqslant n_0$, then simply choosing $n = n_0'$ satisifes the condition because by convergence $T_{n_0} \subseteq B(x, \epsilon)$. 
 \end{proof}
-Notice how (aside from the construction of the subsequence) did not use any properties specific to that of integers. This gives rise to nets as we only require the properties of directed sets. We define an additional useful property:
+Notice how (aside from the construction of the subsequence) did not use any properties specific to that of integers. Another thing is the limit of a convergent sequence is a cluster point, but the converse is not necessarily true. This gives rise to nets as we only require the properties of directed sets. We define an additional useful property:
 \begin{defn}
 $x$ is a limit-cluster point of $\{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}$ if $\{x_n\}_{n \in \mathbb{N}}$ frequently visits all punctured open neighborhoods of $x$.
 \end{defn}
@@ -212,7 +212,11 @@ In other words:
 \begin{equation*}
 \forall \epsilon > 0, \forall n_0 \geqslant 0, \exists n \geqslant n_0: x_n \in B(x, \epsilon) \setminus \{x\}
 \end{equation*}
-
+Then the following lemma (applying the same logic as Lemma 0.2) follows:
+\begin{lem}
+$x$ is a limit-cluster point of $\{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}$ if and only if $\exists \{n_k\}_{k \in \mathbb{N}}: x_{n_k} \xrightarrow{} x \land (\forall k \in \mathbb{N}: x_{n_k} \neq x)$  
+\end{lem}
+Now in this case, even the limit of a convergent sequence may not be a limit-cluster point (consider a constant or eventually constant sequence). 
 %some change%another one%and another one%and another one haha%
 %allright i am making some changes let us see!%another one!%
 %hey another edit%another one%and another one%and another one, ill see the github commit soon%another one!$
@@ -352,8 +356,41 @@ This lemma is the engine behind the equivalence of limit point compactness and s
 
 Going forward, we shall separate the terminologies so that we talk about cluster points of sequences/nets and limit/adherent points of sets. We provide a lemma for their equivalence below:
 \begin{lem}
-  
+If $S \coloneq \{x_n : n \in \mathbb{N}\}$ is countably infinite for some $\{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}$, then:
+\begin{equation*}
+x \ \text{is a limit point of } S \iff x \ \text{is a limit-cluster point of } \{x_n\}_{n \in \mathbb{N}}
+\end{equation*}
 \end{lem}
+\begin{proof}
+The proof follows from the equivalent condition proposed in Lemma 0.3. $x$ is a limit-cluster point of a sequence if and only if there exists a subsequence that converges to $x$ such that none of its terms equal $x$.\\
+
+This is the same equivalent condition proposed in Lemma 1.3, thus proving the above lemma.
+\end{proof}
+
+Another lemma requiring a stronger sufficient condition is the following:
+\begin{lem}
+If $\{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}$ consists of all DISTINCT terms (each term appears at most once), then:
+\begin{equation*}
+x \ \text{is a limit point of } S \iff x \ \text{is a cluster point of } \{x_n\}_{n \in \mathbb{N}}  
+\end{equation*} 
+\end{lem}
+\begin{proof}
+Lemma 0.2 provides us with the equivalence that $x$ is a cluster point of the sequence if and only if there exists a convergent subsequence to $x$. Now since the sequence itself has all distinct points, so does the convergent subsequence.\\
+
+One of the terms could perhaps be $x$, but since it appears at most once, omission of a finite number of points does not change convergence of the sequence. We prove this simply below. Let $x$ be the $n_j$-th element of the original subsequence derived from the definition of cluster point. Then, for the new subsequence with $x$ omitted:
+\begin{equation*}
+\forall \epsilon > 0, \exists k_0' \coloneq \max\{k_0, j+1\}, \forall k \geqslant k_0': |x_{n_k} - x| < \epsilon
+\end{equation*}
+where $k_0$ comes from the convergence of the subsequence containing $x$. Thus we can always find a tail of the new sequence within the $\epsilon$-neighborhood of $x$. If $k_0 < j$, then $k_0' = j+1$, and by convergence of the initial subsequence, the new one certainly converges as:
+\begin{equation*}
+T'_{k_0'} = T_{j+1} \subseteq T_{k_0} \subseteq B(x, \epsilon)
+\end{equation*}
+In the case that $k_0 > j$, we see that:
+\begin{equation*}
+T'_{k_0'} = T_{k_0} \subseteq B(x, \epsilon)
+\end{equation*}
+\end{proof}
+Lemma 1.4 and 1.5 will be key when discussing sequential compactness.
 
 \subsection{Sequential Compactness}
 \begin{thm}[Sequential Bolzano Weierstrass]
@@ -497,40 +534,44 @@ A set $K \subseteq \mathbb{R}$ is limit point compact if for all infinite (count
 \begin{thm}
 A set $K$ is limit point compact if and only if it is sequentially compact in $\mathbb{R}$.
 \end{thm}
-\begin{proof}
-$\implies$: Now consider any sequence $\{x_n\}_{n \in \mathbb{N}} \in K^\mathbb{N}$, which is an infinite subset, so by limit point compactness it admits a limit point. Now:
+$\implies:$ If $K$ is limit point compact, then every infinite subset is limit point compact. Then consider each sequence $\{x_n\}_{n \in \mathbb{N}} \in K^\mathbb{N}$ and define:
 \begin{equation*}
-\forall n \in \mathbb{N}: \{x_n\}_{n \in \mathbb{N}} \cap B\left(x, \frac{1}{n+1}\right) \neq \varnothing
+S \coloneq \{x_n : n \in \mathbb{N}\}
 \end{equation*}
-So to construct the converging subsequence (note this requires the Axiom of Choice), we choose:
-\begin{equation*}
-\forall k \in \mathbb{N}: x_{n_k} \in \{x_n\}_{n \in \mathbb{N}} \cap B\left(x, \frac{1}{k+1}\right)
-\end{equation*}
-such that $\forall k \in \mathbb{N}: n_{k+1} > n_k$. (\textbf{Not so sure about this proof because can we justify such a choice whereby $n_{k+1} > n_k$}).\\
+% \begin{proof}
+% $\implies$: Now consider any sequence $\{x_n\}_{n \in \mathbb{N}} \in K^\mathbb{N}$, which is an infinite subset, so by limit point compactness it admits a limit point. Now:
+% \begin{equation*}
+% \forall n \in \mathbb{N}: \{x_n\}_{n \in \mathbb{N}} \cap B\left(x, \frac{1}{n+1}\right) \neq \varnothing
+% \end{equation*}
+% So to construct the converging subsequence (note this requires the Axiom of Choice), we choose:
+% \begin{equation*}
+% \forall k \in \mathbb{N}: x_{n_k} \in \{x_n\}_{n \in \mathbb{N}} \cap B\left(x, \frac{1}{k+1}\right)
+% \end{equation*}
+% such that $\forall k \in \mathbb{N}: n_{k+1} > n_k$. (\textbf{Not so sure about this proof because can we justify such a choice whereby $n_{k+1} > n_k$}).\\
 
-An alternative prove is by contrapositive. Consider $K$ is not sequentially compact, then:
-\begin{equation*}
-\exists \{x_n\}_{n \in \mathbb{N}} \in K^\mathbb{N}, \forall \{n_k\}_{k \in \mathbb{N}}, \forall k \in \mathbb{N}: n_k < n_{k+1} \implies \forall x \in K: x_{n_k} \nrightarrow x
-\end{equation*}
-which means there exists a sequence with no convergent subsequence. In that case, the sequence is a subsequence of itself, which means there exists an infinite subset of $K$ with no limit point, which follows from:
-\begin{equation*}
-\exists x \in K: x \ \text{is a limit point of } \{x_n\}_{n \in \mathbb{N}} \iff \exists \{n_k\}_{k \in \mathbb{N}}: n_k < n_{k+1} \land x_{n_k} \xrightarrow{} x
-\end{equation*}
-the proof of which is provided in the section about nets.\\
+% An alternative prove is by contrapositive. Consider $K$ is not sequentially compact, then:
+% \begin{equation*}
+% \exists \{x_n\}_{n \in \mathbb{N}} \in K^\mathbb{N}, \forall \{n_k\}_{k \in \mathbb{N}}, \forall k \in \mathbb{N}: n_k < n_{k+1} \implies \forall x \in K: x_{n_k} \nrightarrow x
+% \end{equation*}
+% which means there exists a sequence with no convergent subsequence. In that case, the sequence is a subsequence of itself, which means there exists an infinite subset of $K$ with no limit point, which follows from:
+% \begin{equation*}
+% \exists x \in K: x \ \text{is a limit point of } \{x_n\}_{n \in \mathbb{N}} \iff \exists \{n_k\}_{k \in \mathbb{N}}: n_k < n_{k+1} \land x_{n_k} \xrightarrow{} x
+% \end{equation*}
+% the proof of which is provided in the section about nets.\\
 
-$\impliedby:$ Consider any infinite subset of $K$. Then taking a countable infinite subset of that, we obtain a sequence $\{x_n\}_{n \in \mathbb{N}} \in K^\mathbb{N}$ of DISTINCT points.\\
+% $\impliedby:$ Consider any infinite subset of $K$. Then taking a countable infinite subset of that, we obtain a sequence $\{x_n\}_{n \in \mathbb{N}} \in K^\mathbb{N}$ of DISTINCT points.\\
 
-By sequential compactness, there exists a convergent subsequence converging to a point $x$. Notice that we do not want one value repeating infinitely many times; otherwise we may not satisfy sequential characterization of limit points.\\
+% By sequential compactness, there exists a convergent subsequence converging to a point $x$. Notice that we do not want one value repeating infinitely many times; otherwise we may not satisfy sequential characterization of limit points.\\
 
-Now it is possible that $x$ appears as a value, but at most once within the subsequence. Ommission of $x$ from this subsequence still results in a convergent subsequence. Assume $x$ appears at some index $n_j$, then:
-\begin{equation*}
-\forall \epsilon > 0, \exists k_0 \geqslant 0, \forall k \geqslant k_0: |x_{n_k} - x| < \epsilon
-\end{equation*}
-so if $j \geqslant k_0$, we still have infinite values other than $x$ from the subsequence within the $\epsilon$-ball around $x$. This is trivial if $j < k_0$, thus $x$ is an $\omega$-limit point or equivalently a limit point.
-\end{proof}
-Notice that the $\implies$ direction is not always true in general topological spaces as we used the first countability of metric spaces. The equivalence really stems from the idea of nets/countable nets or sequences. Limit point compactness is identical to sequential compactness in first countable spaces; the only difference being the former describes net-wise behavior, while the latter describes sequential.\\
+% Now it is possible that $x$ appears as a value, but at most once within the subsequence. Ommission of $x$ from this subsequence still results in a convergent subsequence. Assume $x$ appears at some index $n_j$, then:
+% \begin{equation*}
+% \forall \epsilon > 0, \exists k_0 \geqslant 0, \forall k \geqslant k_0: |x_{n_k} - x| < \epsilon
+% \end{equation*}
+% so if $j \geqslant k_0$, we still have infinite values other than $x$ from the subsequence within the $\epsilon$-ball around $x$. This is trivial if $j < k_0$, thus $x$ is an $\omega$-limit point or equivalently a limit point.
+% \end{proof}
+% Notice that the $\implies$ direction is not always true in general topological spaces as we used the first countability of metric spaces. The equivalence really stems from the idea of nets/countable nets or sequences. Limit point compactness is identical to sequential compactness in first countable spaces; the only difference being the former describes net-wise behavior, while the latter describes sequential.\\
 
-But the equivalence fundamentally comes from the equivalent characterization of limit points. 
+% But the equivalence fundamentally comes from the equivalent characterization of limit points. 
 \pagebreak
 \section{Topological Compactness}
 
