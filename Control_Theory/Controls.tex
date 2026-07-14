@@ -204,7 +204,14 @@ This lemma shows us that the limit of a sequence is always a cluster point (not 
 \end{equation*}
 because if $n_0' < n_0$, then $n = n_0$ satisfies the condition of a cluset point. If $n_0' \geqslant n_0$, then simply choosing $n = n_0'$ satisifes the condition because by convergence $T_{n_0} \subseteq B(x, \epsilon)$. 
 \end{proof}
-Notice how (aside from the construction of the subsequence) did not use any properties specific to that of integers. This gives rise to nets as we only require the properties of directed sets. 
+Notice how (aside from the construction of the subsequence) did not use any properties specific to that of integers. This gives rise to nets as we only require the properties of directed sets. We define an additional useful property:
+\begin{defn}
+$x$ is a limit-cluster point of $\{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}$ if $\{x_n\}_{n \in \mathbb{N}}$ frequently visits all punctured open neighborhoods of $x$.
+\end{defn}
+In other words:
+\begin{equation*}
+\forall \epsilon > 0, \forall n_0 \geqslant 0, \exists n \geqslant n_0: x_n \in B(x, \epsilon) \setminus \{x\}
+\end{equation*}
 
 %some change%another one%and another one%and another one haha%
 %allright i am making some changes let us see!%another one!%
@@ -327,7 +334,9 @@ $\implies:$ Define $\epsilon_m \coloneq 1/(m+1)$. Then:
 \begin{equation*}
 \forall k \in \mathbb{N}: B(x, \epsilon_k) \cap S \setminus \{x\} \neq \varnothing
 \end{equation*}
-Then we have some $x_n \in S$ that belongs to the ball $B(x, \epsilon_k)$. Define this as the $n_k$ term of the "sub"-sequence. Now, this does not necessarily guarantee that the sequence we constructed $\{n_k\}_{k \in \mathbb{N}}$ is necessarily strictly increasing.
+Then we have some $x_n \in S$ that belongs to the ball $B(x, \epsilon_k)$. Define this as the $n_k$ term of the "sub"-sequence. Now, this does not necessarily guarantee that the sequence we constructed $\{n_k\}_{k \in \mathbb{N}}$ is necessarily strictly increasing.\\
+
+
 
 $\impliedby:$ If there exists a convergent subsequence, then:
 \begin{equation*}
