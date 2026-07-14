@@ -155,9 +155,19 @@ We say that a net converges if it is eventually in all open neighborhoods of $x$
 \begin{defn}
 A sequence frequently visits a set $A$ if:
 \begin{equation*}
-\forall n_0 \in \mathbb{N}, \exists n \geqslant n_0: x_n \in A
+\forall n_0 \geqslant 0, \exists n \geqslant n_0: x_n \in A
 \end{equation*}
 \end{defn}
+So a cluster point of a sequence is defined as the following:
+\begin{defn}
+$x$ is a cluster point of $\{x_n : n \in \mathbb{N}\}$ if $\{x_n\}_{n \in \mathbb{N}}$ frequently visits all open neighborhoods of $x$.
+\end{defn}
+The notion of a cluster point is something we will bring about when talking about nets and sequences. Considering metric spaces, we get the definition of a cluster point as:
+\begin{equation*}
+\forall \epsilon > 0, \forall n_0 \geqslant 0, \exists n \geqslant n_0: x_n \in B(x, \epsilon)
+\end{equation*}
+which permits $x_n = x$ unlike a \textbf{limit point of a set}.
+
 
 %some change%another one%and another one%and another one haha%
 %allright i am making some changes let us see!%another one!%
@@ -403,7 +413,17 @@ So to construct the converging subsequence (note this requires the Axiom of Choi
 \begin{equation*}
 \forall k \in \mathbb{N}: x_{n_k} \in \{x_n\}_{n \in \mathbb{N}} \cap B\left(x, \frac{1}{k+1}\right)
 \end{equation*}
-such that $\forall k \in \mathbb{N}: n_{k+1} > n_k$.\\
+such that $\forall k \in \mathbb{N}: n_{k+1} > n_k$. (\textbf{Not so sure about this proof because can we justify such a choice whereby $n_{k+1} > n_k$}).\\
+
+An alternative prove is by contrapositive. Consider $K$ is not sequentially compact, then:
+\begin{equation*}
+\exists \{x_n\}_{n \in \mathbb{N}} \in K^\mathbb{N}, \forall \{n_k\}_{k \in \mathbb{N}}, \forall k \in \mathbb{N}: n_k < n_{k+1} \implies \forall x \in K: x_{n_k} \nrightarrow x
+\end{equation*}
+which means there exists a sequence with no convergent subsequence. In that case, the sequence is a subsequence of itself, which means there exists an infinite subset of $K$ with no limit point, which follows from:
+\begin{equation*}
+\exists x \in K: x \ \text{is a limit point of } \{x_n\}_{n \in \mathbb{N}} \iff \exists \{n_k\}_{k \in \mathbb{N}}: n_k < n_{k+1} \land x_{n_k} \xrightarrow{} x
+\end{equation*}
+the proof of which is provided in the section about nets.\\
 
 $\impliedby:$ Consider any infinite subset of $K$. Then taking a countable infinite subset of that, we obtain a sequence $\{x_n\}_{n \in \mathbb{N}} \in K^\mathbb{N}$ of DISTINCT points.\\
 
@@ -418,6 +438,8 @@ so if $j \geqslant k_0$, we still have infinite values other than $x$ from the s
 Notice that the $\implies$ direction is not always true in general topological spaces as we used the first countability of metric spaces. The equivalence really stems from the idea of nets/countable nets or sequences. Limit point compactness is identical to sequential compactness in first countable spaces; the only difference being the former describes net-wise behavior, while the latter describes sequential.\\
 
 But the equivalence fundamentally comes from the equivalent characterization of limit points. 
+\pagebreak
+\section{Topological Compactness}
 
 \pagebreak
 \section{Integration and Nets}
