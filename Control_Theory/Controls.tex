@@ -134,9 +134,9 @@ We define net convergence as the following. Now, to bring about the similarity t
 
 Now in full generality of an arbitrary topological space, we say that the net converges or that $x_\alpha \xrightarrow{} x$ if:
 \begin{equation*}
-\forall U_y \in \uptau_X, \exists \alpha_0 \in D, \forall \alpha \geq \alpha_0: x_\alpha \in U_y
+\forall U_x \in \uptau_X, \exists \alpha_0 \in D, \forall \alpha \geq \alpha_0: x_\alpha \in U_x
 \end{equation*}
-where $U_y$ is an arbitrary open neighborhood of the point $y \in X$ with the topology $\uptau_X$. Now, we will work for the remainder of these notes in metric spaces $(X, \varrho)$, so we can instead say:
+where $U_x$ is an arbitrary open neighborhood of the point $x \in X$ with the topology $\uptau_X$. For the majority of these notes, we shall work in metric spaces $(X, \varrho)$ (unless stated otherwise), so we can instead say:
 \begin{equation*}
 \forall \epsilon > 0, \exists \alpha_0 \in D, \forall \alpha \geq \alpha_0: x_\alpha \in B(c, \epsilon) \iff \varrho(x_\alpha, x) < \epsilon
 \end{equation*}
@@ -151,6 +151,13 @@ Then a net converges to some $x$ if and only if $\forall \epsilon > 0, \exists \
 \begin{equation*}
 T_{\alpha_0} \subseteq B(x, \epsilon) 
 \end{equation*}
+We say that a net converges if it is eventually in all open neighborhoods of $x$. We introduce a related concept from the lens of sequences:
+\begin{defn}
+A sequence frequently visits a set $A$ if:
+\begin{equation*}
+\forall n_0 \in \mathbb{N}, \exists n \geqslant n_0: x_n \in A
+\end{equation*}
+\end{defn}
 
 %some change%another one%and another one%and another one haha%
 %allright i am making some changes let us see!%another one!%
@@ -231,7 +238,7 @@ Now if the set $E$ consists of some sequence $\{x_n\}_{n \in \mathbb{N}}$, then 
 \begin{equation*}
 \forall \{n_k\}_{k \in \mathbb{N}}: n_k < n_{k+1s}
 \end{equation*}
-
+%test edit%
 Observe the definition of sequential closure of some subset $E$:
 \begin{defn}
 $\overline{E}$ is the closure of $E$ if and only if
