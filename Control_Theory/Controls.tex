@@ -160,13 +160,43 @@ A sequence frequently visits a set $A$ if:
 \end{defn}
 So a cluster point of a sequence is defined as the following:
 \begin{defn}
-$x$ is a cluster point of $\{x_n : n \in \mathbb{N}\}$ if $\{x_n\}_{n \in \mathbb{N}}$ frequently visits all open neighborhoods of $x$.
+$x$ is a cluster point of $\{x_n\}_{n \in \mathbb{N}}$ if $\{x_n\}_{n \in \mathbb{N}}$ frequently visits all open neighborhoods of $x$.
 \end{defn}
 The notion of a cluster point is something we will bring about when talking about nets and sequences. Considering metric spaces, we get the definition of a cluster point as:
 \begin{equation*}
 \forall \epsilon > 0, \forall n_0 \geqslant 0, \exists n \geqslant n_0: x_n \in B(x, \epsilon)
 \end{equation*}
-which permits $x_n = x$ unlike a \textbf{limit point of a set}.
+which permits $x_n = x$ unlike a \textbf{limit point of a set}, though there is an eventual connection. We view the following lemma:
+\begin{lem}
+$x$ is a cluster point of $\{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}$ if and only if $\exists \{n_k\}_{k \in \mathbb{N}} \in \mathbb{N}^\mathbb{N}: x_{n_k} \xrightarrow{} x$  
+\end{lem}
+\begin{proof}
+$\implies:$ If $x$ is a cluster point, then:
+\begin{equation*}
+\forall \epsilon > 0, \forall n_0 \geqslant 0, \exists n \geqslant n_0: x_n \in B(x, \epsilon)
+\end{equation*}
+We DO NOT require Axiom of Choice for this proof, as the definition of the cluster point provides us a method of construction. Define the following:
+\begin{equation*}
+\epsilon_{m} \coloneq \frac{1}{m+1}
+\end{equation*}
+Then, for $m = 0$, choose $n_0 = 0$, which gives some $n \geqslant 0$ such that $x_n \in B(x, \epsilon_0)$. Call this the first term of the subsequence as $n_0$ (different from the first $n_0$). \\
+
+Then for $\epsilon_1$, we can find some $n \geqslant n_0 + 1$ such that $x_n \in B(x, \epsilon_1)$. Repeat this for all $m \in \mathbb{N}$, so that:
+\begin{equation*}
+\forall k \in \mathbb{N}: n_k < n_{k+1} \land \forall \epsilon > 0, \exists k_0 \geqslant 0, \forall k \geqslant k_0: |x_{n_k} - x| < \epsilon
+\end{equation*}
+because by the Archimedian property, we are guaranteed to find some $m \in \mathbb{N}$ such that:
+\begin{equation*}
+\frac{1}{m+1} \leqslant \epsilon \implies \exists n_m \geqslant 0, \forall n_k \geqslant n_m: |x_{n_k} - x| < \frac{1}{k+1} \leqslant \frac{1}{m+1} \leqslant \epsilon
+\end{equation*}
+which now shows convergence by Definition 0.2 and can also be phrased in terms of Definition 0.3.\\
+
+$\impliedby:$ If there exists a convergent subsequence, then:
+\begin{equation*}
+\forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: x_n \in B(x, \epsilon)
+\end{equation*}
+This lemma shows us that the limit of a sequence is always a cluster point (not the converse)
+\end{proof}
 
 
 %some change%another one%and another one%and another one haha%
@@ -176,7 +206,7 @@ which permits $x_n = x$ unlike a \textbf{limit point of a set}.
 
 \pagebreak
 \section{Compactness}
-We will now discuss the equivalence of topological and sequential compactness in the reals and in general metric spaces. Let us view the following theorem:
+In the previous section, we discussed notions of convergence and adherence for sequences. We now discuss these notions for sets. Let us view the following theorem:
 
 \subsection{Limit Points}
 We start off with a topological proof, which will be key to discussing limit and adherent points:
