@@ -59,6 +59,7 @@ I am writing this document as my own personal notes regarding analysis and diffe
 
 Another topic I am to treat thoroughly is the topic of total variation and bounded variation, which is recurrent with regards to the Riemann-Stieltjes integral.\\
 
+\begin{tcolorbox}[colback=white, colframe=black, arc=0mm]
 Textbooks Used to Develop these Notes:
 \begin{enumerate}
 \item \textit{\textbf{Principles of Mathematical Analysis} - Walter Rudin}
@@ -67,9 +68,12 @@ Textbooks Used to Develop these Notes:
 \item \textit{\textbf{Theory of Ordinary Differential Equations} - Earl Coddington, Norman Levinson}
 \item \textit{\textbf{Measure, Integration, and Real Analysus} - Sheldon Axler} (for measure theory)
 \end{enumerate}
+\end{tcolorbox}
 \thispagestyle{firstpage}
 \newpage
+\begin{tcolorbox}[colback=white, colframe=black, arc=0mm]
 \tableofcontents
+\end{tcolorbox}
 \setcounter{section}{-1}
 
 \pagebreak
@@ -106,7 +110,7 @@ In such spaces; if the sequential condition holds, then the general condition ho
 \end{enumerate}
 but the same does not hold for the converse. 
 
-\subsection{Nets \dots Finally}
+\subsection{Nets}
 We begin by introducing the notion of a directed set:
 \begin{defn}
 We define an ordering relation $\leq$ for the set $D$ and call it a directed set under the following conditions:
@@ -358,7 +362,30 @@ $\implies:$ Define $\epsilon_m \coloneq 1/(m+1)$. Then:
 \end{equation*}
 Then we have some $x_n \in S$ that belongs to the ball $B(x, \epsilon_k)$. Define this as the $n_k$ term of the "sub"-sequence. Now, this does not necessarily guarantee that the sequence we constructed $\{n_k\}_{k \in \mathbb{N}}$ is necessarily strictly increasing.\\
 
+By Sequential Bolzano Weierstrass, we notice that the indices are bounded below by $0$ and that any sequence of these indicies must contain either a strictly increasing subsequence or a non-increasing subsequence. Let us define the notion of dips in the sequence as:
+\begin{equation*}
+D \coloneq \{m \in \mathbb{N}: (\forall j > m: n_j > n_m)\}
+\end{equation*}
+In the case that $D$ is finite, we cannot find a strictly increasing subsequence, but we could possibly find a non-increasing subsequence. So, consider:
+\begin{equation*}
+m_0 \coloneq \sup (D) + 1
+\end{equation*}
+so that the peaks are no longer included in the subsequence.\\ 
 
+Then for all $m \geqslant m_0$, $m \notin D$, which tells us that:
+\begin{equation*}
+\exists j > m: n_j \leqslant n_m
+\end{equation*}
+so we choose $m_{k+1} \coloneq \sup\{j > m_k : n_{m_j} \leqslant n_{m_k}\}$, which is possible because we have an upper bound. So, the initial value $n_{m_0}$ acts as an upper bound and $0$ is a lower bound for the indices.\\
+
+This means either the sequence is finite (which is a contradiction), or that the sequence is constant/eventually constant. What this means is that the resultant subsequence $\{x_{n_{m_k}}\}_{k \in \mathbb{N}}$ takes a finite number of values.\\
+
+Because the space is $T_1$ (this condition is necessary for the proof), then we can find a neighborhood that contains $x$ and none of the values in the sequence, which too is a contradiction. Thus we must be able to find a strictly increasing subsequence of indices, such that:
+\begin{equation*}
+\forall k \in \mathbb{N}: n_{m_k} < n_{m_{k+1}}
+\end{equation*} 
+and since $x_{n_k} \xrightarrow{} x$, we have that $x_{n_{m_k}} \xrightarrow{} x$ and satisfies the conditions for a subsequence of $\{x_n\}_{n \in \mathbb{N}}$. 
+%have to work on this more%
 
 $\impliedby:$ If there exists a convergent subsequence, then:
 \begin{equation*}
