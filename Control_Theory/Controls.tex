@@ -154,137 +154,9 @@ For the remainder of these notes, we assume a directed set $D$ is upward directe
 \begin{defn}
 A net is a function $\omega: D \xrightarrow{} X$ where $D$ is a directed set.  
 \end{defn}
-We define net convergence as the following. Now, to bring about the similarity to sequences, we shall denote a net as $\{x_\alpha\}_{\alpha \in D}$ where $D$ is the directed set. This is still a function where $x_\alpha = \omega(\alpha)$, but this representation shows $D$ as an indexing set.\\
 
-Now in full generality of an arbitrary topological space, we say that the net converges or that $x_\alpha \xrightarrow{} x$ if:
-\begin{equation*}
-\forall U_x \in \uptau_X, \exists \alpha_0 \in D, \forall \alpha \geq \alpha_0: x_\alpha \in U_x
-\end{equation*}
-where $U_x$ is an arbitrary open neighborhood of the point $x \in X$ with the topology $\uptau_X$. For the majority of these notes, we shall work in metric spaces $(X, \varrho)$ (unless stated otherwise), so we can instead say:
-\begin{equation*}
-\forall \epsilon > 0, \exists \alpha_0 \in D, \forall \alpha \geq \alpha_0: x_\alpha \in B(c, \epsilon) \iff \varrho(x_\alpha, x) < \epsilon
-\end{equation*}
-so if our directed set $D = \mathbb{N}$, we obtain a sequence. We can alternatively characterize convergence by the following definition:
-\begin{defn}
-The tail of a net at $\alpha_0$ is defined as:
-\begin{equation*}
-T_{\alpha_0} \coloneq \{x_\alpha : \alpha \geq \alpha_0\}
-\end{equation*}  
-\end{defn}
-Then a net converges to some $x$ if and only if $\forall \epsilon > 0, \exists \alpha_0 \in D$ such that:
-\begin{equation*}
-T_{\alpha_0} \subseteq B(x, \epsilon) 
-\end{equation*}
-
-\subsection{Sequences/Cluster Points}
-We introduce a related concept from the lens of sequences:
-\begin{defn}
-A sequence frequently visits a set $A$ if:
-\begin{equation*}
-\forall n_0 \geqslant 0, \exists n \geqslant n_0: x_n \in A
-\end{equation*}
-\end{defn}
-So a cluster point of a sequence is defined as the following:
-\begin{defn}
-$x$ is a cluster point of $\{x_n\}_{n \in \mathbb{N}}$ if $\{x_n\}_{n \in \mathbb{N}}$ frequently visits all open neighborhoods of $x$.
-\end{defn}
-The notion of a cluster point is something we will bring about when talking about nets and sequences. Considering metric spaces, we get the definition of a cluster point as:
-\begin{equation*}
-\forall \epsilon > 0, \forall n_0 \geqslant 0, \exists n \geqslant n_0: x_n \in B(x, \epsilon)
-\end{equation*}
-which permits $x_n = x$ unlike a \textbf{limit point of a set}, though there is an eventual connection. We view the following lemma:
-\begin{lem}
-$x$ is a cluster point of $\{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}$ if and only if $\exists \{n_k\}_{k \in \mathbb{N}} \in \mathbb{N}^\mathbb{N}: x_{n_k} \xrightarrow{} x$  
-\end{lem}
-\begin{proof}
-$\implies:$ If $x$ is a cluster point, then:
-\begin{equation*}
-\forall \epsilon > 0, \forall n_0 \geqslant 0, \exists n \geqslant n_0: x_n \in B(x, \epsilon)
-\end{equation*}
-We DO NOT require Axiom of Choice for this proof, as the definition of the cluster point provides us a method of construction. Define the following:
-\begin{equation*}
-\epsilon_{m} \coloneq \frac{1}{m+1}
-\end{equation*}
-Then, for $m = 0$, choose $n_0 = 0$, which gives some $n \geqslant 0$ such that $x_n \in B(x, \epsilon_0)$. Call this the first term of the subsequence as $n_0$ (different from the first $n_0$). \\
-
-Then for $\epsilon_1$, we can find some $n \geqslant n_0 + 1$ such that $x_n \in B(x, \epsilon_1)$. Repeat this for all $m \in \mathbb{N}$, so that:
-\begin{equation*}
-\forall k \in \mathbb{N}: n_k < n_{k+1} \land \forall \epsilon > 0, \exists k_0 \geqslant 0, \forall k \geqslant k_0: |x_{n_k} - x| < \epsilon
-\end{equation*}
-because by the Archimedian property, we are guaranteed to find some $m \in \mathbb{N}$ such that:
-\begin{equation*}
-\frac{1}{m+1} \leqslant \epsilon \implies \exists n_m \geqslant 0, \forall n_k \geqslant n_m: |x_{n_k} - x| < \frac{1}{k+1} \leqslant \frac{1}{m+1} \leqslant \epsilon
-\end{equation*}
-which now shows convergence by Definition 0.2 and can also be phrased in terms of Definition 0.3.\\
-
-$\impliedby:$ If there exists a convergent subsequence, then:
-\begin{equation*}
-\forall \epsilon > 0, \exists n_0 \geqslant 0, \forall n \geqslant n_0: x_n \in B(x, \epsilon)
-\end{equation*}
-This lemma shows us that the limit of a sequence is always a cluster point (not necessarily the converse) because convergence is a stricter condition. We see that:
-\begin{equation*}
-\forall \epsilon > 0, \forall n_0' \geqslant 0, \exists n \geqslant n_0': x_n \in B(x, \epsilon)
-\end{equation*}
-because if $n_0' < n_0$, then $n = n_0$ satisfies the condition of a cluset point. If $n_0' \geqslant n_0$, then simply choosing $n = n_0'$ satisifes the condition because by convergence $T_{n_0} \subseteq B(x, \epsilon)$. 
-\end{proof}
-Notice how (aside from the construction of the subsequence) did not use any properties specific to that of integers. Another thing is the limit of a convergent sequence is a cluster point, but the converse is not necessarily true. This gives rise to nets as we only require the properties of directed sets.
-
-%We define an additional useful property:
-% \begin{defn}
-% $x$ is a limit-cluster point of $\{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}$ if $\{x_n\}_{n \in \mathbb{N}}$ frequently visits all punctured open neighborhoods of $x$.
-% \end{defn}
-% In other words:
-% \begin{equation*}
-% \forall \epsilon > 0, \forall n_0 \geqslant 0, \exists n \geqslant n_0: x_n \in B(x, \epsilon) \setminus \{x\}
-% \end{equation*}
-% Then the following lemma (applying the same logic as Lemma 0.2) follows:
-% \begin{lem}
-% $x$ is a limit-cluster point of $\{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}$ if and only if $\exists \{n_k\}_{k \in \mathbb{N}}: x_{n_k} \xrightarrow{} x \land (\forall k \in \mathbb{N}: x_{n_k} \neq x)$  
-% \end{lem}
-% Now in this case, even the limit of a convergent sequence may not be a limit-cluster point (consider a constant or eventually constant sequence). 
 %some change%another one%and another one%and another one haha%
-%allright i am making some changes let us see!%another one!%
-%hey another edit%another one%and another one%and another one, ill see the github commit soon%another one!$
-%alright final comment before the 5:30 commit!%
 
-\subsection{Subsets of Directed Sets}
-\begin{defn}
-Given a directed set $D$, we call a subset $E \subseteq D$ cofinal if:
-\begin{equation*}
-\forall \alpha \in D, \exists \alpha' \in E: \alpha' \geq \alpha
-\end{equation*}
-\end{defn}
-Cofinality is key in defining the concept of subnets (for which we will explore two separate definitions). We also see the following connection with cluster points/frequently in a set:
-\begin{lem}
-Given some topological space $X$ and some subset $A$, a net $\{x_\alpha\}_{\alpha \in D}$ in $X$ is frequently in $A$ if and only if there exists a cofinal subset $E$ such that:
-\begin{equation*}
-\forall \alpha \in E: x_\alpha \in A
-\end{equation*}
-\end{lem}
-This follows from definition 0.6 given above. If there exists a cofinal subset $E$, then:
-\begin{equation*}
-\forall \alpha \in D, \exists \alpha' \in E: \alpha' \geq \alpha
-\end{equation*}
-Combined with the fact that the image of $E$ is in $A$, we see that:
-\begin{equation*}
-\forall \alpha \in D, \exists \alpha' \geq x: x_{\alpha'} \in A
-\end{equation*}
-This only proves one direction, but the other direction is constructive in nature (to show the existence of $E$ simply follows from the definition of the net being frequently in $A$).\\
-
-We also see that cofinal subsets are directed. Let $E$ be a cofinal subset of a directed set $D$. Then by subset relations, it inherits the ordering ($\geq$) and is reflexive. We need to prove property 3 in Definition 0.1 only.\\
-
-Consider some $\alpha', \alpha'' \in E$. We get that there must be some $\alpha \in D$ such that:
-\begin{equation*}
-\alpha \geq \alpha' \land \alpha \geq \alpha''
-\end{equation*}
-Now by cofinality, there exists some $\alpha''' \in E$ such that $\alpha''' \geq \alpha$, so by transitivity, the directnedness of $E$ follows.\\
-
-We say that a net converges if it is eventually in all open neighborhoods of $x$.\\
-
-Let us examine the primary definition (\textbf{General Topology, Kelley}) we will use for a subnet:
-\begin{defn}
-    
-\end{defn}
 \pagebreak
 \section{Compactness}
 In the previous section, we discussed notions of convergence and adherence for sequences. We now discuss these notions for sets. Let us view the following theorem:
@@ -357,7 +229,7 @@ and the natural numbers $n_0$ and beyond are countably infinite (an injection of
 
 Now if the set $E$ consists of some sequence $\{x_n\}_{n \in \mathbb{N}}$, then $E \coloneq \{x_n : n \in \mathbb{N}\}$, we see that $x$ is a limit point of $E$ if and only if there exists a convergent \textbf{subsequence} converging to $x$. This is not immediately trivial as one of the conditions we require for a subsequence is that:
 \begin{equation*}
-\forall \{n_k\}_{k \in \mathbb{N}}: n_k < n_{k+1s}
+\forall \{n_k\}_{k \in \mathbb{N}}: n_k < n_{k+1}
 \end{equation*}
 %test edit%
 Observe the definition of sequential closure of some subset $E$:
@@ -372,119 +244,6 @@ So by the equivalence stated in Lemma 1.2, $\{x_n\}_{n \in \mathbb{N}}$ belongs 
 Now steering our attention back to sequences, the limit of a sequence may not be a limit point. Consider an eventually constant or constant sequence. We see that it converges to whatever value it is eventually constant at; but there is an empty $\epsilon$-punctured ball intersection. So a limit point is a limit of a specific type of sequence, but not vice versa.\\
 
 This distinction will be quite crucial in the following section.
-
-\subsection{Limit Points and Sequences}
-In the previous section, we introduced the notion of a cluster point of a sequence, for which we proved:
-\begin{equation*}
-x \ \text{is a cluster point of } \{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N} \iff \exists \{n_k\}_{k \in \mathbb{N}} \in \mathbb{N}^\mathbb{N}: x_{n_k} \xrightarrow{} x
-\end{equation*}
-but nothing prevented $x_{n_k}$ from being perhaps a constant sequence such that all terms equal $x$ itself. Now this section focused on limit points of \textbf{sets}. So consider the set:
-\begin{equation*}
-S \coloneq \{x_n : n \in \mathbb{N}\}
-\end{equation*}
-which is the set of all possible values that appear in the sequence. Notice that the sequence allows for the repetition of values, while $S$ does not. So if $S$ is finite such that:
-\begin{equation*}
-S = \{x_0, ..., x_m\}
-\end{equation*}
-we notice that because a metric space is $T_1$, each of these points can be isolated from eachother. Thus, $S$ has no limit point. Now assume $S$ were countabily infinite, which means the sequence has infinitely many distinct terms. Then:
-\begin{lem}
-\begin{equation*}
-x \ \text{is a limit point of } S \iff \exists \{n_k\}_{k \in \mathbb{N}} \in \mathbb{N}^\mathbb{N}: x_{n_k} \xrightarrow{} x \land (\forall k \in \mathbb{N}: x_{n_k} \neq x)
-\end{equation*}
-\end{lem}
-This aligns with Lemma 1.2 with the \textbf{extra condition} that it must be a subsequence, which implies:
-\begin{equation*}
-n_k \xrightarrow{} \infty \land \forall k \in \mathbb{N}: n_k < n_{k+1}
-\end{equation*}
-\begin{proof}
-$\implies:$ Define $\epsilon_m \coloneq 1/(m+1)$. Then:
-\begin{equation*}
-\forall k \in \mathbb{N}: B(x, \epsilon_k) \cap S \setminus \{x\} \neq \varnothing
-\end{equation*}
-Then we have some $x_n \in S$ that belongs to the ball $B(x, \epsilon_k)$. Define this as the $n_k$ term of the "sub"-sequence. Now, this does not necessarily guarantee that the sequence we constructed $\{n_k\}_{k \in \mathbb{N}}$ is necessarily strictly increasing.\\
-
-By Sequential Bolzano Weierstrass, we notice that the indices are bounded below by $0$ and that any sequence of these indicies must contain either a strictly increasing subsequence or a non-increasing subsequence. Let us define the notion of dips in the sequence as:
-\begin{equation*}
-D \coloneq \{m \in \mathbb{N}: (\forall j > m: n_j > n_m)\}
-\end{equation*}
-In the case that $D$ is finite, we cannot find a strictly increasing subsequence, but we could possibly find a non-increasing subsequence. So, consider:
-\begin{equation*}
-m_0 \coloneq \sup (D) + 1
-\end{equation*}
-so that the peaks are no longer included in the subsequence.\\ 
-
-Then for all $m \geqslant m_0$, $m \notin D$, which tells us that:
-\begin{equation*}
-\exists j > m: n_j \leqslant n_m
-\end{equation*}
-so we choose $m_{k+1} \coloneq \sup\{j > m_k : n_{m_j} \leqslant n_{m_k}\}$, which is possible because we have an upper bound. So, the initial value $n_{m_0}$ acts as an upper bound and $0$ is a lower bound for the indices.\\
-
-This means either the sequence is finite (which is a contradiction), or that the sequence is constant/eventually constant. What this means is that the resultant subsequence $\{x_{n_{m_k}}\}_{k \in \mathbb{N}}$ takes a finite number of values.\\
-
-Because the space is $T_1$ (this condition is necessary for the proof), then we can find a neighborhood that contains $x$ and none of the values in the sequence, which too is a contradiction. Thus we must be able to find a strictly increasing subsequence of indices, such that:
-\begin{equation*}
-\forall k \in \mathbb{N}: n_{m_k} < n_{m_{k+1}}
-\end{equation*} 
-and since $x_{n_k} \xrightarrow{} x$, we have that $x_{n_{m_k}} \xrightarrow{} x$ and satisfies the conditions for a subsequence of $\{x_n\}_{n \in \mathbb{N}}$. 
-%have to work on this more%
-
-$\impliedby:$ If there exists a convergent subsequence, then:
-\begin{equation*}
-\forall \epsilon > 0, \exists k_0 \geqslant 0, \forall k \geqslant k_0: x_{n_k} \in B(x, \epsilon)
-\end{equation*}
-Now given all terms of the subsequence do not equal $x$ and $S$ is countably infinite, we see that:
-\begin{equation*}
-\forall \epsilon > 0: B(x, \epsilon) \cap S \setminus \{x\} \neq \varnothing
-\end{equation*}
-and furthermore $x$ is an $\omega$-limit point. 
-\end{proof}
-This lemma is the engine behind the equivalence of limit point compactness and sequential compactness (the forward direction utilizes first countability).\\
-
-Going forward, we shall separate the terminologies so that we talk about cluster points of sequences/nets and limit/adherent points of sets. We provide a lemma for their equivalence below:
-% \begin{lem}
-% If $S \coloneq \{x_n : n \in \mathbb{N}\}$ is countably infinite for some $\{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}$, then:
-% \begin{equation*}
-% x \ \text{is a limit point of } S \iff x \ \text{is a limit-cluster point of } \{x_n\}_{n \in \mathbb{N}}
-% \end{equation*}
-% \end{lem}
-% \begin{proof}
-% The proof follows from the equivalent condition proposed in Lemma 0.3. $x$ is a limit-cluster point of a sequence if and only if there exists a subsequence that converges to $x$ such that none of its terms equal $x$.\\
-
-% This is the same equivalent condition proposed in Lemma 1.3, thus proving the above lemma.
-% \end{proof}
-
-Another lemma requiring a stronger sufficient condition is the following:
-\begin{lem}
-If $\{x_n\}_{n \in \mathbb{N}} \in X^\mathbb{N}$ consists of all DISTINCT terms (each term appears at most once), then:
-\begin{equation*}
-x \ \text{is a limit point of } S \iff x \ \text{is a cluster point of } \{x_n\}_{n \in \mathbb{N}}  
-\end{equation*} 
-\end{lem}
-\begin{proof}
-Lemma 0.2 provides us with the equivalence that $x$ is a cluster point of the sequence if and only if there exists a convergent subsequence to $x$. Now since the sequence itself has all distinct points, so does the convergent subsequence.\\
-
-One of the terms could perhaps be $x$, but since it appears at most once, omission of a finite number of points does not change convergence of the sequence. We prove this simply below. Let $x$ be the $n_j$-th element of the original subsequence derived from the definition of cluster point. Then, for the new subsequence with $x$ omitted:
-\begin{equation*}
-\forall \epsilon > 0, \exists k_0' \coloneq \max\{k_0, j+1\}, \forall k \geqslant k_0': |x_{n_k} - x| < \epsilon
-\end{equation*}
-where $k_0$ comes from the convergence of the subsequence containing $x$. Thus we can always find a tail of the new sequence within the $\epsilon$-neighborhood of $x$. If $k_0 < j$, then $k_0' = j+1$, and by convergence of the initial subsequence, the new one certainly converges as:
-\begin{equation*}
-T'_{k_0'} = T_{j+1} \subseteq T_{k_0} \subseteq B(x, \epsilon)
-\end{equation*}
-In the case that $k_0 > j$, we see that:
-\begin{equation*}
-T'_{k_0'} = T_{k_0} \subseteq B(x, \epsilon)
-\end{equation*}
-\end{proof}
-Lemma 1.4 and 1.5 will be key when discussing sequential compactness. Notice that for this proof, we used the sequential characterizations to draw equivalence; however, it can be done without first countability. The converse can be done in general topological spaces and follows from the definition of a cluster point.\\
-
-The forward direction (hopefully this is right, but not entirely sure), requires $T_1$. We prove by contradiction. Assume $x$ is a limit point (thus an $\omega$-limit point), but not a cluster point, such that:
-\begin{equation*}
-\exists U_x \subseteq X, \exists n_0 \geqslant 0, \forall n \geqslant n_0: x_n \notin U_x
-\end{equation*}
-Then there are $n_0$ values indexed by the values $0,...n_0 - 1$ that may belong to $U_x$. One of those values could be $x$ (but at most one, because $S$ contains all distinct values), which contradicts the fact that $x$ is an $\omega$-limit point of $S$. While Theorem 1.3 deals with equivalence in $\mathbb{R}$ or general metric spaces (which are both $T_1$ and first countable), we assume the equivalence.\\
-
-The reader will notice that Theorem 1.4 expands the previous theorem to more generality, and this distinction we have mentioned will be key to explaining the implications and how we can still have equivalence in non-first countable yet $T_1$ spaces.
 
 \subsection{Sequential Compactness}
 \begin{thm}[Sequential Bolzano Weierstrass]
@@ -692,37 +451,21 @@ which admits no finite subcover. Consider any finite subcollection of this open 
 \begin{equation*}
 1 - \frac{1}{m+1} < r < 1
 \end{equation*}
-which tells us that there cannot be any finite subcover.\\
+such that $\forall k \in \mathbb{N}: n_{k+1} > n_k$.\\
 
-Notice that if a metric space is topologically compact, then it must be totally bounded, as consider the following cover for some fixed $\epsilon > 0$ and $E \subseteq X$:
+$\impliedby:$ Consider any infinite subset of $K$. Then taking a countable infinite subset of that, we obtain a sequence $\{x_n\}_{n \in \mathbb{N}} \in K^\mathbb{N}$ of DISTINCT points.\\
+
+By sequential compactness, there exists a convergent subsequence converging to a point $x$. Notice that we do not want one value repeating infinitely many times; otherwise we may not satisfy sequential characterization of limit points.\\
+
+Now it is possible that $x$ appears as a value, but at most once within the subsequence. Ommission of $x$ from this subsequence still results in a convergent subsequence. Assume $x$ appears at some index $n_j$, then:
 \begin{equation*}
-\{B(x, \epsilon): x \in E\}
+\forall \epsilon > 0, \exists k_0 \geqslant 0, \forall k \geqslant k_0: |x_{n_k} - x| < \epsilon
 \end{equation*}
-Since $X$ is topologically compact, it admits a finite subcover, which means:
-\begin{equation*}
-\exists x_0,...,x_m \in E: E \subseteq \bigcup_{0 \leqslant i \leqslant m}B(x_i, \epsilon)
-\end{equation*}
-The converse is not necessarily true, as evident by our example with $(0, 1)$. Because it is bounded, by Lemma 1.5, it is totally bounded (this is true only for spaces where open balls are totally bounded (possibly?)), yet we showed it is neither Heine-Borel compact, nor topologically compact.
-
-\subsection{Topological and Limit Point Compactness}
-Interestingly enough, these two notions are not equivalent in the general sense. We only have the following implication:
-\begin{thm}
-Given a general topological space $X$, if $X$ is topologically compact, then it is limit point compact.
-\end{thm}
-\begin{proof}
-We prove by contrapositive. First, if $X$ is a finite space, then every open cover must be finite, and it is vacuously limit point compact (because all infinite subsets have a limit point, of which there are no infinite subsets). So we deal with infinite topological spaces (those with infinite underlying points).\\
-
-If $X$ is not limit point compact, then taking an infinite subset $E$:
-\begin{equation*}
-\exists E \subseteq X, \forall x \in X, \exists U_x: E \cap U_x \setminus \{x\} = \varnothing
-\end{equation*}
-Now take the collection of all such $U_x$ as $\mathcal{U}_x \coloneq \{U_x : E \cap U_x \setminus \{x\} = \varnothing\}$ as an open cover (let us assume that each $U_x$ is an open neighborhood). Then taking any finite subcover at points $\{x_0, ..., x_m\}$, we see that each $x_i$ is either in $E$ or not in $E$.\\
-
-In either case, we see that not all of $E$ is covered by the finite subcover, since removing finite number of $x_i$ points from $E$ does not change the fact that it is infinite, which means there will always be points of $E$ not covered by any finite subcover, and since $E \subseteq X$, this holds for $X$ as well.\\
-
-So, we have found an open cover $\mathcal{U}_x$ with no finite subcover, proving $X$ is not topologically compact.
+so if $j \geqslant k_0$, we still have infinite values other than $x$ from the subsequence within the $\epsilon$-ball around $x$. This is trivial if $j < k_0$, thus $x$ is an $\omega$-limit point or equivalently a limit point.
 \end{proof}
+Notice that the $\implies$ direction is not always true in general topological spaces as we used the first countability of metric spaces. The equivalence really stems from the idea of nets/countable nets or sequences. Limit point compactness is identical to sequential compactness in first countable spaces; the only difference being the former describes net-wise behavior, while the latter describes sequential.\\
 
+But the equivalence fundamentally comes from the equivalent characterization of limit points. 
 
 \pagebreak
 \section{Integration and Nets}
