@@ -66,7 +66,7 @@ Textbooks Used to Develop these Notes:
 \item \textit{\textbf{Mathematical Analysis} - Tom Apostol} (for integration)
 \item \textit{\textbf{General Topology} - John Kelley} (for nets)
 \item \textit{\textbf{Theory of Ordinary Differential Equations} - Earl Coddington, Norman Levinson}
-\item \textit{\textbf{Measure, Integration, and Real Analysus} - Sheldon Axler} (for measure theory)
+\item \textit{\textbf{Measure, Integration, and Real Analysis} - Sheldon Axler} (for measure theory)
 \end{enumerate}
 \end{tcolorbox}
 \thispagestyle{firstpage}
@@ -176,7 +176,7 @@ Then a net converges to some $x$ if and only if $\forall \epsilon > 0, \exists \
 T_{\alpha_0} \subseteq B(x, \epsilon) 
 \end{equation*}
 
-\subsection{Sequences/Cluster Points}
+\subsection{Cluster Points of Sequences}
 We introduce a related concept from the lens of sequences:
 \begin{defn}
 A sequence frequently visits a set $A$ if:
@@ -283,8 +283,43 @@ We say that a net converges if it is eventually in all open neighborhoods of $x$
 
 Let us examine the primary definition (\textbf{General Topology, Kelley}) we will use for a subnet:
 \begin{defn}
+Given a net $\{x_\alpha\}_{\alpha \in D}$ a subnet is the function $\omega \circ f$, where $f: E \xrightarrow{} D$ and $\omega$ for some directed set $(E, \succcurlyeq)$ was the initial net such that $\omega: D \xrightarrow{} X$.\\
+
+We denote the subnet by $\{x_{f(\beta)}\}_{\beta \in E}$, which must adhere by the following property:
+\begin{equation*}
+\forall \alpha \in D, \exists \beta_0 \in E, \forall \beta \succcurlyeq \beta_0: f(\beta) \geq \alpha
+\end{equation*}
+\end{defn}
+The intuition behind this definition\\
+
+Now consider some cofinal subset of $D$, which we will call $E$ with the same ordering $\geq$. Then cofinality gives us that:
+\begin{equation*}
+\forall \alpha \in D, \exists \beta_0 \in E: \beta_0 \geq \alpha \iff \forall \alpha \in D, \exists \beta_0 \in E, \forall \beta \geq \beta_0: \beta \geq \alpha
+\end{equation*}
+which follows from transitivty. So $\{x_\alpha\}_{\alpha \in E}$ is a subnet of the initial net with $f$ being the identity function, which is similar to convergence properties of subsequences and cluster points. Using this fact, we can extend Lemma 0.3 to the following:
+\begin{lem}
+Given some topological space $X$ and some subset $A$, a net $\{x_\alpha\}_{\alpha \in D}$ in $X$ is frequently in $A$ if and only if there exists a subnet contained in $A$.   
+\end{lem}
+\begin{proof}
+The proof utilizes the results of the previous definition. Lemma 0.3 gave us equivalence with the existence of some cofinal subset $E \subseteq D$ that maps into $A$. A cofinal subset is essentially a subnet under composition with the identity function, thus giving our desired equivalence.\\
+\end{proof}
+
+This can be extended to the notion of convergence, essentially bringing about a parallel lemma to Lemma 0.2 stated in terms of nets:
+\begin{lem}
+$x \in X$ is a cluster point of $\{x_\alpha\}_{\alpha \in D}$ if and only if $\exists \{x_{\alpha'}\}_{\alpha' \in E}: x_{\alpha'} \xrightarrow{} x$
+\end{lem}
+%this is quite an interesting proof that I need to examine properly and rigorously%
+%though I think I have enough information to expound upon nets in analysis and rigorously define such instances%
+\begin{proof}
+A cluster point can be defined as one for which the net is frequently in all neighborhoods of the point $U_x$. 
+\end{proof}
+
+Let us examine a different definition of a subnet (\textbf{General Topology, Willard}):
+\begin{defn}
     
 \end{defn}
+
+\subsection{Nets In Analysis}
 \pagebreak
 \section{Compactness}
 In the previous section, we discussed notions of convergence and adherence for sequences. We now discuss these notions for sets. Let us view the following theorem:
