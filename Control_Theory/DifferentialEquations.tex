@@ -352,8 +352,21 @@ Thus proving that $\{x_{f(\alpha, V_x)}\}_{(\alpha, V_x) \in E}$ is a Kelley sub
 \end{equation*}
 as it is eventually in each neighborhood of $x$. We now prove the converse:
 
-$\impliedby:$ 
+$\impliedby:$ If $x$ is not a cluster point of the net, then:
+\begin{equation*}
+\exists U_x, \exists \alpha \in D, \forall \alpha_1 \geq \alpha: x_{\alpha_1} \notin U_x
+\end{equation*}
+Then for all possible subnets/cofinal subsets such that $f(E)$ is cofinal in $D$:
+\begin{equation*}
+\forall \alpha \in D, \exists \alpha_0' \in E, \forall \alpha' \geq \alpha_0': f(\alpha') \geq \alpha
+\end{equation*}
+we get that:
+\begin{equation*}
+\implies \exists U_x, \exists \alpha_0' \in E, \forall \alpha' \geq \alpha_0': f(\alpha') \in D \land f(\alpha') \geq \alpha \implies x_{f(\alpha')} \notin U_x
+\end{equation*}
+which means that any subnet is not eventually in a neighborhood of $x$, thus there exists no convergent subnet.
 \end{proof}
+(\textit{Self note}): If I understand this proof correctly, the construction of $E$ and the subnet does not require Axiom of Choice. Below I have attempted to mirror the same proof in a first countable space. 
 
 Let us examine a different definition of a subnet (\textbf{General Topology, Willard}):
 \begin{defn}
