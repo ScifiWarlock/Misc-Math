@@ -311,7 +311,48 @@ $x \in X$ is a cluster point of $\{x_\alpha\}_{\alpha \in D}$ if and only if $\e
 %this is quite an interesting proof that I need to examine properly and rigorously%
 %though I think I have enough information to expound upon nets in analysis and rigorously define such instances%
 \begin{proof}
-A cluster point can be defined as one for which the net is frequently in all neighborhoods of the point $U_x$. 
+A cluster point can be defined as one for which the net is frequently in all neighborhoods of the point $U_x$. By the previous lemma, we can say that $x$ is a cluster point if and only if there is a subnet contained in each neighborhood, but that is quite weak and difficult to check. Let us define $E$ as the following:
+\begin{equation*}
+E \coloneq \{(\alpha', U_x) : x_{\alpha'} \in U_x\}
+\end{equation*}
+$\implies$: We show that $E$ is a directed set that brings about a subnet $\{x_{f(\alpha')}\}_{\alpha' \in E}$. $E$ is directed under the product ordering whereby:
+\begin{equation*}
+(\alpha', U_x) \succcurlyeq (\alpha_1', V_x) \iff \alpha_1' \geq \alpha' \land V_x \subseteq U_x
+\end{equation*}
+So taking any two $(\alpha', U_x)$ and $(\alpha_1', V_x)$ in $E$, we see that by the ordering of $D$:
+\begin{equation*}
+\exists \alpha_2' \in D: \alpha_2' \geq \alpha' \land \alpha_2' \geq \alpha_1'
+\end{equation*}
+and similarly for the neighborhoods, we have that:
+\begin{equation*}
+V_x \cap U_x \subseteq V_x \land V_x \cap U_x \subseteq U_x
+\end{equation*}
+Now the pair $(\alpha_2', V_x \cap U_x)$ may not belong to $E$, but by the cluster point definition for all neighborhoods of $x$, we have the existence of some $\alpha_3'$, such that:
+\begin{equation*}
+x_{\alpha_3'} \in V_x \cap U_x \implies (\alpha_3', V_x \cap U_x) \in E
+\end{equation*}
+Now that we have established that $E$ is directed (the other two properties trivially follow from subset inclusion and directedness of $D$). Now, we define the function $f: E \xrightarrow{} D$ such that:
+\begin{equation*}
+\forall (\alpha', U_x) \in E: f(\alpha', U_x) = \alpha'
+\end{equation*}
+We can show that this is a subnet (specifically a Kelley subnet, but later we will show it is also a Willard subnet). The existence of the cluster point $x$ gives us that $D$ is frequently in all neighborhoods:
+\begin{equation*}
+\forall U_x, \forall \alpha \in D, \exists \alpha_1 \geq \alpha: x_{\alpha_1} \in U_x \implies (\alpha_1, U_x) \in E
+\end{equation*} 
+\begin{equation*}
+\implies \forall U_x, \forall \alpha \in D, \exists (\alpha_1, U_x) \in E: f(\alpha_1, U_x) \geq \alpha
+\end{equation*}
+And by directedness of $E$, we see that:
+\begin{equation*}
+\implies \forall U_x, \forall \alpha \in D, \exists (\alpha_1, U_x) \in E, \forall (\alpha_2, V_x) \succcurlyeq (\alpha_1, U_x): f(\alpha_2, V_x) \geq \alpha
+\end{equation*}
+Thus proving that $\{x_{f(\alpha, V_x)}\}_{(\alpha, V_x) \in E}$ is a Kelley subnet. It follows that the subnet converges to $x$ as:
+\begin{equation*}
+\implies \forall U_x, \exists (\alpha_1, U_x) \in E, \forall (\alpha_2, V_x) \succcurlyeq (\alpha_1, U_x): x_{\alpha_2} \in V_x \subseteq U_x
+\end{equation*}
+as it is eventually in each neighborhood of $x$. We now prove the converse:
+
+$\impliedby:$ 
 \end{proof}
 
 Let us examine a different definition of a subnet (\textbf{General Topology, Willard}):
