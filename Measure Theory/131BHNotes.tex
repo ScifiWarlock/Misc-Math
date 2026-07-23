@@ -211,7 +211,6 @@ Consider $\{y_n\}_{n \in \mathbb{N}} \in (\mathbb{Q} \cap [0, 1])^\mathbb{N}$ an
 Thus the limit is not unique, so the limit does not exist. Since $x$ was arbitrary, this holds for all $x \in [0, 1]$. The last two methods did not rely on specifying a certain $L$, so these methods are better at disproving the existence of a limit; while the first is better at proving.
 
 \medskip
-\subsubsection{HW2 Problem 8 Limits}
 We show the limit is $0$ at all $x \in [0, 1]$ for the following function:
 \begin{equation*}
 f(x) \coloneq \begin{cases*}
@@ -340,7 +339,6 @@ f \ \text{is continuous at } x \iff \lim_{y \xrightarrow{} x} f(y) = f(x)
 The equivalence follows from the similarity of the definitions. The only difference is that the limit does not check the value at $x$ or $0 < \varrho(x, y) < \delta$, which can be rectified by the fact that $x \in \text{Dom}(f)$ and that the value $f(x)$ is defined.\\
 
 The other characterizations follow, including sequential and oscillation. We do note one thing:
-\subsubsection{HW 2 Problem 7}
 \begin{lem}
 $f$ is continuous at $x$ if and only if $\text{osc}_x(f) = 0$
 \end{lem}
@@ -398,7 +396,7 @@ Since $X$ is compact, then $f(X) \subseteq \mathbb{R}$ is compact, which means i
 Thus $\sup f(X), \inf f(X) \in f(X)$, so they are in the range of $f$, thus $f^{-1}(\sup f(X)) \land f^{-1}(\inf f(x)) \neq \varnothing$, so they are attained and are max/min of $f$.
 \end{proof}
 
-\subsubsection{HW2 Problem 1}
+\subsubsection{Example Problem}
 Call a mapping of $X$ into $Y$ open if $f(V)$ is an open set in $Y$ whenever $V$ is an open set in $X$. Prove that every continuous open mapping of $\mathbb{R}$ into $\mathbb{R}$ is monotonic.
 
 \begin{proof}
@@ -471,7 +469,7 @@ Both sets of these separation are guaranteed to be nonempty because $f(a) < y < 
 So the important condition to takeaway from this is to apply IVT, one requires a connected domain $X$ and a continuous function $f$. 
 
 \medskip
-\subsubsection{HW2 Problem 3}
+\subsubsection{Example Problem}
 Let $I = [0, 1]$ be the closed unit interval. Suppose $f$ is a continuous mapping of $I$ into $I$. Prove that $f(x) = x$ for at least one $x \in I$.\\
 
 Since the function $f(x)$ is continuous, the function $g(x) = f(x) - x$ is continuous because it is a linear combination of continuous functions. We aim to prove that it admits a root. Since $f[0, 1] \subseteq [0, 1]$, then:
@@ -502,28 +500,28 @@ Such a function maps $[0, 1] \xrightarrow{} [0, 1]$ more specifically $\{0, 1/2\
 Then $g(0) > 0$ and $g(1) < 0$, so ideally by IVT it should possess a root, which it does not (due to the jump discontinuity). 
 
 \medskip
-\subsubsection{Midterm 1 Problem 1}
-\begin{lem}
-Let $X$ and $Y$ be metric spaces and $f: X \xrightarrow{} Y$ such that $\text{Dom}(f) = X$ and $\text{Ran}(f) = Y$. Assuming $f$ to be continuous, prove
-\begin{equation*}
-\forall A \subseteq X: A \ \text{dense in } X \implies f(A) \ \text{dense in } Y
-\end{equation*}
-\end{lem}
-\begin{proof}
-Here we use the sequential definition of density:
-\begin{equation*}
-\forall x \in X, \exists \{a_n\}_{n \in \mathbb{N}} \in A^\mathbb{N}: a_n \xrightarrow{} x
-\end{equation*}
-Then consider any $y \in Y$. Then $\exists x \in X: f(x) = y$, so:
-\begin{equation*}
-\exists \{a_n\}_{n \in \mathbb{N}} \in A^\mathbb{N}: a_n \xrightarrow{} x
-\end{equation*}
-which by continuity implies that $f(a_n) \xrightarrow{} f(x) = y$, thus:
-\begin{equation*}
-\forall y \in Y, \exists x \in X, \exists \{f(a_n)\}_{n \in \mathbb{N}} \in f(A)^\mathbb{N}: y = f(x) \land f(a_n) \xrightarrow{} f(x)
-\end{equation*}
+% \subsubsection{Midterm 1 Problem 1}
+% \begin{lem}
+% Let $X$ and $Y$ be metric spaces and $f: X \xrightarrow{} Y$ such that $\text{Dom}(f) = X$ and $\text{Ran}(f) = Y$. Assuming $f$ to be continuous, prove
+% \begin{equation*}
+% \forall A \subseteq X: A \ \text{dense in } X \implies f(A) \ \text{dense in } Y
+% \end{equation*}
+% \end{lem}
+% \begin{proof}
+% Here we use the sequential definition of density:
+% \begin{equation*}
+% \forall x \in X, \exists \{a_n\}_{n \in \mathbb{N}} \in A^\mathbb{N}: a_n \xrightarrow{} x
+% \end{equation*}
+% Then consider any $y \in Y$. Then $\exists x \in X: f(x) = y$, so:
+% \begin{equation*}
+% \exists \{a_n\}_{n \in \mathbb{N}} \in A^\mathbb{N}: a_n \xrightarrow{} x
+% \end{equation*}
+% which by continuity implies that $f(a_n) \xrightarrow{} f(x) = y$, thus:
+% \begin{equation*}
+% \forall y \in Y, \exists x \in X, \exists \{f(a_n)\}_{n \in \mathbb{N}} \in f(A)^\mathbb{N}: y = f(x) \land f(a_n) \xrightarrow{} f(x)
+% \end{equation*}
 
-\end{proof}
+% \end{proof}
 \pagebreak
 \section{Uniform Continuity}
 Uniform continuity states a relationship between two points and has a global $\delta$ such that:
@@ -577,7 +575,7 @@ which contradicts the fact that $f$ is not uniformly continuous, since the above
 \end{proof}
 
 
-\subsubsection{HW 2 Problem 2}
+\subsubsection{Example Problem}
 \begin{lem}
 Let $X$ and $Y$ be metric spaces with $X$ totally bounded. Prove that for each $f: X \xrightarrow{} Y$
 \begin{equation*}
@@ -684,7 +682,7 @@ By the definition of infimum, we see that $\forall \epsilon > 0, \exists z_0 > x
 A similar argument can be made for $f(x^-)$. The arguments follow from the fact that the supremum and infimum are adherent in the reals.
 \end{proof}
 
-\subsubsection{HW3 Problem 1}
+\subsubsection{Example Problem}
 \begin{lem}
 Let $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ be non-decreasing with $\text{Dom}(f) = \mathbb{R}$. Prove that $x \mapsto f(x^+)$ is right continuous while $x \mapsto f(x^-)$ is left continuous with both functions non-decreasing. In addition, prove that
 \begin{equation*}
@@ -761,65 +759,65 @@ x < z \implies f(x^+) \leqslant f(z)
 \end{equation*}
 thus giving us our last inequality, that $\forall x, y \in \mathbb{R}: x < y \implies f(x^+) \leqslant f(y^-)$.
 
-\subsubsection{Midterm 1 Problem 2}
-Let $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ with $\text{Dom}(f) = \mathbb{R}$ be such that
-\begin{equation*}
-  h(x) \coloneq \lim_{z \xrightarrow{} x^+} f(z)
-\end{equation*}
-exists for all $x \in \mathbb{R}$. Prove that $h$ is right continuous:\\
+% \subsubsection{Midterm 1 Problem 2}
+% Let $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ with $\text{Dom}(f) = \mathbb{R}$ be such that
+% \begin{equation*}
+%   h(x) \coloneq \lim_{z \xrightarrow{} x^+} f(z)
+% \end{equation*}
+% exists for all $x \in \mathbb{R}$. Prove that $h$ is right continuous:\\
 
-The proof is the same as the one given for part one of the previous Lemma (the one without monotonicity). To rehash it, we use the $\delta$ given by the existence of the right limit as the radius of continuity. Then for all $y$ in that half-ball, we see that it is an interior point (by definition of open set), giving rise to a radius/containment around $y$ within the $\delta$ half-ball.\\
+% The proof is the same as the one given for part one of the previous Lemma (the one without monotonicity). To rehash it, we use the $\delta$ given by the existence of the right limit as the radius of continuity. Then for all $y$ in that half-ball, we see that it is an interior point (by definition of open set), giving rise to a radius/containment around $y$ within the $\delta$ half-ball.\\
 
-Now existence of a right limit at $y$ also gives another radius, so taking minimum of interior/existence of limit radii around $y$, we get $\delta_m$ which ensures that choosing any point within that is also within the $\delta$ half-ball around $x$, the point of investigation.\\
+% Now existence of a right limit at $y$ also gives another radius, so taking minimum of interior/existence of limit radii around $y$, we get $\delta_m$ which ensures that choosing any point within that is also within the $\delta$ half-ball around $x$, the point of investigation.\\
 
-Then using triangle inequality, we can choose an arbitrary $z$ in the $\delta_m$ half ball and use its value $f(z)$ as a pivot point in triangle inequality to get a bound of $2\epsilon$.\\
+% Then using triangle inequality, we can choose an arbitrary $z$ in the $\delta_m$ half ball and use its value $f(z)$ as a pivot point in triangle inequality to get a bound of $2\epsilon$.\\
 
-NOTE: This ONLY guarantees right continuity of this function $h(x)$. Left continuity is not guaranteed because $y$ is not an interior point, so an intersection between the two balls from limit existence around $x, y$ is not guaranteed. Thus the $\delta_m$ construction falls apart.\\
+% NOTE: This ONLY guarantees right continuity of this function $h(x)$. Left continuity is not guaranteed because $y$ is not an interior point, so an intersection between the two balls from limit existence around $x, y$ is not guaranteed. Thus the $\delta_m$ construction falls apart.\\
 
-Now this method offers a unique insight and another way to solve the problem. We see that the right limits are adherent points because we get an initial $\delta$ ball from the existence of the right limit at some $x \in \mathbb{R}$. Then using the same interior point, right limit existence argument, we get that:
-\begin{equation*}
-\forall \epsilon > 0, \forall y \in [x, x + \delta): B(h(y), \epsilon) \cap f(x, x+\delta) \neq \varnothing
-\end{equation*}
-which means the right limits are adherent points. Thus, by definition of closure and then definition of the right limit, we have that:
-\begin{equation*}
-\forall \epsilon > 0, \exists \delta > 0: h[x, x+\delta) \subseteq \overline{f(x, x+\delta)} \subseteq [h(x) - \epsilon, h(x) + \epsilon] \subseteq (h(x) - 2\epsilon, h(x) + 2\epsilon)
-\end{equation*}
-showing by the open ball definition that $h$ is right continuous.\\
+% Now this method offers a unique insight and another way to solve the problem. We see that the right limits are adherent points because we get an initial $\delta$ ball from the existence of the right limit at some $x \in \mathbb{R}$. Then using the same interior point, right limit existence argument, we get that:
+% \begin{equation*}
+% \forall \epsilon > 0, \forall y \in [x, x + \delta): B(h(y), \epsilon) \cap f(x, x+\delta) \neq \varnothing
+% \end{equation*}
+% which means the right limits are adherent points. Thus, by definition of closure and then definition of the right limit, we have that:
+% \begin{equation*}
+% \forall \epsilon > 0, \exists \delta > 0: h[x, x+\delta) \subseteq \overline{f(x, x+\delta)} \subseteq [h(x) - \epsilon, h(x) + \epsilon] \subseteq (h(x) - 2\epsilon, h(x) + 2\epsilon)
+% \end{equation*}
+% showing by the open ball definition that $h$ is right continuous.\\
 
-%-------------------------------------------------------------------%
-%NEED TO WORK ON THIS PROOF STILL; WILL REVISIT IT AT A LATER MOMENT%
-Interestingly, we can also solve this problem via sequences. We want to show that:
-\begin{equation*}
-\forall \{x_n\}_{n \in \mathbb{N}} \in \mathbb{R}^\mathbb{N}: (\forall n \in \mathbb{N}: x_{n+1} \leqslant x_n)
-\end{equation*}
-that if $x_n \xrightarrow{} x$ then $h(x_n) \xrightarrow{} h(x)$. We know that by the existence of the right limit:
-\begin{equation*}
-\forall x_n \in \{x_n\}_{n \in \mathbb{N}}, \forall \{x^{n}_{j}\}_{j \in \mathbb{N}} \in \mathbb{R}^\mathbb{N}: x^{n}_j \xrightarrow{} x_n \implies f(x^{n}_j) \xrightarrow{} h(x_n)
-\end{equation*}
-where $x^{n}_j$ is a non-decreasing sequence. Then:
-\begin{equation*}
-|x^{n}_j - x| \leqslant |x^{n}_j - x_n| + |x_n - x| \xrightarrow{} 0
-\end{equation*}
-To put more rigorously:
-\begin{equation*}
-\forall \epsilon > 0, \exists j_0, n_0 \geqslant 0, \forall j, n \geqslant j_0, n_0: |x^{n}_j - x| < 2\epsilon
-\end{equation*}
-So combining all terms of the $n$ sequences $\{x^{n}_j\}_{j \in \mathbb{N}}$, we find that $x^{n}_j \geqslant x$ for all $n, j \in \mathbb{N}$.\\
+% %-------------------------------------------------------------------%
+% %NEED TO WORK ON THIS PROOF STILL; WILL REVISIT IT AT A LATER MOMENT%
+% Interestingly, we can also solve this problem via sequences. We want to show that:
+% \begin{equation*}
+% \forall \{x_n\}_{n \in \mathbb{N}} \in \mathbb{R}^\mathbb{N}: (\forall n \in \mathbb{N}: x_{n+1} \leqslant x_n)
+% \end{equation*}
+% that if $x_n \xrightarrow{} x$ then $h(x_n) \xrightarrow{} h(x)$. We know that by the existence of the right limit:
+% \begin{equation*}
+% \forall x_n \in \{x_n\}_{n \in \mathbb{N}}, \forall \{x^{n}_{j}\}_{j \in \mathbb{N}} \in \mathbb{R}^\mathbb{N}: x^{n}_j \xrightarrow{} x_n \implies f(x^{n}_j) \xrightarrow{} h(x_n)
+% \end{equation*}
+% where $x^{n}_j$ is a non-decreasing sequence. Then:
+% \begin{equation*}
+% |x^{n}_j - x| \leqslant |x^{n}_j - x_n| + |x_n - x| \xrightarrow{} 0
+% \end{equation*}
+% To put more rigorously:
+% \begin{equation*}
+% \forall \epsilon > 0, \exists j_0, n_0 \geqslant 0, \forall j, n \geqslant j_0, n_0: |x^{n}_j - x| < 2\epsilon
+% \end{equation*}
+% So combining all terms of the $n$ sequences $\{x^{n}_j\}_{j \in \mathbb{N}}$, we find that $x^{n}_j \geqslant x$ for all $n, j \in \mathbb{N}$.\\
 
-Thus the sequence of values in the sequences $x^{n}_j$ converge to $x$ from the right as $j, n \xrightarrow{} \infty$, which by existence of a right limit implies that $f(x^{n}_j) \xrightarrow{} h(x)$, so:
-\begin{equation*}
-|h(x_n) - h(x)| \leqslant |h(x) - f(x^{n}_j)| + |f(x^{n}_j) - h(x_n)| \xrightarrow{} 0
-\end{equation*}
-or in $\epsilon$-terms:
-\begin{equation*}
-\forall \epsilon > 0, \exists j_0, n_0 \geqslant 0, \forall n \geqslant n_0: |h(x_n) - h(x)| < 2\epsilon
-\end{equation*}
-thus proving right continuity.
+% Thus the sequence of values in the sequences $x^{n}_j$ converge to $x$ from the right as $j, n \xrightarrow{} \infty$, which by existence of a right limit implies that $f(x^{n}_j) \xrightarrow{} h(x)$, so:
+% \begin{equation*}
+% |h(x_n) - h(x)| \leqslant |h(x) - f(x^{n}_j)| + |f(x^{n}_j) - h(x_n)| \xrightarrow{} 0
+% \end{equation*}
+% or in $\epsilon$-terms:
+% \begin{equation*}
+% \forall \epsilon > 0, \exists j_0, n_0 \geqslant 0, \forall n \geqslant n_0: |h(x_n) - h(x)| < 2\epsilon
+% \end{equation*}
+% thus proving right continuity.
 %------------------------------------------------------------------%
 
 \pagebreak
 \section{Variation (Continuity)}
-\subsubsection{HW2 Problem 9}
+\subsubsection{Example Problem}
 Consider a function $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ and given reals $a < b$, define its total variation on $[a, b]$ by
 \begin{equation*}
 V(f, [a, b]) \coloneq \sup_{\Pi}\sum_{i=1}^{n}|f(t_i) - f(t_{i-1})|
@@ -891,24 +889,24 @@ Now choosing $\delta \coloneq \frac{1}{2}\min\{\delta_0, |t_i - x|\}$  and refin
 
 The takeaway is that the existence of a partition is always a bridge to apply supremum and bring out the variation.
 
-\subsubsection{Midterm 1 Problem 3}
-\begin{lem}
-For real $a < b$, let $f: [a, b] \xrightarrow{} \mathbb{R}$ (with $\text{Dom}(f) = [a, b]$) be a function of bounded variation. Define $h: [a, b] \xrightarrow{} \mathbb{R}$ by:
-\begin{equation*}
-h(x) \coloneq V(f, [a, x]) - f(x)
-\end{equation*}
-Prove that $h(x)$ is nondecreasing.
-\end{lem}
-\begin{proof}
-We want to show that $x < y \implies h(x) \leqslant h(y)$. So $h(y) - h(x)$ is:
-\begin{equation*}
-h(y) - h(x) = V(f, [a, y]) - f(y) - V(f, [a, x]) + f(x) = V(f, [x, y]) - (f(y) - f(x))
-\end{equation*}
-If $f(y) < f(x)$, then this is trivial as total variation is always a positive quantity. If $f(y) > f(x)$, then we can simple add some $z \in (x, y)$ to create a partition $\Pi$ such that:
-\begin{equation*}
-(f(y) - f(x)) \leqslant |f(y) - f(x)| \leqslant |f(y) - f(z)| + |f(z) - f(x)| \leqslant V(f, [x, y]) \implies h(y) - h(x) \geqslant 0
-\end{equation*}
-\end{proof}
+% \subsubsection{Midterm 1 Problem 3}
+% \begin{lem}
+% For real $a < b$, let $f: [a, b] \xrightarrow{} \mathbb{R}$ (with $\text{Dom}(f) = [a, b]$) be a function of bounded variation. Define $h: [a, b] \xrightarrow{} \mathbb{R}$ by:
+% \begin{equation*}
+% h(x) \coloneq V(f, [a, x]) - f(x)
+% \end{equation*}
+% Prove that $h(x)$ is nondecreasing.
+% \end{lem}
+% \begin{proof}
+% We want to show that $x < y \implies h(x) \leqslant h(y)$. So $h(y) - h(x)$ is:
+% \begin{equation*}
+% h(y) - h(x) = V(f, [a, y]) - f(y) - V(f, [a, x]) + f(x) = V(f, [x, y]) - (f(y) - f(x))
+% \end{equation*}
+% If $f(y) < f(x)$, then this is trivial as total variation is always a positive quantity. If $f(y) > f(x)$, then we can simple add some $z \in (x, y)$ to create a partition $\Pi$ such that:
+% \begin{equation*}
+% (f(y) - f(x)) \leqslant |f(y) - f(x)| \leqslant |f(y) - f(z)| + |f(z) - f(x)| \leqslant V(f, [x, y]) \implies h(y) - h(x) \geqslant 0
+% \end{equation*}
+% \end{proof}
 
 \pagebreak
 \section{Differentiation}
@@ -1004,29 +1002,29 @@ Notice how, because we are taking limits of derivatives once again, we do not ca
 \end{lem}
 
 \medskip
-\subsubsection{Midterm 1 Problem 4}
-Let $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ be twice differentiable but do not assume that $f''$ is continuous. Prove that, for each $x \in \mathbb{R}$:
-\begin{equation*}
-\lim_{h \xrightarrow{} 0}\frac{f(x+2h) + f(x) - 2f(x+h)}{h^2} = f''(x)
-\end{equation*}
-\begin{proof}
-We are able to apply L'Hopitals because $f$ is continuous and differentiable:
-\begin{equation*}
-\lim_{h \xrightarrow{} 0}\frac{f(x+2h) + f(x) - 2f(x+h)}{h^2} = \lim_{h \xrightarrow{} 0}\frac{2f'(x+2h) - 2f'(x+h)}{2h}
-\end{equation*}
-\begin{equation*}
-= \lim_{h \xrightarrow{} 0}\frac{2f'(x+2h) - 2f'(x) + 2f'(x) - 2f'(x+h)}{2h}
-\end{equation*}
-\begin{equation*}
-= \lim_{h \xrightarrow{} 0}\left(2\frac{f'(x+2h)-f'(x)}{2h} - \frac{f'(x+h) - f'(x)}{h}\right) = 2f''(x) - f''(x) = f''(x)
-\end{equation*}
-Now assume we were to apply L'Hopital a second time, we would get the expression:
-\begin{equation*}
-\lim_{h \xrightarrow{} 0}(2f''(x+2h)- f''(x+h)) = \lim_{z \xrightarrow{}x}(2f''(2z-x) - f''(z))
-\end{equation*}
-For this, we would need to know the limit behavior or continuity of $f''$, which we are not aware of. This is because we first want the limit to exist and the limit to agree with the value of the function $f''(x)$; however, twice differentiability only gives us continuity of $f'$.\\
+% \subsubsection{Midterm 1 Problem 4}
+% Let $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ be twice differentiable but do not assume that $f''$ is continuous. Prove that, for each $x \in \mathbb{R}$:
+% \begin{equation*}
+% \lim_{h \xrightarrow{} 0}\frac{f(x+2h) + f(x) - 2f(x+h)}{h^2} = f''(x)
+% \end{equation*}
+% \begin{proof}
+% We are able to apply L'Hopitals because $f$ is continuous and differentiable:
+% \begin{equation*}
+% \lim_{h \xrightarrow{} 0}\frac{f(x+2h) + f(x) - 2f(x+h)}{h^2} = \lim_{h \xrightarrow{} 0}\frac{2f'(x+2h) - 2f'(x+h)}{2h}
+% \end{equation*}
+% \begin{equation*}
+% = \lim_{h \xrightarrow{} 0}\frac{2f'(x+2h) - 2f'(x) + 2f'(x) - 2f'(x+h)}{2h}
+% \end{equation*}
+% \begin{equation*}
+% = \lim_{h \xrightarrow{} 0}\left(2\frac{f'(x+2h)-f'(x)}{2h} - \frac{f'(x+h) - f'(x)}{h}\right) = 2f''(x) - f''(x) = f''(x)
+% \end{equation*}
+% Now assume we were to apply L'Hopital a second time, we would get the expression:
+% \begin{equation*}
+% \lim_{h \xrightarrow{} 0}(2f''(x+2h)- f''(x+h)) = \lim_{z \xrightarrow{}x}(2f''(2z-x) - f''(z))
+% \end{equation*}
+% For this, we would need to know the limit behavior or continuity of $f''$, which we are not aware of. This is because we first want the limit to exist and the limit to agree with the value of the function $f''(x)$; however, twice differentiability only gives us continuity of $f'$.\\
 
-Which leads us to an interesting example of a function which has a derivative BUT the derivative is not continuous. Consider:
+This leads us to an interesting example of a function which has a derivative BUT the derivative is not continuous. Consider:
 \begin{equation*}
 f(x) \coloneq \begin{cases*}
   0 \ : \ x = 0\\
@@ -1060,10 +1058,9 @@ f'(z) = 1, f'(z') = -1
 \lim_{\delta \xrightarrow{} 0^+}\sup_{z \in (0, \delta)}f(z) = 1 \neq \lim_{\delta \xrightarrow{} 0^+}\inf_{z \in (0, \delta)}f(z) = -1
 \end{equation*}
 Thus showing the right limit does not exist (limit-oscillation on the right is non-zero), showing the derivative is not continuous even though the function is differentiable. Functions which have a continuous derivative are continuously differentiable.
-\end{proof}
 
 \medskip
-\subsubsection{HW3 Problem 2}
+\subsubsection{Example Problem}
 We can also characterize the existence of the derivative by linear approximation:
 \begin{lem}
 Given a function $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ and $a \in \text{int}(\text{Dom}(f))$, prove:
@@ -1121,7 +1118,7 @@ Given a function $f: [a, b] \xrightarrow{} \mathbb{R}$ that is $n+1$-times diffe
 \end{thm}
 Notice that the Lagrange Remainder requires differentiability $n+1$ times on the whole interval. The proof follows from repeated applications of the Mean Value Theorem, which we will omit.\\
 
-\subsubsection{Peano's Remainder: HW4 Problem 4}
+\subsubsection{Peano's Remainder Theorem}
 \begin{thm}
 Let $I \subseteq \mathbb{R}$ be an open interval, $n \in \mathbb{N}\setminus \{0\}$ and, given $a \in I$, assume that $f: I \xrightarrow{} \mathbb{R}$ (with $\text{Dom}(f) = I$) is $(n-1)$-times differentiable on $I$ and $n$-times differentiable at $a$. Prove that
 \begin{equation*}
@@ -1143,7 +1140,7 @@ Since the function is $n$-times differentiable at $a$, we see that by the deriva
 \end{proof}
 
 \subsection{Convexity}
-\subsubsection{HW3 Problem 9}
+\subsubsection{Example Problem}
 Recall that the right and left derivatives of $f$ at $x_0$ are defined by the right and left limits:
 \begin{equation*}
 f^{'\pm}(x_0) \coloneq \lim_{x \xrightarrow{} x_0^{\pm}}\frac{f(x) - f(x_0)}{x-x_0}
@@ -1163,7 +1160,7 @@ Prove that
 \begin{lem}[Change of Variables for limits]
 
 \end{lem}
-\subsubsection{HW3 Problem 3}
+\subsubsection{Example Problem}
 Let $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ be injective and let $x \in \text{int}(\text{Dom}(f))$ be such that $f(x) \in \text{int}(\text{Ran}(f))$ and such that the inverse function $f^{-1}$ of $f$ is continuous at the point $f(x)$. Assuming $f'(x) \neq 0$, prove that $f^{-1}$ is also differentiable at the point $f(x)$ with
 \begin{equation*}
 (f^{-1})'(f(x)) = \frac{1}{f'(x)}
@@ -1206,7 +1203,7 @@ The Implicit Function Theorem says that a continuously differentiable function w
 \end{equation*}
 \end{thm}
 
-\subsubsection{HW4 Problem 8}
+\subsubsection{Example Problem}
 Put $f(0, 0) = 0$, and
 \begin{equation*}
 f(x, y) = \frac{xy(x^2 - y^2)}{x^2 + y^2}
@@ -1235,30 +1232,30 @@ Now we look at the partial derivatives:
 D_1f = \frac{(x^2+y^2)}{}
 \end{equation*}
 
-\subsubsection{Midterm 2 Problem 1}
-Let $U \subseteq \mathbb{R}^2$ be open and connected and let $f: \mathbb{R}^2 \xrightarrow{} \mathbb{R}$ with $\text{Dom}(f) = U$ be a function such that the partial derivatives of $f$ exist and are zero at all points of $U$. Prove that $f$ is constant.
-\begin{proof}
-Consider any arbitrary $x$ in $U$. Since $U$ is open, we see that there exists some $r > 0$ such that $B(x, r) \subseteq U$. Then we define the following:
-\begin{equation*}
-h(t) \coloneq f(x + t(z-x))
-\end{equation*}
-The choosing any arbitrary $z \in B(x, r)$, we observe that:
-\begin{equation*}
-f(z) - f(x) = h(1) - h(0)
-\end{equation*}
-Now that we have reduced the problem to one variable, we can apply MVT (we know $f$ is totally differentiable because all partial derivatives being zero means they are continuous):
-\begin{equation*}
-\exists c \in (0, 1): f(z) - f(x) = h'(c) = Df(x+c(z-x))(z-x) = 0 \implies f(z) = f(x)
-\end{equation*}
-Now we define $C \coloneq \{z \in U: f(z) = f(x)\}$. While we only tested points in $B(x, r)$, we can extend this equality to points outside the ball because the center was arbitrary, so by chaining centers and equalities, we find that $\exists r_z > 0: B(z, r_z) \subseteq C$, thus $C$ is open.\\
+% \subsubsection{Midterm 2 Problem 1}
+% Let $U \subseteq \mathbb{R}^2$ be open and connected and let $f: \mathbb{R}^2 \xrightarrow{} \mathbb{R}$ with $\text{Dom}(f) = U$ be a function such that the partial derivatives of $f$ exist and are zero at all points of $U$. Prove that $f$ is constant.
+% \begin{proof}
+% Consider any arbitrary $x$ in $U$. Since $U$ is open, we see that there exists some $r > 0$ such that $B(x, r) \subseteq U$. Then we define the following:
+% \begin{equation*}
+% h(t) \coloneq f(x + t(z-x))
+% \end{equation*}
+% The choosing any arbitrary $z \in B(x, r)$, we observe that:
+% \begin{equation*}
+% f(z) - f(x) = h(1) - h(0)
+% \end{equation*}
+% Now that we have reduced the problem to one variable, we can apply MVT (we know $f$ is totally differentiable because all partial derivatives being zero means they are continuous):
+% \begin{equation*}
+% \exists c \in (0, 1): f(z) - f(x) = h'(c) = Df(x+c(z-x))(z-x) = 0 \implies f(z) = f(x)
+% \end{equation*}
+% Now we define $C \coloneq \{z \in U: f(z) = f(x)\}$. While we only tested points in $B(x, r)$, we can extend this equality to points outside the ball because the center was arbitrary, so by chaining centers and equalities, we find that $\exists r_z > 0: B(z, r_z) \subseteq C$, thus $C$ is open.\\
 
-Now since $f$ is totally differentiable, it is continuous, thus $C \coloneq f^{-1}\{f(x)\}$. Since singletons are closed and continuous function preimages preserve closedness, $C$ is closed. However, $U$ being connected means it does not admit a separation, so $C = \varnothing$ or $C = U$. We know $C$ cannot be empty by the previous logic, so $C= U$.
-\end{proof}
+% Now since $f$ is totally differentiable, it is continuous, thus $C \coloneq f^{-1}\{f(x)\}$. Since singletons are closed and continuous function preimages preserve closedness, $C$ is closed. However, $U$ being connected means it does not admit a separation, so $C = \varnothing$ or $C = U$. We know $C$ cannot be empty by the previous logic, so $C= U$.
+% \end{proof}
 
-NOTE: A tip from Apostol is that writing $f$ in terms of a function $h: [0, 1] \xrightarrow{} \mathbb{R}$, where:
-\begin{equation*}
-h(t) = f(tx + (1-t)y) \implies f(x) - f(y) = Df(cx + (1-c)y)(x-y)
-\end{equation*}
+% NOTE: A tip from Apostol is that writing $f$ in terms of a function $h: [0, 1] \xrightarrow{} \mathbb{R}$, where:
+% \begin{equation*}
+% h(t) = f(tx + (1-t)y) \implies f(x) - f(y) = Df(cx + (1-c)y)(x-y)
+% \end{equation*}
 \pagebreak
 \section{Integration}
 We recap the important definitions and statements of integration and solve example problems:
@@ -1298,7 +1295,7 @@ A function $f$ is Darboux integrable on $[a, b]$ if:
 \end{equation*}
 \end{lem}
 
-\subsubsection{Midterm 2 Problem 3}
+\subsubsection{Example Problem}
 Prove that the upper Darboux Integral is subadditive; namely, that for all real numbers $a < b$ and all bounded functions $f, g: [a, b] \xrightarrow{} \mathbb{R}$:
 \begin{equation*}
 \overline{\int_{a}^{b}}(f+g)(x)dx \leqslant \overline{\int_{a}^{b}}f(x)dx + \overline{\int_{a}^{b}}g(x)dx
@@ -2041,7 +2038,7 @@ Thus the Stieltjes Sums are Cauchy, so they converge to a limit $L$, which we de
 \end{proof}
 This Lemma actually provides a good explanation as to why the converse of Lemma 0.16 is not necessarily true. Lemma 0.16 relies on one unmarked partition only, so the maximum freedom we get in the converse is choosing the marked points. However by this Cauchy Criterion, it must be true for ANY two intervals with max mesh less than $\delta$ (which means even if their subintervals are not aligned). So the result of the converse of Lemma 0.16 is too weak to prove integrability.
 
-\subsubsection{Integration By Parts: HW7 Problem 2}
+\subsubsection{Integration By Parts}
 The following problem discusses the idea of reducing the Stieltjes integral to a Riemann integral whenever the integrator is continuous, differentiable, and its derivative is Riemann integrable.\\
 
 Let $a < b$ be reals and let $f, g: [a, b] \xrightarrow{} \mathbb{R}$ be functions such that
@@ -2473,7 +2470,7 @@ Given $f_n: X \xrightarrow{} Y$, we have that:
 Totally bounded gives us a finite cover. With the same $\delta(x)$-ball construction, we can do another $3\epsilon$ proof:
 \end{proof}
 
-\subsubsection{HW8 Problem 6}
+\subsubsection{Example Problem}
 Letting $(x)$ denote the fractional part of the real number $x$, consider the function
 \begin{equation*}
 f(x) = \sum_{n=1}^{\infty}\frac{(nx)}{n^2}

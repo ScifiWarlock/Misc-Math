@@ -402,6 +402,14 @@ What this means is we can have a Kelley subsequence with indices such as $n_0 = 
 Now in terms of analysis, because of the total ordering of $\mathbb{R}$, we will deal with Willard subnets naturally, though I plan to explicitly use this terminology defined in this section regarding nets in the next section. That way, the connection between the concepts and nets is stronger.
 
 \subsection{Nets In Analysis}
+We begin with limits and continuity. For some function $f: \mathbb{R} \xrightarrow{} \mathbb{R}$, we say that $L$ is the limit of $f$ at $x_0$ if:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall x \in B(x_0, \delta_0): f(x) \in B(L, \epsilon)
+\end{equation*}
+Notice that $\forall \delta \leqslant \delta_0: B(x_0, \delta) \subseteq B(x_0, \delta_0)$, so we can additionally say:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0, \forall x \in B(x_0, \delta): f(x) \in B(L, \epsilon)
+\end{equation*}
 \pagebreak
 \section{Compactness}
 In the previous section, we discussed notions of convergence and adherence for sequences. We now discuss these notions for sets. Let us view the following theorem:
