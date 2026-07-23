@@ -356,7 +356,7 @@ $\impliedby:$ If $x$ is not a cluster point of the net, then:
 \begin{equation*}
 \exists U_x, \exists \alpha \in D, \forall \alpha_1 \geq \alpha: x_{\alpha_1} \notin U_x
 \end{equation*}
-Then for all possible subnets/cofinal subsets such that $f(E)$ is cofinal in $D$:
+Then for all possible subnets/cofinal subsets:
 \begin{equation*}
 \forall \alpha \in D, \exists \alpha_0' \in E, \forall \alpha' \geq \alpha_0': f(\alpha') \geq \alpha
 \end{equation*}
@@ -366,14 +366,17 @@ we get that:
 \end{equation*}
 which means that any subnet is not eventually in a neighborhood of $x$, thus there exists no subnet that converges to $x$.
 \end{proof}
-(\textit{Self note}): If I understand this proof correctly, the construction of $E$ and the subnet does not require Axiom of Choice. Below I have attempted to mirror the same proof in a first countable space. 
-\begin{proof}
-
-\end{proof}
 
 Let us examine a different definition of a subnet (\textbf{General Topology, Willard}):
 \begin{defn}
-    
+Given a net $\{x_\alpha\}_{\alpha \in D}$, we define a subnet $\{x_{f(\alpha')}\}_{\alpha' \in E}$ by the following conditions:
+\begin{enumerate}
+\item $\forall \alpha \in D, \exists \alpha_0' \in E, f(\alpha_0') \geq \alpha$
+\item $f: E \xrightarrow{} D$ is order preserving such that:
+\begin{equation*}
+\forall \alpha_0', \alpha_1' \in E: \alpha_0' \curlyeqsucc \alpha_1' \implies f(\alpha_0') \curlyeqsucc f(\alpha_1')
+\end{equation*}
+\end{enumerate}   
 \end{defn}
 
 \subsection{Nets In Analysis}
