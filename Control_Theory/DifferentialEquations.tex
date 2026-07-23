@@ -366,6 +366,7 @@ we get that:
 \end{equation*}
 which means that any subnet is not eventually in a neighborhood of $x$, thus there exists no subnet that converges to $x$.
 \end{proof}
+Notice we can do the same proof in a first countable space with sequences; however, this construction will not give us a subsequence (because it is not a map from $\mathbb{N}$ to $\mathbb{N}$), rather a subnet, showing that a subsequence is a subnet but not necessarily the converse.\\
 
 Let us examine a different definition of a subnet (\textbf{General Topology, Willard}):
 \begin{defn}
@@ -374,10 +375,31 @@ Given a net $\{x_\alpha\}_{\alpha \in D}$, we define a subnet $\{x_{f(\alpha')}\
 \item $\forall \alpha \in D, \exists \alpha_0' \in E, f(\alpha_0') \geq \alpha$
 \item $f: E \xrightarrow{} D$ is order preserving such that:
 \begin{equation*}
-\forall \alpha_0', \alpha_1' \in E: \alpha_0' \curlyeqsucc \alpha_1' \implies f(\alpha_0') \curlyeqsucc f(\alpha_1')
+\forall \alpha_0', \alpha_1' \in E: \alpha_0' \succcurlyeq \alpha_1' \implies f(\alpha_0') \geq f(\alpha_1')
 \end{equation*}
 \end{enumerate}   
 \end{defn}
+The Willard definition implies the Kelley definition (we can use condition two to derive the Kelley condition), however the converse is not necessarily true.\\
+
+The Willard definition is strictly stronger with the order preserving function, but the intuition behind both is that the indexing terms $f(E)$ go "further" in $D$. Our traditional definition of a subsequence is a Willard subnet, but it can possibly be relaxed to fit Kelley's definition.\\
+
+We write such a condition as follows:
+\begin{defn}
+We define a (Willard) subsequence as $\{x_{n_k}\}_{k \in \mathbb{N}}$ where $\{n_k\}_{k \in \mathbb{N}}$ is a strictly increasing sequence. In other words, we have a function:
+\begin{equation*}
+\exists f: \mathbb{N} \xrightarrow{} \mathbb{N} \ \text{such that } \forall k, j \in \mathbb{N}: k > j \implies f(k) = n_k > n_j = f(j)
+\end{equation*}
+The first condition is satisfied the condition that $\forall k \in \mathbb{N}: n_k \geqslant k$, which can be proven inductively.\\
+
+We define a (Kelley) subsequence as $\{x_{n_k}\}_{k \in \mathbb{N}}$ where for $\{n_k\}_{k \in \mathbb{N}}$, we have a that:
+\begin{equation*}
+\forall n \in \mathbb{N}, \exists k_0 \in \mathbb{N}, \forall k > k_0: n_k > n
+\end{equation*}
+Note that Kelley does use $\geqslant$ in this definition, however this effectively means a singular value of a single index can create a subsequence. 
+\end{defn}
+What this means is we can have a Kelley subsequence with indices such as $n_0 = 1, n_1 = 3, n_2 = 2$, while this would not be allowed in a Willard subsequence.\\
+
+Now in terms of analysis, because of the total ordering of $\mathbb{R}$, we will deal with Willard subnets naturally, though I plan to explicitly use this terminology defined in this section regarding nets in the next section. That way, the connection between the concepts and nets is stronger.
 
 \subsection{Nets In Analysis}
 \pagebreak
