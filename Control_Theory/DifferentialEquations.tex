@@ -83,6 +83,12 @@ Textbooks Used to Develop these Notes:
 \subsection{First Countability}
 What has been giving us sequential equivalence in $\mathbb{R}$ is the first countability of $\mathbb{R}$ (which means around any point $x$, there exists a countable basis). We used this to prove the more general properties implied sequential properties (by using the first countable property to construct/apply subsequences).\\
 
+To state more rigorously, a space $X$ is first countable if, given some point $x \in X$ and countably infinite set of local nested neighborhoods of $x$ which we denote as $\mathcal{B}_n \coloneq \{B_n : n \in \mathbb{N}\}$, then:
+\begin{equation*}
+\forall U_x, \exists n_0 \in \mathbb{N}, \forall n \geqslant n_0: B_n \subseteq U_x
+\end{equation*}
+where $U_x$ is any arbitrary neighborhood of $x$.\\
+
 All metric spaces are first countable; but there are some topological spaces that are not first countable. Consider the following topology on $\mathbb{R}$:
 \begin{equation*}
 \uptau \coloneq \{\varnothing\} \cup \{\mathbb{R} \setminus F: F \ \text{is finite}\}
@@ -101,15 +107,7 @@ since each $F_n$ is finite. We note that:
 \end{equation*}
 which is a contradiction, since $\mathbb{R}$ is not countably infinite and removing one point does not change this fact. Notice the intersection of the basis elements is solely $x$. That is because the topology is $T_1$, which means we can find some open set containing $x$ that separates $x$ and any other arbitrary point. Then by basis definition, there is some $B_n \subseteq O_x$.\\
 
-This same $T_1$ condition idea with basis elements gives equivalence of a limit point and $\omega$-limit point in the next section.\\
-
-In such spaces; if the sequential condition holds, then the general condition holds. E.g.:
-\begin{enumerate}
-\item Sequentially Compact $\implies$ Limit Point Compact
-\item Sequentially Closed $\implies$ Topologically Closed
-\end{enumerate}
-but the same does not hold for the converse. 
-
+This same $T_1$ condition idea with basis elements gives equivalence of a limit point and $\omega$-limit point in the next section. The key takeaway is that directions in proofs that aim to prove the existence of some topological object implies the existence of a sequential characterization require first countability.\\
 \subsection{Nets}
 We begin by introducing the notion of a directed set:
 \begin{defn}
@@ -402,14 +400,38 @@ What this means is we can have a Kelley subsequence with indices such as $n_0 = 
 Now in terms of analysis, because of the total ordering of $\mathbb{R}$, we will deal with Willard subnets naturally, though I plan to explicitly use this terminology defined in this section regarding nets in the next section. That way, the connection between the concepts and nets is stronger.
 
 \subsection{Nets In Analysis}
-We begin with limits and continuity. For some function $f: \mathbb{R} \xrightarrow{} \mathbb{R}$, we say that $L$ is the limit of $f$ at $x_0$ if:
+\subsubsection{Oscillation as a Net}
+We have the oscillation characterization of continuity of a function $f$ at a point $x_0 \in \text{int}(\text{Dom}(f))$ as:
 \begin{equation*}
-\forall \epsilon > 0, \exists \delta_0 > 0, \forall x \in B(x_0, \delta_0): f(x) \in B(L, \epsilon)
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0: \sup_{x, y \in B(x_0, \delta)}|f(x) - f(y)| \leqslant \epsilon
 \end{equation*}
-Notice that $\forall \delta \leqslant \delta_0: B(x_0, \delta) \subseteq B(x_0, \delta_0)$, so we can additionally say:
+where we write the net as $\{\text{osc}(f, B(x_0, \delta))\}_{\delta > 0}$ and:
 \begin{equation*}
-\forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0, \forall x \in B(x_0, \delta): f(x) \in B(L, \epsilon)
+\text{osc}(f, B(x_0, \delta)) \coloneq \sup_{x, y \in B(x_0, \delta)}|f(x) - f(y)|
 \end{equation*}
+where the downward directed set is $(\mathbb{R}_{> 0}, \leqslant)$ as the domain of the net.\\
+
+Let us view an important related result (which for brevity we shall not prove):
+\begin{thm}
+$f: \mathbb{R} \xrightarrow{} \mathbb{R}$ is continuous at $x_0$ if and only if for all $\delta$-nets:
+\begin{equation*}
+\forall \{x_\delta\}_{\delta > 0}: x_\delta \xrightarrow{} x_0 \implies f(x_\delta) \xrightarrow{} f(x_0)
+\end{equation*}
+\end{thm}
+What this theorem says is that a function $f$ is (pointwise) continuous at $x_0$ if and only if for all nets convergent to $x_0$, their image converges to $f(x_0)$.\\
+
+Then relative to this, we can call oscillation as the "worst case $\delta$-net", which if it converges to zero, then all other nets must too converge to the function value (follows from completeness). We can manipulate the oscillation criterion further:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0: - \epsilon \leqslant 0 \leqslant \sup_{x, y \in B(x_0, \delta)}|f(x) - f(y)| \leqslant \epsilon  
+\end{equation*}
+\begin{equation*}
+\implies \forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0: \left|\text{osc}(f, B(x, \delta))-0\right| \leqslant \epsilon
+\end{equation*}
+so $T_{\delta_0} \subseteq B(0, \epsilon)$, thus proving the net:
+\begin{equation*}
+\text{osc}(f, B(x_0, \delta)) \xrightarrow{} 0
+\end{equation*}
+The main goal of this section is to jump to nets for integration and sequences of functions. However, as I write notes down for those, I will definitely revisit and improve this section. The reason why I wanted to highlight oscillation as a net is so the reader can draw similar parallels with integration and function criterions.
 \pagebreak
 \section{Compactness}
 In the previous section, we discussed notions of convergence and adherence for sequences. We now discuss these notions for sets. Let us view the following theorem:
@@ -603,7 +625,7 @@ T'_{k_0'} = T_{k_0} \subseteq B(x, \epsilon)
 \end{proof}
 Lemma 1.4 and 1.5 will be key when discussing sequential compactness. Notice that for this proof, we used the sequential characterizations to draw equivalence; however, it can be done without first countability. The converse can be done in general topological spaces and follows from the definition of a cluster point.\\
 
-The forward direction (hopefully this is right, but not entirely sure), requires $T_1$. We prove by contradiction. Assume $x$ is a limit point (thus an $\omega$-limit point), but not a cluster point, such that:
+The forward direction, requires $T_1$. We prove by contradiction. Assume $x$ is a limit point (thus an $\omega$-limit point), but not a cluster point, such that:
 \begin{equation*}
 \exists U_x \subseteq X, \exists n_0 \geqslant 0, \forall n \geqslant n_0: x_n \notin U_x
 \end{equation*}
@@ -796,6 +818,27 @@ Then, the sequence must admit a convergent subsequence, which means it admits a 
 % Notice that the $\implies$ direction is not always true in general topological spaces as we used the first countability of metric spaces. The equivalence really stems from the idea of nets/countable nets or sequences. Limit point compactness is identical to sequential compactness in first countable spaces; the only difference being the former describes net-wise behavior, while the latter describes sequential.\\
 
 % But the equivalence fundamentally comes from the equivalent characterization of limit points. 
+
+We now see that first countability can be avoided by weakening the notion of sequential compactness to cluster-point compactness:
+\begin{thm}
+A set $K$ is limit point compact if and only if it is cluster-point compact in a $T_1$ space.
+\end{thm}
+\begin{proof}
+$\implies$: This direction requires $T_1$. For all sequences, if $S \coloneq \{x_n : n \in \mathbb{N}\}$ is finite, then there is a convergent subsequence by pigeonhole principle, which is a cluster point.\\
+
+If $S$ is countably infinite (then it admits a limit point) and $\{x_n\}_{n \in \mathbb{N}}$ has no constant subsequence (elements appear finitely many times), then take the subsequence omitting repetitions (resulting in a subsequence with entirely unique elements).\\
+
+We utilize the alternative proof of Lemma 1.4, showing that in a $T_1$ space, if $x$ is a limit point of $S$, then it is a cluster point of the sequence.\\
+
+$\impliedby$: This direction requires neither $T_1$ nor first countability. Consider any countably infinite subset $E \subseteq K$ and enumerate it by the naturals, giving a sequence of distinct terms. Then if $x$ is a cluster point of the sequence, we have that:
+\begin{equation*}
+\forall U_x, \forall n_0 \geqslant 0, \exists n \geqslant n_0: x_n \in U_x
+\end{equation*}
+\begin{equation*}
+\implies \forall U_x, \exists n \geqslant 0: x_n \in U_x \implies \forall U_x: U_x \cap E \setminus \{x\} \neq \varnothing
+\end{equation*}
+which follows from the definitions as well as the fact that the sequence consists of distinct terms. Thus, $x$ is a limit point of $E$ (not necessarily an $\omega$-limit point, but this was not required by our given definition).
+\end{proof}
 \pagebreak
 \section{Topological Compactness}
 Open covers give us a way to talk about topological compactness in a highly geometric fashion. The two previous notions, limit point and sequential compactness are quite difficult to intuitively understand geometrically.
