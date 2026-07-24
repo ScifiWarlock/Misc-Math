@@ -304,7 +304,7 @@ The proof utilizes the results of the previous definition. Lemma 0.3 gave us equ
 
 This can be extended to the notion of convergence, essentially bringing about a parallel lemma to Lemma 0.2 stated in terms of nets:
 \begin{lem}
-$x \in X$ is a cluster point of $\{x_\alpha\}_{\alpha \in D}$ if and only if $\exists \{x_{\alpha'}\}_{\alpha' \in E}: x_{\alpha'} \xrightarrow{} x$
+$x \in X$ is a cluster point of $\{x_\alpha\}_{\alpha \in D}$ if and only if $\exists \{x_{f(\alpha')}\}_{\alpha' \in E}: x_{f(\alpha')} \xrightarrow{} x$
 \end{lem}
 %this is quite an interesting proof that I need to examine properly and rigorously%
 %though I think I have enough information to expound upon nets in analysis and rigorously define such instances%
@@ -946,6 +946,15 @@ Since this is true for all $i \in [0, n-1]$, we see that:
 and because we have an upper bound on the measure of each interval, we get that $||\Pi_1|| \leqslant ||\Pi_0||$. 
 \end{proof}
 The idea of the mesh will be important in definiting (Willard) subnets where the base directed set is $(\Pi, \supseteq)$ and the function $f$ is the mesh function. 
+
+\subsection{Riemann-Stieltjes Integrability}
+Given two functions $f, g \in \mathbb{R}^\mathbb{R}$, we call $f$ the integrand and $g$ the integrator.
+\begin{defn}
+The function $f$ is Riemann-Stieltjes integrable on $[a, b]$ (with respect to $g$) if:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \Pi: ||\Pi|| < \delta_0 \implies \left|S(f, g, \Pi) - \int_{a}^{b}fdg\right| < \epsilon
+\end{equation*}
+\end{defn}
 
 \pagebreak
 \section{Arzela-Ascoli and Nets}
