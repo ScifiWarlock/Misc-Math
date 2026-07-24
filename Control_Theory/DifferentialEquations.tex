@@ -918,10 +918,13 @@ We then define the mesh of a partition $\Pi$ as the following:
 \end{equation*}
 We furthermore say $\Pi_1$ is a refinement of or is finer than $\Pi_0$ if $\Pi_0 \subseteq \Pi_1$. The following lemma will prove to be quite useful:
 \begin{lem}
-If $\Pi_0 \subseteq \Pi_1$, then $||\Pi_1|| \leqslant ||\Pi_0||$.
+If $\Pi_1 \supseteq \Pi_1$, then $||\Pi_1|| \leqslant ||\Pi_0||$.
 \end{lem}
 \begin{proof}
 Consider the points $\{x_0, ..., x_m\}$ to be added to the partition $\Pi_0$ resulting in $\Pi_1$, such that:
+\begin{equation*}
+\Pi_0 \coloneq \{t_i: 0 \leqslant i \leqslant n\}
+\end{equation*}
 \begin{equation*}
 \Pi_1 \coloneq \{u_j : 0 \leqslant j \leqslant n+m\}
 \end{equation*}
@@ -938,10 +941,11 @@ Since this is true for all $i \in [0, n-1]$, we see that:
 \forall 0 \leqslant i \leqslant n-1, \forall [u_j, u_{j+1}] \in T_i: |[u_j, u_{j+1}]| \leqslant ||\Pi_0||
 \end{equation*}
 \begin{equation*}
-\implies \forall 0 \leqslant j \leqslant n+m-1: |[u_j, u_{j+1}]| \leqslant ||\Pi_0||
+\implies \forall 0 \leqslant j \leqslant n+m-1: |[u_j, u_{j+1}]| \leqslant |[t_i, t_{i+1}]|| \leqslant ||\Pi_0||
 \end{equation*}
 and because we have an upper bound on the measure of each interval, we get that $||\Pi_1|| \leqslant ||\Pi_0||$. 
 \end{proof}
+The idea of the mesh will be important in definiting (Willard) subnets where the base directed set is $(\Pi, \supseteq)$ and the function $f$ is the mesh function. 
 
 \pagebreak
 \section{Arzela-Ascoli and Nets}
