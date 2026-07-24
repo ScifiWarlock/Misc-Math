@@ -57,7 +57,7 @@
 \maketitle
 I am writing this document as my own personal notes regarding analysis and differential equations. I am attempting to cover nets and compactness rigorously in order to precisely explore Integration and Arzela-Ascoli (and related theorems/statements), which are key to the study of Ordinary Differential Equations.\\
 
-Another topic I am to treat thoroughly is the topic of total variation and bounded variation, which is recurrent with regards to the Riemann-Stieltjes integral.\\
+Another topic I plan to treat thoroughly is the topic of total variation and bounded variation, which is recurrent with regards to the Riemann-Stieltjes integral.\\
 
 \begin{tcolorbox}[colback=white, colframe=black, arc=0mm]
 Textbooks Used to Develop these Notes:
@@ -433,6 +433,7 @@ so $T_{\delta_0} \subseteq B(0, \epsilon)$, thus proving the net:
 \end{equation*}
 The main goal of this section is to jump to nets for integration and sequences of functions. However, as I write notes down for those, I will definitely revisit and improve this section. The reason why I wanted to highlight oscillation as a net is so the reader can draw similar parallels with integration and function criterions.
 \pagebreak
+
 \section{Compactness}
 In the previous section, we discussed notions of convergence and adherence for sequences. We now discuss these notions for sets. Let us view the following theorem:
 
@@ -840,6 +841,7 @@ $\impliedby$: This direction requires neither $T_1$ nor first countability. Cons
 which follows from the definitions as well as the fact that the sequence consists of distinct terms. Thus, $x$ is a limit point of $E$ (not necessarily an $\omega$-limit point, but this was not required by our given definition).
 \end{proof}
 \pagebreak
+
 \section{Topological Compactness}
 Open covers give us a way to talk about topological compactness in a highly geometric fashion. The two previous notions, limit point and sequential compactness are quite difficult to intuitively understand geometrically.
 \begin{defn}
@@ -893,7 +895,53 @@ So, we have found an open cover $\mathcal{U}_x$ with no finite subcover, proving
 
 
 \pagebreak
+
 \section{Integration and Nets}
+The definition of Riemann and Riemann-Stieltjes integrability are fundamentally based on $\delta$-nets and (equivalently or non-equivalently depending on the conditions) nets of partitions. We examine both varieties of integrals here as well as total variation.
+
+\subsection{Mesh of Partitions}
+Given a compact interval $[a, b] \subseteq \mathbb{R}$, we define a partition as:
+\begin{equation*}
+\Pi_{[a, b]} \coloneq \{t_i : 0 \leqslant i \leqslant n\}
+\end{equation*}
+such that $t_0 = a$ and $t_n = b$ and:
+\begin{equation*}
+\forall 0 \leqslant i \leqslant n-1: t_i < t_{i+1}
+\end{equation*}
+so that:
+\begin{equation*}
+a < t_1 < \dots < t_{n-1} < b
+\end{equation*}
+We then define the mesh of a partition $\Pi$ as the following:
+\begin{equation*}
+||\Pi|| \coloneq \max_{0 \leqslant i \leqslant n-1}|t_{i+1} - t_i|
+\end{equation*}
+We furthermore say $\Pi_1$ is a refinement of or is finer than $\Pi_0$ if $\Pi_0 \subseteq \Pi_1$. The following lemma will prove to be quite useful:
+\begin{lem}
+If $\Pi_0 \subseteq \Pi_1$, then $||\Pi_1|| \leqslant ||\Pi_0||$.
+\end{lem}
+\begin{proof}
+Consider the points $\{x_0, ..., x_m\}$ to be added to the partition $\Pi_0$ resulting in $\Pi_1$, such that:
+\begin{equation*}
+\Pi_1 \coloneq \{u_j : 0 \leqslant j \leqslant n+m\}
+\end{equation*}
+such that $u_0 = a$ and $u_{n+m} = b$. We further define:
+\begin{equation*}
+\forall 0 \leqslant i \leqslant n-1: T_i \coloneq \{[u_j, u_{j+1}] : 0 \leqslant j \leqslant n+m - 1 \land [u_j, u_{j+1}] \subseteq [t_i, t_{i+1}]\}   
+\end{equation*}
+Now we use basic properties of outer measure where $A \subseteq B \implies |A| \leqslant |B|$, which leads to the following:
+\begin{equation*}
+\forall 0 \leqslant i \leqslant n-1, \forall [u_j, u_{j+1}] \in T_i: |[u_j, u_{j+1}]| \leqslant |[t_i, t_{i+1}]|
+\end{equation*}
+Since this is true for all $i \in [0, n-1]$, we see that:
+\begin{equation*}
+\forall 0 \leqslant i \leqslant n-1, \forall [u_j, u_{j+1}] \in T_i: |[u_j, u_{j+1}]| \leqslant ||\Pi_0||
+\end{equation*}
+\begin{equation*}
+\implies \forall 0 \leqslant j \leqslant n+m-1: |[u_j, u_{j+1}]| \leqslant ||\Pi_0||
+\end{equation*}
+and because we have an upper bound on the measure of each interval, we get that $||\Pi_1|| \leqslant ||\Pi_0||$. 
+\end{proof}
 
 \pagebreak
 \section{Arzela-Ascoli and Nets}
