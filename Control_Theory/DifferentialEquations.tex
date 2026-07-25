@@ -411,16 +411,57 @@ where we write the net as $\{\text{osc}(f, B(x_0, \delta))\}_{\delta > 0}$ and:
 \end{equation*}
 where the downward directed set is $(\mathbb{R}_{> 0}, \leqslant)$ as the domain of the net.\\
 
-Let us view an important related result (which for brevity we shall not prove):
+Let us view an important related result:
 \begin{thm}
 $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ is continuous at $x_0$ if and only if for all $\delta$-nets:
 \begin{equation*}
 \forall \{x_\delta\}_{\delta > 0}: x_\delta \xrightarrow{} x_0 \implies f(x_\delta) \xrightarrow{} f(x_0)
 \end{equation*}
 \end{thm}
-What this theorem says is that a function $f$ is (pointwise) continuous at $x_0$ if and only if for all nets convergent to $x_0$, their image converges to $f(x_0)$.\\
+\begin{proof}
+$\implies:$ If $f$ is continuous at $x_0$, then we have that:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall x \in B(x_0, \delta_0): f(x) \in B(f(x_0), \epsilon)
+\end{equation*}
+Then consider all $\delta$-nets that converge to $x_0$, we have that:
+\begin{equation*}
+\forall U_{x_0}, \exists \delta_\alpha > 0, \forall \delta \leqslant \delta_\alpha: x_\delta \in B(x_0, \delta_\alpha) \subseteq U_{x_0}
+\end{equation*}
+Then letting $U_x = B(x_0, \delta_0)$, for all convergent $\delta$-nets:
+\begin{equation*}
+\exists \delta_\alpha > 0, \forall \delta \leqslant \delta_\alpha: x_\delta \in B(x_0, \delta_0)
+\end{equation*}
+which by continuity implies that $f(x_\delta) \in B(f(x_0), \epsilon)$, so for all convergent $\delta$-nets:
+\begin{equation*}
+\implies \forall \epsilon > 0, \exists \delta_\alpha > 0, \forall \delta \leqslant \delta_\alpha: f(x_\delta) \in B(f(x_0), \epsilon)
+\end{equation*}
+proving that $\forall \{x_\delta\}_{\delta > 0}: f(x_\delta) \xrightarrow{} f(x_0)$.\\
 
-Then relative to this, we can call oscillation as the "worst case $\delta$-net", which if it converges to zero, then all other nets must too converge to the function value (follows from completeness). We can manipulate the oscillation criterion further:
+$\impliedby:$ We prove by contrapositive. If $f$ is not continuous at $x_0$, then we have that:
+\begin{equation*}
+\exists \epsilon > 0, \forall \delta > 0, \exists x \in B(x_0, \delta): f(x_\delta) \notin B(f(x_0), \epsilon)
+\end{equation*}
+and we want to show there exists a convergent $\delta$-net whose image is not converging to $f(x_0)$. For this we require Axiom of Choice (and notice we do not require first countability).\\
+
+Construct the net $\{x_\delta\}_{\delta > 0}$ such that:
+\begin{equation*}
+\forall \delta > 0: x_\delta \in B(x_0, \delta) \land f(x) \notin B(f(x_0), \epsilon)
+\end{equation*}
+which is clearly a convergent net. However the image net $\{f(x_\delta)\}_{\delta > 0}$ is not convergent because:
+\begin{equation*}
+\exists \epsilon > 0, \forall \delta > 0, \exists \delta_0 = \delta: f(x_{\delta_0}) \notin B(f(x_0), \epsilon)
+\end{equation*}
+thus proving the converse. 
+\end{proof}
+What this theorem says is that a function $f$ is (pointwise) continuous at $x_0$ if and only if for all nets convergent to $x_0$, their image converges to $f(x_0)$. This idea allows us to formalize the following notion:
+\begin{equation*}
+\lim_{x_\delta \xrightarrow{} x_0} f(x_\delta) = f(x_0)
+\end{equation*}
+where below the limit is the convergence of the $\delta$-net and the entire operation represents convergence of the image. A similar theorem can be stated for differentiability and as we will see in the future, integrability.\\
+
+While in general, texts define the above notation as the limit via $\epsilon-\delta$ and punctured $\delta$-balls, to maintain consistency, we will write a net converges as $x_\delta \xrightarrow{} x_0$ and use the above notation only when a convergence of a net implies the convergence of its image under a function.\\
+
+Now relative to this theorem, we can call oscillation as the "worst case $\delta$-net", which if it converges to zero, then all other nets must too converge to the function value (follows from completeness). We can manipulate the oscillation criterion further:
 \begin{equation*}
 \forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0: - \epsilon \leqslant 0 \leqslant \sup_{x, y \in B(x_0, \delta)}|f(x) - f(y)| \leqslant \epsilon  
 \end{equation*}
@@ -916,7 +957,7 @@ We then define the mesh of a partition $\Pi$ as the following:
 \begin{equation*}
 ||\Pi|| \coloneq \max_{0 \leqslant i \leqslant n-1}|t_{i+1} - t_i|
 \end{equation*}
-We furthermore say $\Pi_1$ is a refinement of or is finer than $\Pi_0$ if $\Pi_0 \subseteq \Pi_1$. The following lemma will prove to be quite useful:
+We furthermore say $\Pi_1$ is a refinement of or is finer than $\Pi_0$ if $\Pi_0 \subseteq \Pi_1$. Due to the uniqueness of the supremum, it is guaranteed that the mesh relation is a function. The following lemma will prove to be quite useful:
 \begin{lem}
 If $\Pi_1 \supseteq \Pi_1$, then $||\Pi_1|| \leqslant ||\Pi_0||$.
 \end{lem}
@@ -955,6 +996,26 @@ The function $f$ is Riemann-Stieltjes integrable on $[a, b]$ (with respect to $g
 \forall \epsilon > 0, \exists \delta_0 > 0, \forall \Pi: ||\Pi|| < \delta_0 \implies \left|S(f, g, \Pi) - \int_{a}^{b}fdg\right| < \epsilon
 \end{equation*}
 \end{defn}
+In order to show that this definition is inherently based on nets, we must show the following:
+\begin{lem}
+The set $P$ of all partitions of $[a, b] \subseteq \mathbb{R}$ is a directed set $(P, \supseteq)$.
+\end{lem}
+\begin{proof}
+By subset inclusion, reflexivity and transitivity follow.\\
+
+We aim to show directedness. Taking any two partitions $\Pi_0, \Pi_1$, we see that $\Pi_0 \cup \Pi_1 \in P$ and:
+\begin{equation*}
+\Pi_1 \cup \Pi_0 \supseteq \Pi_0 \land \Pi_1 \cup \Pi_0 \supseteq \Pi_1
+\end{equation*}
+thus proving $P$ is directed upwards.
+\end{proof}
+Now consider the net $\omega: P \xrightarrow{} \mathbb{R}$ where $\omega$ is the mesh function. We will denote the net as $\{||\Pi||\}_{\Pi \in P}$ for consistency with the Nets section. Then the following theorem holds:
+\begin{thm}
+$f$ is RS-integrable on $[a, b]$ if and only if:
+\begin{equation*}
+||\Pi|| \xrightarrow{} 0 \implies S(f, g, \Pi) \xrightarrow{} \int_{a}^{b}fdg
+\end{equation*}
+\end{thm}
 
 \pagebreak
 \section{Arzela-Ascoli and Nets}
