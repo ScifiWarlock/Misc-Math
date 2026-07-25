@@ -13,6 +13,7 @@
 \usepackage{hyperref}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
+\usetikzlibrary{patterns}
 %making an edit, want to see if auto script commits it%
 %making another edit to test the commit bot
 
@@ -71,7 +72,7 @@
 \fancyfoot[C]{(\thepage)}
 \renewcommand\footrulewidth{0.5pt}
 
-\title{MAE101 - Statics and Strength of Materials \\[0.5em] \large Summer 2026}
+\title{MAE101 - Statics and Strength of Materials \\[0.5em] \large With Solved Examples \\[0.5em] \large Summer 2026}
 \author{Omkar Tasgaonkar \\ \small otasgaonkar@ucla.edu}
 \date{}
 
@@ -86,9 +87,96 @@
 \begin{document}
 \maketitle
 \thispagestyle{firstpage}
+\begin{tcolorbox}[colback=white, colframe=black, arc=0mm]
 \tableofcontents
+\end{tcolorbox}
 \newpage
 
-\section*{Introduction}
+\section{External Forces}
+When we talk about forces acting on an object and free body diagrams, we assume these are the only forces on the object. This however is not necessarily true. We shall make the following distinction:
+\begin{enumerate}
+\item External forces are those that act upon the object/system from outside
+\item Internal forces are those experienced by members of the object
+\end{enumerate}
+In equilibrium situations, both the interval and external forces balance; however, in free body diagrams, we only display the external forces (we assume the internal forces are in equilibrium even though the external forces may not).\\
+
+Throughout this series of notes, we shall explicitly distinguish the system from the environment.
+
+
+
+% \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+% \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+% %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+% %Shape: Rectangle [id:dp5861126284594564] 
+% \draw  [fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=1 ] (95,113) -- (483.67,113) -- (483.67,125) -- (95,125) -- cycle ;
+% %Shape: Rectangle [id:dp8566928638095415] 
+% \draw  [fill={rgb, 255:red, 248; green, 231; blue, 28 }  ,fill opacity=1 ] (361.67,85) -- (359.79,296.11) -- (347.67,296) -- (349.55,84.89) -- cycle ;
+% %Shape: Circle [id:dp04785389887911162] 
+% \draw  [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=1 ][fill={rgb, 255:red, 126; green, 211; blue, 33 }  ,fill opacity=1 ] (330.12,82.95) .. controls (330.12,69.14) and (341.31,57.95) .. (355.12,57.95) .. controls (368.92,57.95) and (380.12,69.14) .. (380.12,82.95) .. controls (380.12,96.76) and (368.92,107.95) .. (355.12,107.95) .. controls (341.31,107.95) and (330.12,96.76) .. (330.12,82.95) -- cycle ;
+% %Down Arrow [id:dp4249551387969718] 
+% \draw  [fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (131.67,155.6) -- (134.92,155.6) -- (134.92,122) -- (141.42,122) -- (141.42,155.6) -- (144.67,155.6) -- (138.17,178) -- cycle ;
+% %Straight Lines [id:da034621899892850916] 
+% \draw    (95,113) -- (355.12,57.95) ;
+% %Straight Lines [id:da8228689896354215] 
+% \draw    (380.67,76) -- (547.67,301) ;
+
+% % Text Node
+% \draw (107,183) node [anchor=north west][inner sep=0.75pt]   [align=left] {F = 500N};
+
+
+% \end{tikzpicture}
+
+% \bigskip
+% \bigskip
+% \bigskip
+% \begin{tikzpicture}
+% \fill (0,0) circle (2pt);
+% % \node[above right] at (0,0) {$O$};
+
+% %vertical%
+% % \draw[fill=yellow] (8, -1) rectangle (8.25, 5);
+% % \node [left] at (8, -1) {$C$};
+
+% % \fill[pattern=north east lines] (7, -1) rectangle (9, -1);
+
+% % %horizontal%
+% % \draw[fill=yellow] (0, 4.5) rectangle (10,4.75);
+
+% % %pulley$
+% % \draw[fill = green] (8.125, 5) circle (0.5cm);
+% % \node [above] at (8.125, 5.5) {$B$};
+
+% % %force%
+% % \draw[->, thick, red] (0,4.5) -- (0,3);
+% % \node[below] at (0,3) {$F = 500N$};
+% % \node [left] at (0, 4.5) {$A$};
+
+% % %internal rope%
+% % \draw[thick, brown] (0, 4.75) -- (8.125, 5.5);
+
+% % %external rope%
+% % \draw[thick, brown] (8.25, 5.5) -- (14, -1);
+% % \node [left] at (14, -1) {$E$};
+
+
+% % \end{tikzpicture}
+
+\subsection{Geometric Vector Addition}
+While algebraic vector addition is no doubt important, geometric methods help us to visualize the problem, especially when it comes to resolving force components about non-orthogonal axes. Consider the two vectors:
+
+\begin{center}
+\begin{tikzpicture}
+\node[left] at (0, 0) {$O$};
+%vector A%
+\draw[->, thick, black] (0, 0) -- (1, 1);
+\node[left] at (1, 1) {$A$};
+
+\draw[->, thick, black] (0, 0) -- (1, -1);
+\node[left] at (1, -1) {$B$};
+\end{tikzpicture}
+\end{center}
+
 
 \end{document}
