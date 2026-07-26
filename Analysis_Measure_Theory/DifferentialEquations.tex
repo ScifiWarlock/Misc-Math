@@ -150,7 +150,7 @@ and finally by transitivity, we obtain that $\forall x_i \in S_{n+1}: x_i \leq w
 
 For the remainder of these notes, we assume a directed set $D$ is upward directed unless stated otherwise (the downward directed set notion will also be useful). Now a net is built on a directed set by the following:
 \begin{defn}
-A net is a function $\omega: D \xrightarrow{} X$ where $D$ is a directed set.  
+A net is a function $\omega: D \xrightarrow{} X$ where $D$ is a directed set and $X$ is a topological space.  
 \end{defn}
 We define net convergence as the following. Now, to bring about the similarity to sequences, we shall denote a net as $\{x_\alpha\}_{\alpha \in D}$ where $D$ is the directed set. This is still a function where $x_\alpha = \omega(\alpha)$, but this representation shows $D$ as an indexing set.\\
 
@@ -996,27 +996,70 @@ The function $f$ is Riemann-Stieltjes integrable on $[a, b]$ (with respect to $g
 \forall \epsilon > 0, \exists \delta_0 > 0, \forall \Pi: ||\Pi|| < \delta_0 \implies \left|S(f, g, \Pi) - \int_{a}^{b}fdg\right| < \epsilon
 \end{equation*}
 \end{defn}
-In order to show that this definition is inherently based on nets, we must show the following:
+Let us now examine how nets play a role here. Let $P$ be the set of all finite partitions of $[a, b] \subseteq \mathbb{R}$. We say that $\Pi_1 \leq \Pi_0$ iff $||\Pi_1|| \leqslant ||\Pi_0||$.\\
+
+Thus $(P, \leq)$ is a directed set, because:
+\begin{equation*}
+\forall \Pi_0, \Pi_1 \in P: \Pi_1, \Pi_0 \subseteq \Pi_1 \cup \Pi_0 \implies \Pi_1 \cup \Pi_0 \leq \Pi_1, \Pi_0
+\end{equation*}
+by Lemma 3.1, showing $P$ is downward directed (the other properties follow from the mesh function mapping to $\mathbb{R}$). The net we will define will then be the net of Stieltjes sums $\{S(f, g, \Pi)\}_{\Pi \in P}$:
+\begin{equation*}
+\forall \Pi \in P: S(f, g, \Pi) \coloneq \sum_{i=1}^{n}f(t_i^*)(t_i - t_{i-1})
+\end{equation*}
+For brevity, we shall also use the following notation for Stieltjes sums:
+\begin{equation*}
+S(f, g, \Pi) = \sum_{T_i \in \Pi}f(t_i^*)\Delta T_i
+\end{equation*}
+where each $T_i \coloneq [t_{i-1}, t_i]$. Such a net converges if:
+\begin{equation*}
+\forall \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \leq \Pi_\epsilon: S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon \right)
+\end{equation*}
+
 \begin{lem}
-The set $P$ of all partitions of $[a, b] \subseteq \mathbb{R}$ is a directed set $(P, \supseteq)$.
+The conditions in Definition 3.1 and the convergence of $\{S(f, g, \Pi)\}_{\Pi \in P}$ are equivalent.
 \end{lem}
 \begin{proof}
-By subset inclusion, reflexivity and transitivity follow.\\
-
-We aim to show directedness. Taking any two partitions $\Pi_0, \Pi_1$, we see that $\Pi_0 \cup \Pi_1 \in P$ and:
+$\implies:$ If there exists some $\delta_0 > 0$, then we can take the uniform net $\Pi_\epsilon$ with mesh at most $\frac{\delta_0}{2}$. By the Archimedian property:
 \begin{equation*}
-\Pi_1 \cup \Pi_0 \supseteq \Pi_0 \land \Pi_1 \cup \Pi_0 \supseteq \Pi_1
+\frac{\delta_0}{2(b-a)} > 0 \implies \exists n \in \mathbb{N}: 1 \leqslant n\frac{\delta_0}{2(b-a)} \implies \frac{b-a}{n} \leqslant \frac{\delta_0}{2} 
 \end{equation*}
-thus proving $P$ is directed upwards.
+So we can define $\Pi_\epsilon$ as the following:
+\begin{equation*}
+\Pi_\epsilon \coloneq \left\{a + i \cdot \frac{b-a}{n} : 0 \leqslant i \leqslant n\right\}
+\end{equation*}
+Then:
+\begin{equation*}
+\forall \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \in P: \Pi \leq \Pi_\epsilon \implies ||\Pi|| \leqslant ||\Pi_\epsilon|| \leqslant \frac{\delta_0}{2} \leqslant \delta_0
+\end{equation*}
+and by the criterion in Definition 3.1:
+\begin{equation*}
+\implies S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon\right)
+\end{equation*}
+showing that the net $S(f, g, \Pi) \xrightarrow{} \int_{a}^{b}fdg$.\\
+
+$\impliedby:$ We now prove the converse. We have the convergence of our Stieltjes sum net:
+\begin{equation*}
+\forall \epsilon > 0, \exists \Pi_\epsilon, \forall \Pi \leq \Pi_\epsilon: S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon\right)
+\end{equation*}
+Now take $\delta_0 \coloneq ||\Pi_\epsilon||/2$, so we get:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \Pi \in P: ||\Pi|| < \delta_0 \implies ||\Pi|| < ||\Pi_\epsilon||/2 < ||\Pi_\epsilon||
+\end{equation*}
+\begin{equation*}
+\implies \Pi \leq \Pi_\epsilon \implies S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon\right)
+\end{equation*}
 \end{proof}
-Now consider the net $\omega: P \xrightarrow{} \mathbb{R}$ where $\omega$ is the mesh function. We will denote the net as $\{||\Pi||\}_{\Pi \in P}$ for consistency with the Nets section. Then the following theorem holds:
-\begin{thm}
-$f$ is RS-integrable on $[a, b]$ if and only if:
-\begin{equation*}
-||\Pi|| \xrightarrow{} 0 \implies S(f, g, \Pi) \xrightarrow{} \int_{a}^{b}fdg
-\end{equation*}
-\end{thm}
 
+\subsubsection{Alternative Integrability Criteria}
+Notice the generality in the net $\{S(f, g, \Pi)\}_{\Pi \in P}$ that we constructed. Lemma 3.1 tells us that if $\Pi_1 \supseteq \Pi_0$, then in this case $\Pi_1 \leq \Pi_0$ or equivalently $||\Pi_1|| \leqslant ||\Pi_0||$.\\
+
+The converse however is not necessarily true. If $\Pi_1 \leq \Pi_0$ that does not necessarily mean that $\Pi_1 \supseteq \Pi_0$. We now look at a more specific definition:
+\begin{defn}
+The function $f$ is Riemann-Stieltjes integrable on $[a, b]$ with respect to $g$ if
+\begin{equation*}
+\forall \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \supseteq \Pi_\epsilon: S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon\right)
+\end{equation*}
+\end{defn}
 \pagebreak
 \section{Arzela-Ascoli and Nets}
 \end{document}
