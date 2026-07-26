@@ -1060,6 +1060,58 @@ The function $f$ is Riemann-Stieltjes integrable on $[a, b]$ with respect to $g$
 \forall \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \supseteq \Pi_\epsilon: S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon\right)
 \end{equation*}
 \end{defn}
+We can "net-ify" this definition by observing the following construction:
+\begin{equation*}
+P_\epsilon \coloneq \{\Pi \in P : \Pi \supseteq \Pi_\epsilon\} 
+\end{equation*}
+We can show that $\forall \epsilon > 0$ each $P_\epsilon$ is a cofinal subset of $P$ such that:
+\begin{equation*}
+\forall \Pi_0 \in P, \exists \Pi \in P_\epsilon: \Pi \leq \Pi_0
+\end{equation*}
+For any arbitrary $\Pi_0 \in P$, we see that $\Pi_0 \cup \Pi_\epsilon \supseteq \Pi_\epsilon$ and by Lemma 3.1:
+\begin{equation*}
+\Pi_0 \cup \Pi_\epsilon \supseteq \Pi_0 \implies \Pi_0 \cup \Pi_\epsilon \leq \Pi_0 \land \Pi_10\cup \Pi_\epsilon \in P_\epsilon
+\end{equation*}
+Since $P_\epsilon$ is cofinal, it is the domain for a (Kelley/Willard Subnet) under composition with the identity function.\\
+
+Thus Definition 3.2 can be restated as $f$ is RS-integrable with respect to $g$ if:
+\begin{equation*}
+\forall \epsilon > 0, \exists \{S(f, g, \Pi)\}_{\Pi \in P_\epsilon}: S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon\right)
+\end{equation*}
+which to put into words means, for all neighborhoods of $\int_{a}^{b}fdg$, there is a subnet contained in that neighborhood. By Lemma 0.5, this means $\int_{a}^{b}fdg$ is a cluster point of the net $\{S(f, g, \Pi)\}_{\Pi \in P}$.
+%this seems to be related to cluster points%
+%I think it implies the value of the integral is a cluster point because it implies that for all neighborhoods, there is a subnet contained within it%
+%which means the net is frequently in all neighborhoods, thus a cluster point%
+%so perhaps to disprove RS-integrability, a criterion could be if:%
+%\exists \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \leq \Pi_\epsilon: S(f, g, \Pi)\notin B(L, \epsilon)%
+%yes this would make sense because then this implies the quantifier switch of 2nd and 3rd quantifiers%
+%which leads us to the negation of the condition equivalent in Lemma 3.2%
+
+\bigskip
+\begin{thm}
+If $f$ is Riemann-Stieltjes integrable with respect to $g$ by the criterion in Definition 3.1, it is Riemann-Stieltjes integrable by the criterion in Definition 3.2.
+\end{thm}
+\begin{proof}
+The criterion in Definition 3.1 states in terms of nets that for the net $\{S(f, g, \Pi)\}_{\Pi \in P}$:
+\begin{equation*}
+S(f, g, \Pi) \xrightarrow{} \int_{a}^{b}fdg
+\end{equation*}
+so the entire net converges to the value of the integral, which means any subnet must converge to the value of the integral as well, thereby implying Definition 3.2's criterion. To put it more succinctly, the limit of a net is a cluster point of a net, but not vice versa.
+\end{proof}
+Another characterization equivalent to Definition 3.2 would be the following:
+\begin{equation*}
+\forall \epsilon > 0, \forall \Pi_0 \in P, \exists \Pi \leq \Pi_0: S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon\right)
+\end{equation*}
+A major topic we shall analyze has now emerged. In the Riemann integral (when $g$ is the identity function), we actually have equivalence of these notions; however, in the Stieltjes integral, we do not always. So the goal now is to figure out some sufficient conditions for equivalence.
+
+\subsection{Equivalence of Criteria}
+Going forward, we will use the following two notions:
+\begin{equation*}
+(1): \ \forall \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \leq \Pi_\epsilon: S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon\right)
+\end{equation*}
+\begin{equation*}
+(2): \ \forall \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \supseteq \Pi_\epsilon: S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon\right)
+\end{equation*}
 \pagebreak
 \section{Arzela-Ascoli and Nets}
 \end{document}
