@@ -959,7 +959,7 @@ We then define the mesh of a partition $\Pi$ as the following:
 \end{equation*}
 We furthermore say $\Pi_1$ is a refinement of or is finer than $\Pi_0$ if $\Pi_0 \subseteq \Pi_1$. Due to the uniqueness of the supremum, it is guaranteed that the mesh relation is a function. The following lemma will prove to be quite useful:
 \begin{lem}
-If $\Pi_1 \supseteq \Pi_1$, then $||\Pi_1|| \leqslant ||\Pi_0||$.
+If $\Pi_1 \supseteq \Pi_0$, then $||\Pi_1|| \leqslant ||\Pi_0||$.
 \end{lem}
 \begin{proof}
 Consider the points $\{x_0, ..., x_m\}$ to be added to the partition $\Pi_0$ resulting in $\Pi_1$, such that:
@@ -986,7 +986,13 @@ Since this is true for all $i \in [0, n-1]$, we see that:
 \end{equation*}
 and because we have an upper bound on the measure of each interval, we get that $||\Pi_1|| \leqslant ||\Pi_0||$. 
 \end{proof}
-The idea of the mesh will be important in definiting (Willard) subnets where the base directed set is $(\Pi, \supseteq)$ and the function $f$ is the mesh function. 
+When we refer to a partition in the next subsection, we will worked with marked partitions containing sampling points in each interval $t_i^*$. So when we say $\Pi$ is a partition of $[a, b]$, we mean that:
+\begin{equation*}
+\Pi \coloneq \{\{t_i\}_{i \in [0, n]}, \{t_i^*\}_{i \in [1, n]}\}
+\end{equation*}
+However, this does not affect the definition of mesh given in the previous section. Additionally, we can exclude the marked points from affecting subset inclusion, so $\Pi_1 \supseteq \Pi_0$ is true if $\Pi_1$ has all the interval points that $\Pi_0$ has no matter the difference in marked points.\\
+
+We make this distinction as it ensures that the net we introduce is a function (otherwise one partition may have two different Riemann-Stieltjes sums) due to different marked points.
 
 \subsection{Riemann-Stieltjes Integrability}
 Given two functions $f, g \in \mathbb{R}^\mathbb{R}$, we call $f$ the integrand and $g$ the integrator.
@@ -1006,7 +1012,7 @@ by Lemma 3.1, showing $P$ is downward directed (the other properties follow from
 \begin{equation*}
 \forall \Pi \in P: S(f, g, \Pi) \coloneq \sum_{i=1}^{n}f(t_i^*)(t_i - t_{i-1})
 \end{equation*}
-For brevity, we shall also use the following notation for Stieltjes sums:
+For brevity, we may also use the following notation for Stieltjes sums:
 \begin{equation*}
 S(f, g, \Pi) = \sum_{T_i \in \Pi}f(t_i^*)\Delta T_i
 \end{equation*}
@@ -1064,15 +1070,15 @@ We can "net-ify" this definition by observing the following construction:
 \begin{equation*}
 P_\epsilon \coloneq \{\Pi \in P : \Pi \supseteq \Pi_\epsilon\} 
 \end{equation*}
-We can show that $\forall \epsilon > 0$ each $P_\epsilon$ is a cofinal subset of $P$ such that:
+We can show that $\forall \epsilon > 0$, the $P_\epsilon$ is a cofinal subset of $P$ such that:
 \begin{equation*}
 \forall \Pi_0 \in P, \exists \Pi \in P_\epsilon: \Pi \leq \Pi_0
 \end{equation*}
 For any arbitrary $\Pi_0 \in P$, we see that $\Pi_0 \cup \Pi_\epsilon \supseteq \Pi_\epsilon$ and by Lemma 3.1:
 \begin{equation*}
-\Pi_0 \cup \Pi_\epsilon \supseteq \Pi_0 \implies \Pi_0 \cup \Pi_\epsilon \leq \Pi_0 \land \Pi_10\cup \Pi_\epsilon \in P_\epsilon
+\Pi_0 \cup \Pi_\epsilon \supseteq \Pi_0 \implies \Pi_0 \cup \Pi_\epsilon \leq \Pi_0 \land \Pi_0\cup \Pi_\epsilon \in P_\epsilon
 \end{equation*}
-Since $P_\epsilon$ is cofinal, it is the domain for a (Kelley/Willard Subnet) under composition with the identity function.\\
+Since the image of $P_\epsilon$ under the identity is cofinal, it is the domain for a Kelley/Willard Subnet (either classification holds because the identity is order preserving).\\
 
 Thus Definition 3.2 can be restated as $f$ is RS-integrable with respect to $g$ if:
 \begin{equation*}
@@ -1087,7 +1093,7 @@ which to put into words means, for all neighborhoods of $\int_{a}^{b}fdg$, there
 %yes this would make sense because then this implies the quantifier switch of 2nd and 3rd quantifiers%
 %which leads us to the negation of the condition equivalent in Lemma 3.2%
 
-\bigskip
+
 \begin{thm}
 If $f$ is Riemann-Stieltjes integrable with respect to $g$ by the criterion in Definition 3.1, it is Riemann-Stieltjes integrable by the criterion in Definition 3.2.
 \end{thm}
@@ -1112,6 +1118,46 @@ Going forward, we will use the following two notions:
 \begin{equation*}
 (2): \ \forall \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \supseteq \Pi_\epsilon: S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon\right)
 \end{equation*}
+
+We also require the following lemma:
+\begin{lem}
+If $f$ is Riemann integrable by criterion (2), then it is bounded on $[a, b]$. 
+\end{lem}
+\begin{proof}
+So Riemann Integrability gives us that:
+\begin{equation*}
+\forall \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \supseteq \Pi_\epsilon: R(f, \Pi) \in B\left(\int_{a}^{b}fdx, \epsilon\right)
+\end{equation*}
+where $R(f, \Pi) = S(f, \text{id}, \Pi)$ such that $\text{id}(x) = x$ (the identity function). Then, for some arbitary $\epsilon = 1$, we see that:
+\begin{equation*}
+\forall \Pi \supseteq \Pi_\epsilon: \left|R(f, \Pi) - \int_{a}^{b}fdx\right| < 1
+\end{equation*}
+\begin{equation*}
+\implies \forall \Pi \supseteq \Pi_\epsilon: |R(f, \Pi)| < \left|\int_{a}^{b}fdx\right| + 1
+\end{equation*}
+Now for any arbitrary $x \in [a, b]$, if $x$ is already a marked point of $\Pi_\epsilon$ in some interval $[t_{j-1}, t_j]$, then:
+\begin{equation*}
+f(x)(t_j - t_{j-1}) = R(f, \Pi_\epsilon) - \sum_{i \in [1, n]\setminus\{j\}}f(t_i^*)(t_i - t_{i-1})
+\end{equation*}
+\begin{equation*}
+\implies |f(x)|(t_j - t_{j-1})| \leqslant |R(f, \Pi_\epsilon)| + \sum_{i \in [1, n]\setminus\{j\}}|f(t_i^*)| \cdot ||\Pi_\epsilon||
+\end{equation*}
+Let $T$ be the length of the smallest interval in $\Pi_\epsilon$, then:
+\begin{equation*}
+\implies |f(x)| \leqslant \frac{1}{T}\left(\left|\int_{a}^{b}fdx\right| + 1|\right) + \frac{||\Pi_\epsilon||}{T}\sum_{i\in [1, n]\setminus\{j\}}|f(t_i^*)|
+\end{equation*}
+Now if $x$ is not a marked point of $\Pi_\epsilon$ (it may be in an interval or the endpoint of an interval), then assume $x \in [t_{j-1}, t_j]$ in $\Pi_\epsilon$. Then define $\Pi$ such that $t_j^* = x$ in $\Pi$, with the remaining endpoints and marked points the same as $\Pi_\epsilon$.\\
+
+Since $\Pi$ retains the same interval endpoints, we can say that $\Pi \supseteq \Pi_\epsilon$ and $||\Pi|| \leqslant ||\Pi_\epsilon||$ and that $T_\Pi = T$. Thus:
+\begin{equation*}
+|f(x)|(t_j - t_{j-1})| \leqslant |R(f, \Pi)| + \sum_{i \in [1, n]\setminus\{j\}}|f(t_i^*)| \cdot ||\Pi|| 
+\end{equation*}
+\begin{equation*}
+|f(x)| \leqslant \frac{1}{T}\left(\left|\int_{a}^{b}fdx\right| + 1\right) + \frac{||\Pi_\epsilon||}{T}\sum_{i \in [1, n]\setminus\{j\}}|f(t_i^*)|
+\end{equation*}
+Since $x$ was arbitrary, this bound holds for all $x \in [a, b]$ no matter where $x$ falls with respect to the marked points of $\Pi_\epsilon$. Thus $f$ is bounded, and by least upper bound property, we can write the supremum of $f$ as $||f||$. 
+\end{proof}
+
 \pagebreak
 \section{Arzela-Ascoli and Nets}
 \end{document}
