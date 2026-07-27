@@ -942,6 +942,9 @@ The definition of Riemann and Riemann-Stieltjes integrability are fundamentally 
 
 \subsection{Mesh of Partitions}
 Given a compact interval $[a, b] \subseteq \mathbb{R}$, we define a partition as:
+%I need to better define what partitions are to define orderings on them%
+%I think I should take a look at the Henstock-Kurtzweil Integral%
+%Perhaps the concept of delta-fine partitions will help with this%
 \begin{equation*}
 \Pi_{[a, b]} \coloneq \{t_i : 0 \leqslant i \leqslant n\}
 \end{equation*}
@@ -1156,6 +1159,27 @@ Since $\Pi$ retains the same interval endpoints, we can say that $\Pi \supseteq 
 |f(x)| \leqslant \frac{1}{T}\left(\left|\int_{a}^{b}fdx\right| + 1\right) + \frac{||\Pi_\epsilon||}{T}\sum_{i \in [1, n]\setminus\{j\}}|f(t_i^*)|
 \end{equation*}
 Since $x$ was arbitrary, this bound holds for all $x \in [a, b]$ no matter where $x$ falls with respect to the marked points of $\Pi_\epsilon$. Thus $f$ is bounded, and by least upper bound property, we can write the supremum of $f$ as $||f||$. 
+\end{proof}
+Because criterion 1 implies criterion 2, we also have the following implication:
+\begin{lem}
+If $f$ is Riemann integrable by criterion (1), then it is bounded on $[a, b]$.
+\end{lem}
+
+\medskip
+We can now prove the equivalence of the two criterions for Riemann integrable functions:
+\begin{thm}
+If $f$ is Riemann integrable, then:
+\begin{equation*}
+\forall \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \leq \Pi_\epsilon: R(f, \Pi) \in B\left(\int_{a}^{b}fdx, \epsilon\right)
+\end{equation*}
+\begin{equation*}
+\iff \forall \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \supseteq \Pi_\epsilon: R(f, \Pi) \in B\left(\int_{a}^{b}fdx, \epsilon\right)
+\end{equation*}
+\end{thm}
+\begin{proof}
+$\implies$: This direction holds in full generality for Riemann-Stieltjes integrals, which we proved in the previous subsection.\\
+
+$\impliedby:$ 
 \end{proof}
 
 \pagebreak
