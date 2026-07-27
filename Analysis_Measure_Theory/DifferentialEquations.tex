@@ -1049,7 +1049,7 @@ showing that the net $S(f, g, \Pi) \xrightarrow{} \int_{a}^{b}fdg$.\\
 
 $\impliedby:$ We now prove the converse. We have the convergence of our Stieltjes sum net:
 \begin{equation*}
-\forall \epsilon > 0, \exists \Pi_\epsilon, \forall \Pi \leq \Pi_\epsilon: S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon\right)
+\forall \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \leq \Pi_\epsilon: S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon\right)
 \end{equation*}
 Now take $\delta_0 \coloneq ||\Pi_\epsilon||/2$, so we get:
 \begin{equation*}
@@ -1180,9 +1180,51 @@ If $f$ is Riemann integrable, then:
 \begin{proof}
 $\implies$: This direction holds in full generality for Riemann-Stieltjes integrals, which we proved in the previous subsection.\\
 
-$\impliedby:$ 
+$\impliedby:$ Given the second criterion:
+\begin{equation*}
+\forall \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \supseteq \Pi_\epsilon: R(f, \Pi) \in B\left(\int_{a}^{b}fdx, \frac{\epsilon}{2}\right)
+\end{equation*}
+we aim to prove the first. Let $\Pi_\epsilon^{(1)}$ be the partition for the first criterion, defined as a uniform partition with mesh less than $\frac{\epsilon}{2(||f||\cdot m + 1)}$. Then we want to show:
+\begin{equation*}
+\forall \Pi \leq \Pi_\epsilon^{(1)}: R(f, \Pi) \in B\left(\int_{a}^{b}fdx, \epsilon\right)
+\end{equation*}
+By triangle inequality, we see the following:
+\begin{equation*}
+\forall \Pi \leq \Pi_\epsilon: \left|R(f, \Pi) - \int_{a}^{b}fdx\right| \leqslant \left|R(f, \Pi) - R(f, \Pi \cup \Pi_\epsilon)\right| + \left|R(f, \Pi \cup \Pi_\epsilon) - \int_{a}^{b}fdx\right|
+\end{equation*}
+\begin{equation*}
+\leqslant |R(f, \Pi) - R(f, \Pi \cup \Pi_\epsilon)| + \frac{\epsilon}{2}
+\end{equation*}
+which follows from the fact that $\Pi \cup \Pi_\epsilon \supseteq \Pi_\epsilon$. Now using Lemma 3.3, we see that:
+\begin{equation*}
+\leqslant ||f|| \left|\sum_{i=1}^{n}(t_i - t_{i-1}) - \sum_{i=1}^{n+m}(t_i - t_{i-1})\right| + \frac{\epsilon}{2} \leqslant ||f|| \cdot \frac{\epsilon}{2(||f|| \cdot m + 1)} \cdot m + \frac{\epsilon}{2} \leqslant \epsilon
+\end{equation*}
+which follows from the fact that $\Pi \cup \Pi_\epsilon \supseteq \Pi \implies \Pi \cup \Pi_\epsilon \leq \Pi \leq \Pi_\epsilon^{(1)}$ and where $m$ is the cardinality of the set of interval endpoints in the partition $\Pi_\epsilon$. 
 \end{proof}
 
+To uncover the assumption that makes this proof work, we do the same proof except for the criterion equivalent to criterion 1:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \Pi \in P: ||\Pi|| < \delta_0 \implies R(f, \Pi) \in B\left(\int_{a}^{b}fdx, \epsilon\right)  
+\end{equation*}
+Now the question is, how do we obtain a $\delta_0$? The trick we used to bring about our $\epsilon$ estimate in the previous proof was the control the mesh of the partition $\Pi_\epsilon^{(1)}$. So if we say:
+\begin{equation*}
+0 < \delta_0 \leqslant \frac{\epsilon}{2(||f|| \cdot m + 1)}
+\end{equation*}
+then we get that $\forall \Pi \in P : ||\Pi|| < \delta_0$, then:
+\begin{equation*}
+\Pi \cup \Pi_\epsilon \supset \Pi \implies ||\Pi \cup \Pi_\epsilon|| \leqslant ||\Pi|| < \delta_0 \leqslant \frac{\epsilon}{2(||f||\cdot m + 1)}
+\end{equation*}
+Then the proof is the same as Theorem 3.2 once this relation is established. The underlying assumption we use here however is uniform continuity of the identity function $\text{id}$. We can prove that $\text{id}$ is continuous (simply by taking $\epsilon = \delta$).\\
+
+Thus on a compact interval $[a, b]$, it must be uniformly continuous such that:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall x, y \in [a, b]: |x-y| < \delta_0 \implies |\text{id}(x) - \text{id}(y)| = |x-y| < \epsilon
+\end{equation*}
+We actually see that it is $1$-Lipschitz because $|\text{id}(x) - \text{id}(y)| \leqslant |x-y|$, so we can set $\delta_0 = \epsilon$. 
+
+\subsection{Total Variation and Stieltjes Integrals}
+\subsection{Darboux Formulation}
+\subsection{Henstock-Kurzweil Generalization}
 \pagebreak
 \section{Arzela-Ascoli and Nets}
 \end{document}
