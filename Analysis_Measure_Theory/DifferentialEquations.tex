@@ -989,13 +989,14 @@ Since this is true for all $i \in [0, n-1]$, we see that:
 \end{equation*}
 and because we have an upper bound on the measure of each interval, we get that $||\Pi_1|| \leqslant ||\Pi_0||$. 
 \end{proof}
-When we refer to a partition in the next subsection, we will worked with marked partitions containing sampling points in each interval $t_i^*$. So when we say $\Pi$ is a partition of $[a, b]$, we mean that:
+When we refer to a partition in the next subsection, we will worked with marked partitions containing sampling points in each interval $t_i^*$. So when we say $\Pi$ is a partition of $[a, b]$, we mean that it is the ordered pair:
 \begin{equation*}
-\Pi \coloneq \{\{t_i\}_{i \in [0, n]}, \{t_i^*\}_{i \in [1, n]}\}
+\Pi \coloneq (\{t_i\}_{i \in [0, n]}, \{t_i^*\}_{i \in [1, n]})
 \end{equation*}
-However, this does not affect the definition of mesh given in the previous section. Additionally, we can exclude the marked points from affecting subset inclusion, so $\Pi_1 \supseteq \Pi_0$ is true if $\Pi_1$ has all the interval points that $\Pi_0$ has no matter the difference in marked points.\\
+Then, we say that $\Pi_1 \supseteq \Pi_0$ if and only if $\{t_i\}_{i \in [0, n]}^{\Pi_1} \supseteq \{t_i\}_{i \in [0, m]}^{\Pi_0}$. Note that this is not antisymmetric in the sense that a bi-directional relation does not imply the tagged partitions are the same. It only implies the underlying endpoints are the same. (This ordering relation independent of marked points is as per Apostol's formulation.)\\
 
-We make this distinction as it ensures that the net we introduce is a function (otherwise one partition may have two different Riemann-Stieltjes sums) due to different marked points.
+
+We make this distinction as it ensures that the net we introduce is a function (otherwise one partition may have two different Riemann-Stieltjes sums) due to different marked points. The following lemmas can be proved even when considering the sequence of tags for the ordering relation; however, it is easier when solely considering the underlying endpoints.
 
 \subsection{Riemann-Stieltjes Integrability}
 Given two functions $f, g \in \mathbb{R}^\mathbb{R}$, we call $f$ the integrand and $g$ the integrator.
