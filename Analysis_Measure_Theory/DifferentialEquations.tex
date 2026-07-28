@@ -1114,7 +1114,6 @@ Another characterization equivalent to Definition 3.2 would be the following:
 \end{equation*}
 A major topic we shall analyze has now emerged. In the Riemann integral (when $g$ is the identity function), we actually have equivalence of these notions; however, in the Stieltjes integral, we do not always. So the goal now is to figure out some sufficient conditions for equivalence.
 
-\subsection{Equivalence of Criteria}
 Going forward, we will use the following two notions:
 \begin{equation*}
 (1): \ \forall \epsilon > 0, \exists \Pi_\epsilon \in P, \forall \Pi \leq \Pi_\epsilon: S(f, g, \Pi) \in B\left(\int_{a}^{b}fdg, \epsilon\right)
@@ -1214,15 +1213,24 @@ then we get that $\forall \Pi \in P : ||\Pi|| < \delta_0$, then:
 \begin{equation*}
 \Pi \cup \Pi_\epsilon \supset \Pi \implies ||\Pi \cup \Pi_\epsilon|| \leqslant ||\Pi|| < \delta_0 \leqslant \frac{\epsilon}{2(||f||\cdot m + 1)}
 \end{equation*}
-Then the proof is the same as Theorem 3.2 once this relation is established. The underlying assumption we use here however is uniform continuity of the identity function $\text{id}$. We can prove that $\text{id}$ is continuous (simply by taking $\epsilon = \delta$).\\
+Then the proof is the same as Theorem 3.2 once this relation is established. The underlying assumption we use here however is uniform continuity of the identity function $(\text{id})$. We can prove that $(\text{id})$ is continuous (simply by taking $\epsilon = \delta$).\\
 
 Thus on a compact interval $[a, b]$, it must be uniformly continuous such that:
 \begin{equation*}
 \forall \epsilon > 0, \exists \delta_0 > 0, \forall x, y \in [a, b]: |x-y| < \delta_0 \implies |\text{id}(x) - \text{id}(y)| = |x-y| < \epsilon
 \end{equation*}
-We actually see that it is $1$-Lipschitz because $|\text{id}(x) - \text{id}(y)| \leqslant |x-y|$, so we can set $\delta_0 = \epsilon$. 
+We actually see that it is $1$-Lipschitz because $|\text{id}(x) - \text{id}(y)| \leqslant |x-y|$, so we can set $\delta_0 = \epsilon$. Thus:
+\begin{equation*}
+\delta_0 \leqslant \frac{\epsilon}{2(||f||\cdot m + 1)} \implies |\text{id}(x) - \text{id}(y)| < \frac{\epsilon}{2(||f|| \cdot m + 1)}
+\end{equation*}
+but now what if the function were replaced with an arbitrary function $g(x)$. Then, we would require uniform continuity of $g$, so this is a peek into the sufficient conditions for equivalence of the two criteria in Riemann-Stieltjes integration.\\
 
-\subsection{Total Variation and Stieltjes Integrals}
+\subsubsection{Riemann-Stieltjes Criteria Equivalence}
+\begin{lem}
+If $f$ and $g$ share a common discontinuity on $[a, b]$, then $f$ is not Riemann-Stieltjes integrable by Criterion (1).
+\end{lem}
+
+% \subsection{Total Variation and Stieltjes Integrals}
 \subsection{Darboux Formulation}
 \subsection{Henstock-Kurzweil Generalization}
 \pagebreak
