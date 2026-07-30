@@ -1189,14 +1189,30 @@ we aim to prove the first. Let $\Pi_\epsilon^{(1)}$ be the partition for the fir
 \end{equation*}
 By triangle inequality, we see the following:
 \begin{equation*}
-\forall \Pi \leq \Pi_\epsilon: \left|R(f, \Pi) - \int_{a}^{b}fdx\right| \leqslant \left|R(f, \Pi) - R(f, \Pi \cup \Pi_\epsilon)\right| + \left|R(f, \Pi \cup \Pi_\epsilon) - \int_{a}^{b}fdx\right|
+\forall \Pi \leq \Pi_\epsilon, \exists \Pi \cup \Pi_\epsilon \in P: \left|R(f, \Pi) - \int_{a}^{b}fdx\right| \leqslant \left|R(f, \Pi) - R(f, \Pi \cup \Pi_\epsilon)\right| + \left|R(f, \Pi \cup \Pi_\epsilon) - \int_{a}^{b}fdx\right|
 \end{equation*}
 \begin{equation*}
 \leqslant |R(f, \Pi) - R(f, \Pi \cup \Pi_\epsilon)| + \frac{\epsilon}{2}
 \end{equation*}
-which follows from the fact that $\Pi \cup \Pi_\epsilon \supseteq \Pi_\epsilon$. Now using Lemma 3.3,: we observe that $\Pi \cup \Pi_\epsilon$ has all the tagged %need to fix this proof%
+which follows from the fact that $\Pi \cup \Pi_\epsilon \supseteq \Pi_\epsilon$. Since $\Pi \cup \Pi_\epsilon$ is merely an intermediary partition, we can assign convenient marked points to bring about the $\epsilon$-estimate.\\
+
+
+
+Consider the marked partition $\Pi$ with arbitrary marked points. Now to its unmarked version, add one point in $\Pi_\epsilon$ let us call it $e \in [t_{j-1}, t_j]$. Then let $e$ be the marked point of $[t_{j-1}, e]$ and $[e, t_{j}]$. For the other intervals, utilize the marked points from $\Pi$ and call this partition $\Pi_1$. Then:
 \begin{equation*}
-\leqslant ||f|| \left|\sum_{i=1}^{n}(t_i - t_{i-1}) - \sum_{i=1}^{n+m}(t_i - t_{i-1})\right| + \frac{\epsilon}{2} \leqslant ||f|| \cdot \frac{\epsilon}{2(||f|| \cdot m + 1)} \cdot m + \frac{\epsilon}{2} \leqslant \epsilon
+R(f, \Pi) - R(f, \Pi_1) = f(t_j^*)(t_j - t_{j-1}) - f(e)(t_j - t_{j-1}) = (f(t_j^*) - f(e))(t_j - t_{j-1})
+\end{equation*}
+Take another point from $\Pi_\epsilon$ and add it to $\Pi_1$ in the same fashion. If no other point of $\Pi_\epsilon$ is in that interval, then the above estimate holds. Otherwise, consider some $h \in [e, t_j]$. Then:
+\begin{equation*}
+R(f, \Pi_1) - R(f, \Pi_2) = (f(e) - f(h))(t_j - e)
+\end{equation*}
+where the marked point of the subintervals $[e, h], [h, t_j]$ is now $h$. Repeat this process for all $m$ points in $\Pi_\epsilon$. In the remaining subintervals without a partition point, choose that of $\Pi$ since it means these intervals do not contain any points of $\Pi_\epsilon$. Now observe:
+\begin{equation*}
+R(f, \Pi) - R(f, \Pi_2) = (f(t_j^*) - f(e))(t_j - t{j-1}) + (f(e) - f(h))(t_j - e) \leqslant 2||f|| \cdot 2 \cdot ||\Pi||
+\end{equation*}
+Since the process was done $m$ times and our mesh of $\Pi$ is bounded, we get the following estimate:
+\begin{equation*}
+|R(f, \Pi) - R(f, \Pi \cup \Pi_\epsilon)| \leqslant 2||f|| \cdot m \cdot \frac{\epsilon}{2(||f|| \cdot m + 1)} + \frac{\epsilon}{2} \leqslant \epsilon
 \end{equation*}
 which follows from the fact that $\Pi \cup \Pi_\epsilon \supseteq \Pi \implies \Pi \cup \Pi_\epsilon \leq \Pi \leq \Pi_\epsilon^{(1)}$ and where $m$ is the cardinality of the set of interval endpoints in the partition $\Pi_\epsilon$. 
 \end{proof}
@@ -1225,10 +1241,11 @@ We actually see that it is $1$-Lipschitz because $|\text{id}(x) - \text{id}(y)| 
 \end{equation*}
 but now what if the function were replaced with an arbitrary function $g(x)$. Then, we would require uniform continuity of $g$, so this is a peek into the sufficient conditions for equivalence of the two criteria in Riemann-Stieltjes integration.\\
 
-\subsubsection{Riemann-Stieltjes Criteria Equivalence}
-\begin{lem}
-If $f$ and $g$ share a common discontinuity on $[a, b]$, then $f$ is not Riemann-Stieltjes integrable by Criterion (1).
-\end{lem}
+Notice also that in the process of finding the difference between $R(f, \Pi)$ and $R(f, \Pi \cup \Pi_\epsilon)$, we obtained terms such as $(f(t_j^*) - f(e))(t_j - t_{j-1})$, we have a difference of terms of $f$. If we can control the distance between $t_j^*, e$ for example and are given that $f$ is continuous, then we could bring about an $\epsilon$-estimate.\\
+
+In order to examine these two ideas, we need to introduce the topics of bounded variation and Darboux Formulations/Nets.
+
+\subsection{Total Variation}
 
 % \subsection{Total Variation and Stieltjes Integrals}
 \subsection{Darboux Formulation}
