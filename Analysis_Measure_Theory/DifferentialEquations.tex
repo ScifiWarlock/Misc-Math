@@ -1206,15 +1206,15 @@ Take another point from $\Pi_\epsilon$ and add it to $\Pi_1$ in the same fashion
 \begin{equation*}
 R(f, \Pi_1) - R(f, \Pi_2) = (f(e) - f(h))(t_j - e)
 \end{equation*}
-where the marked point of the subintervals $[e, h], [h, t_j]$ is now $h$. Repeat this process for all $m$ points in $\Pi_\epsilon$. In the remaining subintervals without a partition point, choose that of $\Pi$ since it means these intervals do not contain any points of $\Pi_\epsilon$. Now observe:
+where the marked point of the subintervals $[e, h], [h, t_j]$ is now $h$. Repeat this process for all $m$ points in $\Pi_\epsilon$. In the remaining subintervals without a marked point, choose that of $\Pi$ since it means these intervals do not contain any points of $\Pi_\epsilon$. Now observe:
 \begin{equation*}
 R(f, \Pi) - R(f, \Pi_2) = (f(t_j^*) - f(e))(t_j - t{j-1}) + (f(e) - f(h))(t_j - e) \leqslant 2||f|| \cdot 2 \cdot ||\Pi||
 \end{equation*}
 Since the process was done $m$ times and our mesh of $\Pi$ is bounded, we get the following estimate:
 \begin{equation*}
-|R(f, \Pi) - R(f, \Pi \cup \Pi_\epsilon)| \leqslant 2||f|| \cdot m \cdot \frac{\epsilon}{2(||f|| \cdot m + 1)} + \frac{\epsilon}{2} \leqslant \epsilon
+|R(f, \Pi) - R(f, \Pi \cup \Pi_\epsilon)| + \frac{\epsilon}{2}\leqslant 2||f|| \cdot m \cdot \frac{\epsilon}{2(||f|| \cdot m + 1)} + \frac{\epsilon}{2} \leqslant \epsilon
 \end{equation*}
-which follows from the fact that $\Pi \cup \Pi_\epsilon \supseteq \Pi \implies \Pi \cup \Pi_\epsilon \leq \Pi \leq \Pi_\epsilon^{(1)}$ and where $m$ is the cardinality of the set of interval endpoints in the partition $\Pi_\epsilon$. 
+What allows us to carry out this proof is the fact that the second Riemann sum is based on a partition $\Pi \cup \Pi_\epsilon \supseteq \Pi$ and allows it to work for any arbitrary choice of marked points for $\Pi$ as per our definition. 
 \end{proof}
 
 To uncover the assumption that makes this proof work, we do the same proof except for the criterion equivalent to criterion 1:
