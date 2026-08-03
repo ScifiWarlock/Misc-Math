@@ -74,6 +74,7 @@ Textbooks Used to Develop these Notes:
 \begin{tcolorbox}[colback=white, colframe=black, arc=0mm]
 \tableofcontents
 \end{tcolorbox}
+\textbf{NOTE:} Any sections/subsections marked with a (*) are deviations from the flow of content and have been added to this document as extensions of introduced theory.
 \setcounter{section}{-1}
 
 \pagebreak
@@ -1246,10 +1247,51 @@ Notice also that in the process of finding the difference between $R(f, \Pi)$ an
 In order to examine these two ideas, we need to introduce the topics of bounded variation and Darboux Formulations/Nets.
 
 \subsection{Total Variation}
+We define the total variation of a function $f$ over the compact interval $[a, b]$ as the following:
+\begin{equation*}
+V(f, [a, b]) \coloneq \sup_{\Pi \in P}\sum_{i=1}^{n}|f(t_i) - f(t_{i-1})|
+\end{equation*}
+where each $\Pi$ is an unmarked partition. We say that $f$ is of bounded variation on $[a, b]$ if $\exists C \in \mathbb{R}: V(f, [a, b]) = C < \infty$ or in shorthand $V(f, [a, b]) < \infty$.\\
+
+Monotonic (without loss of generality, we assume non-decreasing) functions are of bounded variation, since:
+\begin{equation*}
+\forall \Pi \in P: \sum_{i=1}^{n}|f(t_i) - f(t_{i-1})| = f(b) - f(a)
+\end{equation*}
+and so by supremum properties, we have that $V(f, [a, b]) = f(b) - f(a)$. Another useful lemma is the following:
+
+% \begin{lem}
+% A function $f$ is continuously differentiable if and only if it is uniformly differentiable on $[a, b]$.
+% \end{lem}
+% \begin{proof}
+% Uniform differentiability is defined as:
+% \begin{equation*}
+% \forall \epsilon > 0, \exists \delta > 0, \forall x, y \in [a, b]: |x - y| < \delta \implies \left|\frac{f(x) - f(y)}{x-y} - f'(y)\right| < \epsilon
+% \end{equation*}
+% $implies:$
+% \end{proof}
+
+\begin{lem}
+If $f$ is of bounded variation on $[a, b]$, then $f$ is bounded on $[a, b]$.
+\end{lem}
+\begin{proof}
+Consider some arbitrary $x \in [a, b]$. Then consider the simple partition $\Pi \coloneq \{a, x, b\}$. We see that the variation over that partition is:
+\begin{equation*}
+|f(x) - f(a)| + |f(b) - f(x)|
+\end{equation*}
+\begin{equation*}
+\implies |f(x) - f(a)| \leqslant |f(x) - f(a)| + |f(b) - f(x)| \leqslant V(f, [a, b])
+\end{equation*}
+By the reverse triangle inequality, we obtain:
+\begin{equation*}
+\forall x \in [a, b]: |f(x)| \leqslant |f(a)| + V(f, [a, b]) 
+\end{equation*}
+\end{proof}
 
 % \subsection{Total Variation and Stieltjes Integrals}
 \subsection{Darboux Formulation}
 \subsection{Henstock-Kurzweil Generalization}
+\pagebreak
+\section{Measure Theory*}
 \pagebreak
 \section{Arzela-Ascoli and Nets}
 \end{document}
