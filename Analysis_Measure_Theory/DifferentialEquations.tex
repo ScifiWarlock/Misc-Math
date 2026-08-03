@@ -1292,6 +1292,16 @@ By the reverse triangle inequality, we obtain:
 \subsection{Henstock-Kurzweil Generalization}
 \pagebreak
 \section{Measure Theory*}
+In this section, we build upon the notion of outer measure of $\mathbb{R}$ introduced in the Math 131BH notes, which we used to analyze the Cantor set and apply the Lebesgue integrability criterion.\\
+
+We prove the criterion as follows and we shall discuss some other important properties of outer measure in $\mathbb{R}$ before transitioning to general measure spaces.
+\begin{thm}
+A function $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ is Riemann integrable if and only if the outer measure of the set of its discontinuities is $0$.
+\end{thm}
+We defined outer measure in $\mathbb{R}$ as the following. Given some set $A \subseteq \mathbb{R}$:
+\begin{equation*}
+|A| \coloneq \inf\left\{\sum_{k \in \mathbb{N}}: |I_k| : A \subseteq \bigcup_{k \in \mathbb{N}}I_k\right\}
+\end{equation*}
 \pagebreak
 \section{Arzela-Ascoli and Nets}
 \end{document}
