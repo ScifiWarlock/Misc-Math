@@ -123,7 +123,7 @@ Notice that the first two properties align with a partial order. However a parti
 \begin{equation*}
 x \geq y \land y \geq x \implies x = y
 \end{equation*}
-which is not required for a directed set. This will become quite important later on. The third property (which is direction) tells us whether the net is upward directed (the left side condition) or downward directed (the right side), or both!\\
+which is not required for a directed set. The third property (which is direction) tells us whether the net is upward directed (the left side condition) or downward directed (the right side), or both!\\
 
 We also say that element $x$ follows element $y$ if $x \geq y$.\\
 
@@ -458,7 +458,7 @@ What this theorem says is that a function $f$ is (pointwise) continuous at $x_0$
 \begin{equation*}
 \lim_{x_\delta \xrightarrow{} x_0} f(x_\delta) = f(x_0)
 \end{equation*}
-where below the limit is the convergence of the $\delta$-net and the entire operation represents convergence of the image. A similar theorem can be stated for differentiability and as we will see in the future, integrability.\\
+where below the limit is the convergence of the $\delta$-net and the entire operation represents convergence of the image. A similar theorem can be stated for differentiability.\\
 
 While in general, texts define the above notation as the limit via $\epsilon-\delta$ and punctured $\delta$-balls, to maintain consistency, we will write a net converges as $x_\delta \xrightarrow{} x_0$ and use the above notation only when a convergence of a net implies the convergence of its image under a function.\\
 
@@ -477,7 +477,7 @@ The main goal of this section is to jump to nets for integration and sequences o
 \pagebreak
 
 \section{Compactness}
-In the previous section, we discussed notions of convergence and adherence for sequences. We now discuss these notions for sets. Let us view the following theorem:
+In the previous section, we discussed notions of convergence for sequences and nets. We now discuss these notions for sets. Let us view the following theorem:
 
 \subsection{Limit Points}
 We start off with a topological proof, which will be key to discussing limit and adherent points:
@@ -994,7 +994,7 @@ When we refer to a partition in the next subsection, we will worked with marked 
 \begin{equation*}
 \Pi \coloneq (\{t_i\}_{i \in [0, n]}, \{t_i^*\}_{i \in [1, n]})
 \end{equation*}
-Then, we say that $\Pi_1 \supseteq \Pi_0$ if and only if $\{t_i\}_{i \in [0, n]}^{\Pi_1} \supseteq \{t_i\}_{i \in [0, m]}^{\Pi_0}$. Note that this is not antisymmetric in the sense that a bi-directional relation does not imply the tagged partitions are the same. It only implies the underlying endpoints are the same. (This ordering relation independent of marked points is as per Apostol's formulation.)\\
+Then, we say that $\Pi_1 \supseteq \Pi_0$ if and only if $\{t_i: i \in [0, n]\}_{\Pi_1} \supseteq \{t_i : i \in [0, m]\}_{\Pi_0}$. Note that this is not antisymmetric in the sense that a bi-directional relation does not imply the tagged partitions are the same. It only implies the underlying endpoints are the same. (This ordering relation independent of marked points is as per Apostol's formulation.)\\
 
 
 We make this distinction as it ensures that the net we introduce is a function (otherwise one partition may have two different Riemann-Stieltjes sums) due to different marked points. The following lemmas can be proved even when considering the sequence of tags for the ordering relation; however, it is easier when solely considering the underlying endpoints.
@@ -1103,7 +1103,7 @@ which to put into words means, for all neighborhoods of $\int_{a}^{b}fdg$, there
 If $f$ is Riemann-Stieltjes integrable with respect to $g$ by the criterion in Definition 3.1, it is Riemann-Stieltjes integrable by the criterion in Definition 3.2.
 \end{thm}
 \begin{proof}
-If we consider the directed set $(P, \supseteq)$, then Definition 3.2 is a convergence conditon, and the implication is apparent from Lemma 3.1.
+If we consider the directed set $(P, \supseteq)$, then Definition 3.2 is a convergence conditon for this directed set, and the implication in Theorem 3.1 is apparent from Lemma 3.1.\\
 \end{proof}
 A necessary condition to Definition 3.2 and thereby Definition 3.1 would be the following:
 \begin{equation*}
@@ -1294,6 +1294,39 @@ By the reverse triangle inequality, we obtain:
 
 % \subsection{Total Variation and Stieltjes Integrals}
 \subsection{Darboux Formulation}
+We define two nets. Let $\{U(f, g, \Pi)\}_{\Pi \in P}$ be the upper-sum net and $\{L(f, g, \Pi)\}_{\Pi \in P}$ be the lower-sum net, where:
+\begin{equation*}
+\forall \Pi \in P: U(f, g, \Pi) \coloneq \sum_{i=1}^{n}\left(\sup_{x \in [t_{i-1}, t_i]}f(x)\right) (g(t_i) - g(t_{i-1}))
+\end{equation*}
+\begin{equation*}
+\forall \Pi \in P: L(f, g, \Pi) \coloneq \sum_{i=1}^{n}\left(\inf_{x \in [t_{i-1}, t_i]}f(x)\right) (g(t_i) - g(t_{i-1}))
+\end{equation*}
+where we define $P$ as the directed set $(P, \supseteq)$, for which the reason will become apparent later on. Notice that now we do not have to worry about marked points in the partition.\\
+
+One of the downfalls of this Darboux formulation is that it requires the least upper bound property on a totally ordered field, so extension to $\mathbb{R}^n$ does not hold unlike the Riemann integral. We now say the following:
+\begin{defn}
+Given the following limits:
+\begin{equation*}
+U(f, g, \Pi) \xrightarrow{} \overline{\int_{a}^{b}}f dg
+\end{equation*}
+\begin{equation*}
+L(f, g, \Pi) \xrightarrow{} \underline{\int_{a}^{b}}f dg
+\end{equation*}
+then $f$ is Darboux-Stieltjes integrable on $[a, b]$ with respect to $g$ if:
+\begin{equation*}
+\overline{\int_{a}^{b}}fdg = \underline{\int_{a}^{b}}fdg
+\end{equation*}
+\end{defn}
+We call the limit of the upper-sum nets as the upper integral, and the limit of the lower-sum nets as the lower integral. Now this definition is quite cumbersome to work with as it would require us to figure out what the upper and lower-sum nets converge to.\\
+
+\begin{lem}
+If $f$ is bounded on $[a, b]$, then the upper and lower integrals must exist.
+\end{lem}
+\begin{proof}
+If $f$ is bounded on the interval, then $\exists M \in \mathbb{R}, \forall x \in [a, b]: -M \leqslant f(x) \leqslant M$, thus by least upper bound properties and monotonicity of the supremum and infimum, the set of upper-sums and set of lower-sums is not empty. 
+\end{proof}
+\subsection{p-Variation and Young's Inequality*}
+
 \subsection{Henstock-Kurzweil Generalization*}
 \pagebreak
 \section{Measure Theory*}
@@ -1315,5 +1348,5 @@ Outer measure is properly defined for all subsets of $\mathbb{R}$ including $\ma
 \end{equation*}
 is empty, then we get that $\inf(\varnothing) = + \infty$ if we consider the extended reals. If it is otherwise nonempty, then $0$ serves as a lower bound for all elements in the set, which means there exists an infimum.
 \pagebreak
-\section{Arzela-Ascoli and Nets}
+\section{Metric Spaces of Functions}
 \end{document}
