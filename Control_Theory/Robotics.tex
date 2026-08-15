@@ -1,0 +1,77 @@
+\documentclass[10pt,letterpaper]{article} % exam class defaults to 10pt on letterpaper
+\usepackage[margin=1in]{geometry}         % exam class defaults to 1-inch margins
+\usepackage{graphicx} 
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[most]{tcolorbox}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{blindtext}
+\usepackage{amsthm}
+\usepackage{upgreek}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+%making an edit, want to see if auto script commits it%
+%making another edit to test the commit bot
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex} % Matches the paragraph spacing of exam
+\hbadness=10000 % Place in your preamble
+
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{defn}{Definition}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{axm}{Axiom}[section]
+
+\tcolorboxenvironment{thm}{colback=lime, colframe=black, breakable}
+\tcolorboxenvironment{lem}{colback=yellow, colframe=black, breakable}
+\tcolorboxenvironment{defn}{colback=pink, colframe=black, breakable}
+\tcolorboxenvironment{cor}{colback=SpringGreen, colframe=black, breakable}
+\tcolorboxenvironment{axm}{colback=white, colframe=black, breakable}
+
+% --- Header/Footer Setup ---
+\fancyhf{}
+\renewcommand\headrulewidth{0.5pt}
+\pagestyle{fancy}
+\author{Omkar Tasgaonkar}
+\setlength{\headsep}{0.5in}
+\fancyfoot[C]{(\thepage)}
+\renewcommand\footrulewidth{0.5pt}
+
+\title{Robotics And Control Theory}
+\author{Omkar Tasgaonkar \\ \small otasgaonkar@ucla.edu}
+\date{}
+
+\fancypagestyle{firstpage}{
+    \fancyhf{}
+    \fancyhead[C]{\textbf{Notes in Engineering}}
+    \renewcommand\headrulewidth{0.5pt}
+    \fancyfoot[C]{(\thepage)}
+    \renewcommand\footrulewidth{0.5pt}
+}
+\begin{document}
+\maketitle
+This is a set of notes covering interesting concepts I find while studying the Modern Robotics textbook. I will try to bring analytic theory whenever applicable.
+
+\begin{tcolorbox}[colback=white, colframe=black, arc=0mm]
+Textbooks Used to Develop these Notes:
+\begin{enumerate}
+\item \textit{\textbf{Modern Robotics} - Kevin Lynch, Frank Park}
+\end{enumerate}
+\medskip
+\end{tcolorbox}
+\begin{tcolorbox}[colback=white, colframe=black, arc=0mm]
+\textbf{Notes Last Updated:} \today
+\end{tcolorbox}
+\thispagestyle{firstpage}
+\newpage
+\begin{tcolorbox}[colback=white, colframe=black, arc=0mm]
+\tableofcontents
+\end{tcolorbox}
+\textbf{NOTE:} Any sections/subsections marked with an asterisk are extra sections and have been added to this document as extensions of introduced theory.
+\setcounter{section}{-1}
+\end{document}
