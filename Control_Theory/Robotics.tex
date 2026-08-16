@@ -61,8 +61,8 @@ This is a set of notes covering interesting concepts I find while studying the M
 Textbooks Used to Develop these Notes:
 \begin{enumerate}
 \item \textit{\textbf{Modern Robotics} - Kevin Lynch, Frank Park}
+\item \textit{\textbf{Calculus on Manifolds} - Michael Spivak}
 \end{enumerate}
-\medskip
 \end{tcolorbox}
 \begin{tcolorbox}[colback=white, colframe=black, arc=0mm]
 \textbf{Notes Last Updated:} \today
@@ -73,5 +73,62 @@ Textbooks Used to Develop these Notes:
 \tableofcontents
 \end{tcolorbox}
 \textbf{NOTE:} Any sections/subsections marked with an asterisk are extra sections and have been added to this document as extensions of introduced theory.
-\setcounter{section}{-1}
+\pagebreak
+
+\section{Holonomic Constraints}
+\subsection{Basic Multivariate Analysis}
+We begin with the exploration of multivariate analysis. When we deal with a multivariate function in $\mathbb{R}$, we deal with some map of the form $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$. We can define this more formally via vector operations as the following:
+\begin{equation*}
+f \left(\begin{bmatrix}
+x_1\\.\\.\\.\\x_n
+\end{bmatrix}\right) = \begin{bmatrix}
+f_1(x_1, x_2, ..., x_n)\\
+.\\.\\.\\
+f_m(x_1, x_2, ..., x_n)
+\end{bmatrix}
+\end{equation*}
+such that $\forall j \in [1, m]: f_j: \mathbb{R}^n \xrightarrow{} \mathbb{R}$. Our original definition of the derivative in $\mathbb{R}$ was:
+\begin{equation*}
+f'(x) \coloneq \lim_{z \xrightarrow{} x} \frac{f(z) - f(x)}{z-x}
+\end{equation*}
+or equivalently
+\begin{equation*}
+\lim_{z \xrightarrow{} x} \frac{f(z) - f(x) - f'(x)(z-x)}{z-x}
+\end{equation*}
+However if we try to plainly substitute the definition for a function $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$, we get "division of two vectors" which is not a defined operation for vector spaces (they are only abelian groups under addition).\\
+
+We consider the following lemma in order to understand how to extend the derivative to the multivariate case:
+\begin{lem}
+$f'(x)$ exists $\iff \left\{\frac{1}{\delta}\sup_{z \in B(x, \delta)\setminus \{x\}}|f(z) - f(x) - f'(x)(z-x)|\right\}_{\delta > 0} \xrightarrow{} 0$
+\end{lem}
+\begin{proof}
+$\implies:$ If $f'(x)$ exists, then:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall z \in B(x, \delta_0) \setminus \{x\}: \left|\frac{f(z) - f(x)}{z-x} - f'(x)\right| < \epsilon
+\end{equation*}
+\begin{equation*}
+\implies \forall \epsilon >0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0, \forall z \in B(x, \delta)\setminus \{x\}: \left|\frac{f(z) - f(x)}{z-x} - f'(x)\right| < \epsilon
+\end{equation*}
+\begin{equation*}
+\implies |f(z) -f(x) - f'(x)(z-x)| < \epsilon \cdot |z-x| < \epsilon \cdot \delta
+\end{equation*}
+Because this is true for all $z$ in the punctured $\delta$-ball around $x$, we have an upper bound, so we take the supremum:
+\begin{equation*}
+\implies \sup_{z \in B(x, \delta) \setminus \{x\}}|f(z) - f(x) - f'(x)(z-x)| < \epsilon \cdot \delta
+\end{equation*}
+And so we rearrange the terms to get a $\delta$-net that converges such that:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0: \frac{1}{\delta}\sup_{z \in B(x, \delta)\setminus \{x\}}|f(z) - f(x) - f'(x)(z-x)| < \epsilon
+\end{equation*}
+Thus proving the forward direction. We prove the converse by contrapositive. Assume $f'(x)$ does not exists, then:
+\begin{equation*}
+\forall L \in \mathbb{R}, \exists \epsilon > 0, \forall \delta_0 > 0, \exists \delta \leqslant \delta_0, \exists z \in B(x, \delta) \setminus \{x\}: \left|\frac{f(z) - f(x)}{z-x} - L \right| \geqslant \epsilon
+\end{equation*}
+\begin{equation*}
+\implies |f(z) - f(x) - L(z-x)| \geqslant \epsilon \cdot |z-x|
+\end{equation*}
+%how to finish this proof? does the converse necessarily hold?%
+\end{proof}
+This lemma shows the linear approximation property of the derivative in $\mathbb{R}$. 
+
 \end{document}
