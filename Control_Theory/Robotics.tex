@@ -77,8 +77,10 @@ Textbooks Used to Develop these Notes:
 
 \section{Holonomic Constraints}
 \subsection{Basic Multivariate Analysis}
+\textbf{Note:} The following notes may not be entirely rigorous! I have attempted to write them logically to the best of my abilities so that they follow a structured narrative.\\
+
 We begin with the exploration of multivariate analysis. When we deal with a multivariate function in $\mathbb{R}$, we deal with some map of the form $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$. We can define this more formally via vector operations as the following:
-\begin{equation*}
+\begin{equation}
 f \left(\begin{bmatrix}
 x_1\\.\\.\\.\\x_n
 \end{bmatrix}\right) = \begin{bmatrix}
@@ -86,20 +88,29 @@ f_1(x_1, x_2, ..., x_n)\\
 .\\.\\.\\
 f_m(x_1, x_2, ..., x_n)
 \end{bmatrix}
-\end{equation*}
+\end{equation}
 such that $\forall j \in [1, m]: f_j: \mathbb{R}^n \xrightarrow{} \mathbb{R}$. Our original definition of the derivative in $\mathbb{R}$ was:
 \begin{equation*}
 f'(x) \coloneq \lim_{z \xrightarrow{} x} \frac{f(z) - f(x)}{z-x}
 \end{equation*}
 or equivalently
 \begin{equation*}
-\lim_{z \xrightarrow{} x} \frac{f(z) - f(x) - f'(x)(z-x)}{z-x}
+\lim_{z \xrightarrow{} x} \frac{f(z) - f(x) - f'(x)(z-x)}{z-x} =0
 \end{equation*}
-However if we try to plainly substitute the definition for a function $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$, we get "division of two vectors" which is not a defined operation for vector spaces (they are only abelian groups under addition).\\
+Using the substitution $h = z-x$, we also get the equivalent definition:
+\begin{equation*}
+\lim_{h \xrightarrow{} 0}\frac{f(x+h) - f(x) - f'(x)h}{h} = 0
+\end{equation*}
+In which case, our $\epsilon-\delta$ definition would be:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0, \forall h \in B(0, \delta): \frac{|f(x+h) - f(x) - f'(x)h|}{|h|} < \epsilon
+\end{equation*}
+However if we try to plainly substitute the definition for a function $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ into the first definition, we get "division of two vectors" which is not a defined operation for vector spaces (they are only abelian groups under addition).\\
 
 We consider the following lemma in order to understand how to extend the derivative to the multivariate case:
 \begin{lem}
-$f'(x)$ exists $\iff \left\{\frac{1}{\delta}\sup_{z \in B(x, \delta)\setminus \{x\}}|f(z) - f(x) - f'(x)(z-x)|\right\}_{\delta > 0} \xrightarrow{} 0$
+$f'(x)$ exists $\iff \left\{\frac{1}{\delta}\sup_{z \in B(x, \delta)\setminus \{x\}}|f(z) - f(x) - f'(x)(z-x)|\right\}_{\delta > 0} \xrightarrow{} 0$\\
+
 \end{lem}
 \begin{proof}
 $\implies:$ If $f'(x)$ exists, then:
@@ -120,15 +131,98 @@ And so we rearrange the terms to get a $\delta$-net that converges such that:
 \begin{equation*}
 \forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0: \frac{1}{\delta}\sup_{z \in B(x, \delta)\setminus \{x\}}|f(z) - f(x) - f'(x)(z-x)| < \epsilon
 \end{equation*}
-Thus proving the forward direction. We prove the converse by contrapositive. Assume $f'(x)$ does not exists, then:
-\begin{equation*}
-\forall L \in \mathbb{R}, \exists \epsilon > 0, \forall \delta_0 > 0, \exists \delta \leqslant \delta_0, \exists z \in B(x, \delta) \setminus \{x\}: \left|\frac{f(z) - f(x)}{z-x} - L \right| \geqslant \epsilon
-\end{equation*}
-\begin{equation*}
-\implies |f(z) - f(x) - L(z-x)| \geqslant \epsilon \cdot |z-x|
-\end{equation*}
-%how to finish this proof? does the converse necessarily hold?%
-\end{proof}
-This lemma shows the linear approximation property of the derivative in $\mathbb{R}$. 
+Thus proving the forward direction.\\
 
+$\impliedby$: Now for the converse, consider:
+\begin{equation*}
+\forall \epsilon >0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0: \sup_{z \in B(x, \delta)\setminus\{x\}}|f(z) - f(x) - f'(x)(z-x)| < \epsilon \cdot \delta
+\end{equation*}
+Now for any arbitrary $\delta$-ball around $x$ where $\delta \leqslant \delta_0$, we have that:
+\begin{equation*}
+\sup_{z \in B(x, \delta)\setminus \{x\}}|f(z) - f(x) - f'(x)(z-x)| < \epsilon \cdot \delta
+\end{equation*}
+\begin{equation*}
+\implies \forall z \in B(x, \delta) \setminus \{x\}: \frac{1}{\delta}|f(z) - f(x) - f'(x)(z-x)| < \epsilon
+\end{equation*}
+\begin{equation*}
+\implies \forall z \in B(x, \delta_0) \setminus B(x, \delta): \frac{|f(z) - f(x) - f'(x)(z-x)|}{|z-x|} < \frac{1}{\delta}|f(z) - f(x) - f'(x)(z-x)| < \epsilon
+\end{equation*}
+Since $\delta$ was arbitrary as long as it was less than or equal to $\delta_0$, we observe:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall \delta \leqslant \delta_0, \forall z \in B(x, \delta_0)\setminus B(x, \delta): \left|\frac{f(z) - f(x)}{z-x} - f'(x)\right| < \epsilon
+\end{equation*}
+\begin{equation*}
+\iff \forall \epsilon > 0, \exists \delta_0 > 0, \forall z \in \bigcup_{\delta \in (0, \delta_0]}(B(x, \delta_0)\setminus B(x, \delta)): \left|\frac{f(z) - f(x)}{z-x} - f'(x)\right| < \epsilon
+\end{equation*}
+\begin{equation*}
+\iff \forall \epsilon > 0, \exists \delta_0 > 0, \forall z \in B(x, \delta_0) \setminus \bigcap_{\delta \in (0, \delta_0]}B(x, \delta): \left|\frac{f(z) - f(x)}{z-x} - f'(x)\right| < \epsilon
+\end{equation*}
+Now because $\mathbb{R}$ is a $T_1$ space, we see that the intersection in the previous statement is equivalent to $\{x\}$, so we get:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 > 0, \forall z \in B(x, \delta_0) \setminus \{x\}: \left|\frac{f(z) - f(x)}{z-x} - f'(x)\right| < \epsilon
+\end{equation*}
+A useful equivalent statement is:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_0 < \epsilon, \forall \delta \leqslant \delta_0, \forall z \in B(x, \delta) \setminus \{x\}: \frac{1}{\delta}|f(z) - f(x) - f'(x)(z-x)| < \epsilon
+\end{equation*}
+\end{proof}
+Now essentially this supremum $\delta$-net, similar to oscillation is the worst case net. The important part of this result is the idea of linear approximation, such that:
+\begin{equation*}
+f'(x)(z-x) + f(x) -\epsilon^2 < f(z) < f'(x)(z-x) + f(x) + \epsilon^2
+\end{equation*}
+or as we write it in calculus $f(z) \approx f(x) + f'(x)(z-x)$, which is the tangent line approximation.\\
+
+We can apply this approximation idea to the multivariate case, but first we introduce the following notion:
+
+\medskip
+\begin{defn}
+Given some $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ in the form of equation $(1)$, then for some $i \in [1, m], j \in [1, n]$:
+\begin{equation*}
+\frac{\partial f_i(x)}{\partial e_j} \coloneq \lim_{h \xrightarrow{} 0}\frac{f_i(x + e_jh) - f_i(x)}{h}
+\end{equation*}
+where $\{e_1,\cdots, e_n\}$ is the canonical basis of $\mathbb{R}^n$. This is the definition of the partial derivative.
+\end{defn}
+Since each $f_i: \mathbb{R}^n \xrightarrow{} \mathbb{R}$, we see that the partial derivative is scalar valued. We now show that it admits the linear approximation property. We can rewrite our limit definition as:
+\begin{equation*}
+\lim_{h \xrightarrow{} 0} \left(\frac{f_i(x+e_jh) - f_i(x)}{h} - \frac{\partial f_i(x)}{\partial e_j}\right) = \lim_{h \xrightarrow{} 0} \frac{f_i(x+e_jh) - f_i(x) - (\frac{\partial f_j(x)}{\partial e_j})h}{h} = 0
+\end{equation*}
+So with an argument similar to Lemma 1.1, we see that $f_i(z) \approx f_i(x) + \left(\frac{\partial f_i}{\partial e_j}\right)h$. Now observe that:
+\begin{equation*}
+f(z) \coloneq \begin{bmatrix}
+f_1(z)\\.\\.\\.\\f_m(z)
+\end{bmatrix}
+\end{equation*}
+\begin{lem}
+If for all $i \in [1, m]$ and some $x \in \mathbb{R}^n$ and an $e_j$:
+\begin{equation*}
+\frac{\partial f_i(x)}{\partial e_j} \ \text{exist}
+\end{equation*}
+then:
+\begin{equation*}
+\frac{\partial f(x)}{\partial e_j} \ \text{exists and } \frac{\partial f(x)}{\partial e_j} = \begin{bmatrix}
+\frac{\partial f_1(x)}{\partial e_j}\\.\\.\\.\\\frac{\partial f_m(x)}{\partial e_j}
+\end{bmatrix}
+\end{equation*}
+\end{lem}
+\begin{proof}
+We have some $\delta_i$ given by the existence of each partial derivative, so we define $\delta_0 \coloneq \min\{\delta_i : 1 \leqslant i \leqslant n\}$.
+Then for all $h \in B(0, \delta_0)$:
+\begin{equation*}
+\frac{||f(x+e_jh) - f(x) - (\frac{\partial f(x)}{\partial e_j})h||}{|h|} \leqslant \frac{1}{|h|}\sum_{i=1}^{m}\left|f_i(x+e_jh) - f_i(x) - \left(\frac{\partial f_i(x)}{\partial e_j}\right)h\right| < m\epsilon
+\end{equation*}
+Now once again with an argument similar to Lemma 1.1, we can extend the idea of linear approximation and say that for all $z$ such that $z = x + e_jh$:
+\begin{equation*}
+f(z) \approx f(x) + \left(\frac{\partial f(x)}{\partial e_j}\right)h
+\end{equation*}
+\end{proof}
+Notice that the proofs did not use any properties of the basis vector $e_j$ itself, so we can extend the definition:
+\begin{defn}
+Given some $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ in the form of equation $(1)$, then for some $v \in \mathbb{R}^n$ and $i \in [1, m], j \in [1, n]$:
+\begin{equation*}
+\frac{\partial f_i(x)}{\partial v} \coloneq \lim_{h \xrightarrow{} 0}\frac{f_i(x+hv) - f_i(x)}{h}
+\end{equation*}
+and similarly for $f$. Such a derivative is called the Gateaux derivative.
+\end{defn}
+\subsection{Inverse and Implicit Function Theorems}
+\subsection{Configuration Spaces}
 \end{document}
