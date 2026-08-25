@@ -42,7 +42,7 @@
 \fancyfoot[C]{(\thepage)}
 \renewcommand\footrulewidth{0.5pt}
 
-\title{Robotics And Control Theory}
+\title{Robotics}
 \author{Omkar Tasgaonkar \\ \small otasgaonkar@ucla.edu}
 \date{}
 
@@ -76,7 +76,7 @@ Textbooks Used to Develop these Notes:
 \pagebreak
 
 \section{Holonomic Constraints}
-\subsection{Basic Multivariate Analysis}
+\subsection{Basic Multivariable Analysis}
 \textbf{Note:} The following notes may not be entirely rigorous! I have attempted to write them logically to the best of my abilities so that they follow a structured narrative.\\
 
 We begin with the exploration of multivariate analysis. When we deal with a multivariate function in $\mathbb{R}$, we deal with some map of the form $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$. We can define this more formally via vector operations as the following:
@@ -193,23 +193,38 @@ f_1(z)\\.\\.\\.\\f_m(z)
 \end{bmatrix}
 \end{equation*}
 \begin{lem}
-If for all $i \in [1, m]$ and some $x \in \mathbb{R}^n$ and an $e_j$:
+For all $i \in [1, m]$ and some $x \in \mathbb{R}^n$ and an $e_j$:
 \begin{equation*}
 \frac{\partial f_i(x)}{\partial e_j} \ \text{exist}
 \end{equation*}
-then:
+if and only if:
 \begin{equation*}
-\frac{\partial f(x)}{\partial e_j} \ \text{exists and } \frac{\partial f(x)}{\partial e_j} = \begin{bmatrix}
-\frac{\partial f_1(x)}{\partial e_j}\\.\\.\\.\\\frac{\partial f_m(x)}{\partial e_j}
-\end{bmatrix}
+\frac{\partial f(x)}{\partial e_j} \ \text{exists}
 \end{equation*}
 \end{lem}
 \begin{proof}
+$\implies:$ We claim that the partial derivative of $f$ takes the following form:
+\begin{equation*}
+ \frac{\partial f(x)}{\partial e_j} = \begin{bmatrix}
+\frac{\partial f_1(x)}{\partial e_j}\\.\\.\\.\\\frac{\partial f_m(x)}{\partial e_j}\end{bmatrix}
+\end{equation*}
 We have some $\delta_i$ given by the existence of each partial derivative, so we define $\delta_0 \coloneq \min\{\delta_i : 1 \leqslant i \leqslant n\}$.
 Then for all $h \in B(0, \delta_0)$:
 \begin{equation*}
 \frac{||f(x+e_jh) - f(x) - (\frac{\partial f(x)}{\partial e_j})h||}{|h|} \leqslant \frac{1}{|h|}\sum_{i=1}^{m}\left|f_i(x+e_jh) - f_i(x) - \left(\frac{\partial f_i(x)}{\partial e_j}\right)h\right| < m\epsilon
 \end{equation*}
+where we used the inequality that the $||v|| \leqslant \sum |v_i|$.\\
+
+$\impliedby:$ We claim that:
+\begin{equation*}
+\frac{\partial f_i(x)}{\partial e_j} = e_i \cdot \frac{\partial f(x)}{\partial e_j}
+\end{equation*}
+We now use the inequality $|v_i| \leqslant ||v||$ and find that $\forall i \in [1, m]$:
+\begin{equation*}
+\frac{|f_i(x+e_jh) - f_i(x) - (e_i \cdot \frac{\partial f(x)}{\partial e_j})h|}{|h|} \leqslant \frac{||f(x+e_jh) - f(x) - (\frac{\partial f(x)}{\partial e_j})h||}{|h|} < \epsilon
+\end{equation*}
+so the same $\delta$ suffices.\\
+
 Now once again with an argument similar to Lemma 1.1, we can extend the idea of linear approximation and say that for all $z$ such that $z = x + e_jh$:
 \begin{equation*}
 f(z) \approx f(x) + \left(\frac{\partial f(x)}{\partial e_j}\right)h
@@ -223,6 +238,46 @@ Given some $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ in the form of equation
 \end{equation*}
 and similarly for $f$. Such a derivative is called the Gateaux derivative.
 \end{defn}
+We can extend the Gateaux derivative to obtain the Frechet derivative. The Gateaux derivative limited itself to a specific direction of the vector $v$ (and then used $h$ as the variable for the limit).
+\begin{defn}
+The Frechet derivative of a function $f$ at $x \in \mathbb{R}^n$ is:
+\begin{equation*}
+Df(x): \lim_{v \xrightarrow{} 0} \frac{||f(x + v) - f(x) - (Df(x))(v)||}{||v||} = 0
+\end{equation*}
+or equivalently:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0, \forall v \in B(0, \delta): \frac{||f(x+v) - f(x) - (Df(x))(v)||}{||v||} < \epsilon
+\end{equation*}
+where the norm induces a metric so that $v \in B(0, \delta)$ (in this case $0$ is the $0$ vector), is the same as saying $||v|| \in B(0, \delta)$ or equivalently $||v|| < \delta$.
+\end{defn}
+The form of the limit is similar to the idea of linear approximation. Since $v \in \mathbb{R}^n$, then we must have that $Df(x) \in \mathcal{M}_{m \times n}(\mathbb{R})$. If the function is Frechet differentiable, then $Df(x)$ is the Jacobian:
+\begin{equation*}
+Df(x) = \begin{bmatrix}
+\frac{\partial f_1(x)}{\partial e_1} & \cdots &  \frac{\partial f_1(x)}{\partial e_n}\\
+\vdots & \ddots & \vdots\\
+\frac{\partial f_m(x)}{\partial e_1} & \cdots & \frac{\partial f_m(x)}{\partial e_n} 
+\end{bmatrix} = \begin{bmatrix}
+\frac{\partial f(x)}{\partial e_1} & \cdots & \frac{\partial f(x)}{\partial e_n}
+\end{bmatrix}
+\end{equation*}
+\begin{proof}
+If we chose the family of vectors $\{he_j : h \in \mathbb{R} \land j \in [1, n]\}$, then differentiability tells us:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0, \forall h \in B(0, \delta): \frac{||f(x+he_j) - f(x) - h(Df(x))e_j||}{|h|} < \epsilon
+\end{equation*}
+telling us that:
+\begin{equation*}
+\frac{\partial f(x)}{\partial e_j} = Df(x)e_j
+\end{equation*}
+which is the $j$-th column of the Jacobian matrix.
+\end{proof}
+Notice that Lemma 1.2 was a statement on equivalence; however, the converse is not necessarily true for the Jacobian matrix. The total differentiability of $f$ at $x$ gives us the existence of partial derivatives, but not necessarily the converse.\\
+
+Consider the function:
+\begin{equation*}
+f(x, y) = \frac{\sqrt{xy}}{(x+y)^2}
+\end{equation*}
+when $x \neq 0$ and $0$ when $x = 0$. 
 \subsection{Inverse and Implicit Function Theorems}
 \subsection{Configuration Spaces}
 \end{document}
