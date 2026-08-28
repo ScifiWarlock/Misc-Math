@@ -62,6 +62,7 @@ Textbooks Used to Develop these Notes:
 \begin{enumerate}
 \item \textit{\textbf{Modern Robotics} - Kevin Lynch, Frank Park}
 \item \textit{\textbf{Calculus on Manifolds} - Michael Spivak}
+\item \textit{\textbf{Mathematical Analysis} - Tom Apostol}
 \end{enumerate}
 \end{tcolorbox}
 \begin{tcolorbox}[colback=white, colframe=black, arc=0mm]
@@ -221,7 +222,10 @@ $\impliedby:$ We claim that:
 \end{equation*}
 We now use the inequality $|v_i| \leqslant ||v||$ and find that $\forall i \in [1, m]$:
 \begin{equation*}
-\frac{|f_i(x+e_jh) - f_i(x) - (e_i \cdot \frac{\partial f(x)}{\partial e_j})h|}{|h|} \leqslant \frac{||f(x+e_jh) - f(x) - (\frac{\partial f(x)}{\partial e_j})h||}{|h|} < \epsilon
+\frac{|f_i(x+e_jh) - f_i(x) - (e_i \cdot \frac{\partial f(x)}{\partial e_j})h|}{|h|} = \frac{|e_i \cdot f(x+e_jh) - e_i \cdot f_i(x) - (e_i \cdot \frac{\partial f(x)}{\partial e_j})h|}{|h|}
+\end{equation*}
+\begin{equation*}
+= \frac{|e_i \cdot (f(x+e_jh) - f(x) - \frac{\partial f(x)}{\partial e_j}h)|}{|h|}\leqslant \frac{||f(x+e_jh) - f(x) - (\frac{\partial f(x)}{\partial e_j})h||}{|h|} < \epsilon
 \end{equation*}
 so the same $\delta$ suffices.\\
 
@@ -271,13 +275,155 @@ telling us that:
 \end{equation*}
 which is the $j$-th column of the Jacobian matrix.
 \end{proof}
-Notice that Lemma 1.2 was a statement on equivalence; however, the converse is not necessarily true for the Jacobian matrix. The total differentiability of $f$ at $x$ gives us the existence of partial derivatives, but not necessarily the converse.\\
+Notice that Lemma 1.2 was a statement on equivalence; however, the converse is not necessarily true for the Jacobian matrix. The total differentiability of $f$ at $x$ gives us the existence of partial derivatives, but not necessarily the converse. In order to prove this, we require the following concept:
 
-Consider the function:
+%Need to expound on counterexamples more%
+% Consider the function:
+% \begin{equation*}
+% f(x_1, x_2) = \frac{x_1x_2 + x_2}{(x_1+x_2)^4}
+% \end{equation*}
+% when $x \neq 0$ and $0$ when $x = 0$. Then considering the partial derivative in the $e_1$ direction, we have:
+% \begin{equation*}
+% \frac{}{h}
+% \end{equation*}
+%Need to expound on counterexamples more%
+\subsubsection{MVT in the Multivariable Case}
+\begin{thm}
+Given a function $f: \mathbb{R} \xrightarrow{} \mathbb{R}$ that is continuous on the closed interval $[a, b]$ and differentiable on $(a, b)$, then:
 \begin{equation*}
-f(x, y) = \frac{\sqrt{xy}}{(x+y)^2}
+\exists z \in (a, b): f'(z) = \frac{f(b) - f(a)}{b-a}
 \end{equation*}
-when $x \neq 0$ and $0$ when $x = 0$. 
+\end{thm}
+\begin{proof}
+Since $f$ is continuous on a compact interval, it achieves the extrema by EVT. Now consider the function:
+\begin{equation*}
+h(x) = \frac{f(b) - f(a)}{b-a}(x-a) - f(x) + f(a)
+\end{equation*}
+which at both $x = a$ and $x = b$, we have that $h(x) = 0$, so by Rolle's Theorem, there exists some extrema within the interval, so that:
+\begin{equation*}
+\exists z \in (a, b): h'(z) = 0 \implies f'(z) = \frac{f(b) - f(a)}{b-a}
+\end{equation*}
+\end{proof}
+If we try to apply this proof to a function $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}$, then in order to apply Theorem 1.1, we require some compact interval given $f$ is continuous.\\
+
+% \begin{defn}
+% A topological space $X$ is disconnected if it admits a separation such that:
+% \begin{equation*}
+% \exists A, B \subseteq X: A, B \ \text{open} \land A \cap B = \varnothing \land A \cup B = X
+% \end{equation*}
+% \end{defn}
+% This tells us that $A, B$ are both open and closed; so a connected set is one which has only the subsets $X, \varnothing$ as the open AND closed subsets. We require both to be open (or equivalently closed), otherwise every space would be trivially disconnected. We also require both to be nonempty.\\
+
+% There is an additional characterization of connectedness for the subspace topology. 
+Now, the following lemma will be useful in exploring MVT:
+% \begin{lem}
+% An open, connected subset $U \subseteq \mathbb{R}^n$ is path connected.
+% \end{lem}
+% \begin{proof}
+% We first need to prove any open ball $B(x, r)$ is convex. Given some $\alpha \in [0, 1]$, we want that for any two points $y, z$:
+% \begin{equation*}
+% \alpha y + (1-\alpha)z \in B(x, r)
+% \end{equation*}
+% \begin{equation*}
+% |\alpha y + (1-\alpha)z - x| = |\alpha(y - x) + (1-\alpha)(z-x)| \leqslant \alpha r + (1-\alpha)r = r
+% \end{equation*}
+% Now, consider two points $a, b$ in $U$. \textbf{This proof is a bit beyond me right now, I will revisit it at a later time.}
+% \end{proof}
+
+\begin{lem}
+Any open, convex subset $U \subseteq \mathbb{R}^n$ is path connected.
+\end{lem}
+\begin{proof}
+Openness does not play an important role here. We can simply take the continuous function:
+\begin{equation*}
+f(\alpha) = \alpha x + (1-\alpha)y
+\end{equation*}
+for some fixed $x, y \in U$. By convexity, we know $\text{Ran}(f) \subseteq U$.
+\end{proof}
+\begin{lem}
+An open ball $B(x, r)$ is convex.
+\end{lem}
+\begin{proof}
+Take $y, z \in B(x, r)$, then:
+\begin{equation*}
+|\alpha y + (1-\alpha)z - x| = |\alpha(y-x) + (1-\alpha)(z-x)| \leqslant \alpha r + (1-\alpha) r = r
+\end{equation*}
+\end{proof}
+
+\begin{thm}
+Given $f_i: \mathbb{R}^n \xrightarrow{} \mathbb{R}$, we have that for some open, convex subset $U \subseteq \mathbb{R}^n$ (on which $f_i$ is differentiable) and given two points $a, b$:
+\begin{equation*}
+\exists z \in U: Df_i(z)(b-a) = f_i(b) - f_i(a)
+\end{equation*}
+where $Df_i(z)$ is the gradient vector at $z$.
+\end{thm}
+\begin{proof}
+Since $U$ is convex, we can take the function for $t \in [0, 1]$:
+\begin{equation*}
+h(t) = t b + (1-t) a
+\end{equation*}
+such that $h(0) = a$ and $h(1) = b$. Then applying Theorem 1.1 to the function $f_i \circ h$ (which too is continuous on $[0, 1]$ and differentiable on $(0, 1)$), we see that:
+\begin{equation*}
+\exists c \in (0, 1): (f_i \circ h)'(c) = \frac{f_i(h(1)) - f_i(h(0))}{1-0} = f_i(b) - f_i(a)
+\end{equation*}
+and $(f_i \circ h)'(c) = Df_i(c) \cdot h'(c) = Df_i(c)(b-a)$, where:
+\begin{equation*}
+Df_i(x) = \begin{bmatrix}
+\frac{\partial f_i(x)}{\partial e_1} & \cdots & \frac{\partial f_i(x)}{\partial e_n}
+\end{bmatrix}
+\end{equation*}
+We used the multivariate chain rule in this proof, where $(f \circ h)'(t) = Df(h(t))Dh(t)$. In this case, we defined:
+\begin{equation*}
+h(t) = \begin{bmatrix}
+t b_1 + (1-t)a_1 & \cdots & t b_n + (1-t) a_n
+\end{bmatrix}^T
+\end{equation*}
+\end{proof}
+
+\begin{cor}
+If $\exists k \in \mathbb{R}, \exists j \in [1, n]: b-a = ke_j$ and the partial derivative of $f_i$ exists in the $e_j$ direction, then:
+\begin{equation*}
+\exists z \in \text{span}(e_j): \frac{\partial f_i(z)}{\partial e_j}(b-a) = f_i(b) - f_i(a)
+\end{equation*}
+\end{cor}
+\begin{proof}
+Notice this corollarly does not require full differentiability of $f_i$ (which means it does not require the gradient to be the total derivative of $f$ at said point). 
+\end{proof}
+
+\begin{lem}
+The function $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ is totally differentiable at a point if:
+\begin{enumerate}
+\item The partial derivatives exist
+\item The partial derivatives are continuous at that point
+\end{enumerate}
+\end{lem}
+\begin{proof}
+We want to show:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta > 0, \forall v \in B(0, \delta): \frac{||f(x+v) - f(x) - (Df(x))v||}{||v||} < \epsilon
+\end{equation*}
+The expression $(Df(x))(v)$ gives us the following vector:
+\begin{equation*}
+(Df(x))(v) = \begin{bmatrix}
+\sum_{i=1}^{n}\frac{\partial f_1(x)}{\partial e_i}v_i\\
+\vdots\\
+\sum_{i=1}^{n}\frac{\partial f_m(x)}{\partial e_i}v_i
+\end{bmatrix}
+\end{equation*}
+and we see that:
+\begin{equation*}
+\frac{||f(x+v) - f(x) - (Df(x))(v)||}{||v||} \leqslant \frac{1}{||v||}\sum_{j=1}^{m}\left|f_j(x+v) - f_j(x) - \sum_{i=1}^{n}\frac{\partial f_j(x)}{\partial e_i}v_i\right|
+\end{equation*}
+Continuity of the partial derivatives give us:
+\begin{equation*}
+\forall \epsilon > 0, \exists \delta_{ji} > 0, \forall v \in B(0, \delta_{ji}): \left|\frac{\partial f_j(x+v)}{\partial e_i} - \frac{\partial f_j(x)}{\partial e_i}\right| < \epsilon
+\end{equation*}
+We set $\delta \coloneq \min\{\delta_{ji} : 1 \leqslant j \leqslant m \land 1 \leqslant i \leqslant n\}$. Then given some $v \in B(0, \delta)$, by Lemma 1.4, we have that the open ball is convex, so we can apply MVT to each pair $f_j(x+v) - f_j(x)$.\\
+
+Since
+\end{proof}
+\subsubsection{Multivariable Chain Rule}
 \subsection{Inverse and Implicit Function Theorems}
 \subsection{Configuration Spaces}
+The idea of configuration spaces is intertwined with the idea of manifolds, which I have not studied, so for this section we will limit ourselves to Euclidean configuration spaces. 
 \end{document}
