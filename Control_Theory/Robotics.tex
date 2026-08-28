@@ -366,7 +366,7 @@ such that $h(0) = a$ and $h(1) = b$. Then applying Theorem 1.1 to the function $
 \begin{equation*}
 \exists c \in (0, 1): (f_i \circ h)'(c) = \frac{f_i(h(1)) - f_i(h(0))}{1-0} = f_i(b) - f_i(a)
 \end{equation*}
-and $(f_i \circ h)'(c) = Df_i(c) \cdot h'(c) = Df_i(c)(b-a)$, where:
+and $(f_i \circ h)'(c) = Df_i(h(c)) \cdot h'(c) = Df_i(c)(b-a)$, where:
 \begin{equation*}
 Df_i(x) = \begin{bmatrix}
 \frac{\partial f_i(x)}{\partial e_1} & \cdots & \frac{\partial f_i(x)}{\partial e_n}
@@ -375,20 +375,29 @@ Df_i(x) = \begin{bmatrix}
 We used the multivariate chain rule in this proof, where $(f \circ h)'(t) = Df(h(t))Dh(t)$. In this case, we defined:
 \begin{equation*}
 h(t) = \begin{bmatrix}
-t b_1 + (1-t)a_1 & \cdots & t b_n + (1-t) a_n
-\end{bmatrix}^T
+t b_1 + (1-t)a_1\\
+\vdots\\
+t b_n + (1-t)a_n
+\end{bmatrix}
+\end{equation*}
+and since each $h_i: \mathbb{R} \xrightarrow{} \mathbb{R}$, then $Dh(t)$ is an $n \times 1$ matrix in the $e_1/t$ direction, the form of which is given by Lemma 1.2:
+\begin{equation*}
+Dh(t) = \begin{bmatrix}
+b_1 - a_1\\
+\vdots\\
+b_n - a_n
+\end{bmatrix} = b-a
 \end{equation*}
 \end{proof}
 
 \begin{cor}
 If $\exists k \in \mathbb{R}, \exists j \in [1, n]: b-a = ke_j$ and the partial derivative of $f_i$ exists in the $e_j$ direction, then:
 \begin{equation*}
-\exists z \in \text{span}(e_j): \frac{\partial f_i(z)}{\partial e_j}(b-a) = f_i(b) - f_i(a)
+\exists z \in \text{span}(e_j): \frac{\partial f_i(z)}{\partial e_j}k = f_i(b) - f_i(a)
 \end{equation*}
 \end{cor}
-\begin{proof}
 Notice this corollarly does not require full differentiability of $f_i$ (which means it does not require the gradient to be the total derivative of $f$ at said point). 
-\end{proof}
+
 
 \begin{lem}
 The function $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ is totally differentiable at a point if:
@@ -418,11 +427,15 @@ Continuity of the partial derivatives give us:
 \begin{equation*}
 \forall \epsilon > 0, \exists \delta_{ji} > 0, \forall v \in B(0, \delta_{ji}): \left|\frac{\partial f_j(x+v)}{\partial e_i} - \frac{\partial f_j(x)}{\partial e_i}\right| < \epsilon
 \end{equation*}
-We set $\delta \coloneq \min\{\delta_{ji} : 1 \leqslant j \leqslant m \land 1 \leqslant i \leqslant n\}$. Then given some $v \in B(0, \delta)$, by Lemma 1.4, we have that the open ball is convex, so we can apply MVT to each pair $f_j(x+v) - f_j(x)$.\\
-
-Since
+We set $\delta \coloneq \min\{\delta_{ji} : 1 \leqslant j \leqslant m \land 1 \leqslant i \leqslant n\}$. Then given some $v \in B(0, \delta)$, we apply the idea in Corollary 1.1 and see that:
+\begin{equation*}
+f_j(x+v) - f_j(x) = \sum_{i=1}^{n}f_j(x + V_i) - f_j(x + V_{i-1})
+\end{equation*}
+where we define $V_i \coloneq v_1e_1 + \cdots + v_ie_i$. Then, we can repeatedly apply Corollary 1.1 and get:
+\begin{equation*}
+= \frac{1}{||v||}\sum_{j=1}^{m}\left|\sum_{i=1}^{n}\left(\frac{\partial f_j(z_i)}{\partial e_i} - \frac{\partial f_j(x)}{\partial e_i}\right)v_i\right| \leqslant \frac{\epsilon \cdot mn \cdot ||v||}{||v||} = \epsilon \cdot mn
+\end{equation*}
 \end{proof}
-\subsubsection{Multivariable Chain Rule}
 \subsection{Inverse and Implicit Function Theorems}
 \subsection{Configuration Spaces}
 The idea of configuration spaces is intertwined with the idea of manifolds, which I have not studied, so for this section we will limit ourselves to Euclidean configuration spaces. 
