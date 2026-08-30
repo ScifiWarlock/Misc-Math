@@ -228,7 +228,7 @@ so the same $\delta$ suffices.\\
 \end{proof}
 
 \begin{lem}
-The partial derivative of $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ exists for some $e_j$ if and only if there exists some $r(h)L \mathbb{R} \xrightarrow{} \mathcal{M}_{m \times 1}(\mathbb{R})$ such that:
+The partial derivative of $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ exists for some $e_j$ if and only if there exists some $r(h): \mathbb{R} \xrightarrow{} \mathcal{M}_{m \times 1}(\mathbb{R})$ such that:
 \begin{equation*}
 f(x + he_j) = f(x) + \frac{\partial f(x)}{\partial e_j}h + r(h)h \ \land \ \lim_{h \xrightarrow{} 0}r(h) = 0
 \end{equation*} 
@@ -236,7 +236,7 @@ f(x + he_j) = f(x) + \frac{\partial f(x)}{\partial e_j}h + r(h)h \ \land \ \lim_
 \begin{proof}
 $\implies:$ By the previous Lemma 1.2 and the results of Lemma 1.1, we can say that there exists some $r_i(h)$ for each $f_i$, such that:
 \begin{equation*}
-f_i(x + he_j) = f_i(x) + \frac{\partial f_i(x)}{\partial e_j}h + r_i(h)h
+r_i(h) = \frac{f_i(x+he_j) - f_i(x) - \frac{\partial f_i(x)}{\partial e_j}h}{h}
 \end{equation*}
 Then, we can define $r(h)$ as:
 \begin{equation*}
@@ -246,7 +246,7 @@ r_1(h)\\
 r_m(h)
 \end{bmatrix}
 \end{equation*}
-which tends to $0$ by definition.\\
+which tends to $0$ by definition, or by the fact that $||v|| \leqslant \sum |v_i|$.\\
 
 $\impliedby:$ We can rewrite the expression as:
 \begin{equation*}
@@ -418,7 +418,45 @@ If $\exists k \in \mathbb{R}, \exists j \in [1, n]: b-a = ke_j$ and the partial 
 \exists z \in \text{span}(e_j): \frac{\partial f_i(z)}{\partial e_j}k = f_i(b) - f_i(a)
 \end{equation*}
 \end{cor}
-Notice this corollarly does not require full differentiability of $f_i$ (which means it does not require the gradient to be the total derivative of $f$ at said point). 
+Notice this corollarly does not require full differentiability of $f_i$ (which means it does not require the gradient to be the total derivative of $f$ at said point). We can expand MVT to the vector valued function case with an inequality.
+
+\begin{cor}
+Given $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ and an open, convex subset $U \subseteq \mathbb{R}^n$ on which $f$ is totally differentiable and $||Df(x)||$ is bounded, then:
+\begin{equation*}
+\forall a, b \in U: ||f(b) - f(a)|| \leqslant M||b-a||
+\end{equation*}
+such that $\exists M \in \mathbb{R}, \forall x \in U: ||Df(x)|| \leqslant M$. 
+\end{cor}
+\begin{proof}
+Consider any arbitrary $v \in \mathbb{R}^n$, then:
+\begin{equation*}
+\forall i \in [1, m]: \frac{||Df_i(v)v||}{||v||} \leqslant \frac{||Df(v)v||}{||v||} \leqslant M
+\end{equation*}
+Thus $||Df_i(v)|| \leqslant M$, so we can apply Theorem 1.2 and see the following:
+\begin{equation*}
+||f(b) - f(a)|| \leqslant \sum_{i=1}^{m}||f_i(b) - f_i(a)|| \leqslant \sum_{i=1}^{m}||Df_i(z_i)||\cdot||b-a|| \leqslant mM||b-a||
+\end{equation*}
+This is not the estimate we were looking for, but one possible estimate. We can derive another by the following:
+\begin{equation*}
+||f(b) - f(a)|| = \sqrt{\sum_{i=1}^{m}|f_i(b) - f_i(a)|^2} = \sqrt{\sum_{i=1}^{m}|Df_i(z_i)(b-a)|^2}
+\end{equation*}
+\begin{equation*}
+\leqslant \sqrt{\sum_{i=1}^{m}C^2||b-a||^2} = \sqrt{m}\cdot C||b-a||
+\end{equation*}
+Consider once again the intermediate function $h(t)$ where $h: [0, 1] \xrightarrow{} \mathbb{R}^n$ introduced in our proof of Theorem 1.2, then:
+\begin{equation*}
+g(t) = (f(b) - f(a))^Tf(h(t)) \implies g'(t) = (f(b) - f(a))^TDf(h(t))(b-a)
+\end{equation*}
+thus $g'(t): \mathbb{R} \xrightarrow{} \mathbb{R}$. Then define $g: [0, 1] \xrightarrow{} \mathbb{R}$:
+\begin{equation*}
+|g'(t)| \leqslant ||f(b) - f(a)|| \cdot ||Df(h(t))|| \cdot ||b-a|| \leqslant ||f(b) - f(a)|| \cdot M||b-a||
+\end{equation*}
+We can apply regular MVT to $g$, which tells us:
+\begin{equation*}
+|g(1) - g(0)| = |(f(b) - f(a))^T(f(b) - f(a))| = ||f(b) - f(a)||^2 \leqslant ||f(b) - f(a)|| \cdot M||b-a||
+\end{equation*}
+and the intended inequality follows.
+\end{proof}
 
 
 \begin{lem}
@@ -498,7 +536,7 @@ r_i(v) = \begin{bmatrix}
 \begin{equation*}
 \implies ||r_i(v)|| = ||f_i(x+v) - f_i(x) - Df_i(x)(v)||\sqrt{\frac{1}{||v||^2}} = \frac{||f_i(x+v) - f_i(x) - Df_i(x)(v)||}{||v||} \xrightarrow{} 0
 \end{equation*}
-The converse follows from the fact that $||Ax|| \leqslant ||A|| \cdot ||x||$. Now, we can define:
+The converse follows from the fact that $||r_i(v)v|| \leqslant ||r_i(v)|| \cdot ||v||$. Now, we can define:
 \begin{equation*}
 r(v) \coloneq \begin{bmatrix}
 r_1(v)\\
@@ -510,11 +548,59 @@ for which by the inequality for matrix norm we derived above, we have that:
 \begin{equation*}
 ||r(v)|| \leqslant \sqrt{\sum_{i=1}^{m}(f_i(x+v) - f_i(x) - Df_i(x)(v))^2\cdot \frac{1}{||v||^2}} = \frac{1}{||v||}\cdot ||f(x+v) - f(x) - Df(x)(v)|| \xrightarrow{} 0 
 \end{equation*}
+The converse follows from the fact that $||r(v)v|| \leqslant ||r(v)||\cdot ||v||$. This is a tighter $\epsilon$-bound than using the fact (which we can prove) that:
+\begin{equation*}
+||r(v)|| \leqslant \sum_{i=1}^{m}||r_i(v)|| < m\epsilon
+\end{equation*}
+taking $\delta$ minimum (follows from the fact that if $f$ is differentiable, then $f_i$ is differentiable). 
+\end{proof}
+
+Now we can prove the following:
+\begin{lem}
+If $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ is differentiable at $x$, then it is continuous at $x$.
+\end{lem}
+\begin{proof}
+By Lemma 1.7, we have that there exists some $r(v): \mathbb{R}^n \xrightarrow{} \mathcal{M}_{m \times n}(\mathbb{R})$ such that:
+\begin{equation*}
+f(x+v) = f(x) + Df(x)(v) + r(v)v
+\end{equation*}
+Now, let $||r(v)|| < 1$, which gives us some $\delta_0$ such that for all $v \in B(0, \delta_0)$:
+\begin{equation*}
+||f(x+v) - f(x)|| = ||(Df(x) + r(v))v|| \leqslant ||(Df(x) + r(v))|| \cdot ||v||
+\end{equation*}
+\begin{equation*}
+\leqslant ||v|| \cdot (||Df(x)|| + 1)
+\end{equation*}
+So taking:
+\begin{equation*}
+\delta \coloneq \min\left\{\delta_0, \frac{\epsilon}{1 + ||Df(x)||}\right\}
+\end{equation*}
+we see that:
+\begin{equation*}
+\forall v \in B(0, \delta): ||f(x+v) - f(x)|| \leqslant ||v|| \cdot (||Df(x)|| + 1) \leqslant \epsilon
+\end{equation*}
 \end{proof}
 
 
 \subsection{Inverse and Implicit Function Theorems}
 The idea of the inverse function theorem stems from our idea of the linear approximation where $f(x+v) \approx f(x) + Df(x)v$. Then $v \approx Df(x)^{-1}(f(x+v) - f(x))$. 
+
+\begin{thm}[Banach Fixed Point Theorem]
+Given a contraction map $f: X \xrightarrow{} X$ and $(X, \varrho)$ a complete metric space, such that $\varrho(f(x), f(y)) \leqslant c \varrho(x, y)$, where $c \in [0, 1)$, then there exists a unique fixed point such that:
+\begin{equation*}
+\exists x' \in X: f(x') = x'
+\end{equation*}
+\end{thm}
+\begin{proof}
+Let us choose an arbitrary point $x \in X$. Then:
+\begin{equation*}
+\varrho(f(x), f(f(x))) \leqslant c\varrho(x, f(x))
+\end{equation*}
+Then, we see that:
+\begin{equation*}
+\varrho(f^n(x), f^{n+1}(x)) \leqslant c^n\varrho(x, f(x))
+\end{equation*}
+\end{proof}
 \subsection{Configuration Spaces}
 The idea of configuration spaces is intertwined with the idea of manifolds, which I have not studied, so for this section we will limit ourselves to Euclidean configuration spaces. 
 \end{document}
