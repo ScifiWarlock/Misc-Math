@@ -162,19 +162,16 @@ Now because $\mathbb{R}$ is a $T_1$ space, we see that the intersection in the p
 \begin{equation*}
 \forall \epsilon > 0, \exists \delta_0 > 0, \forall z \in B(x, \delta_0) \setminus \{x\}: \left|\frac{f(z) - f(x)}{z-x} - f'(x)\right| < \epsilon
 \end{equation*}
-A useful equivalent statement is:
-\begin{equation*}
-\forall \epsilon > 0, \exists \delta_0 < \epsilon, \forall \delta \leqslant \delta_0, \forall z \in B(x, \delta) \setminus \{x\}: \frac{1}{\delta}|f(z) - f(x) - f'(x)(z-x)| < \epsilon
-\end{equation*}
 \end{proof}
-Now essentially this supremum $\delta$-net, similar to oscillation is the worst case net. The important part of this result is the idea of linear approximation, such that:
+We can define the function:
 \begin{equation*}
-f'(x)(z-x) + f(x) -\epsilon^2 < f(z) < f'(x)(z-x) + f(x) + \epsilon^2
+r(z) = \frac{f(z) - f(x) - f'(x)(z-x)}{z-x}
 \end{equation*}
-or as we write it in calculus $f(z) \approx f(x) + f'(x)(z-x)$, which is the tangent line approximation.\\
-
-We can apply this approximation idea to the multivariate case, but first we introduce the following notion:
-
+or $r(h)$ if we say $z = x+h$. Then taking limit as $z \xrightarrow{} x$ (or $h \xrightarrow{} 0$), we have that $r(z) \xrightarrow{} 0$. Then the idea of the linear approximation is that:
+\begin{equation*}
+f(z) = f(x) + f'(x)(z-x) + r(z)(z-x)
+\end{equation*}
+and the lemma above tells us that the worst remainder (similar to oscillation, which we called the "worst case net") converges to $0$. 
 \medskip
 \begin{defn}
 Given some $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ in the form of equation $(1)$, then for some $i \in [1, m], j \in [1, n]$:
@@ -228,12 +225,37 @@ We now use the inequality $|v_i| \leqslant ||v||$ and find that $\forall i \in [
 = \frac{|e_i \cdot (f(x+e_jh) - f(x) - \frac{\partial f(x)}{\partial e_j}h)|}{|h|}\leqslant \frac{||f(x+e_jh) - f(x) - (\frac{\partial f(x)}{\partial e_j})h||}{|h|} < \epsilon
 \end{equation*}
 so the same $\delta$ suffices.\\
-
-Now once again with an argument similar to Lemma 1.1, we can extend the idea of linear approximation and say that for all $z$ such that $z = x + e_jh$:
-\begin{equation*}
-f(z) \approx f(x) + \left(\frac{\partial f(x)}{\partial e_j}\right)h
-\end{equation*}
 \end{proof}
+
+\begin{lem}
+The partial derivative of $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ exists for some $e_j$ if and only if there exists some $r(h)L \mathbb{R} \xrightarrow{} \mathcal{M}_{m \times 1}(\mathbb{R})$ such that:
+\begin{equation*}
+f(x + he_j) = f(x) + \frac{\partial f(x)}{\partial e_j}h + r(h)h \ \land \ \lim_{h \xrightarrow{} 0}r(h) = 0
+\end{equation*} 
+\end{lem}
+\begin{proof}
+$\implies:$ By the previous Lemma 1.2 and the results of Lemma 1.1, we can say that there exists some $r_i(h)$ for each $f_i$, such that:
+\begin{equation*}
+f_i(x + he_j) = f_i(x) + \frac{\partial f_i(x)}{\partial e_j}h + r_i(h)h
+\end{equation*}
+Then, we can define $r(h)$ as:
+\begin{equation*}
+r(h) = \begin{bmatrix}
+r_1(h)\\
+\vdots\\
+r_m(h)
+\end{bmatrix}
+\end{equation*}
+which tends to $0$ by definition.\\
+
+$\impliedby:$ We can rewrite the expression as:
+\begin{equation*}
+r(h) = \frac{f(x+he_j) - f(x) - \frac{\partial f(x)}{\partial e_j}h}{h}
+\end{equation*}
+so $||r(h)|| \xrightarrow{} 0$ implies that the quotient also tends to zero. 
+\end{proof}
+
+
 Notice that the proofs did not use any properties of the basis vector $e_j$ itself, so we can extend the definition:
 \begin{defn}
 Given some $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ in the form of equation $(1)$, then for some $v \in \mathbb{R}^n$ and $i \in [1, m], j \in [1, n]$:
@@ -436,7 +458,63 @@ where we define $V_i \coloneq v_1e_1 + \cdots + v_ie_i$. Then, we can repeatedly
 = \frac{1}{||v||}\sum_{j=1}^{m}\left|\sum_{i=1}^{n}\left(\frac{\partial f_j(z_i)}{\partial e_i} - \frac{\partial f_j(x)}{\partial e_i}\right)v_i\right| \leqslant \frac{\epsilon \cdot mn \cdot ||v||}{||v||} = \epsilon \cdot mn
 \end{equation*}
 \end{proof}
+The MVT introduced in Theorem 1.2 fails for vector valued functions as we cannot guarantee the same $z$ satisfies the equality for all $f_i$; however, there are some generalizations to this case which we can expound upon later. Finally, we can expand the idea of linear approximation to the total vector valued function:
+
+\begin{lem}
+$f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ is totally differentiable if and only if there exists $r(v): \mathbb{R}^n \xrightarrow{} \mathcal{M}_{m \times n}(\mathbb{R})$ such that:
+\begin{equation*}
+f(x+v) = f(x) + Df(x)(v) + r(v)v \ \land \ \lim_{v \xrightarrow{} 0}||r(v)|| = 0
+\end{equation*}
+\end{lem}
+\begin{proof}
+Observe that we use the matrix norm, which is defined as:
+\begin{equation*}
+||A|| = \sup_{x \in \mathbb{R}^n}\frac{||Ax||}{||x||}
+\end{equation*}
+\begin{equation*}
+\forall x \in \mathbb{R}^n: \frac{||Ax||}{||x||} = \sqrt{\frac{\sum_{i=1}^{m}(\sum_{j=1}^{n}A_{ij}x_j)^2}{\sum_{j=1}^{n}x_j^2}}
+\end{equation*}
+\begin{equation*}
+\leqslant \sqrt{\frac{\sum_{i=1}^{m}(\sum_{j=1}^{n}A_{ij}^2\sum_{j=1}^{n}x_j^2)}{\sum_{j=1}^{n}x_j^2}} = \sqrt{\sum_{i=1}^{m}\left(\sum_{j=1}^{n}A_{ij}^2\right)}
+\end{equation*}
+and since this is true for all $x \in \mathbb{R}^n$, we have a concrete upper bound, so:
+\begin{equation*}
+||A|| \leqslant \sqrt{\sum_{i=1}^{m}\left(\sum_{j=1}^{n}A_{ij}^2\right)}
+\end{equation*}
+Now, we can use the fact that $f_i: \mathbb{R}^n \xrightarrow{} \mathbb{R}$ and that its total derivative exists as seen by:
+\begin{equation*}
+\frac{|f_i(x+v) - f_i(x) - Df_i(x)(v)|}{||v||} = \frac{|e_i^T(f(x+v) - f(x) - Df(x)(v))|}{||v||} \leqslant \frac{||f(x+v) - f(x) - Df(x)(v)||}{||v||}
+\end{equation*}
+Then, we say that equivalently there exists some $r_i(v): \mathbb{R}^n \xrightarrow{} \mathcal{M}_{1 \times n}$ such that:
+\begin{equation*}
+r_i(v)v = f_i(x+v) - f_i(x) - Df_i(x)(v)
+\end{equation*}
+such that:
+\begin{equation*}
+r_i(v) = \begin{bmatrix}
+(f_i(x+v) - f_i(x) - Df_i(x)(v))\frac{v_1}{||v||^2} & \cdots & (f_i(x+v) - f_i(x) - Df_i(x)(v))\frac{v_n}{||v||^2}
+\end{bmatrix}
+\end{equation*}
+\begin{equation*}
+\implies ||r_i(v)|| = ||f_i(x+v) - f_i(x) - Df_i(x)(v)||\sqrt{\frac{1}{||v||^2}} = \frac{||f_i(x+v) - f_i(x) - Df_i(x)(v)||}{||v||} \xrightarrow{} 0
+\end{equation*}
+The converse follows from the fact that $||Ax|| \leqslant ||A|| \cdot ||x||$. Now, we can define:
+\begin{equation*}
+r(v) \coloneq \begin{bmatrix}
+r_1(v)\\
+\vdots\\
+r_m(v)
+\end{bmatrix}
+\end{equation*}
+for which by the inequality for matrix norm we derived above, we have that:
+\begin{equation*}
+||r(v)|| \leqslant \sqrt{\sum_{i=1}^{m}(f_i(x+v) - f_i(x) - Df_i(x)(v))^2\cdot \frac{1}{||v||^2}} = \frac{1}{||v||}\cdot ||f(x+v) - f(x) - Df(x)(v)|| \xrightarrow{} 0 
+\end{equation*}
+\end{proof}
+
+
 \subsection{Inverse and Implicit Function Theorems}
+The idea of the inverse function theorem stems from our idea of the linear approximation where $f(x+v) \approx f(x) + Df(x)v$. Then $v \approx Df(x)^{-1}(f(x+v) - f(x))$. 
 \subsection{Configuration Spaces}
 The idea of configuration spaces is intertwined with the idea of manifolds, which I have not studied, so for this section we will limit ourselves to Euclidean configuration spaces. 
 \end{document}
