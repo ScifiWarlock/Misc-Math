@@ -548,11 +548,11 @@ for which by the inequality for matrix norm we derived above, we have that:
 \begin{equation*}
 ||r(v)|| \leqslant \sqrt{\sum_{i=1}^{m}(f_i(x+v) - f_i(x) - Df_i(x)(v))^2\cdot \frac{1}{||v||^2}} = \frac{1}{||v||}\cdot ||f(x+v) - f(x) - Df(x)(v)|| \xrightarrow{} 0 
 \end{equation*}
-The converse follows from the fact that $||r(v)v|| \leqslant ||r(v)||\cdot ||v||$. This is a tighter $\epsilon$-bound than using the fact (which we can prove) that:
+This is a tighter $\epsilon$-bound than using the fact (which we can prove) that:
 \begin{equation*}
 ||r(v)|| \leqslant \sum_{i=1}^{m}||r_i(v)|| < m\epsilon
 \end{equation*}
-taking $\delta$ minimum (follows from the fact that if $f$ is differentiable, then $f_i$ is differentiable). 
+taking $\delta$ minimum (follows from the fact that if $f$ is differentiable, then $f_i$ is differentiable). The converse follows from the fact that $||r(v)v|| \leqslant ||r(v)||\cdot ||v||$. 
 \end{proof}
 
 Now we can prove the following:
@@ -600,6 +600,152 @@ Then, we see that:
 \begin{equation*}
 \varrho(f^n(x), f^{n+1}(x)) \leqslant c^n\varrho(x, f(x))
 \end{equation*}
+So for any arbitrary $m \leqslant n$:
+\begin{equation*}
+\varrho(f^m(x), f^{n}(x)) \leqslant \sum_{i=0}^{n-m-1}\varrho(f^{m+i}(x), f^{m+i+1}(x)) \leqslant \varrho(x, f(x))\sum_{i=0}^{n-m-1}c^{m+i}
+\end{equation*}
+\begin{equation*}
+= \varrho(x, f(x))\sum_{i=m}^{n-1}c^i = \frac{c^m(1-c^{n-m-1})}{1-c} \cdot \varrho(x, f(x))
+\end{equation*}
+We now show that the sequence $\{f^{(n)}(x)\}_{n \in \mathbb{N}}$ is Cauchy:
+\begin{equation*}
+\frac{c^m(1 - c^{n-m-1})}{1-c}\cdot \varrho(x, f(x)) \leqslant \frac{c^m}{1-c}\cdot \varrho(x, f(x)) < \epsilon
+\end{equation*}
+So, if we choose $n_0$ so that:
+\begin{equation*}
+\frac{c^{n_0}}{1-c} \cdot \varrho(x, f(x)) < \epsilon
+\end{equation*}
+then for all $m, n \geqslant n_0$, we have that the sequence is Cauchy. Because $X$ is complete, we have that there exists some $x' \in X$ such that:
+\begin{equation*}
+f^{n}(x) \xrightarrow{} x'
+\end{equation*}
+Now, $f$ is $c$-Lipschitz, so by continuity, we have that the sequence $\{f^{n+1}(x)\}_{n \in \mathbb{N}}$ converges to $f(x')$. Since it is a subsequence of our initial sequence, they must converge to the same limit, thus $f(x') = x'$.\\
+
+The fixed point is also guaranteed to be unique by the uniqueness of a limit in a $T_2$ space, which we shall prove. Let us assume there exists another fixed point $\tilde{x}$ such that $f(\tilde{x}) = \tilde{x}$. Then:
+\begin{equation*}
+\varrho(f(\tilde{x}), f(x')) = \varrho(\tilde{x}, x') \leqslant c\varrho(\tilde{x}, x') < \varrho(\tilde{x}, x')
+\end{equation*} 
+which is a contradiction. However, if we allowed $c = 1$, then we may not have a unique fixed point (the Cauchy estimate may also fail).
+\end{proof}
+
+\begin{thm}
+If $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^n$ is differentiable on an open ball $B(x_0, \delta_0)$ with $Df(x_0)$ continuous and invertible, then there exists some $B(x_0, \delta) \subseteq B(x_0, \delta_0)$, then:
+\begin{enumerate}
+\item $f$ is injective on $B(x_0, \delta)$ and an open map
+\item $f^{-1}$ is differentiable on $f(B(x_0, \delta))$
+\item $D(f^{-1})$ is continuous at $f(x_0)$
+\end{enumerate}
+\end{thm}
+\begin{proof}
+\subsubsection*{Part One}
+We are given that $\forall x \in B(x_0, \delta): ||Df(x) - Df(x_0)|| < \epsilon$. We want to show that:
+\begin{equation*}
+\forall x, y \in B(x_0, \delta): f(x) = f(y) \implies x = y
+\end{equation*}
+We can define $\delta \coloneq \min\{\delta_0/2, \delta_1\}$ where $\delta_1$ is given by continuity so that $B(x_0, \delta) \subseteq B(x_0, \delta_0)$ for $\epsilon = \frac{1}{2(||Df^{-1}(x_0)|| + 1)}$, then consider the function:
+\begin{equation*}
+h(x) = x + Df(x_0)^{-1}(y - f(x))
+\end{equation*}
+for some arbitrary $y \in \text{Ran}(f|_{B(x_0, \delta)})$. We show that $h$ is a contraction map:
+\begin{equation*}
+Dh(x) = I - Df^{-1}(x_0)Df(x) = Df(x_0)^{-1}(Df(x_0) - Df(x))
+\end{equation*}
+\begin{equation*}
+||Dh(x)|| \leqslant ||Df(x_0)^{-1}|| \cdot ||Df(x_0) - Df(x)|| \leqslant \frac{1}{2}
+\end{equation*}
+and then by Corollary 1.2, we have that:
+\begin{equation*}
+\forall x, y \in B(x_0, \delta): ||h(x) - h(y)|| \leqslant \frac{1}{2}||x-y||
+\end{equation*}
+so it is a contraction map, thus any fixed points are unique, giving us that $f$ is injective (and furthermore trivially surjective). Notice that $B(x_0, \delta)$ is not closed (thus not complete), so we cannot apply fixed point theorem. However, we do not require fixed point theorem since the fixed points are guaranteed as $f(B(x_0, \delta))$ is the image of the open ball.
+
+\subsubsection*{Part One (Alternate Proof)}
+To show injectivity, it suffices to show that there exists some $c \in \mathbb{R}$ such that:
+\begin{equation*}
+\forall x_1, x_2 \in B(x_0, \delta): ||x_1 - x_2|| \leqslant c||f(x_1) - f(x_2)||
+\end{equation*}
+We consider the equivalent criterion of differentiability whereby:
+\begin{equation*}
+f(x_0+v) = f(x_0) + Df(x_0)(v) + r(v)v \land ||r(v)|| \xrightarrow{} 0
+\end{equation*}
+We can define $R(v) = r(v)v$, for which we can prove the equivalent condition:
+\begin{equation*}
+f(x_0+v) = f(x_0) + Df(x_0)(v) + R(v) \land \frac{||R(v)||}{||v||} \xrightarrow{} 0
+\end{equation*}
+So, we see that $DR(v) = Df(x_0+v) - Df(x_0)$, so by continuity, we see that, taking the same $\epsilon$ as before:
+\begin{equation*}
+\forall v \in B(0, \delta): ||DR(v)|| = ||Df(x_0+v) - Df(x_0)|| \leqslant \frac{1}{2||Df(x_0)^{-1}||}
+\end{equation*}
+though, an arbitrary $\epsilon$ of say $1/2$ would suffice. Thus by Corollary 1.2, since $B(x_0, \delta)$ is open and convex:
+\begin{equation*}
+\forall v, w \in B(0, \delta): ||R(v) - R(w)|| \leqslant \frac{||Df(x_0)||}{2}||v-w|| 
+\end{equation*}
+\begin{equation*}
+R(v) - R(w) = f(x_0+v) - f(x_0) - Df(x_0)(v) - f(x_0+w) + f(x_0) + Df(x_0)(w)
+\end{equation*}
+\begin{equation*}
+||R(v) - R(w)|| = ||f(x_0+v) - f(x_0+w) - Df(x_0)(v-w)||
+\end{equation*}
+\begin{equation*}
+\implies ||Df(x_0)(v-w)|| -  ||f(x_0 + v) - f(x_0 + w)|| \leqslant \frac{1}{2||Df(x_0)^{-1}||}||v-w||
+\end{equation*}
+We also know that $||x|| = ||Df(x_0) \cdot Df(x_0)^{-1} x|| \leqslant ||Df(x_0)^{-1}|| \cdot ||Df(x_0)x||$, thus
+\begin{equation*}
+\implies \frac{1}{2||Df(x_0)^{-1}||}||v-w|| \leqslant ||f(x_0 + v) - f(x_0 + w)||
+\end{equation*}
+and a simple algebraic rearrangement brings us to the desired result.
+
+The idea of this contraction map and the alternative proof both come from our idea of linear approximation, where:
+\begin{equation*}
+f(z) \approx f(x) + Df(x)(z-x)
+\end{equation*}
+
+\subsubsection*{Part Two}
+
+We now prove that $f$ is an open map, so we want to show that $f(B(x_0, \delta))$ is open:
+\begin{equation*}
+\forall x \in B(x, \delta), \exists \delta' > 0: B(f(x), \delta') \subseteq f(B(x_0, \delta))
+\end{equation*}
+The consider some $\tilde{\delta}$ such that $\overline{B(x, \tilde{\delta})} \subseteq B(x_0, \delta)$. Then we claim that the ball $\epsilon \tilde{\delta}$ is the $\delta'$ we are looking for. We use the same idea of a contraction map, but this time apply fixed point theorem.
+The reason we use fixed point theorem is we want to show that:
+\begin{equation*}
+\forall y \in B(f(x), \epsilon\tilde{\delta}), \exists z \in \overline{B(x, \tilde{\delta})}: f(z) = y
+\end{equation*}
+telling us that $B(f(x), \epsilon \tilde{\delta}) \subseteq f(\overline{B(x, \tilde{\delta})}) \subseteq f(B(x_0, \delta))$. So for a fixed $y \in B(f(x), \epsilon \cdot \tilde{\delta})$:
+\begin{equation*}
+||h(z) - x|| \leqslant ||h(z) - h(x)|| + ||h(x) - x|| \leqslant \frac{1}{2}|z-x| + ||Df(x_0)^{-1}||\cdot||y - f(x)|| 
+\end{equation*}
+\begin{equation*}
+< \frac{\tilde{\delta}}{2} + ||Df(x_0)^{-1}|| \epsilon \tilde{\delta} = \tilde{\delta}
+\end{equation*}
+so $h$ which we showed is a contraction map, is a contraction map on $\overline{B(x, \tilde{\delta})}$, thus by Banach Fixed Point theorem, for each arbitrary $y$, there exists a fixed point (note we need the theorem because we are not immediately guaranteed the existence of some $z$ such that $f(z) = y$).
+
+\subsubsection*{Part Three}
+We now need to show the existence of $Df^{-1}(x)$ for $x \in B(x_0, \delta)$. A matrix is invertible if and only if all of its eigenvalues are nonzero. Thus:
+\begin{equation*}
+\forall i \in [1, n]: Df(x)v_i = \lambda_iv_i \land \lambda_i \neq 0
+\end{equation*}
+We can rewrite $Df(x)$ as $Df(x_0) + (Df(x) - Df(x_0))$, so we see that:
+\begin{equation*}
+||Df(x_0)x + (Df(x) - Df(x_0))x|| = ||Df(x_0)(x + Df(x_0)^{-1}(Df(x) - Df(x_0))x)||
+\end{equation*}
+\begin{equation*}
+\geqslant \frac{1}{||Df(x_0)^{-1}||}(||x|| - ||Df(x_0)^{-1}|| \cdot ||Df(x) - Df(x_0)|| \cdot ||x||)
+\end{equation*}
+\begin{equation*}
+\geqslant \frac{||x||}{||Df(x_0)^{-1}||}(1 - ||Df(x_0)^{-1}|| \cdot ||Df(x) - Df(x_0)||) \geqslant \frac{||x||}{2||Df(x_0)^{-1}||}
+\end{equation*}
+Now assume $Df(z)$ is non-invertible, which means it has some $v_i$ with $\lambda_i = 0$, then:
+\begin{equation*}
+0 \leqslant \frac{||v_i||}{2||Df(x_0)^{-1}||} \leqslant 0
+\end{equation*}
+which forces $v_i = 0$, which is a contradiction as an eigenvector cannot be the zero vector. Thus $Df(x)$ is invertible for $x \in B(x_0, \delta)$ (observe it is only true for this ball as continuity gives us a strict lower bound of $0$). Otherwise, it may be that:
+\begin{equation*}
+||Df(x_0)^{-1}|| \cdot ||Df(x) - Df(x_0)|| > 1
+\end{equation*}
+in which case the argument does not hold, since we do not get a squeeze inequality. We now must show that $Df^{-1}(f(x)) = Df(x)^{-1}$, given the invertibility of the derivative (which we just proved), injectivity of the function (proved in part one), and continuity of the inverse (also proved in part one).\\
+
+
 \end{proof}
 \subsection{Configuration Spaces}
 The idea of configuration spaces is intertwined with the idea of manifolds, which I have not studied, so for this section we will limit ourselves to Euclidean configuration spaces. 
