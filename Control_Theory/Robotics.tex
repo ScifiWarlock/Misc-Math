@@ -799,6 +799,21 @@ so the same $\delta$ suffices.
 \end{proof}
 To put this theorem more succinctly, if $f \in C^1$ at some point $x_0 \in \text{Dom}(f)$, then there exists $\delta > 0$ (provided by continuity of $Df(x)$ at $x_0$), where $f$ has a local inverse such that $f^{-1} \in C^1$ at $f(x_0)$.\\
 
+\begin{lem}
+Given some matrix $A$ with $n$ rows and $k$ columns and an arbitrary submatrix $B$ with $m$ rows and $j$ columns, we have that $||B|| \leqslant ||A||$.
+\end{lem}
+\begin{proof}
+Consider the submatrix $C$, for which each column of $C$ shares the same $j$ column numbers as $B$ with no row deletion. Then for an arbitrary $v \in \mathbb{R}^j$ where $Bv$ is valid, we also have that $Cv$ is valid.
+\begin{equation*}
+||Bv|| = \sqrt{(B_1 \cdot v)^2 + \cdots + (B_m \cdot v)^2} \leqslant ||Cv||
+\end{equation*}
+where $B_i$ is the $i$-th row of $B$. The inequality follows from the fact that each column of $B$ is a trimmed version of its respective counterpart in $C$, thus $B$ can be obtained by row deletion of $C$. Now, we can add zeros in $v \in \mathbb{R}^j$ to get $v' \in \mathbb{R}^k$, so that $||Cv|| = ||Av||$, thus:
+\begin{equation*}
+\frac{||Bv||}{||v||} \leqslant \frac{||Cv||}{||v||} \leqslant ||A||
+\end{equation*}
+Since $v \in \mathbb{R}^j$ was arbitrary, we have that $||B|| \leqslant ||A||$.
+\end{proof}
+
 We now view the implicit function theorem which provides us the existence for a parametrization of a function given certain conditions at a certain point.
 \begin{thm}[Implicit Function Theorem]
 Consider $F: \mathbb{R}^{n+m} \xrightarrow{} \mathbb{R}^m$ and $x \in \mathbb{R}^n$ and $y \in \mathbb{R}^m$. Then take the point $(x_0, y_0) \in \text{int(Dom(F))}$, such that:
@@ -913,7 +928,7 @@ Since $f$ is an open map (as $f^{-1}$ is continuous on the image of the open bal
 \begin{equation*}
 \forall x \in B(x_0, \delta'): F(x, y(x)) = F(x, h_2(x, 0)) = 0 \land F(x_0, y(x_0)) = F(x_0, y_0) = 0
 \end{equation*}
-Because $Df^{-1}$ exists, we can say that $Dy$ exists as the bottom $m \times (n+m)$ matrix $Dh_2(x, 0)$, and is continuous by the continuity of $Df^{-1}$. We can also prove its uniqueness, but we shall not do that here. Observe that we can also have the level set constraint $F(x, y) = c$ for some $c \in \mathbb{R}$, and the proof would be the same. By chain rule, we have:
+Because $Df^{-1}$ exists, we can say that $Dy$ exists as $D_xh_2(x, 0)$, and is continuous by the continuity of $Df^{-1}$ at $(x_0, y_0)$ and Lemma 1.9. We can also prove its uniqueness, but we shall not do that here. Observe that we can also have the level set constraint $F(x, y) = c$ for some $c \in \mathbb{R}$, and the proof would be the same. By chain rule, we have:
 \begin{equation*}
 \forall x \in B(x_0, \delta'): (F \circ G)(x) = c
 \end{equation*}
