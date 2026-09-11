@@ -583,7 +583,11 @@ we see that:
 
 
 \subsection{Inverse and Implicit Function Theorems}
-The idea of the inverse function theorem stems from our idea of the linear approximation where $f(x+v) \approx f(x) + Df(x)v$. Then $v \approx Df(x)^{-1}(f(x+v) - f(x))$. 
+The idea of the inverse function theorem stems from our idea of the linear approximation where $f(x+v) \approx f(x) + Df(x)v$. Then $v \approx Df(x)^{-1}(f(x+v) - f(x))$. Given the recurring idea of the error function where:
+\begin{equation*}
+f(x+h) = f(x) + f'(x)h + r(h)h
+\end{equation*}
+then if $r(h)$ is small enough (and $f'(x)$ is invertible), we can find a local region where $f$ is injective, thus has a local inverse, and the other properties follow.
 
 \begin{thm}[Banach Fixed Point Theorem]
 Given a contraction map $f: X \xrightarrow{} X$ and $(X, \varrho)$ a complete metric space, such that $\varrho(f(x), f(y)) \leqslant c \varrho(x, y)$, where $c \in [0, 1)$, then there exists a unique fixed point such that:
@@ -628,7 +632,7 @@ The fixed point is also guaranteed to be unique by the uniqueness of a limit in 
 which is a contradiction. However, if we allowed $c = 1$, then we may not have a unique fixed point (the Cauchy estimate may also fail).
 \end{proof}
 
-\begin{thm}
+\begin{thm}[Inverse Function Theorem]
 If $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^n$ is differentiable on an open ball $B(x_0, \delta_0)$ with $Df(x_0)$ continuous and invertible, then there exists some $B(x_0, \delta) \subseteq B(x_0, \delta_0)$, then:
 \begin{enumerate}
 \item $f$ is injective on $B(x_0, \delta)$ and an open map
@@ -676,7 +680,7 @@ So, we see that $DR(v) = Df(x_0+v) - Df(x_0)$, so by continuity, we see that, ta
 \begin{equation*}
 \forall v \in B(0, \delta): ||DR(v)|| = ||Df(x_0+v) - Df(x_0)|| \leqslant \frac{1}{2||Df(x_0)^{-1}||}
 \end{equation*}
-though, an arbitrary $\epsilon$ of say $1/2$ would suffice. Thus by Corollary 1.2, since $B(x_0, \delta)$ is open and convex:
+Thus by Corollary 1.2, since $B(x_0, \delta)$ is open and convex:
 \begin{equation*}
 \forall v, w \in B(0, \delta): ||R(v) - R(w)|| \leqslant \frac{||Df(x_0)||}{2}||v-w|| 
 \end{equation*}
@@ -745,8 +749,203 @@ which forces $v_i = 0$, which is a contradiction as an eigenvector cannot be the
 \end{equation*}
 in which case the argument does not hold, since we do not get a squeeze inequality. We now must show that $Df^{-1}(f(x)) = Df(x)^{-1}$, given the invertibility of the derivative (which we just proved), injectivity of the function (proved in part one), and continuity of the inverse (also proved in part one).\\
 
-
+We use the ideas of Lemma 1.1 and prove the result for $f: \mathbb{R} \xrightarrow{} \mathbb{R}$. Because $f$ is injective (and in this case a bijection as well), then $f^{-1}$ is a valid function, so combined with the continuity of $f^{-1}$ and invertibility of the derivative at a point $x$, we want to show there exists some $\hat{r}(y)$ such that:
+\begin{equation*}
+f^{-1}(y) = f^{-1}(f(x)) + \frac{1}{f'(x)}(y - f(x)) + \hat{r}(y - f(x))(y - f(x))
+\end{equation*}
+and
+\begin{equation*}
+\lim_{y \xrightarrow{} f(x)}\hat{r}(y) = 0
+\end{equation*}
+And we have the existence of some $r(z): \mathbb{R} \xrightarrow{} \mathbb{R}$ such that:
+\begin{equation*}
+f(z) = f(x) + f'(x)(z-x) + r(z-x)(z-x)
+\end{equation*}
+Then by injectivity, we can define $z \coloneq f^{-1}(y)$, so that we get:
+\begin{equation*}
+y - f(x) = (f'(x) + r(f^{-1}(y) - f^{-1}(f(x))))(f^{-1}(y) - f^{-1}(f(x)))
+\end{equation*}
+\begin{equation*}
+\implies f^{-1}(y) - f^{-1}(f(x)) = \frac{y - f(x)}{f'(x) + r(f^{-1}(y) - x)} - \frac{y - f(x)}{f'(x)} + \frac{1}{f'(x)}(y - f(x))
+\end{equation*}
+So, we can define:
+\begin{equation*}
+\hat{r}(y - f(x)) = \frac{1}{f'(x) + r(f^{-1}(y) - x)} - \frac{1}{f'(x)}
+\end{equation*}
+so for all nets that converge to $f(x)$, by continuity, we have that the image of those nets under $f^{-1}$ converges to $x$, which means:
+\begin{equation*}
+f^{-1}(y) \xrightarrow{} x \implies r(f^{-1}(y) - x) \xrightarrow{} 0 \implies \hat{r}(y - f(x)) \xrightarrow{} 0
+\end{equation*}
+because we have that for all nets that converge to $x$, the remainder converges to $0$. So we have that:
+\begin{equation*}
+(f^{-1})'(f(x)) = \frac{1}{f'(x)}
+\end{equation*}
+We can expand this same idea to vector valued functions and define:
+\begin{equation*}
+\hat{r}(y - f(x)) = (Df(x) + r(z - x))^{-1} - Df(x)^{-1}
+\end{equation*}
+By an analytic estimate (which we shall not prove here), we obtain the following:
+\begin{equation*}
+||\hat{r}(y - f(x))|| \leqslant 2||Df(x)^{-1}||^2||r(z - x)|| \xrightarrow{} 0
+\end{equation*}
+Using a similar estimate, we get continuity of the derivative of the local inverse:
+\begin{equation*}
+||Df^{-1}(y) - Df^{-1}(f(x_0))|| = ||Df(f^{-1}(y))^{-1} - Df(x_0)^{-1}||
+\end{equation*}
+\begin{equation*}
+ \leqslant 2||Df(x_0)^{-1}|| \cdot ||Df(f^{-1}(y)) - Df(x)|| < 2||Df(x_0)^{-1}||\epsilon
+\end{equation*}
+so the same $\delta$ suffices.
 \end{proof}
+To put this theorem more succinctly, if $f \in C^1$ at some point $x_0 \in \text{Dom}(f)$, then there exists $\delta > 0$ (provided by continuity of $Df(x)$ at $x_0$), where $f$ has a local inverse such that $f^{-1} \in C^1$ at $f(x_0)$.\\
+
+We now view the implicit function theorem which provides us the existence for a parametrization of a function given certain conditions at a certain point.
+\begin{thm}[Implicit Function Theorem]
+Consider $F: \mathbb{R}^{n+m} \xrightarrow{} \mathbb{R}^m$ and $x \in \mathbb{R}^n$ and $y \in \mathbb{R}^m$. Then take the point $(x_0, y_0) \in \text{int(Dom(F))}$, such that:
+\begin{equation*}
+F(x_0, y_0) = 0
+\end{equation*}
+If we are given some $B((x_0, y_0), \delta_0)$ on which $DF$ is continuous at the center and $D_yF$ is invertible at that point, then 
+\end{thm}
+\begin{proof}
+Consider the map $f: \mathbb{R}^{n+m} \xrightarrow{} \mathbb{R}^{n+m}$ defined as the following:
+\begin{equation*}
+f\left(\begin{bmatrix}
+    x\\y
+\end{bmatrix}\right) \coloneq \begin{bmatrix}
+    T(x, y)\\F(x, y)
+\end{bmatrix}
+\end{equation*}
+where $T(x, y) = x$. Then, we have that $Df(x, y) \in \mathcal{M}_{(n+m)\times (n+m)}(\mathbb{R})$:
+\begin{equation*}
+Df(x, y) = \begin{bmatrix}
+D_xT(x, y) & D_yT(x, y)\\
+D_xF(x, y) & D_yF(x, y)
+\end{bmatrix} = \begin{bmatrix}
+I & 0\\
+D_xF(x, y) & D_yF(x, y)
+\end{bmatrix}
+\end{equation*}
+We now observe that the continuity of $Df(x, y)$ at $(x_0, y_0)$ follows from that of $DF(x, y)$ via the argument in Lemma 1.7:
+\begin{equation*}
+||Df(x, y) - Df(x_0, y_0)|| \leqslant ||\begin{bmatrix}
+D_xF(x, y) - D_xF(x_0, y_0) & D_yF(x, y) - D_yF(x_0, y_0)
+\end{bmatrix}||
+\end{equation*}
+\begin{equation*}
+= ||DF(x, y) - DF(x_0, y_0)|| < \epsilon
+\end{equation*}
+so the same $\delta_0$ suffices. We now have a map, $f$, between same dimensional euclidean spaces, which is differentiable on a $\delta_0$-ball (follows rom the existence of $DF$) and continuous at the center. We now need to show that $Df(x_0, y_0)$ is invertible to invoke the Inverse Function Theorem.\\
+
+We claim that $A$ is the inverse of $Df(x_0, y_0)$ such that:
+\begin{equation*}
+A \circ Df(x_0, y_0) = Df(x_0, y_0) \circ A = I
+\end{equation*}
+examining the structure of $Df(x, y)$, we have that $DT(x, y) \in \mathcal{M}_{n \times (n+m)}(\mathbb{R})$, so since $x \in \mathbb{R}^n$ (which means it is a vector $(x_1, \cdots, x_n)$), we have that $I \in \mathcal{M}_{n \times n}(\mathbb{R})$ and $0 \in \mathcal{M}_{m \times n}(\mathbb{R})$. Similarly $D_xF(x_0, y_0) \in \mathcal{M}_{m \times n}(\mathbb{R})$ and $D_yF(x_0, y_0) \in \mathcal{M}_{m \times m}(\mathbb{R})$.\\
+
+In order to maintain the same dimensions and for block matrix multiplication to work:
+\begin{equation*}
+A \coloneq \begin{bmatrix}
+A_{11} & A_{12}\\
+A_{21} & A_{22}
+\end{bmatrix}
+\end{equation*}
+we claim that each block has the same dimension as its respective counterpart in $Df(x_0, y_0)$. Then we want the following:
+\begin{equation*}
+\begin{bmatrix}
+A_{11}I + A_{12}D_xF(x_0, y_0) & A_{12}D_yF(x_0, y_0)\\
+A_{21}I + A_{22}D_xF(x_0, y_0) & A_{22}D_yF(x_0, y_0)
+\end{bmatrix} = \begin{bmatrix}
+I & 0\\
+0 & I
+\end{bmatrix}
+\end{equation*}
+In order to ensure the top row evaluates to the desired result, we can set $A_{11} = I, A_{12} = 0$. Then since $D_yF(x_0, y_0)$ is invertible, we can set $A_{22} = D_yF(x_0, y_0)^{-1}$, which means $A_{21} = - D_yF(x_0, y_0)^{-1}D_xF(x_0, y_0)$. So:
+\begin{equation*}
+A = \begin{bmatrix}
+I & 0\\
+- D_yF(x_0, y_0)^{-1}D_xF(x_0, y_0) & D_yF(x_0, y_0)^{-1}
+\end{bmatrix}
+\end{equation*}
+We can check that this form of $A$ serves as the correct right inverse. Now, we have that $f$ is differentiable on a $\delta_0$ ball with an invertible and continuous derivative at $(x_0, y_0)$, the center of the ball. We can apply Theorem 1.4 now, which gives us some local inverse in $B((x_0, y_0), \delta) \subseteq B((x_0, y_0), \delta_0)$, such that:
+\begin{equation*}
+\forall (x, y) \in B((x_0, y_0), \delta): f^{-1}(f(x, y)) = f^{-1}\left(\begin{bmatrix}
+    x\\F(x, y)
+\end{bmatrix}\right) = \begin{bmatrix}
+    x\\y
+\end{bmatrix}
+\end{equation*}
+\begin{equation*}
+\forall (u, v) \in f(B(x_0, y_0), \delta): f(f^{-1}(u, v)) = \begin{bmatrix}
+u\\v
+\end{bmatrix}
+\end{equation*}
+By the first relation of $f^{-1}$ being a left inverse, let us say that:
+\begin{equation*}
+f^{-1}\left(\begin{bmatrix}
+x\\F(x, y)
+\end{bmatrix}\right) = \begin{bmatrix}
+h_1(x, F(x, y))\\h_2(x, F(x, y))
+\end{bmatrix} = \begin{bmatrix}
+x\\y
+\end{bmatrix}
+\end{equation*}
+Then by the second relation of right inverse:
+\begin{equation*}
+f\left(\begin{bmatrix}
+h_1(u, v)\\h_2(u, v)
+\end{bmatrix}\right) = \begin{bmatrix}
+h_1(u, v)\\F(h_1(u, v), h_2(u, v))
+\end{bmatrix} = \begin{bmatrix}
+u\\v
+\end{bmatrix}
+\end{equation*}
+which gives us that $F(u, h_2(u, v)) = v$ and $h_2(x, F(x, y)) = y$. Thus $h_2(x_0, 0) = y_0$ and $F(x_0, h_2(x_0, 0)) = 0$. Now observe that $f(x_0, y_0) = (x_0, 0)$ so $(x_0, 0) \in f(B((x_0, y_0), \delta))$.\\
+
+Since $f$ is an open map (as $f^{-1}$ is continuous on the image of the open ball), then there exists some $\delta' > 0$ such that $B((x_0, 0), \delta') \subseteq f(B((x_0, y_0), \delta))$. Additionally $B(x_0, \delta') \times \{0\} \subseteq B((x_0, 0), \delta')$. So, we can define $y(x) \coloneq h_2(x, 0)$ such that:
+\begin{equation*}
+\forall x \in B(x_0, \delta'): F(x, y(x)) = F(x, h_2(x, 0)) = 0 \land F(x_0, y(x_0)) = F(x_0, y_0) = 0
+\end{equation*}
+Because $Df^{-1}$ exists, we can say that $Dy$ exists as the bottom $m \times (n+m)$ matrix $Dh_2(x, 0)$, and is continuous by the continuity of $Df^{-1}$. We can also prove its uniqueness, but we shall not do that here. Observe that we can also have the level set constraint $F(x, y) = c$ for some $c \in \mathbb{R}$, and the proof would be the same. By chain rule, we have:
+\begin{equation*}
+\forall x \in B(x_0, \delta'): (F \circ G)(x) = c
+\end{equation*}
+where $G(x) = (x, y(x))$ such that $G: \mathbb{R}^n \xrightarrow{} \mathbb{R}^{n+m}$. Then:
+\begin{equation*}
+DF(x, y(x)) \circ DG(x) = \begin{bmatrix}
+D_xF(x, y(x)) & D_yF(x, y(x))
+\end{bmatrix}\begin{bmatrix}
+I\\Dy(x)
+\end{bmatrix} = 0
+\end{equation*}
+\begin{equation*}
+D_xF(x, y(x)) + D_yF(x, y(x))Dy(x) = 0 \implies Dy(x) = -D_yF(x, y(x))^{-1}D_xF(x, y(x))
+\end{equation*}
+We have the invertibility of $D_yF(x, y)$ for $(x, y) \in B((x_0, y_0), \delta)$, since $Df^{-1}(x, y) = Df(x, y)^{-1}$ from the implicit function theorem. Let us call this inverse $A$; then by the previous result, we know that $A_{22}$ serves as a left inverse:
+\begin{equation*}
+\begin{bmatrix}
+I & 0\\
+D_xF(x, y) & D_yF(x, y)
+\end{bmatrix}\begin{bmatrix}
+A_{11} & A_{12}\\A_{21} & A_{22}
+\end{bmatrix}
+\end{equation*}
+\begin{equation*}
+=  = \begin{bmatrix}
+A_{11} & A_{12}\\
+D_xF(x, y)A_{11} + D_yF(x, y)A_{21} & D_xF(x, y)A_{12} + D_yF(x, y)A_{22}
+\end{bmatrix} = \begin{bmatrix}
+I & 0\\
+0 & I
+\end{bmatrix}
+\end{equation*}
+This forces $A_{11} = I$ and $A_{12} = 0$, thus the bottom right simplifies to:
+\begin{equation*}
+D_yF(x, y)A_{22} = I
+\end{equation*}
+showing that $A_{22}$ also serves as a right inverse, thereby proving its invertibility. It follows by subset inclusion that this holds for all $x \in B(x_0, \delta')$. 
+\end{proof}
+
 \subsection{Configuration Spaces}
 The idea of configuration spaces is intertwined with the idea of manifolds, which I have not studied, so for this section we will limit ourselves to Euclidean configuration spaces. 
 \end{document}
