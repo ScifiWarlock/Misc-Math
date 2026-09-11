@@ -805,7 +805,14 @@ Consider $F: \mathbb{R}^{n+m} \xrightarrow{} \mathbb{R}^m$ and $x \in \mathbb{R}
 \begin{equation*}
 F(x_0, y_0) = 0
 \end{equation*}
-If we are given some $B((x_0, y_0), \delta_0)$ on which $DF$ is continuous at the center and $D_yF$ is invertible at that point, then 
+If we are given some $B((x_0, y_0), \delta_0)$ on which $DF$ is continuous at the center and $D_yF$ is invertible at that point, then there exists some $\delta' > 0$ such that:
+\begin{equation*}
+\forall x \in B(x_0, \delta'): y(x_0) = y_0 \land F(x, y(x)) = 0
+\end{equation*}
+where $y(x)$ is a unique parametrization on the ball $B(x_0, \delta')$ and is differentiable on the ball and $C^1$ at $x_0$. Additionally:
+\begin{equation*}
+\forall x \in B(x_0, \delta'): Dy(x) = -D_yF(x, y(x))^{-1}D_xF(x, y(x))
+\end{equation*}
 \end{thm}
 \begin{proof}
 Consider the map $f: \mathbb{R}^{n+m} \xrightarrow{} \mathbb{R}^{n+m}$ defined as the following:
