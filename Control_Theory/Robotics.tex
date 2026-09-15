@@ -64,6 +64,10 @@ Textbooks Used to Develop these Notes:
 \item \textit{\textbf{Calculus on Manifolds} - Michael Spivak}
 \item \textit{\textbf{Mathematical Analysis} - Tom Apostol}
 \end{enumerate}
+Other Textbooks Referenced:
+\begin{enumerate}
+\item \textit{\textbf{An Introduction to Manifolds} - Loring Tu}
+\end{enumerate}
 \end{tcolorbox}
 \begin{tcolorbox}[colback=white, colframe=black, arc=0mm]
 \textbf{Notes Last Updated:} \today
@@ -76,7 +80,7 @@ Textbooks Used to Develop these Notes:
 \textbf{NOTE:} Any sections/subsections marked with an asterisk are extra sections and have been added to this document as extensions of introduced theory.
 \pagebreak
 
-\section{Holonomic Constraints}
+\section{Constrained Configuration Spaces}
 \subsection{Basic Multivariable Analysis}
 \textbf{Note:} The following notes may not be entirely rigorous! I have attempted to write them logically to the best of my abilities so that they follow a structured narrative.\\
 
@@ -415,10 +419,11 @@ b_n - a_n
 \begin{cor}
 If $\exists k \in \mathbb{R}, \exists j \in [1, n]: b-a = ke_j$ and the partial derivative of $f_i$ exists in the $e_j$ direction, then:
 \begin{equation*}
-\exists z \in \text{span}(e_j): \frac{\partial f_i(z)}{\partial e_j}k = f_i(b) - f_i(a)
+\exists z \in \mathbb{R}^n: \frac{\partial f_i(z)}{\partial e_j}k = f_i(b) - f_i(a) \land z_j \in (a, b)
 \end{equation*}
+We can say the same thing for a vector valued function $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$.
 \end{cor}
-Notice this corollarly does not require full differentiability of $f_i$ (which means it does not require the gradient to be the total derivative of $f$ at said point). We can expand MVT to the vector valued function case with an inequality.
+Notice this corollary does not require full differentiability of $f_i$ (which means it does not require the gradient to be the total derivative of $f$ at said point). We can expand MVT to the vector valued function case with an inequality.
 
 \begin{cor}
 Given $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ and an open, convex subset $U \subseteq \mathbb{R}^n$ on which $f$ is totally differentiable and $||Df(x)||$ is bounded, then:
@@ -496,7 +501,7 @@ where we define $V_i \coloneq v_1e_1 + \cdots + v_ie_i$. Then, we can repeatedly
 = \frac{1}{||v||}\sum_{j=1}^{m}\left|\sum_{i=1}^{n}\left(\frac{\partial f_j(z_i)}{\partial e_i} - \frac{\partial f_j(x)}{\partial e_i}\right)v_i\right| \leqslant \frac{\epsilon \cdot mn \cdot ||v||}{||v||} = \epsilon \cdot mn
 \end{equation*}
 \end{proof}
-The MVT introduced in Theorem 1.2 fails for vector valued functions as we cannot guarantee the same $z$ satisfies the equality for all $f_i$; however, there are some generalizations to this case which we can expound upon later. Finally, we can expand the idea of linear approximation to the total vector valued function:
+The MVT introduced in Theorem 1.2 fails for vector valued functions as we cannot guarantee the same $z$ satisfies the equality for all $f_i$. Finally, we can expand the idea of linear approximation to the total vector valued function:
 
 \begin{lem}
 $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ is totally differentiable if and only if there exists $r(v): \mathbb{R}^n \xrightarrow{} \mathcal{M}_{m \times n}(\mathbb{R})$ such that:
@@ -682,7 +687,7 @@ So, we see that $DR(v) = Df(x_0+v) - Df(x_0)$, so by continuity, we see that, ta
 \end{equation*}
 Thus by Corollary 1.2, since $B(x_0, \delta)$ is open and convex:
 \begin{equation*}
-\forall v, w \in B(0, \delta): ||R(v) - R(w)|| \leqslant \frac{||Df(x_0)||}{2}||v-w|| 
+\forall v, w \in B(0, \delta): ||R(v) - R(w)|| \leqslant \frac{1}{2||Df(x_0)^{-1}||}||v-w|| 
 \end{equation*}
 \begin{equation*}
 R(v) - R(w) = f(x_0+v) - f(x_0) - Df(x_0)(v) - f(x_0+w) + f(x_0) + Df(x_0)(w)
@@ -800,14 +805,14 @@ so the same $\delta$ suffices.
 To put this theorem more succinctly, if $f \in C^1$ at some point $x_0 \in \text{Dom}(f)$, then there exists $\delta > 0$ (provided by continuity of $Df(x)$ at $x_0$), where $f$ has a local inverse such that $f^{-1} \in C^1$ at $f(x_0)$.\\
 
 \begin{lem}
-Given some matrix $A$ with $n$ rows and $k$ columns and an arbitrary submatrix $B$ with $m$ rows and $j$ columns, we have that $||B|| \leqslant ||A||$.
+Given some matrix $A \in \mathcal{M}_{n \times k}(\mathbb{R})$and an arbitrary submatrix $B \in \mathbb{M}_{m \times j}(\mathbb{R})$, we have that $||B|| \leqslant ||A||$.
 \end{lem}
 \begin{proof}
 Consider the submatrix $C$, for which each column of $C$ shares the same $j$ column numbers as $B$ with no row deletion. Then for an arbitrary $v \in \mathbb{R}^j$ where $Bv$ is valid, we also have that $Cv$ is valid.
 \begin{equation*}
 ||Bv|| = \sqrt{(B_1 \cdot v)^2 + \cdots + (B_m \cdot v)^2} \leqslant ||Cv||
 \end{equation*}
-where $B_i$ is the $i$-th row of $B$. The inequality follows from the fact that each column of $B$ is a trimmed version of its respective counterpart in $C$, thus $B$ can be obtained by row deletion of $C$. Now, we can add zeros in $v \in \mathbb{R}^j$ to get $v' \in \mathbb{R}^k$, so that $||Cv|| = ||Av||$, thus:
+where $B_i$ is the $i$-th row of $B$. The inequality follows from the fact that each column of $B$ is a trimmed version of its respective counterpart in $C$, thus $B$ can be obtained by row deletion of $C$. Now, we can add zeros in $v \in \mathbb{R}^j$ to get $v' \in \mathbb{R}^k$, so that $||Cv|| = ||Av'||$, thus:
 \begin{equation*}
 \frac{||Bv||}{||v||} \leqslant \frac{||Cv||}{||v||} \leqslant ||A||
 \end{equation*}
@@ -848,7 +853,7 @@ I & 0\\
 D_xF(x, y) & D_yF(x, y)
 \end{bmatrix}
 \end{equation*}
-We now observe that the continuity of $Df(x, y)$ at $(x_0, y_0)$ follows from that of $DF(x, y)$ via the argument in Lemma 1.7:
+We now observe that the continuity of $Df(x, y)$ at $(x_0, y_0)$ follows from that of $DF(x, y)$ via the argument in Lemma 1.9 and the fact that the top two blocks are $0$ matrices:
 \begin{equation*}
 ||Df(x, y) - Df(x_0, y_0)|| \leqslant ||\begin{bmatrix}
 D_xF(x, y) - D_xF(x_0, y_0) & D_yF(x, y) - D_yF(x_0, y_0)
@@ -857,7 +862,7 @@ D_xF(x, y) - D_xF(x_0, y_0) & D_yF(x, y) - D_yF(x_0, y_0)
 \begin{equation*}
 = ||DF(x, y) - DF(x_0, y_0)|| < \epsilon
 \end{equation*}
-so the same $\delta_0$ suffices. We now have a map, $f$, between same dimensional euclidean spaces, which is differentiable on a $\delta_0$-ball (follows rom the existence of $DF$) and continuous at the center. We now need to show that $Df(x_0, y_0)$ is invertible to invoke the Inverse Function Theorem.\\
+so the same $\delta_0$ suffices (using the conclusion Lemma 1.9, we actually get equality). We now have a map, $f$, between same dimensional euclidean spaces, which is differentiable on a $\delta_0$-ball (follows rom the existence of $DF$) and continuous at the center. We now need to show that $Df(x_0, y_0)$ is invertible to invoke the Inverse Function Theorem.\\
 
 We claim that $A$ is the inverse of $Df(x_0, y_0)$ such that:
 \begin{equation*}
@@ -969,5 +974,122 @@ showing that $A_{22}$ also serves as a right inverse, thereby proving its invert
 \end{proof}
 
 \subsection{Configuration Spaces}
-The idea of configuration spaces is intertwined with the idea of manifolds, which I have not studied, so for this section we will limit ourselves to Euclidean configuration spaces. 
+The configuration space of a robot is the space of all various positions the parts of a robot or the robot itself can be in and is topologically a manifold (e.g. torus, cylinder, etc.). The state space is an extension of this.\\
+
+We will denote the configuration space as $\mathcal{C}$, and the dimension of the configuration space is called the degrees of freedom. Take for example the stationary arm robot with 4 revolute joints and links, we define:
+\begin{equation*}
+\mathcal{C} \coloneq \{[\theta_1, \theta_2, \theta_3, \theta_4]^T: (\forall i \in \{1, 2, 3, 4\}: \theta_i \in [0, 2\pi))\}
+\end{equation*}
+We call $(\theta_1, \theta_2, \theta_3, \theta_4)$ as coordinates, which to be more precise, are component functions of a local chart:
+\begin{equation*}
+\theta: U \xrightarrow{} \mathbb{R}^4
+\end{equation*}
+where $U \subseteq \mathcal{C}$ and $U$ is open. Thus:
+\begin{equation*}
+\forall p \in U: \theta(p) = \begin{bmatrix}
+\theta_1(p)\\\theta_2(p)\\\theta_3(p)\\\theta_4(p)
+\end{bmatrix} \in \mathbb{R}^4
+\end{equation*}
+The configuration space of a Cartesian robot (also called gantry or rectilinear) is $\mathbb{R}^n$ depending on the dimensions (typically $\mathbb{R}, \mathbb{R}^2, \mathbb{R}^3$). A good example is a 3D printer, which has a nozzle that can move in the $x, y$ directions and up/down, which constitutes the $z$ direction.
+
+\subsubsection{Holonomic Constraints and Implicit Functions}
+\begin{defn}[Holonomic Constraints]
+Given $\dim(\mathcal{C}) = n$, a holonomic constraint is one where for some $F: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$ such that for some $k \in \mathbb{R}^m$:
+\begin{equation*}
+F(c_1, \cdots, c_n) = k
+\end{equation*}
+where $(c_1, \cdots, c_n)$ are the coordinates of $\mathcal{C}$ and $n \geqslant m$.
+\end{defn}
+\textbf{Note:} Going forward, we shall assume that holonomic constraints are $C^1$ on their domain, though they need not be.\\
+
+In this definition, we treat the coordinates as Euclidean vectors in $\mathbb{R}^n$. In reality, the map being used is $F: \mathcal{C} \xrightarrow{} \mathbb{R}^m$, though the results we shall further introduce holds for both cases of $F$ (and can be further extended to when $F$ is a $C^1$ map between manifolds). 
+\begin{lem}
+A linear transformation $T: V \xrightarrow{} W$ is surjective if and only if its matrix representation has full row rank.
+\end{lem}
+\begin{proof}
+This follows from the rank nullity theorem, for which the rank should be $\dim(W)$. If we select bases $\beta_V, \beta_W$, then $[T]_{\beta_V}^{\beta_W}$ has $\dim(W)$ rows.
+\end{proof}
+We now define the following notion:
+
+\begin{defn}[Regular Level Set]
+The following is the definition of a level set for some $c \in \mathbb{R}^m$ given $F: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$:
+\begin{equation*}
+F^{-1}(k) \coloneq \{c \in \mathbb{R}^n: F(c) = k\}
+\end{equation*}
+A regular level set is one whose total derivative (aka differential) is surjective (or equivalently full row rank) at all $c \in F^{-1}(k)$. 
+\end{defn}
+In the case of our "approximate" map $F: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$, our total derivative is the Jacobian $DF(c) \in \mathcal{M}_{m \times n}(\mathbb{R})$. This is actually equivalent to one of the sufficient conditions in Implicit Function Theorem for $D_yF(x_0, y_0)$ to be invertible.\\
+
+Since $n \geqslant m$, let $n = m+j$. We know that $DF(c)$ has $m$ rows, which means it has rank $m$ (given $F^{-1}(k)$ is a regular level set and $c \in F^{-1}(k)$). Then take the $m$ linearly independent columns (as row rank is equal to column rank) and label the coordinate directions of their partials as $e_{n-m+1}, \cdots, e_n$.\\
+
+Then label the remaining directions for the $j$ linearly dependent columns as $e_1, \cdots e_{n-m}$. Then:
+\begin{equation*}
+DF(c) = \begin{bmatrix}
+D_xF(c) & D_yF(c)
+\end{bmatrix}
+\end{equation*}
+Since $D_yF(c)$ is a square matrix of full rank, it is invertible. The converse automatically follows. Additionally, we can write $F: \mathbb{R}^{m+j} \xrightarrow{} \mathbb{R}^m$, where $x \in \mathbb{R}^j, y \in \mathbb{R}^m$. 
+
+\begin{defn}[Spivak]
+A subset $M$ of $\mathbb{R}^n$ is an $n-m$ dimensional manifold if for all $x \in M$:
+\begin{enumerate}
+\item There exists some open neighborhood of $U$ of $x$ and some $V \subseteq \mathbb{R}^n$
+\item There exists a diffeomorphism $h: U \xrightarrow{} V$ such that:
+\begin{equation*}
+h(U \cap M) = V \cap (\mathbb{R}^{n-m} \times \{0\})
+\end{equation*}
+\end{enumerate}
+where a diffeomorphism is a $C^k$ bijection with a $C^k$ inverse. When we set $k= 0$, we obtain a homeomorphism, or a bijection between two topological spaces which is continuous and has a continuous inverse.
+\end{defn}
+\begin{lem}
+Given a holonomic constraint as per Definition 1.4, the regular level set $F^{-1}(k)$ is the constrained configuration space $\mathcal{C}'$ with dimension $n-m$.
+\end{lem}
+\begin{proof}
+In the proof for the Implicit Function Theorem, we obtained a function $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^n$, where:
+\begin{equation*}
+f(x, y) \coloneq \begin{bmatrix}
+x\\F(x, y)
+\end{bmatrix}
+\end{equation*}
+given $F: \mathbb{R}^n \xrightarrow{} \mathbb{R}^m$. The inverse function theorem gave us that $f$ has a local inverse in some ball $B((x_0, y_0), \delta)$ which is differentiable in the image and continuous at $f(x_0, y_0) = (x_0, k)$.\\
+
+In this case, let $(x_0, y_0)$ be an arbitrary point in $F^{-1}(k)$. Then let $U = B((x_0, y_0), \delta)$, $V = f(B((x_0, y_0), \delta))$ and $f$ be the diffeomorphism in question, then:
+\begin{equation*}
+\forall (x, y) \in U \cap M: f(U \cap M) = (x, k) \in f(B((x_0, y_0), \delta)) \cap (\mathbb{R}^{n-m} \times \{k\})
+\end{equation*}
+Now consider some $(x, k) \in f(B((x_0, y_0), \delta)) \cap (\mathbb{R}^{n-m} \times \{k\})$, we want to show that $(x, k) \in f(U \cap M)$. We have the identity:
+\begin{equation*}
+\forall (u, v) \in f(B((x_0, y_0), \delta)): F(u, h_2(u, v)) = (F \circ f^{-1})(u, v) = v
+\end{equation*}
+Thus $F(f^{-1}(x, k)) = k$, which tells us that $f^{-1}(x, k) \in M$ and:
+\begin{equation*}
+(x, k) \in f(B((x_0, y_0), \delta)) \cap (\mathbb{R}^{n-m} \times \{k\}) \implies f^{-1}(x, k) \in B((x_0, y_0), \delta)
+\end{equation*}
+So $f^{-1}(x, k) \in U \cap M$, which gives us that $(x, k) \in f(U \cap M)$.
+\end{proof}
+
+Lemma 1.11 also gives us an important consequence (via conclusion of the implicit function theorem), that is, the number of variables required to represent the variables/behavior of a system can be locally reduced around a point in the level set by implicit parametrization.
+
+\subsection{More on Manifolds*}
+An interesting result is that the inverse and implicit function theorems are logically equivalent. The provided proofs already show that given the inverse function theorem, we can obtain the implicit function theorem.
+
+For the converse, assume we have implicit function theorem. Then consider the function $f: \mathbb{R}^n \xrightarrow{} \mathbb{R}^n$ and:
+\begin{equation*}
+F(x, y) = f(x) - y = 0
+\end{equation*}
+Then the graph of $f$ is the level set $F^{-1}(0)$. Assume we are also given the sufficient conditions required by the inverse function theorem, that is:
+\begin{enumerate}
+\item $f(x_0) = y_0$ and $Df(x_0)$ is invertible
+\item $Df(x)$ exists on an open ball around $x_0$ and is continuous at $x_0$
+\end{enumerate}
+Then $D_yF(x_0, y_0) = -I$ and $D_xF(x_0, y_0) = Df(x_0)$, so the continuity of $DF$ follows from $Df$ and both $n \times n$ matrices are invertible (so implicit function theorem can be applied to both $x, y$).
+
+So, $x$ can be a function of $y$, let us call it $g(y)$, in which case $f(g(y)) = y$. Since $x = g(y)$, then $g(f(x)) = y$. Thus $g$ is a two sided local inverse in some neighborhood of a point in the level set (which equivalently is a point in the graph of $f$).
+
+\subsection{Pfaffian Constraints*}
+This is currently beyond my understanding... The topic requires integration on manifolds.
+
+\subsection{Examples in Robotics}
+
+\section{Constrainted State Spaces}
 \end{document}
