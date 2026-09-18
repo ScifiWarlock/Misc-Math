@@ -588,6 +588,8 @@ we see that:
 
 
 \subsection{Inverse and Implicit Function Theorems}
+\textbf{Note:} In the rest of these notes, when I say a function $f$ is "$C^1$ at $x_0$" (this is nonstandard), it is my shorthand for saying that $f$ is differentiable in a neighborhood of $x_0$ and $Df$ is continuous at $x_0$.\\
+
 The idea of the inverse function theorem stems from our idea of the linear approximation where $f(x+v) \approx f(x) + Df(x)v$. Then $v \approx Df(x)^{-1}(f(x+v) - f(x))$. Given the recurring idea of the error function where:
 \begin{equation*}
 f(x+h) = f(x) + f'(x)h + r(h)h
@@ -800,9 +802,9 @@ Using a similar estimate, we get continuity of the derivative of the local inver
 \begin{equation*}
  \leqslant 2||Df(x_0)^{-1}|| \cdot ||Df(f^{-1}(y)) - Df(x)|| < 2||Df(x_0)^{-1}||\epsilon
 \end{equation*}
-so the same $\delta$ suffices.
+so using the same logic as differentiability, for all nets $y \xrightarrow{} f(x_0)$ by continuity of $f^{-1}$, $f^{-1}(y) \xrightarrow{} x$. By the continuity of $Df$, we have the continuity of $Df^{-1}$ at $f(x_0)$.
 \end{proof}
-To put this theorem more succinctly, if $f \in C^1$ at some point $x_0 \in \text{Dom}(f)$, then there exists $\delta > 0$ (provided by continuity of $Df(x)$ at $x_0$), where $f$ has a local inverse such that $f^{-1} \in C^1$ at $f(x_0)$.\\
+To put this theorem more succinctly, if $f \in C^1$ at some point $x_0 \in \text{Dom}(f)$, then there exists $\delta > 0$ (provided by continuity of $Df(x)$ at $x_0$), where $f$ has a local inverse in $f(B(x_0, \delta))$ such that $f^{-1} \in C^1$ at $f(x_0)$.\\
 
 \begin{lem}
 Given some matrix $A \in \mathcal{M}_{n \times k}(\mathbb{R})$and an arbitrary submatrix $B \in \mathbb{M}_{m \times j}(\mathbb{R})$, we have that $||B|| \leqslant ||A||$.
@@ -933,7 +935,7 @@ Since $f$ is an open map (as $f^{-1}$ is continuous on the image of the open bal
 \begin{equation*}
 \forall x \in B(x_0, \delta'): F(x, y(x)) = F(x, h_2(x, 0)) = 0 \land F(x_0, y(x_0)) = F(x_0, y_0) = 0
 \end{equation*}
-Because $Df^{-1}$ exists, we can say that $Dy$ exists as $D_xh_2(x, 0)$, and is continuous by the continuity of $Df^{-1}$ at $(x_0, y_0)$ and Lemma 1.9. We can also prove its uniqueness, but we shall not do that here. Observe that we can also have the level set constraint $F(x, y) = c$ for some $c \in \mathbb{R}$, and the proof would be the same. By chain rule, we have:
+Because $Df^{-1}$ exists, we can say that $Dy$ exists as $D_xh_2(x, 0)$, and is continuous by the continuity of $Df^{-1}$ at $f(x_0, y_0) = (x_0, 0)$ and Lemma 1.9. We can also prove its uniqueness, but we shall not do that here. Observe that we can also have the level set constraint $F(x, y) = c$ for some $c \in \mathbb{R}$, and the proof would be the same. By chain rule, we have:
 \begin{equation*}
 \forall x \in B(x_0, \delta'): (F \circ G)(x) = c
 \end{equation*}
@@ -1082,10 +1084,36 @@ Then the graph of $f$ is the level set $F^{-1}(0)$. Assume we are also given the
 \item $f(x_0) = y_0$ and $Df(x_0)$ is invertible
 \item $Df(x)$ exists on an open ball around $x_0$ and is continuous at $x_0$
 \end{enumerate}
-Then $D_yF(x_0, y_0) = -I$ and $D_xF(x_0, y_0) = Df(x_0)$, so the continuity of $DF$ follows from $Df$ and both $n \times n$ matrices are invertible (so implicit function theorem can be applied to both $x, y$).
+Then:
+\begin{equation*}
+DF(x, y) = \begin{bmatrix}
+Df(x) & -I
+\end{bmatrix}
+\end{equation*}
+\begin{equation*}
+||DF(x, y) - DF(x_0, y_0)|| \leqslant ||Df(x) - Df(x_0)|| < \epsilon
+\end{equation*}
+Thus $F \in C^1$ at $(x_0, y_0)$ by the continuity of $Df$, so the same $\delta$ suffices. Since the value of $y$ does not matter, we can simply consider the neighborhood $B((x_0, y_0), \delta)$. Now because $Df(x_0)$ is invertible and continuous at $x_0$, if we take $\epsilon = (1/2)||Df(x_0)||^{-1}$, then via the alternate proof of part one in the inverse function theorem, we get that $f$ is also injective on $B(x_0, \delta)$.\\
 
-So, $x$ can be a function of $y$, let us call it $g(y)$, in which case $f(g(y)) = y$. Since $x = g(y)$, then $g(f(x)) = y$. Thus $g$ is a two sided local inverse in some neighborhood of a point in the level set (which equivalently is a point in the graph of $f$).
+Furthermore, we have that $D_xF(x_0) = Df(x_0)$ is invertible and given the continuity of $DF$, we apply implicit function theorem to see that:
+\begin{equation*}
+\exists \delta' > 0, \forall y \in B(y_0, \delta'): F(g(y), y) = f(g(y)) - y = 0
+\end{equation*}
+where $g$ is differentiable in the ball and $Dg$ continuous at $y_0$. So $g$ is a right inverse. Similarly, given some $x$ such that $x = g(y)$ for some $y \in B(y_0, \delta')$ implies that $x = g(f(x))$ showing that it is a left inverse for $x \in g(B(y_0, \delta'))$. However, we cannot necessarily say that $f: g(B(y_0, \delta')) \xrightarrow{} B(y_0, \delta')$ is a bijection (I believe we can actually prove it is by showing $g$ is an injection, but that is still not enough to obtain a diffeomorphism. The remaining proof will remain the same).
 
+Consider the set $f^{-1}(B(y_0, \delta'))$, which is open due to the continuity of $f$. We have that $x_0 \in f^{-1}(B(y_0, \delta'))$, so we consider $B(x_0, \delta_m)$, where:
+\begin{equation*}
+\delta_m \coloneq \min\{\delta, \delta''\}
+\end{equation*}
+where $\delta$ is from the injectivity and $\delta''$ is from the interior point property. This means $f: B(x_0, \delta_m) \xrightarrow{} f(B(x_0, \delta_m))$ is injective, surjective, differentiable within the ball, and $Df$ continuous at $x_0$. Additionally:
+\begin{equation*}
+B(x_0, \delta_m) \subseteq f^{-1}(B(y_0, \delta')) \implies f(B(x_0, \delta_m)) \subseteq B(y_0, \delta')
+\end{equation*}
+Thus for all $y \in f(B(x_0, \delta_m))$, $F(g(y), y) = 0$, so $g$ is a left and right inverse as per our previous argument, which gives us $g(f(B(x_0, \delta_m))) = B(x_0, \delta_m)$. Additionally, $g$ is differentiable on this image ball and $Dg$ continuous at $y_0$ by subset inclusion.\\
+
+Therefore $f: B(x_0, \delta_m) \xrightarrow{} f(B(x_0, \delta_m))$ is the diffeomorphism in question, with a local continuously differentiable (at $y_0$) inverse $g: f(B(x_0, \delta_m)) \xrightarrow{} B(x_0, \delta_m)$.
+%I think this conclusion would require proving implicit function theorem without using inverse function theorem
+%otherwise it seems to be circular, this is something I will need to look at
 \subsection{Pfaffian Constraints*}
 This is currently beyond my understanding... The topic requires integration on manifolds.
 
