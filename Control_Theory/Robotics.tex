@@ -12,13 +12,15 @@
 \usepackage{upgreek}
 \usepackage{hyperref}
 \usepackage{tikz}
+\usepackage{subfiles}
 \usetikzlibrary{positioning}
 %making an edit, want to see if auto script commits it%
 %making another edit to test the commit bot
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1ex plus 0.5ex minus 0.2ex} % Matches the paragraph spacing of exam
-\hbadness=10000 % Place in your preamble
+\hbadness=10000
+
 
 
 \newtheorem{thm}{Theorem}[section]
@@ -55,12 +57,13 @@
 }
 \begin{document}
 \maketitle
-This is a set of notes covering interesting concepts I find while studying the Modern Robotics textbook. I will try to bring analytic theory whenever applicable.
+This is a set of notes covering interesting concepts I find while studying anything related to robotics. I will try to bring analytic theory whenever applicable.
 
 \begin{tcolorbox}[colback=white, colframe=black, arc=0mm]
 Textbooks Used to Develop these Notes:
 \begin{enumerate}
 \item \textit{\textbf{Modern Robotics} - Kevin Lynch, Frank Park}
+\item \textit{\textbf{Reinforcement Learning: An Introduction} - Richard Sutton, Andrew Barto}
 \item \textit{\textbf{Calculus on Manifolds} - Michael Spivak}
 \item \textit{\textbf{Mathematical Analysis} - Tom Apostol}
 \end{enumerate}
@@ -789,11 +792,11 @@ because we have that for all nets that converge to $x$, the remainder converges 
 \end{equation*}
 We can expand this same idea to vector valued functions and define:
 \begin{equation*}
-\hat{r}(y - f(x)) = (Df(x) + r(z - x))^{-1} - Df(x)^{-1}
+\hat{r}(y - f(x)) = (Df(x) + r(f^{-1}(y) - x))^{-1} - Df(x)^{-1}
 \end{equation*}
 By an analytic estimate (which we shall not prove here), we obtain the following:
 \begin{equation*}
-||\hat{r}(y - f(x))|| \leqslant 2||Df(x)^{-1}||^2||r(z - x)|| \xrightarrow{} 0
+||\hat{r}(y - f(x))|| \leqslant 2||Df(x)^{-1}||^2||r(f^{-1}(y) - x)|| \xrightarrow{} 0
 \end{equation*}
 Using a similar estimate, we get continuity of the derivative of the local inverse:
 \begin{equation*}
@@ -1111,7 +1114,10 @@ B(x_0, \delta_m) \subseteq f^{-1}(B(y_0, \delta')) \implies f(B(x_0, \delta_m)) 
 \end{equation*}
 Thus for all $y \in f(B(x_0, \delta_m))$, $F(g(y), y) = 0$, so $g$ is a left and right inverse as per our previous argument, which gives us $g(f(B(x_0, \delta_m))) = B(x_0, \delta_m)$. Additionally, $g$ is differentiable on this image ball and $Dg$ continuous at $y_0$ by subset inclusion.\\
 
-Therefore $f: B(x_0, \delta_m) \xrightarrow{} f(B(x_0, \delta_m))$ is the diffeomorphism in question, with a local continuously differentiable (at $y_0$) inverse $g: f(B(x_0, \delta_m)) \xrightarrow{} B(x_0, \delta_m)$.
+Therefore $f: B(x_0, \delta_m) \xrightarrow{} f(B(x_0, \delta_m))$ is the homemorphism (can be extended to diffeomorphisms) in question, with a local continuously differentiable (at $y_0$) inverse $g: f(B(x_0, \delta_m)) \xrightarrow{} B(x_0, \delta_m)$. A simple chain rule computation tells us that:
+\begin{equation*}
+\forall x \in B(x_0, \delta_m): Dg(f(x)) = Df(x)^{-1}
+\end{equation*}
 %I think this conclusion would require proving implicit function theorem without using inverse function theorem
 %otherwise it seems to be circular, this is something I will need to look at
 \subsection{Pfaffian Constraints*}
@@ -1119,5 +1125,8 @@ This is currently beyond my understanding... The topic requires integration on m
 
 \subsection{Examples in Robotics}
 
-\section{Constrainted State Spaces}
+\section{Basic Probability Theory}
+
+\section{Reinforcement Learning}
+\subfile{RL.tex}
 \end{document}

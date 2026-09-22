@@ -1,0 +1,18 @@
+\documentclass[Robotics.tex]{subfiles}
+
+\begin{document}
+\subsection{Definitions}
+The agent is the main entity making the decisions within the environment and responding
+to feedback from the environment. Each action the agent does nets a reward. High reward might
+mean a good action in the short run; however, going down that path may not yield a higher total reward.
+Thus, we introduce the following notion to fix this issue, otherwise the algorithm will act greedily:
+
+\begin{defn}[Policies/Values]
+A policy is a function that takes the current state and decides the next immediate action. A value function predicts
+the expected total reward after an action is taken. RL models look to improve the value obtained.
+
+Policy gradient methods implement only policy functions. Some RL systems implement value functions and implicitly derive the
+policy function, while some have both as separate processes.
+\end{defn}
+
+\end{document}
