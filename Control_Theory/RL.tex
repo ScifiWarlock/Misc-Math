@@ -1,7 +1,7 @@
 \documentclass[Robotics.tex]{subfiles}
 
 \begin{document}
-\subsection{Definitions}
+\subsection{Definitions and N-bandits}
 The agent is the main entity making the decisions within the environment and responding
 to feedback from the environment. Each action the agent does nets a reward. High reward might
 mean a good action in the short run; however, going down that path may not yield a higher total reward.
@@ -35,7 +35,7 @@ we can derive an implicit policy from an "action-value" function. The action val
 \begin{equation*}
 Q: S \times A \xrightarrow{} \mathbb{R}
 \end{equation*}
-Given some $a \in A$, let $q(s, a)$ be the true mean value of the action $a$ in the state $s$. Since the $n$-bandit problem considers one state, we can write this as $Q(a)$, which is fixed throughout.
+Given some $a \in A$, let $Q(s, a)$ be the true mean value of the action $a$ in the state $s$. Since the $n$-bandit problem considers one state, we can write this as $Q(a)$, which is fixed throughout.
 
 Then, we can define the sample average value through the following notions. Let $t$ be the enumeration variable for discrete time steps and $\{a_t\}_{t \in \mathbb{N}} \in A^\mathbb{N}$ be the sequence of past actions (with time steps not attained marked with an empty action):
 \begin{enumerate}
