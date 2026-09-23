@@ -15,4 +15,59 @@ Policy gradient methods implement only policy functions. Some RL systems impleme
 policy function, while some have both as separate processes.
 \end{defn}
 
+We also introduce the following two concepts. Branching off the idea of a configuration space, we introduce the notion of a state space.
+In our explorations of robots and their configuration spaces, we considered the system to be the robot itself (with no external environment).
+
+In the case of reinforcement learning, in order for the agent to receive a reward, there must be an external environment, which itself has a configuration.
+\begin{defn}
+The state space $S$ is defined as a manifold with local coordinates from the configuration space of the environment plus agent and velocity values if applicable.
+\end{defn}
+In a multi-armed bandit problem (or $n$-armed bandit), we have multiple choices each with their unknown probability distributions. The agent must choose based on what
+maximizes the reward and must learn the probability distributions of each (this is the dilemma of exploration v.s. exploitation). This situation has only one state
+because the choices and their distributions remain the same no matter the action of the agent. Each time step, the agent has the same $n$ choices.
+
+Similarly, we define:
+\begin{defn}
+The action space $A$ is the collection of all possible actions the agent can execute within the environment.
+\end{defn}
+In the case of the $n$-bandit problem, the action space is discrete and has $n$ actions. Now in order to decide what action to take next, we require a policy. We show how in this one state system,
+we can derive an implicit policy from an "action-value" function. The action value function is a map:
+\begin{equation*}
+Q: S \times A \xrightarrow{} \mathbb{R}
+\end{equation*}
+Given some $a \in A$, let $q(s, a)$ be the true mean value of the action $a$ in the state $s$. Since the $n$-bandit problem considers one state, we can write this as $Q(a)$, which is fixed throughout.
+
+Then, we can define the sample average value through the following notions. Let $t$ be the enumeration variable for discrete time steps and $\{a_t\}_{t \in \mathbb{N}} \in A^\mathbb{N}$ be the sequence of past actions (with time steps not attained marked with an empty action):
+\begin{enumerate}
+\item Let $N_{t_0}(a) \in \mathbb{N}$ be the number of times $a$ has been chosen for $t \leqslant t_0$
+\item Let $R_i$ be the $i$-th reward for the action $a$ where $i \in [0, N_{t_0}(a)] \cap \mathbb{N}$
+\end{enumerate}
+Then the estimated true value is:
+\begin{equation*}
+Q_{t_0}(a) \coloneq \frac{\sum_{i=0}^{N_{t_0}(a)}R_i(a)}{N_{t_0}(a)}
+\end{equation*}
+This gives the running average reward of an action $a$ up to the $t_0$ time step. By the law of large numbers, we have that:
+\begin{equation*}
+\lim_{t \xrightarrow{} \infty}Q_t(a) = Q(a)
+\end{equation*}
+We can derive a greedy implicit policy in this case, which simply gives us the action that provides the highest estimated true value at the current time step $t_0$:
+\begin{equation*}
+a_{t_0 + 1} \coloneq \text{arg}\max_{a \in A}Q_{t_0}(a)
+\end{equation*}
+In ideality, we want the algorithm for all $a \in A$ to narrow down on all $n$ true values $Q(a)$, so that the agent ends up eventually consistently selecting the action with the highest true reward, which we call the optimal action.
+
+The issue is that the greedy algorithm repeatedly chooses the highest predicted value, so it can get stuck choosing a suboptimal action till the reward function corrects the estimated value, pushing the greedy agent to choose other actions.
+
+However, it can get stuck on suboptimal actions altogether. Consider a $2$-bandit problem with the optimal action $a_0$ and the suboptimal action $a_1$. Lets define the true values:
+\begin{equation*}
+Q(a_0) = 15 \land Q(a_1) = 10
+\end{equation*}
+Now assume the agent completes two time steps in which it explores both actions, with $Q_2(a_0) = 5$ and $Q_2(a_1) = 15$. The greedy agent will then choose $a_1$ as the next action.
+
+The environment will attempt to correct this behavior by lowering the reward and by law of large numbers will push $Q_t(a_1) \xrightarrow{} 10$. The greedy algorithm will still think it is the optimal action as $Q_2(a_0) = 5 < 10$, so it will never call upon $a_0$ and will be stuck in a suboptimal loop.\\
+
+Now consider the following formula manipulation:
+\begin{equation*}
+Q_t(a) \coloneq \frac{\sum_{i=0}^{N_t(a)}R_i(a)}{N_t(a)}
+\end{equation*}
 \end{document}
