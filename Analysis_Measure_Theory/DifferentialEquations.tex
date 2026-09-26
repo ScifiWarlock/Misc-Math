@@ -990,8 +990,44 @@ Consider any arbitrary $x \in X$, then by the fact that $x \in \overline{S}$:
 \end{equation*}
 and
 \begin{equation*}
-\exists \alpha \in I, \exists k \in \mathbb{N}: B\left(x, \frac{1}{k+1}\right)
+\exists \alpha \in I, \exists k \in \mathbb{N}: B\left(x, \frac{1}{k+1}\right) \subseteq O_\alpha
 \end{equation*}
+and by density, we have that $\exists x_n \in S: x_n \in B\left(x, \frac{1}{2(k+1)}\right)$, so for any $z \in B\left(x_n, \frac{1}{2(k+1)}\right)$:
+\begin{equation*}
+\varrho(z, x) \leqslant \varrho(z, x_n) + \varrho(x_n, x) < \frac{1}{k+1}
+\end{equation*}
+thus:
+\begin{equation*}
+B\left(x_n, \frac{1}{2(k+1)}\right) \subseteq B\left(x, \frac{1}{k+1}\right) \subseteq O_\alpha
+\end{equation*}
+and we have that $x$ is in the open ball around $x_n$, thus:
+\begin{equation*}
+x \in B\left(x_n, \frac{1}{k(n)+1}\right) \subseteq O_{\alpha_n}
+\end{equation*}
+\end{proof}
+%I am still unsure about this proof tbh%
+
+\begin{lem}
+If a metric space $X$ is limit point compact, then each countable open cover has a finite subcover.
+\end{lem}
+\begin{proof}
+Assume there is a countable open cover with no finite subcover, which we will denote $\{O_n : n \in \mathbb{N}\}$ and define:
+\begin{equation*}
+C_n \coloneq X \setminus \bigcup_{i=0}^nO_i
+\end{equation*}
+Then we let $E$ be the infinite set $\{x_n : (\forall n \in \mathbb{N}: x_n \in C_n)\}$. Assume for the sake of contradiction that $E$ has a limit point $x \in X$, which tells us that:
+\begin{equation*}
+\exists j \in \mathbb{N}: x \in O_j
+\end{equation*}
+Now for all $n \geqslant j$, we have that:
+\begin{equation*}
+x_n \in X \setminus \bigcup_{i= 0}^n O_i \subseteq X \setminus O_j \implies x_n \notin O_j
+\end{equation*}
+This means only a finite number of points $\{x_0, \cdots x_{j-1}\}$ might be in $O_j$. By the $T_1$ property, we can find some $\epsilon$-neighborhood such that:
+\begin{equation*}
+B(x, \epsilon) \cap E \setminus \{x\} = \varnothing
+\end{equation*}
+or in other words, $x$ would not be an $\omega$-limit point.
 \end{proof}
 \pagebreak
 
