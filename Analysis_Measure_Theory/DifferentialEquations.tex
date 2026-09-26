@@ -937,7 +937,62 @@ In either case, we see that not all of $E$ is covered by the finite subcover, si
 So, we have found an open cover $\mathcal{U}_x$ with no finite subcover, proving $X$ is not topologically compact.
 \end{proof}
 
+The converse of this statement only holds for metric spaces (specifically, finite dimensional metric spaces as we will see later). We first need the following lemma:
+\begin{lem}
+Any totally bounded metric space $X$ is separable (contains countable dense subset). 
+\end{lem}
+\begin{proof}
+If $X$ is totally bounded, then we have:
+\begin{equation*}
+\forall \epsilon > 0, \exists \{x_0, \cdots, x_m\} \in X: X \subseteq \bigcup_{i = 0}^{m}B(x_i, \epsilon)
+\end{equation*}
+so we can say:
+\begin{equation*}
+\forall n \in \mathbb{N}, \exists \{x_0^{(n)}, \cdots, x_{m(n)}^{(n)}\} \in X: X \subseteq \bigcup_{i = 0}^{m}B\left(x_i, \frac{1}{n+1}\right)
+\end{equation*}
+Now consider the following set:
+\begin{equation*}
+S \coloneq \bigcup_{n \in \mathbb{N}}\{x_0^{(n)}, \cdots, x_{m(n)}^{(n)}\}
+\end{equation*}
+which is countably infinite. We aim to show that $X \subseteq \overline{S}$ (the reverse conclusion is trivial). Consider an arbitrary $x \in X$, then for some arbitrary $\epsilon > 0$, we have that:
+\begin{equation*}
+\exists n \in \mathbb{N}: \frac{1}{n+1} < \epsilon
+\end{equation*}
+Then, for a radius $\frac{1}{n+1}$, there exists some $x_i^{(n)}$ such that:
+\begin{equation*}
+\varrho(x, x_i^{(n)}) < \frac{1}{n+1} < \epsilon \implies B(x, \epsilon) \cap S \neq \varnothing
+\end{equation*}
+and $x_i^{(n)} \in S$, showing that each point in $x$ is adherent to $S$. Observe we used the first countability of a metric space here.
+\end{proof}
 
+\begin{lem}
+Given a separable metric space $X$, any open cover contains a countable subcover.
+\end{lem}
+\begin{proof}
+Consider any open cover $\{O_\alpha : \alpha \in I\}$ of $X$ and a countable, dense subset $S$. We have that:
+\begin{equation*}
+S \coloneq \{x_n : n \in \mathbb{N}\}
+\end{equation*}
+\begin{equation*}
+\forall n \in \mathbb{N}, \exists \alpha \in I: x_n \in O_\alpha
+\end{equation*}
+We denote each of these $O_\alpha$ open subsets as $O_{\alpha_n}$. Since $O_\alpha$ is open, we can say there exists some $k$ such that $B\left(x_n, \frac{1}{k+1}\right) \subseteq O_\alpha$. We can define the following:
+\begin{equation*}
+k(n) \coloneq \inf\left\{k \in \mathbb{N}: B\left(x_n, \frac{1}{k+1}\right) \subseteq O_{\alpha_n}\right\}
+\end{equation*}
+Now consider an arbitrary $x \in X$. We now aim to show:
+\begin{equation*}
+X = \bigcup_{n \in \mathbb{N}}O_{\alpha_n}
+\end{equation*}
+Consider any arbitrary $x \in X$, then by the fact that $x \in \overline{S}$:
+\begin{equation*}
+\forall \epsilon > 0: B(x, \epsilon) \cap S \neq \varnothing
+\end{equation*}
+and
+\begin{equation*}
+\exists \alpha \in I, \exists k \in \mathbb{N}: B\left(x, \frac{1}{k+1}\right)
+\end{equation*}
+\end{proof}
 \pagebreak
 
 \section{Integration and Nets}
