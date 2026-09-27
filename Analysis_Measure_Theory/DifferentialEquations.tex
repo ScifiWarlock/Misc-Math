@@ -757,13 +757,14 @@ which is a contradiction because $|x_{n_k} - y| > n_k + 1$ which tells us that $
 For any set $I \subseteq \mathbb{R}$, $I$ is bounded if and only if it is totally bounded (ONLY for $\mathbb{R}$).
 \end{lem}
 \begin{proof}
-$\impliedby$: If $I$ is bounded, then:
-\begin{equation*}
-\exists r > 0, \exists y \in \mathbb{R}: I \subseteq B(y, r) \iff \exists r > 0, \exists y \in \mathbb{R}, \forall x \in I: x \in B(y, r)
-\end{equation*}
-We aim to show $I$ is totally bounded, which means:
+$\impliedby$: 
+We aim to show given $I$ is totally bounded, which means:
 \begin{equation*}
 \forall \epsilon > 0, \exists x_0, ..., x_m \in I: I \subseteq \bigcup_{i=0}^{m}B(x_i, \epsilon)
+\end{equation*}
+then $I$ is bounded:
+\begin{equation*}
+\exists r > 0, \exists y \in \mathbb{R}: I \subseteq B(y, r) \iff \exists r > 0, \exists y \in \mathbb{R}, \forall x \in I: x \in B(y, r)
 \end{equation*}
 This converse direction is necessarily true; however, the forward direction is not necessarily true in all spaces. Consider the following:
 \begin{equation*}
@@ -818,7 +819,7 @@ A set $K \subseteq \mathbb{R}$ is limit point compact if for all infinite (count
 \end{defn}
 
 \begin{thm}
-A set $K$ is limit point compact if and only if it is sequentially compact in $\mathbb{R}$.
+A set $K$ is limit point compact if and only if it is sequentially compact in a metric space $X$.
 \end{thm}
 $\implies:$ If $K$ is limit point compact, then every infinite subset is limit point compact. Then consider each sequence $\{x_n\}_{n \in \mathbb{N}} \in K^\mathbb{N}$ and define:
 \begin{equation*}
@@ -1029,6 +1030,90 @@ B(x, \epsilon) \cap E \setminus \{x\} = \varnothing
 \end{equation*}
 or in other words, $x$ would not be an $\omega$-limit point.
 \end{proof}
+
+\begin{lem}
+If a metric space is limit point compact, then it is totally bounded.
+\end{lem}
+\begin{proof}
+Assume the space $X$ is not totally bounded so that:
+\begin{equation*}
+\exists \epsilon > 0, \forall \{x_0, \cdots x_m\} \in X: X \setminus \bigcup_{i=0}^m B(x_i, \epsilon) \neq \varnothing
+\end{equation*}
+Choose $x_0 \in X$ and:
+\begin{equation*}
+x_{n+1} \in X \setminus \bigcup_{i=0}^n B(x_i, \epsilon)
+\end{equation*}
+Then assume the infinite set $E \coloneq \{x_n : n \in \mathbb{N}\}$ has a limit point $x \in X$ such that:
+\begin{equation*}
+\forall \epsilon > 0: B(x, \epsilon) \cap E \setminus \{x\} \neq \varnothing
+\end{equation*}
+Choosing a radius $\epsilon/2$, we have that, due to it being an $\omega$-limit point, at least two $x_k, x_j \in E$ within the ball. Then:
+\begin{equation*}
+\varrho(x_k, x_j) \leqslant \varrho(x_k, x) + \varrho(x, x_j) < \epsilon
+\end{equation*}
+which is a contradiction as each $x_n$ is separated from the previous ones by an $\epsilon$-ball. So without loss of generality, if we assume $k > j$, then:
+\begin{equation*}
+x_k \in X \setminus \bigcup_{i=0}^{k-1}B(x_i, \epsilon) \subseteq X \setminus B(x_j, \epsilon)
+\end{equation*}
+\end{proof}
+
+\subsection{Equivalence of Compactness Notions}
+\begin{thm}
+A metric space $(X, \varrho)$ is sequentially compact if and only if it is topologically compact.
+\end{thm}
+\begin{proof}
+For this proof, we will use diagrams in order to better visualize the implicitations in action. For the converse:
+\begin{equation*}
+\text{topological compact} \implies \text{limit pt compact} \ \text{(Thm 2.1)}
+\end{equation*}
+\begin{equation*}
+\text{sequentially compact} \iff \text{limit pt compact} \ \text{(Thm 1.3; for metric spaces)}
+\end{equation*}
+For the forward direction:
+\begin{equation*}
+\text{limit pt compact} \iff \text{sequentially compact} \ \text{(Thm 1.3; for metric spaces)} 
+\end{equation*}
+\begin{equation*}
+\text{limit pt compact} \implies \text{totally bounded} \ \text{(Lem 2.4)}
+\end{equation*}
+\begin{equation*}
+\text{totally bounded} \implies \text{separable} \implies \text{open cover has countable subcover} \ \text{(Lem 2.1, 2.2)}
+\end{equation*}
+\begin{equation*}
+\text{limit pt compact} \implies \text{countable cover has finite subcover} \ \text{(Lem 2.3)}
+\end{equation*}
+\end{proof}
+Now if we have a subset of a finite dimensional euclidean space, then we have that boundedness is equivalent to total boundedness
+(so we can use Bolzano Weierstrass property to show closed and bounded implies sequentially compact).
+
+As a counterexample in infinite dimensions, consider the closed unit ball $\overline{B(0, 1)}$ around the $0$ vector with the metric/norm defined by:
+\begin{equation*}
+||x|| \coloneq \sup_{n \in \mathbb{N}}|x_n|
+\end{equation*}
+This is essentially a vector space of functions $f: \mathbb{N} \xrightarrow{} \mathbb{R}$. Consider the canonical basis vectors $e_1, e_2, \cdots$.
+
+These form a sequence which has no convergent subsequence as each of the sequences are consistently a distance $1$ apart, so while the set is closed and bounded, it is not sequentially compact.
+
+Additionally we can prove that sequentially compact is equivalent to being closed and totally bounded, which is equivalent to the sufficient conditions of Arzela-Ascoli (for spaces of continuous functions), and that in infinite dimensional spaces, the open ball is not totally bounded by the following:
+\begin{lem}
+A metric space/subset of metric space $S$ is totally bounded if and only if its closure is totally bounded.   
+\end{lem}
+\begin{proof}
+$\impliedby$: This follows from the fact that $S \subseteq \overline{S}$.
+
+$\implies:$ Given:
+\begin{equation*}
+\forall \epsilon > 0, \exists s_0, \cdots s_m \in S: S \subseteq \bigcup_{i=0}^m B(s_i, \epsilon)
+\end{equation*}
+\begin{equation*}
+\implies S \subseteq \overline{\bigcup_{i=0}^m B(s_i, \epsilon)} = \bigcup_{i=0}^m \overline{B(s_i, \epsilon)}
+\end{equation*}
+so by the definition of the closure:
+\begin{equation*}
+\implies \overline{S} \subseteq \bigcup_{i=0}^m \overline{B(s_i, \epsilon)} \subseteq \bigcup_{i=0}^m B(s_i, 2\epsilon)
+\end{equation*}
+\end{proof}
+So the open ball is totally bounded if and only if the closed unit ball is totally bounded in the infinite dimensional space (which it is not, we can see by considering the canonical basis and taking $\epsilon = 1/2$).
 \pagebreak
 
 \section{Integration and Nets}
