@@ -382,7 +382,26 @@ The geometric multiplicity of a characteristic value is the dimension of its cha
 The geometric multiplicity of a characteristic value $c$ is always less than or equal to the algebraic multiplicity.
 \end{lem}
 \begin{proof}
-    
+We defined the geometric multiplicity as $g = \dim(\ker(cI - T))$. Since $\ker(cI - T)$ is a subspace of $V$, we define a basis for it as $\{b_1, ..., b_g\}$. Then, we extend this basis to get:
+\begin{equation*}
+\beta_V \coloneq \{b_1, ..., b_g, b_{g+1}, ..., b_n\}
+\end{equation*}
+which is a basis for $V$. Now observe that:
+\begin{equation*}
+[T]_{\beta_V}^{\beta_V} = \begin{bmatrix}
+cI_g & C\\
+0 & D
+\end{bmatrix}
+\end{equation*}
+where $I_g$ is the $g \times g$ identity, $0$ is the $(n-g)\times g$ matrix with entries of $0$. $C$ is a $g \times (n-g)$ matrix and $D$ is the remaining $(n-g) \times (n-g)$ matrix.
+
+\begin{equation*}
+q_T(x) = \det(xI - [T]_{\beta_V}^{\beta_V}) = (x-c)^g\det(xI_{n-g} - D)
+\end{equation*}
+Thus $(x-c)^g$ divides the characteristic polynomial, so we have that algebraic multiplicity is greater than or equal to $g$ (depending on how the remainder determinant term factors). By definition of characteristic value and geometric multiplicity in Theorem 1.1, we have that:
+\begin{equation*}
+1 \leqslant \dim(ker(cI - T))
+\end{equation*}
 \end{proof}
 
 \begin{defn}
@@ -511,14 +530,14 @@ The following statements are equivalent to diagonalizability:
 q_T(x) = (x - c_1)^{d_1} \cdots (x - c_k)^{d_k}
 \end{equation*}
 and $d_i = \dim(E_{c_i})$ (algebraic multiplicity is equal to geometric multiplicity)
-\item The sum of geometric multiplicities adds up to the dimension of the vector space:
-\begin{equation*}
-\dim(V) = \sum_{i=1}^{k}\dim(E_{c_i})
-\end{equation*}
+% \item The sum of geometric multiplicities adds up to the dimension of the vector space:
+% \begin{equation*}
+% \dim(V) = \sum_{i=1}^{k}\dim(E_{c_i})
+% \end{equation*}
 \end{enumerate}
 \end{thm}
 \begin{proof}
-$(1 \implies 2)$: Assume $d_1, \cdots, d_k$ are the algebraic multiplicities of the characteristic values (where $k \leqslant n$), then given a basis $\beta$ composed of characteristic vectors, if we order the vectors in a certain way, we get:
+$(\implies)$: Assume $d_1, \cdots, d_k$ are the algebraic multiplicities of the characteristic values (where $k \leqslant n$), then given a basis $\beta$ composed of characteristic vectors, if we order the vectors in a certain way, we get:
 \begin{equation*}
 [T]_\beta^\beta = \begin{bmatrix}
 c_1I_1 & \cdots & 0\\
@@ -541,7 +560,7 @@ Observe that $c_iI - [T]_{\beta}^{\beta}$ (by the uniqueness of the characterist
 \dim(\ker(c_iI - [T]_{\beta}^\beta)) = \dim(E_{c_i}) = d_i
 \end{equation*}
 
-$(2 \implies 3):$ For this proof, it suffices to prove that:
+$(\impliedby):$ For this proof, we first need to prove:
 \begin{equation*}
 \dim(V) = \sum_{i=1}^{k}d_i
 \end{equation*}
@@ -550,7 +569,8 @@ This follows from Lemma 1.6. We have that $\dim(V) = \deg(q_T(x)) = \sum_{i=1}^{
 \dim(V) = \sum_{i=1}^{k}\dim(E_{c_i})
 \end{equation*}
 
-$(3 \implies 1)$: We aim to show that:
+% $(3 \implies 1)$: 
+We aim to show that:
 \begin{equation*}
 E_{c_1} + \cdots + E_{c_k} = E_{c_1} \oplus \cdots \oplus E_{c_k}
 \end{equation*}
@@ -590,7 +610,7 @@ where $E$ is a subspace of $V$. We also have the consequence that:
 \begin{equation*}
 \dim(E) = \dim(E_{c_1}) + \cdots + \dim(E_{c_k}) = \dim(V)
 \end{equation*}
-Since the dimensions are equal, that means $\beta_E$ being $\dim(V)$ linearly independent vectors means they span $V$, thus $V \subseteq E$, proving that $V = E$.
+Since the dimensions are equal, that means $\beta_E$ being $\dim(V)$ linearly independent vectors means they span $V$ and are a valid basis for $V$.
 
 So, we see that $[T]_{\beta_E}^{\beta_E}$ is a basis that diagonalizes the matrix as:
 \begin{equation*}
@@ -598,7 +618,139 @@ So, we see that $[T]_{\beta_E}^{\beta_E}$ is a basis that diagonalizes the matri
 \end{equation*}
 or each of the elements in $\beta_E$ come from characteristic spaces.
 \end{proof}
-The important takeaways are that a linear operator is diagonalizable if and only if the algebraic multiplicities of each characteristic value is equal to its geometric multiplicity.
+The important takeaways are that a linear operator is diagonalizable if and only if the algebraic multiplicity of each characteristic value is equal to its geometric multiplicity, which requires the fact that
+the characteristic spaces are linearly independent (or to put informally, the characteristic spaces have no overlap).
 
-Additionally, it is diagonalizable if and only if the sum of the geometric multiplicities is the dimension of the underlying vector space $V$. This idea of "annihilating polynomials" will also be important.
+By matrix similarity in Lemma 1.2, if $T$ is diagonalizable such that:
+\begin{equation*}
+[T]_\beta^\beta
+\end{equation*}
+is diagonal and $\beta$ is a basis of characteristic vectors spanning $V$. Then taking any arbitrary basis $\alpha$ of $V$, we see that:
+\begin{equation*}
+[T]_\beta^\beta = [I]_\alpha^\beta \circ [T]_\alpha^\alpha \circ [I]_\beta^\alpha
+\end{equation*}
+We call $[I]_\beta^\alpha$ (or the matrix of characteristic basis vectors represented in terms of $\alpha$) the modal matrix $M$.
+
+A useful result is that the powers of similar matrices are also similar. So, if a linear operator is diagonalizable, then:
+\begin{equation*}
+[T]_\alpha^\alpha = [I]_\beta^\alpha \circ [T]_\beta^\beta \circ [I]_\alpha^\beta
+\end{equation*}
+\begin{equation*}
+\implies ([T]_\alpha^\alpha)^n = [I]_\beta^\alpha \circ ([T]_\beta^\beta)^n \circ [I]_\alpha^\beta
+\end{equation*}
+Since $\beta$ is a characteristic basis, the power of a diagonal matrix is simply its terms on the diagonal raised to that power.
+
+\subsubsection{Dynamical Systems Problem}
+We examine state space representations, which are key to modern control.
+
+\begin{defn}
+The state variables are the smallest set of linearly independent variables that describe a system's state.
+\end{defn}
+While this is quite vague of a definition, we can be more specific saying that typically state variables are the configuration variables plus velocities. Just like the configuration space, the state space can be a manifold as well.
+
+For the purpose of these notes, we shall consider the state space $\mathcal{S}$ to be a euclidean space $\mathbb{R}^n$, so that states are vectors. The additional condition is that because states are evolving, the states must have an initial condition, which combined with the update rule provides us a way to calculate the most recent state.
+We can define the control space $\mathcal{U}$ in a similar fashion.
+
+Note that $x(t)$ is a function which takes in time and outputs our state, so we are interested in solving for $x(t)$ to understand how the system's state progresses based on some applied control and time.
+
+We also have a control input defined for all time, which we define $u(t): \mathbb{R}_{\geqslant 0} \xrightarrow{} \mathbb{R}^m$ where:
+\begin{equation*}
+u(t) \coloneq \begin{bmatrix}
+u_1(t)\\
+\vdots\\
+u_m(t)
+\end{bmatrix}, \ x(t) \coloneq \begin{bmatrix}
+x_1(t)\\
+\vdots\\
+x_n(t)
+\end{bmatrix}
+\end{equation*}
+such that $\forall j \in 1, ..., m: u_j: \mathbb{R}_{\geqslant 0} \xrightarrow{} \mathbb{R}$ and $x_1, ..., x_n$ are the state variables. Then we claim there exists a vector valued function in $C^1$ on its domain:
+\begin{equation*}
+f: \mathbb{R}^{n+m+1} \xrightarrow{} \mathbb{R}^n
+\end{equation*}
+such that:
+\begin{equation*}
+\forall t \in \mathbb{R}_{\geqslant 0}: x'(t) = f(x(t), u(t), t) = \begin{bmatrix}
+f_1(x(t), u(t), t)\\
+\vdots\\
+f_n(x(t), u(t), t)
+\end{bmatrix}
+\end{equation*}
+such that $\forall i \in 1, ..., n$, $f_i$ is a scalar valued function (this takes the form as showed in the differential equations notes).
+
+For now we will eliminate the extra $t$ variable in the domain, so that we have $f: \mathbb{R}^{n+m} \xrightarrow{} \mathbb{R}^n$. Here we can make both algebraic and analytical connections:
+\begin{lem}
+If $f$ is a linear transformation, then the dynamical system can be represented as:
+\begin{equation*}
+x'(t) = Ax(t) + Bu(t)
+\end{equation*}
+where $A \in \mathcal{M}_{n \times n}(\mathbb{R})$ and $B \in \mathcal{M}_{n \times m}(\mathbb{R})$ and an associated initial condition.
+\end{lem}
+\begin{proof}
+If $f$ is a linear transformation, then (considering with respect to the canonical bases), it admits a matrix representation:
+\begin{equation*}
+x'(t) = \begin{bmatrix}
+f(e_1) & \cdots & f(e_{n+m})
+\end{bmatrix}\begin{bmatrix}
+x(t)\\u(t)
+\end{bmatrix} = \begin{bmatrix}
+f(e_1) & \cdots & f(e_{n})\end{bmatrix}x(t) + \begin{bmatrix}f(e_{n+1}) & \cdots & f(e_{n+m})\end{bmatrix}u(t)
+\end{equation*}
+So we set $A, B$ accordingly and we get the desired form. Observe that if we select a different basis for the state space or even the control space, then the coordinate representation of the states and inputs change. 
+\end{proof}
+Such a system is called a continuous time invariant system. Consider the simple case:
+\begin{lem}
+Consider a CTI system with no applied control input such that:
+\begin{equation*}
+x'(t) = Ax(t), \ x(0) = x_0
+\end{equation*}
+with $A$ diagonalizable. Then the limit of the state as $t \xrightarrow{} \infty$ exists if all characteristic values are less than or equal to $0$.
+\end{lem}
+\begin{proof}
+By definition of diagonalizable, we have a characteristic basis $\beta \coloneq \{b_1, \cdots, b_n\}$ that spans the state space. Additionally:
+\begin{equation*}
+\begin{bmatrix}
+x_1'(t)\\
+\vdots\\
+x_n'(t)  
+\end{bmatrix} = A\begin{bmatrix}
+x_1(t)\\
+\vdots\\
+x_n(t)
+\end{bmatrix}
+\end{equation*}
+The family of solutions based on the initial condition is:
+\begin{equation*}
+S \coloneq \left\{\sum_{i=1}^{n}d_ib_ie^{c_it} : \sum_{i=1}^{n}d_ib_i = x_0\right\}
+\end{equation*}
+so for $\lim_{t \xrightarrow{} \infty}x(t)$ to exist, it must be that:
+\begin{equation*}
+\forall i \in 1, ..., n: c_i \leqslant 0
+\end{equation*}
+but $0$ cannot be a characteristic value, so it means $c_i < 0$. 
+\end{proof}
+We now consider a discrete time invariant version of this relationship with no applied control input:
+\begin{lem}
+Consider a DTI system described by the recursive time-step relation:
+\begin{equation*}
+x_{t+1} = Ax_t, \ x(0) = x_0
+\end{equation*}
+with $A$ once again diagonalizable. Then the limit of the state as $t \xrightarrow{} \infty$ exists if the characteristic values are in the interval $(-1, 1]$. 
+\end{lem}
+\begin{proof}
+We can iterate the relation and obtain the particular solution:
+\begin{equation*}
+x_t = A^tx_0
+\end{equation*}
+Since $A$ is diagonalizable, there exists a characteristic basis $\beta$ spanning the state space so that:
+\begin{equation*}
+x_t = A^t(d_1b_1 + \cdots + d_nb_n) = d_1A^tb_1 + \cdots d_nA^tb_n = d_1c_1^tb_1 + \cdots + d_nc_n^tb_n
+\end{equation*}
+where the $c_i$ are the characteristic values. Then:
+\begin{equation*}
+\lim_{t \xrightarrow{} \infty}x_t = \sum_{i=1}^{n}d_i \cdot \lim_{t \xrightarrow{} \infty}c_i^tb_i
+\end{equation*}
+exists if for all characteristic values are between $(-1, 1]$.
+\end{proof}
 \end{document}
