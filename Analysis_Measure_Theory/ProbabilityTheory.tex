@@ -179,9 +179,161 @@ The third and final element of the triple is $P$, which we call the probability 
 \begin{defn}
 $(X, \mathcal{F})$ is a measurable space on which we can put a measure $\mu: \mathcal{F} \xrightarrow{} [0, \infty]$ with the properties:
 \begin{enumerate}
-\item For any interval i
+\item $\forall S \in \mathcal{F}: \mu(S) \geqslant 0 \land \mu(\varnothing) = 0$
+
+Note that we could also replace the second part with $\mu(\varnothing) \in [0, \infty)$.
+\item Given some $\{S_n\}_{n \in \mathbb{N}} \in \mathcal{F}^n$, if:
+\begin{equation*}
+\forall i \neq j: S_i \cap S_j = \varnothing \implies \mu\left(\bigcup_{n \in \mathbb{N}}S_n\right) = \sum_{n \in \mathbb{N}}\mu(S_n)
+\end{equation*}
+\end{enumerate}
+This second property will be quite important, and we shall call it countable additivity. Countable additivity gives a reason as to why we wanted property $3$ in Definition 1.1, where:
+\begin{equation*}
+\forall \{S_n\}_{n \in \mathbb{N}} \in \mathcal{F}^\mathbb{N}: \bigcup_{n \in \mathbb{N}}S_n \in \mathcal{F}
+\end{equation*}
+If this were not true, then we could have had some sequence of $S_n$ in the $\sigma$-algebra where their countably infinite union is not measurable, so property $2$ in this definition would not always hold.
+\end{defn}
+
+
+\begin{lem}
+This definition of a measure reveals additional properties:
+\begin{enumerate}
+\item Monotonicity:
+\begin{equation*}
+\forall A, B \in \mathcal{F}: A \subseteq B \implies \mu(A) \leqslant \mu(B)
+\end{equation*}
+\item Subadditivity:
+\begin{equation*}
+\forall \{S_n\}_{n \in \mathbb{N}} \in \mathcal{F}^\mathbb{N}: \mu\left(\bigcup_{n \in \mathbb{N}}S_n\right) \leqslant \sum_{n \in \mathbb{N}}\mu(S_n)
+\end{equation*}
+\item Continuity from below:
+\begin{equation*}
+\forall n \in \mathbb{N}: S_n \subseteq S_{n+1} \implies \mu\left(\bigcup_{n \in \mathbb{N}}S_n\right) = \lim_{n \xrightarrow{} \infty}\mu(S_n)
+\end{equation*}
+\item Continuity from above:
+\begin{equation*}
+\forall n \in \mathbb{N}: S_{n+1} \subseteq S_n \land \mu(S_0) < \infty \implies \mu\left(\bigcap_{n \in \mathbb{N}}S_n\right) = \lim_{n \xrightarrow{} \infty}\mu(S_n)
+\end{equation*}
+\end{enumerate}
+\end{lem}
+\begin{proof}
+Take the sets $A, B \setminus A$, then:
+\begin{equation*}
+\mu(B) = \mu(A \cup (B \setminus A)) = \mu(A) + \mu(B \setminus A) \geqslant \mu(A)
+\end{equation*}
+thus proving the first property of non-negativity. Here we used countable additivity with the sequence $A, B \setminus A, \varnothing, \varnothing,...$ to bring about finite additivity. This means the proof also requires
+that the measure $\mu(\varnothing) = 0$.
+
+For the second property, we can rewrite the union as the following:
+\begin{equation*}
+\bigcup_{n \in \mathbb{N}}S_n = \bigcup_{n \in \mathbb{N}}\left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right)
+\end{equation*}
+The reverse inclusion is trivial. For the forward inclusion, if $x$ is in the union of $S_n$, then:
+\begin{equation*}
+\exists n \in \mathbb{N}: x \in S_n
+\end{equation*}
+but it might be that $x$ belongs to the intersection of multiple such sets, so by well ordering property and nonemptiness above, we can define:
+\begin{equation*}
+m \coloneq \min\{n \in \mathbb{N}: x \in S_n\}
+\end{equation*}
+So $x \in S_m$ which also tells us that for all $n \leqslant m$ that $x \notin S_n$, so:
+\begin{equation*}
+\exists m \in \mathbb{N}: x \in S_m \setminus \bigcup_{i=0}^{m-1}S_i
+\end{equation*}
+We also have the added benefit that each set difference is disjoint from any other. So:
+\begin{equation*}
+\mu\left(\bigcup_{n \in \mathbb{N}}S_n\right) = \mu\left(\bigcup_{n \in \mathbb{N}} \left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right)\right) = \sum_{n \in \mathbb{N}}\mu\left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right) \leqslant \sum_{n \in \mathbb{N}}\mu(S_n)
+\end{equation*}
+Now observe we can do the following rewrite:
+\begin{equation*}
+\sum_{n \in \mathbb{N}}\mu\left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right) = \lim_{n \xrightarrow{} \infty}\sum_{i=0}^{n}\mu\left(S_i \setminus \bigcup_{j=0}^{i-1}S_j\right)
+\end{equation*}
+Countable additivity gives us finite additivity (simply consider a sequence $A_0, A_1, A_2, ..., A_n, \varnothing, \varnothing,...$), so we can rewrite the sum as:
+\begin{equation*}
+= \lim_{n \xrightarrow{} \infty}\mu\left(\bigcup_{i=0}^n S_i\right) = \mu\left(\lim_{n \xrightarrow{} \infty} \bigcup_{i=0}^n S_i\right)
+\end{equation*}
+
+The reason why the third and fourth properties are dubbed "continuity" is because they essentially explain a limit exchange under certain sufficient conditions, where:
+\begin{equation*}
+\mu\left(\lim_{n \xrightarrow{} \infty}\bigcup_{i=0}^nS_i\right) = \mu\left(\lim_{n \xrightarrow{} \infty}S_n\right) = \lim_{n \xrightarrow{} \infty}\mu(S_n)
+\end{equation*}
+The proof follows simply from our observation before. Due to the nesting where $S_0 \subseteq S_1 \subseteq ...$, we have that:
+\begin{equation*}
+\bigcup_{i=0}^nS_i = S_n
+\end{equation*}
+By the monotonicity property, we have that $\{\mu(S_n)\}_{n \in \mathbb{N}}$ is a non-decreasing sequence, so we can rewrite the limit as:
+\begin{equation*}
+\lim_{n \xrightarrow{} \infty} \mu(S_n) = \sup_{n \in \mathbb{N}}\mu(S_n) 
+\end{equation*}
+
+
+For the fourth property, we use continuity from below. Consider a sequence $S_0 \supseteq S_1 \supseteq ...$. Then we have that $S_0 \setminus S_1 \subseteq S_0 \setminus S_2 \subseteq ...$, which tells us that:
+\begin{equation*}
+\mu\left(\lim_{n \xrightarrow{} \infty}S_0 \setminus S_n\right) = \lim_{n \xrightarrow{} \infty}\mu(S_0 \setminus S_n) 
+\end{equation*}
+Now observe:
+\begin{equation*}
+\mu(S_0) = \mu(S_0 \setminus S_n \cup S_n) = \mu(S_0 \setminus S_n) + \mu(S_n) \implies \mu(S_0) - \lim_{n \xrightarrow{} \infty}\mu(S_n) = \lim_{n \xrightarrow{} \infty}\mu(S_0 \setminus S_n)
+\end{equation*}
+\begin{equation*}
+\implies \mu(S_0) - \lim_{n \xrightarrow{} \infty}\mu(S_n) = \mu(S_0 \setminus \cap S_n) = \mu(S_0) - \mu\left(\bigcap_{n \in \mathbb{N}}S_n\right)
+\end{equation*}
+and via cancellation we have the desired property. Notice that the argument requires $\mu(S_0) < \infty$. If it were not less than infinity, then it may be possible that even the subsets of $S_0$ have infinite measure, which would mean:
+\begin{equation*}
+\lim_{n \xrightarrow{} \infty}\mu(S_n) = \infty
+\end{equation*}
+which would give an indeterminate subtraction on the left hand side.
+\end{proof}
+
+Furthermore, we can provide an equivalent definition for measure which does not require countable additivity:
+\begin{lem}
+The function $\mu$ is a measure if and only if it is non-negative, finitely additive, and continuous from below.
+\end{lem}
+\begin{proof}
+$\implies:$ This direction was proved in Lemma 1.3.
+
+
+$\impliedby$: Consider a sequence of pairwise disjoint sets $A_1, A_2, ...$. Then we have the sequence:
+\begin{equation*}
+\left\{\bigcup_{i=0}^n A_n\right\}_{n \in \mathbb{N}}
+\end{equation*}
+which is non-decreasing (satisfying our conditiion for continuity from below). Then:
+\begin{equation*}
+\mu\left(\bigcup_{n \in \mathbb{N}}A_n\right) = \mu\left(\bigcup_{n \in \mathbb{N}}\left(\bigcup_{i=0}^n A_n\right)\right) = \lim_{n \xrightarrow{} \infty}\mu\left(\bigcup_{i=0}^n A_n\right)
+\end{equation*}
+By finite additivity, because the sequence is pairwise disjoint, we have that:
+\begin{equation*}
+= \lim_{n \xrightarrow{} \infty}\sum_{i=0}^{n}\mu(A_i) = \sum_{n \in \mathbb{N}}\mu(A_n)
+\end{equation*}
+Now we need to prove $\mu(\varnothing) = 0$. By finite additivity:
+\begin{equation*}
+\mu(\varnothing \cup \varnothing) = \mu(\varnothing) = \mu(\varnothing) + \mu(\varnothing) \implies \mu(\varnothing) = 0
+\end{equation*}
+So we must assume non-negativity (if we try to prove it via monotonicity, it becomes circular). Then we have that:
+\begin{equation*}
+\text{finitely additive + continuous from below} \iff (\mu(\varnothing) = 0)  + \text{countably additive}
+\end{equation*}
+
+\end{proof}
+We can equivalently define a measure as:
+\begin{defn}[Alternative Definition of Measure]
+A measure $\mu: \mathcal{F} \xrightarrow{} [0, \infty]$ has the properties:
+\begin{enumerate}
+\item For all finite collections of pairwise disjoint sets $S_0, S_1, ..., S_n$:
+\begin{equation*}
+\mu\left(\bigcup_{i=0}^n S_i\right) = \sum_{i=0}^{n}\mu(S_i)
+\end{equation*}
+\item For all sequences $\{S_n\}_{n \in \mathbb{N}} \in \mathcal{F}^\mathbb{N}$:
+\begin{equation*}
+\forall n \in \mathbb{N}: S_n \subseteq S_{n+1} \implies \mu\left(\bigcup_{n \in \mathbb{N}}S_n\right) = \lim_{n \xrightarrow{} \infty}\mu(S_n)
+\end{equation*}
 \end{enumerate}
 \end{defn}
+We can now make this notion more specific to probability and say:
+\begin{defn}
+A probability measure $P: \mathcal{F} \xrightarrow{} [0, 1]$ is one where $P(\Omega) = 1$.
+\end{defn}
+
 
 To motivate the use of $\sigma$-algebras, we look at a simple probability based example. Consider a weighted coin where the conductor of the experiment is not aware of the weightage. Then:
 \begin{equation*}
@@ -189,9 +341,9 @@ To motivate the use of $\sigma$-algebras, we look at a simple probability based 
 \end{equation*}
 However, our $\sigma$-algebra would be:
 \begin{equation*}
-\mathcal{F} \coloneq \{\Omega, \varnothing, \{H, T\}\}
+\mathcal{F} \coloneq \{\Omega, \varnothing\}
 \end{equation*}
-because 
+because $P(\{H\})$ or $P(\{T\})$ would not be known. We can make a more complicated example.
 
 
 we fix our attention to subsets of $\mathbb{R}$. We defined the notion of outer measure of subsets of $\mathbb{R}$ as the following:
