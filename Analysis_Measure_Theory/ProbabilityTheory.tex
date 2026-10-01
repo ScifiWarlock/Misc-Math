@@ -17,7 +17,7 @@
 %making another edit to test the commit bot
 
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex} % Matches the paragraph spacing of exam
+\setlength{\parskip}{\baselineskip} % Matches the paragraph spacing of exam
 \hbadness=10000 % Place in your preamble
 
 
@@ -42,7 +42,7 @@
 \fancyfoot[C]{(\thepage)}
 \renewcommand\footrulewidth{0.5pt}
 
-\title{Topic}
+\title{Probability Theory}
 \author{Omkar Tasgaonkar \\ \small otasgaonkar@ucla.edu}
 \date{}
 
@@ -55,12 +55,14 @@
 }
 \begin{document}
 \maketitle
-This is a description of the notes and intended goals/topics that will be covered in them.
+These are my notes on probability theory, which I am studying for C271A and as an extension of what I learned in analysis.
+I hope to cover the relevant measure theory whenever possible, and I will also add completed practice problems as well.
 
 \begin{tcolorbox}[colback=white, colframe=black, arc=0mm]
 Textbooks Used to Develop these Notes:
 \begin{enumerate}
 \item \textit{\textbf{Probability: Theory and Examples} - Rick Durrett}
+\item \textit{\textbf{Measure, Integration, and Real Analaysis} - Sheldon Axler}
 \end{enumerate}
 Other Textbooks Referenced:
 % \begin{enumerate}
@@ -77,4 +79,126 @@ Other Textbooks Referenced:
 \end{tcolorbox}
 \textbf{NOTE:} Any sections/subsections marked with an asterisk are extra sections and have been added to this document as extensions of introduced theory.
 \pagebreak
+
+\section{Probability Spaces}
+We begin with some basic measure theory which will motivate the formulation of the $\sigma$-algebra and allow us to go from generality to specificity in defining probability spaces.
+%I will get back to this at a later time
+
+We begin by defining a probability space as a triple $(\Omega, \mathcal{F}, P)$. The first element $\Omega$ is called the set of outcomes or the "sample space", which is just an underlying set that can be defined as we wish. 
+\begin{defn}[$\sigma$-algebra]
+The second element $\mathcal{F}$ is called a $\sigma$-algebra, satisfying the following properties:
+\begin{enumerate}
+\item $\Omega \in \mathcal{F}$
+\item $\forall S \in \mathcal{F}: S \subseteq \Omega \land \Omega \setminus S \in \mathcal{F}$
+\item The countable (finite or countably infinite) union of sets in $\mathcal{F}$ is in $\mathcal{F}$:
+\begin{equation*}
+\forall \{S_n\}_{n \in \mathbb{N}} \in \mathcal{F}^\mathbb{N}: \bigcup_{n \in \mathbb{N}}S_n \in \mathcal{F}
+\end{equation*}
+\end{enumerate}
+We call the set $S$ an event (specifically an event with an assigned probability, which we shall see later).
+\end{defn}
+
+\begin{lem}
+We can derive other properties of sets in the $\sigma$-algebra, such as:
+\begin{enumerate}
+\item $\varnothing \in \mathcal{F}$
+\item $\forall \{S_n\}_{n \in \mathbb{N}} \in \mathcal{F}^\mathbb{N}$:
+\begin{equation*}
+\bigcap_{n \in \mathbb{N}} S_n \in \mathcal{F}
+\end{equation*}
+\item $\forall S, T \in F: S \setminus T \in F$
+\end{enumerate}
+\end{lem}
+\begin{proof}
+For $\varnothing \in F$, this follows from the fact that $\Omega \in \mathcal{F}$ and the complement of $\Omega$ then must be in $\mathcal{F}$.
+
+The second statement follows from DeMorgan's Laws. If $S_n \in \mathcal{F}$, then $S_n^c \in \mathcal{F}$, which tells us that:
+\begin{equation*}
+\bigcup_{n \in \mathbb{N}} S_n^c = \left(\bigcap_{n \in \mathbb{N}}S_n\right)^c \in \mathcal{F}
+\end{equation*}
+Once again by the completement axiom, we see that:
+\begin{equation*}
+\bigcap_{n \in \mathbb{N}}S_n \in \mathcal{F}
+\end{equation*}
+
+As for the third statement, we know that $S \setminus T = S \cap (\Omega \setminus T)$. Since $T \in \mathcal{F}$, then $\Omega \setminus T \in \mathcal{F}$, so by statement $2$, we have
+that statement $3$ follows.
+\end{proof}
+
+\begin{lem}
+The intersection of a family of $\sigma$-algebras for a set $\Omega$ is a $\sigma$-algebra.
+\end{lem}
+\begin{proof}
+Let us call the family $\{\mathcal{F}_\alpha: \alpha \in I\}$ such that we have valid measurable spaces $(\Omega, \mathcal{F}_\alpha)$, then:
+\begin{equation*}
+\mathcal{F} \coloneq \bigcap_{\alpha \in I}\mathcal{F}_\alpha
+\end{equation*}
+is a valid sigma algebra such that $(\Omega, \mathcal{F})$ is a measurable space. We see that:
+\begin{equation*}
+\forall \alpha \in I: \Omega \in \mathcal{F}_\alpha \implies \Omega \in \bigcap_{\alpha \in I}\mathcal{F}_\alpha
+\end{equation*}
+so property $1$ in Definition 1.1 is fulfilled. Now, for some $S$ in the intersection:
+\begin{equation*}
+S \in \bigcap_{\alpha \in I}\mathcal{F}_\alpha \iff \forall \alpha \in I: S \in \mathcal{F}_\alpha
+\end{equation*}
+\begin{equation*}
+\implies \forall \alpha \in I: S^c \in \mathcal{F}_\alpha \iff S^c \in \bigcap_{\alpha \in I}\mathcal{F}_\alpha
+\end{equation*}
+thus property $2$ is fulfilled. Now consider some $\{S_n\}_{n \in \mathbb{N}} \in \mathcal{F}^\mathbb{N}$, then:
+\begin{equation*}
+\forall n \in \mathbb{N}: S_n \in \mathcal{F} \implies \forall \alpha \in I: S_n \in \mathcal{F}_\alpha 
+\end{equation*}
+\begin{equation*}
+\implies \forall \alpha \in I: \{S_n\}_{n \in \mathbb{N}} \in \mathcal{F}_\alpha^\mathbb{N} \implies \forall \alpha \in I: \bigcup_{n \in \mathbb{N}}S_n \in \mathcal{F}_\alpha
+\end{equation*}
+\begin{equation*}
+\implies \bigcup_{n \in \mathbb{N}}S_n \in \mathcal{F}
+\end{equation*}
+so we have verified property $3$. This is quite similar to topologies, where the intersection of topologies is a topology, but the union is not necessarily a topology.
+\end{proof}
+
+Consider some sample space $\Omega \coloneq \{1, 2, 3, 4\}$, then consider:
+\begin{equation*}
+\mathcal{F}_1 \coloneq \{\Omega, \varnothing, \{1\}, \{2, 3, 4\}\}
+\end{equation*}
+\begin{equation*}
+\mathcal{F}_2 \coloneq \{\Omega, \varnothing, \{2\}, \{1, 3, 4\}\}
+\end{equation*}
+both of which are $\sigma$-algebras. If we take the intersection:
+\begin{equation*}
+\mathcal{F}_3 \coloneq \mathcal{F}_1 \cap \mathcal{F}_2 = \{\Omega, \varnothing\}
+\end{equation*}
+which is the "coarsest" or trivial $\sigma$-algebra. Now taking the union:
+\begin{equation*}
+\mathcal{F}_1 \cup \mathcal{F}_2 = \{\Omega, \varnothing, \{1\}, \{2\}, \{2, 3, 4\}, \{1, 3, 4\}\}
+\end{equation*}
+but by Definition 1.1 property $3$, we would need $\{1, 2\}$ to belong in the union, thus the union is not necessarily a $\sigma$-algebra.
+
+\subsection{Motivating the $\sigma$}
+The third and final element of the triple is $P$, which we call the probability measure. A measure is defined as a following:
+\begin{defn}
+$(X, \mathcal{F})$ is a measurable space on which we can put a measure $\mu: \mathcal{F} \xrightarrow{} [0, \infty]$ with the properties:
+\begin{enumerate}
+\item For any interval i
+\end{enumerate}
+\end{defn}
+
+To motivate the use of $\sigma$-algebras, we look at a simple probability based example. Consider a weighted coin where the conductor of the experiment is not aware of the weightage. Then:
+\begin{equation*}
+\Omega \coloneq \{H, T\}
+\end{equation*}
+However, our $\sigma$-algebra would be:
+\begin{equation*}
+\mathcal{F} \coloneq \{\Omega, \varnothing, \{H, T\}\}
+\end{equation*}
+because 
+
+
+we fix our attention to subsets of $\mathbb{R}$. We defined the notion of outer measure of subsets of $\mathbb{R}$ as the following:
+\begin{equation*}
+\forall A \subseteq \mathbb{R}: |A| \coloneq \inf\left\{\sum_{n \in \mathbb{N}}|I_n| : A \subseteq \bigcup_{n \in \mathbb{N}}I_n\right\}
+\end{equation*}
+where $I_n$ is an open interval (or closed works as well) whose measure we defined as the difference between its endpoints $b-a$.
+
+
 \end{document}
