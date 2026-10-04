@@ -62,7 +62,7 @@ I hope to cover the relevant measure theory whenever possible, and I will also a
 Textbooks Used to Develop these Notes:
 \begin{enumerate}
 \item \textit{\textbf{Probability: Theory and Examples} - Rick Durrett}
-\item \textit{\textbf{Measure, Integration, and Real Analaysis} - Sheldon Axler}
+\item \textit{\textbf{Real Analysis} - Gerald Folland}
 \end{enumerate}
 Other Textbooks Referenced:
 % \begin{enumerate}
@@ -81,6 +81,7 @@ Other Textbooks Referenced:
 \pagebreak
 
 \section{Probability Spaces}
+\subsection{Algebras and Rings}
 We begin with some basic measure theory which will motivate the formulation of the $\sigma$-algebra and allow us to go from generality to specificity in defining probability spaces.
 %I will get back to this at a later time
 
@@ -89,13 +90,16 @@ We begin by defining a probability space as a triple $(\Omega, \mathcal{F}, P)$.
 The second element $\mathcal{F}$ is called a $\sigma$-algebra, satisfying the following properties:
 \begin{enumerate}
 \item $\Omega \in \mathcal{F}$
-\item $\forall S \in \mathcal{F}: S \subseteq \Omega \land \Omega \setminus S \in \mathcal{F}$
+\item $\forall S, P \in \mathcal{F}: S \setminus P \in \mathcal{F}$
 \item The countable (finite or countably infinite) union of sets in $\mathcal{F}$ is in $\mathcal{F}$:
 \begin{equation*}
 \forall \{S_n\}_{n \in \mathbb{N}} \in \mathcal{F}^\mathbb{N}: \bigcup_{n \in \mathbb{N}}S_n \in \mathcal{F}
 \end{equation*}
+We can equivalently replace this condition with closure under disjoint unions.
 \end{enumerate}
 We call the set $S$ an event (specifically an event with an assigned probability, which we shall see later).
+
+We also define an algebra over sets $\mathcal{A}$, which weakens condition 3 to finite unions.
 \end{defn}
 
 \begin{lem}
@@ -106,11 +110,12 @@ We can derive other properties of sets in the $\sigma$-algebra, such as:
 \begin{equation*}
 \bigcap_{n \in \mathbb{N}} S_n \in \mathcal{F}
 \end{equation*}
-\item $\forall S, T \in F: S \setminus T \in F$
+\item $\forall S \in \mathcal{F}: \Omega \setminus S \in \mathcal{F}$
 \end{enumerate}
+These properties also hold for algebras in the finite sense.
 \end{lem}
 \begin{proof}
-For $\varnothing \in F$, this follows from the fact that $\Omega \in \mathcal{F}$ and the complement of $\Omega$ then must be in $\mathcal{F}$.
+\textbf{$\sigma$-algebras}: For $\varnothing \in \mathcal{F}$, this follows from the fact that $\Omega \in \mathcal{F}$ and from property two, $\Omega \setminus \Omega = \varnothing \in \mathcal{F}$.
 
 The second statement follows from DeMorgan's Laws. If $S_n \in \mathcal{F}$, then $S_n^c \in \mathcal{F}$, which tells us that:
 \begin{equation*}
@@ -121,8 +126,16 @@ Once again by the completement axiom, we see that:
 \bigcap_{n \in \mathbb{N}}S_n \in \mathcal{F}
 \end{equation*}
 
-As for the third statement, we know that $S \setminus T = S \cap (\Omega \setminus T)$. Since $T \in \mathcal{F}$, then $\Omega \setminus T \in \mathcal{F}$, so by statement $2$, we have
-that statement $3$ follows.
+As for the third statement, we know that since $\Omega \in \mathcal{F}$, then we have that for all $S \in \mathcal{F}$, that $\Omega \setminus S \in \mathcal{F}$. 
+\end{proof}
+
+\begin{proof}
+\textbf{Algebras}: $\varnothing \in \mathcal{F}$ follows from property 2.
+
+Since $\Omega \in \mathcal{F}$, we have that $\forall S \in \mathcal{F}: \Omega \setminus S \in \mathcal{F}$. So, for any finite collection $\{S_i\}_{i = 0}^n$, we have that $S_i^c \in \mathcal{F}$:
+\begin{equation*}
+\bigcup_{i=0}^n S_i^c \in \mathcal{F} \implies \left(\bigcup_{i=0}^n S_i^c\right)^c = \bigcap_{i=0}^n S_i \in \mathcal{F}
+\end{equation*}
 \end{proof}
 
 \begin{lem}
@@ -174,14 +187,173 @@ which is the "coarsest" or trivial $\sigma$-algebra. Now taking the union:
 \end{equation*}
 but by Definition 1.1 property $3$, we would need $\{1, 2\}$ to belong in the union, thus the union is not necessarily a $\sigma$-algebra.
 
-\subsection{Motivating the $\sigma$}
+An example of a $\sigma$-algebra is the countable $\sigma$-algebra, defined as:
+\begin{equation*}
+\mathcal{F} \coloneq \{S \subseteq \Omega: S \ \text{countable} \lor S^c \ \text{countable}\}
+\end{equation*}
+\begin{proof}
+We have that $\Omega \in \mathcal{F}$ since $\varnothing$ is trivially countable. Now consider some $S \in \mathcal{F}$, then if $S$ is countable, we know that
+$(S^c)^c$ is countable, thus $S^c \in \mathcal{F}$. If $S$ is not countable, then we know that $S^c$ must be countable, so $S^c \in \mathcal{F}$. 
+
+Now take a countable union of sets in the sequence $\{S_n\}_{n \in \mathbb{N}} \in \mathcal{F}^\mathbb{N}$. If each $S_n$ is countable, then it follows that the union is in $\mathcal{F}$ from the fact
+that countable union of countable sets is countable. If each $S_n$ is not countable, then:
+\begin{equation*}
+\left(\bigcup_{n \in \mathbb{N}}S_n\right)^c = \bigcap_{n \in \mathbb{N}}S_n^c \in \mathcal{F}
+\end{equation*}
+since $S_n$ not countable and $S_n \in \mathcal{F}$ means $S_n^c$ is countable. Assume some are countable and some are not, then for the $S_i$ that are not countable, we have that $S_i^c$ is countable. This forces the complement of the union to be countable.
+\end{proof}
+
+\begin{defn}
+Given a space $\Omega$ and some set $S \subseteq \mathcal{P}(\Omega)$, we define the minimal algebra generated by $S$ as:
+\begin{equation*}
+\mathcal{F}(S) \coloneq \bigcap_{S \subseteq \mathcal{F}}\mathcal{F}
+\end{equation*}
+which is an algebra as per Lemma 1.2.
+\end{defn}
+Consider two subsets $P \subseteq S \subseteq \mathcal{P}(\Omega)$, then we know that:
+\begin{equation*}
+P \subseteq S \subseteq \mathcal{F}(S) \implies \mathcal{F}(P) \subseteq \mathcal{F}(S)
+\end{equation*}
+Since $\mathcal{F}(S)$ is a $\sigma$-algebra containing $P$ thus belongs in the intersection of the minimal $\sigma$-algebra containing $P$. We say the Borel $\sigma$-algebra on $\mathbb{R}$ is one that is generated by the set of all open intervals:
+\begin{equation*}
+I \coloneq \{(a, b): (\forall a, b \in \mathbb{R}: a < b)\} \subseteq \mathcal{P}(\mathbb{R})
+\end{equation*}
+\begin{equation*}
+\mathcal{B} \coloneq \mathcal{F}(I)
+\end{equation*}
+The motivation of defining $\mathcal{B}$ as a minimal algebra of an algebra generated by open intervals is to essentially "hope" that unmeasurable/pathological sets like the Vitali set are eliminated from question. $\mathcal{B}$ will contain open intervals, closed intervals, and countable unions and intersections of them (so Cantor type sets are also included).
+
+The issue is, while the Borel $\sigma$-algebra gives us candidates for what sets are measurable, it does not give the existence of a measure in $\mathbb{R}$.
+
+Consider the minimal $\sigma$-algebra of an already existing $\sigma$-algebra $\mathcal{G}$, with the minimal $\sigma$-algebra being $\mathcal{F}(\mathcal{G})$. Then:
+\begin{equation*}
+\mathcal{F}(\mathcal{G}) \coloneq \bigcap_{\mathcal{G} \subseteq \mathcal{F}}\mathcal{F}
+\end{equation*}
+By definition, we have that $\mathcal{G} \subseteq \mathcal{F}(\mathcal{G})$. However, since $\mathcal{G} \subseteq \mathcal{G}$, then we have that:
+\begin{equation*}
+\mathcal{F}(\mathcal{G}) \subseteq \mathcal{G} \implies \mathcal{F}(\mathcal{G}) = \mathcal{G}
+\end{equation*}
+
+We introduce a few more concepts:
+\begin{defn}
+A ring $\mathcal{R} \subseteq \mathcal{P}(\Omega)$ is an algebera without the condition that $\Omega \in \mathcal{R}$. A $\sigma$-ring $\mathcal{R}_\sigma$ is a $\sigma$-algebra without the same condition.
+\end{defn}
+
+\begin{lem}
+Properties of rings:
+\begin{enumerate}
+\item Rings (and respectively $\sigma$-rings) are closed under (countable) intersections
+\end{enumerate}
+\end{lem}
+\begin{proof}
+\textbf{Property One:} Consider a ring $\mathcal{R}$ and a finite collection of sets $\{S_i\}_{i = 0}^n \in \mathcal{R}^{n+1}$.
+We prove by induction, consider the base case $n=1$. Then:
+\begin{equation*}
+S_1 \cap S_0 = S_1\setminus(S_1 \setminus S_0)
+\end{equation*}
+Since $S_1, S_0 \in \mathcal{R}$, then $S_1 \setminus S_0 \in \mathcal{R}$ and applying the set difference property again, we obtain that the intersection is in the ring. Now
+assume this to be true for some $n \in \mathbb{N}$. Then for $n+1$:
+\begin{equation*}
+\bigcap_{i=0}^{n+1}S_i = S_{n+1} \cap \bigcap_{i=0}^n S_i = S_{n+1} \setminus \left(S_{n+1} \setminus \bigcap_{i=0}^n S_i\right) \in \mathcal{R}
+\end{equation*}
+Now consider a $\sigma$-ring $\mathcal{R}_\sigma$ and a sequence of sets $\{S_n\}_{n \in \mathbb{N}} \in \mathcal{R}_\sigma^\mathbb{N}$. We know that:
+\begin{equation*}
+\bigcup_{n \in \mathbb{N}}S_n \in \mathcal{R}_\sigma
+\end{equation*}
+Now by the finite set difference property, we know that $E\setminus S_n \in \mathcal{R}_\sigma$, so their countable union is in the ring too. Now:
+\begin{equation*}
+E \setminus \bigcup_{n \in \mathbb{N}}(E \setminus S_n) = E \cap \left(\bigcup_{n \in \mathbb{N}}(E \setminus S_n)\right)^c = E \cap \bigcap_{n \in \mathbb{N}}(E \setminus S_n)^c = E \cap \bigcap_{n \in \mathbb{N}}S_n
+\end{equation*}
+If we set $E = S_0$, then:
+\begin{equation*}
+S_0 \cap \bigcap_{n \in \mathbb{N}}S_n = \bigcap_{n \in \mathbb{N}}S_n \in \mathbb{R}_\sigma
+\end{equation*}
+by once again applying the set difference property to $E$ setminus the countable union (in the case that $E = S_0$).
+\end{proof}
+
+\subsubsection{Problems (Folland and Durrett)}
+\textbf{Folland 1.2.1D}: If $\mathcal{R}_\sigma$ is a $\sigma$-ring, then $\mathcal{F} \coloneq \{E \subseteq X : (\forall F \in \mathcal{R}_\sigma: E \cap F \in \mathcal{R}_\sigma)\}$ is a $\sigma$-algebra:
+\begin{proof}
+First we observe that $X$ is in $\mathcal{F}$ since for all $F \in \mathcal{R}_\sigma$, we have that $X \cap F = F \in \mathcal{R}_\sigma$. Now, consider any $E, G \in \mathcal{F}$ such that:
+\begin{equation*}
+\forall F \in \mathcal{R}_\sigma: E \cap F \in \mathcal{R}_\sigma \land G \cap F \in \mathcal{R}_\sigma
+\end{equation*}
+Then by set difference properties of the $\sigma$-ring, we have that:
+\begin{equation*}
+(E \cap F) \setminus (G \cap F) \in \mathcal{R}_\sigma \implies (E \cap F) \cap (G^c \cup F^c) = E \cap G^c \cap F = (E \setminus G) \cap F \in \mathcal{R}_\sigma
+\end{equation*}
+thus $E\setminus G \in \mathcal{F}$. Finally, we must prove closure under countable union. Take a sequence $\{E_n\}_{n \in \mathbb{N}} \in \mathcal{F}^\mathbb{N}$ such that:
+\begin{equation*}
+\forall F \in \mathcal{R}_\sigma, \forall n \in \mathbb{N}: E_n \cap F \in \mathcal{R}_\sigma
+\end{equation*}
+\begin{equation*}
+F \cap \bigcup_{n \in \mathbb{N}}E_n = \bigcup_{n \in \mathbb{N}}(F \cap E_n)
+\end{equation*}
+Since $F \cap E_n \in \mathcal{R}_\sigma$ for each $E_n$, then by closure under countable union of the $\sigma$-ring, we have that the countable union of $E_n$ is in $\mathcal{F}$.
+Thus $\mathcal{F}$ is a $\sigma$-algebra. Here we used a $\sigma$-ring to describe a $\sigma$-algebra, a similar technique to what is used in Caratheodory's Extension Theorem.
+\end{proof}
+
+\textbf{Folland 1.2.5}: If $\mathcal{M}$ is the $\sigma$-algebra generated by $E \subseteq \mathcal{P}(X)$, then $\mathcal{M}$ is the union of the $\sigma$-algebras generated by $\mathcal{S}$ as $\mathcal{S}$ ranges over all countable subsets of $E$. In other words, we want to show:
+\begin{equation*}
+\mathcal{F}(E) = \bigcup_{\alpha \in I}\mathcal{F}(S_\alpha)
+\end{equation*}
+
+\begin{proof}
+Since $E \subseteq \mathcal{F}(E)$, we have that:
+\begin{equation*}
+\forall \alpha \in I: S_\alpha \subseteq E \implies \forall \alpha \in I: \mathcal{F}(S_\alpha) \subseteq \mathcal{F}(E) \implies \bigcup_{\alpha \in I}\mathcal{F}(S_\alpha) \subseteq \mathcal{F}(E)
+\end{equation*}
+For the reverse inclusion, we show that the union is a sigma algebra itself. The space $X$ is trivially in the union. If we take some $P$ in the union, then:
+\begin{equation*}
+\exists \alpha \in I: P \in \mathcal{F}(S_\alpha) \implies P^c \in \mathcal{F}(S_\alpha) \implies P^c \in \bigcup_{\alpha \in I}\mathcal{F}(S_\alpha)
+\end{equation*}
+Now consider some sequence $\{P_n\}_{n \in \mathbb{N}}$ made from elements in the union. Then we have that:
+\begin{equation*}
+\forall n \in \mathbb{N}, \exists \alpha \in I: P_n \in \mathcal{F}(S_\alpha)
+\end{equation*}
+Denote each of these $\alpha$ as $\alpha_n$ based on the corresponding set $P_n$. Then we have that:
+\begin{equation*}
+\bigcup_{n \in \mathbb{N}}S_{\alpha_n}
+\end{equation*}
+is a countable union of countable subsets of $E$ and thus is a countable subset of $E$, so there must exist some $\alpha'$ such that:
+\begin{equation*}
+\forall n \in \mathbb{N}: S_{\alpha_n} \subseteq \bigcup_{n \in \mathbb{N}}S_{\alpha_n} = S_{\alpha'} \implies \mathcal{F}(S_{\alpha_n}) \subseteq \mathcal{F}(S_{\alpha'})
+\end{equation*}
+Thus there exists an $\alpha' \in I$ such that:
+\begin{equation*}
+\forall n \in \mathbb{N}: P_n \in \mathcal{F}(S_{\alpha'}) \subseteq \bigcup_{\alpha \in I}\mathcal{F}(S_\alpha)
+\end{equation*}
+so the union is a valid $\sigma$-algebra. Now if we define $E \coloneq \{E_\beta : \beta \in J\}$, then we know that:
+\begin{equation*}
+\forall \beta \in J, \exists \alpha'' \in I: E_\beta \in S_{\alpha''}
+\end{equation*}
+where the countable subset of $E$ is simply $\{E_\beta\}$ for that specific $\beta \in J$. Thus:
+\begin{equation*}
+E \subseteq \bigcup_{\alpha \in I}S_{\alpha} \subseteq \bigcup_{\alpha \in I}\mathcal{F}(S_\alpha) \implies \mathcal{F}(E) \subseteq \bigcup_{\alpha \in I}\mathcal{F}(S_\alpha)
+\end{equation*}
+where we once again applied the subset property and the fact that the $\sigma$-algebra generated by a $\sigma$-algebra is itself. Then if we take some $C \in \mathcal{F}(E)$, we have that:
+\begin{equation*}
+\exists \alpha \in I: C \in \mathcal{F}(S_\alpha)
+\end{equation*}
+So any set in the $\sigma$-algebra generated by a possibly large (uncountable), complex set can be in the simpler $\sigma$-algebra generated by a countable subset of the set.
+\end{proof}
+
+\textbf{Durrett 1.1.1:}
+
+\textbf{Durrett 1.1.2:} Show that $\mathcal{F}(S_d) = \mathcal{B}^d$ where $\mathcal{B}$ is the Borel set of $\mathbb{R}$. Where $S_d$ is defined as:
+
+\textbf{Durrett 1.1.3:}
+
+\textbf{Durrett 1.1.5:}
+
+\subsection{Measure}
 The third and final element of the triple is $P$, which we call the probability measure. A measure is defined as a following:
 \begin{defn}
 $(X, \mathcal{F})$ is a measurable space on which we can put a measure $\mu: \mathcal{F} \xrightarrow{} [0, \infty]$ with the properties:
 \begin{enumerate}
 \item $\forall S \in \mathcal{F}: \mu(S) \geqslant 0 \land \mu(\varnothing) = 0$
 
-Note that we could also replace the second part with $\mu(\varnothing) \in [0, \infty)$.
+Note that we could also equivalently replace the second part with $\mu(\varnothing) \in [0, \infty)$.
 \item Given some $\{S_n\}_{n \in \mathbb{N}} \in \mathcal{F}^n$, if:
 \begin{equation*}
 \forall i \neq j: S_i \cap S_j = \varnothing \implies \mu\left(\bigcup_{n \in \mathbb{N}}S_n\right) = \sum_{n \in \mathbb{N}}\mu(S_n)
@@ -250,12 +422,12 @@ Now observe we can do the following rewrite:
 \end{equation*}
 Countable additivity gives us finite additivity (simply consider a sequence $A_0, A_1, A_2, ..., A_n, \varnothing, \varnothing,...$), so we can rewrite the sum as:
 \begin{equation*}
-= \lim_{n \xrightarrow{} \infty}\mu\left(\bigcup_{i=0}^n S_i\right) = \mu\left(\lim_{n \xrightarrow{} \infty} \bigcup_{i=0}^n S_i\right)
+= \lim_{n \xrightarrow{} \infty}\mu\left(\bigcup_{i=0}^n S_i\right) = \mu\left(\bigcup_{n \in \mathbb{N}} S_i\right)
 \end{equation*}
 
 The reason why the third and fourth properties are dubbed "continuity" is because they essentially explain a limit exchange under certain sufficient conditions, where:
 \begin{equation*}
-\mu\left(\lim_{n \xrightarrow{} \infty}\bigcup_{i=0}^nS_i\right) = \mu\left(\lim_{n \xrightarrow{} \infty}S_n\right) = \lim_{n \xrightarrow{} \infty}\mu(S_n)
+\mu\left(\bigcup_{n \in \mathbb{N}}S_i\right) = \mu\left(\lim_{n \xrightarrow{} \infty}S_n\right) = \lim_{n \xrightarrow{} \infty}\mu(S_n)
 \end{equation*}
 The proof follows simply from our observation before. Due to the nesting where $S_0 \subseteq S_1 \subseteq ...$, we have that:
 \begin{equation*}
@@ -305,13 +477,16 @@ By finite additivity, because the sequence is pairwise disjoint, we have that:
 \begin{equation*}
 = \lim_{n \xrightarrow{} \infty}\sum_{i=0}^{n}\mu(A_i) = \sum_{n \in \mathbb{N}}\mu(A_n)
 \end{equation*}
-Now we need to prove $\mu(\varnothing) = 0$. By finite additivity:
+Now we need to prove $\mu(\varnothing) = 0$. By finite additivity and $\mu(\varnothing) < \infty$:
 \begin{equation*}
 \mu(\varnothing \cup \varnothing) = \mu(\varnothing) = \mu(\varnothing) + \mu(\varnothing) \implies \mu(\varnothing) = 0
 \end{equation*}
 So we must assume non-negativity (if we try to prove it via monotonicity, it becomes circular). Then we have that:
 \begin{equation*}
-\text{finitely additive + continuous from below} \iff (\mu(\varnothing) = 0)  + \text{countably additive}
+(\mu(\varnothing) \in [0, \infty)) + \text{finitely additive + continuous from below} \iff (\mu(\varnothing) = 0)  + \text{countably additive}
+\end{equation*}
+\begin{equation*}
+\iff (\mu(\varnothing) \in [0, \infty)) + \text{countably additive}
 \end{equation*}
 
 \end{proof}
@@ -331,8 +506,53 @@ A measure $\mu: \mathcal{F} \xrightarrow{} [0, \infty]$ has the properties:
 \end{defn}
 We can now make this notion more specific to probability and say:
 \begin{defn}
-A probability measure $P: \mathcal{F} \xrightarrow{} [0, 1]$ is one where $P(\Omega) = 1$.
+A probability measure is a function $P: \mathcal{F} \xrightarrow{} [0, \infty]$ where:
+\begin{enumerate}
+\item $P(\Omega) = 1$
+\item Given some sequence $\{S_n\}_{n \in \mathbb{N}} \in \mathcal{F}^\mathbb{N}$:
+\begin{equation*}
+\forall i \neq j: S_i \cap S_j = \varnothing \implies P\left(\bigcup_{n \in \mathbb{N}}S_n\right) = \sum_{n \in \mathbb{N}}P(S_n)
+\end{equation*}
+\end{enumerate}
 \end{defn}
+
+\begin{lem}
+$P$ is a measure on the measurable space $(\Omega, \mathcal{F})$ and:
+\begin{equation*}
+\forall S \in \mathcal{F}: P(\Omega \setminus S) = 1 - P(S)
+\end{equation*}
+\end{lem}
+\begin{proof}
+Non-negativity and countable additivity follows by definition. We only need to prove that $\mu(\varnothing) = 0$. Simply take the sequence:
+\begin{equation*}
+\Omega, \varnothing, \varnothing,...
+\end{equation*}
+Then by countable additivity:
+\begin{equation*}
+P(\Omega) = P(\Omega) + \sum_{n \in \mathbb{N}}P(\varnothing)
+\end{equation*}
+Since $P(\Omega) = 1$, we can apply cancellation, which forces $P(\varnothing) = 0$. 
+
+This is a sufficient condition for measure spaces in general. Given a non-negative function $\mu$ with countable additivity:
+\begin{equation*}
+\exists S \in \mathcal{F}: (\mu(S) < \infty) + \text{countable additivity} \implies \mu(\varnothing) = 0
+\end{equation*}
+proving that $\mu$ is a measure on that measurable space.
+
+We prove the second part now that we know that $P(\varnothing) = 0$. Because of this fact, we can say that countable additivity implies finite additivity, thus:
+\begin{equation*}
+P(\Omega) = P(\Omega \setminus S \cup S) = P(\Omega \setminus S) + P(S)
+\end{equation*}
+\begin{equation*}
+\implies P(\Omega \setminus S) = 1 - P(S)
+\end{equation*}
+To do this proof, we require that $S \subseteq \Omega$ for the decomposition to hold.
+\end{proof}
+
+\begin{defn}
+If 
+\end{defn}
+
 
 
 To motivate the use of $\sigma$-algebras, we look at a simple probability based example. Consider a weighted coin where the conductor of the experiment is not aware of the weightage. Then:
@@ -351,6 +571,8 @@ we fix our attention to subsets of $\mathbb{R}$. We defined the notion of outer 
 \forall A \subseteq \mathbb{R}: |A| \coloneq \inf\left\{\sum_{n \in \mathbb{N}}|I_n| : A \subseteq \bigcup_{n \in \mathbb{N}}I_n\right\}
 \end{equation*}
 where $I_n$ is an open interval (or closed works as well) whose measure we defined as the difference between its endpoints $b-a$.
+\pagebreak
 
+\section{Random Variables and Distributions}
 
 \end{document}
