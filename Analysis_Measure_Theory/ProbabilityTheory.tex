@@ -80,7 +80,7 @@ Other Textbooks Referenced:
 \textbf{NOTE:} Any sections/subsections marked with an asterisk are extra sections and have been added to this document as extensions of introduced theory.
 \pagebreak
 
-\section{Probability Spaces}
+\section{Measure Spaces}
 \subsection{Algebras and Rings}
 We begin with some basic measure theory which will motivate the formulation of the $\sigma$-algebra and allow us to go from generality to specificity in defining probability spaces.
 %I will get back to this at a later time
@@ -663,6 +663,10 @@ however, $P$ may not be part of $\mathcal{F}$. We note an important property tha
 \end{equation*}
 which follows from countably subadditivity of the measure (Lemma 1.4.2). 
 
+\begin{defn}
+A measure $\mu$ is complete on a measure space $(X, \mathcal{M}, \mu)$ if its associated $\sigma$-algebra contains all subsets of any null set and if the measure of those subsets is $0$.
+\end{defn}
+
 We can extend the measure on the $\sigma$-algebra by the following:
 \begin{lem}
 Given a measure space $(X, \mathcal{F}, \mu)$, we say that $\overline{\mu}$ is a complete measure on $\overline{\mathcal{M}}$, where:
@@ -785,7 +789,7 @@ Additionally, we have that:
 \end{equation*}
 where the covering sequence is countable (this is because there is a bijection between $\mathbb{N}^2$ and $\mathbb{N}$). So by infimum properties, we have that:
 \begin{equation*}
-\mu^*\left(\bigcup_{n \in \mathbb{N}}A_n\right) \leqslant \sum_{n \in \mathbb{N}}\sum_{m \in \mathbb{N}}\mu_0(E_m^{(n)}) \leqslant \sum_{n \in \mathbb{N}}(\mu^*(A_n) + \frac{\epsilon}{2^n})
+\mu^*\left(\bigcup_{n \in \mathbb{N}}A_n\right) \leqslant \sum_{n \in \mathbb{N}}\sum_{m \in \mathbb{N}}\mu_0(E_m^{(n)}) \leqslant \sum_{n \in \mathbb{N}}\left(\mu^*(A_n) + \frac{\epsilon}{2^n}\right)
 \end{equation*}
 \begin{equation*}
 \leqslant \sum_{n \in \mathbb{N}}\mu^*(A_n) + 2\epsilon
@@ -838,11 +842,11 @@ Now that we have the property of finite unions, we can say $\mathcal{M}$ is an a
 
 Now, we show that $\mu^*$ is finitely additive such that for some finite sequence of pairwise disjoint sets $A_i$ in $\mathcal{M}$:
 \begin{equation*}
-\mu^*\left(\bigcup_{i=0}^nA_i\right) = \sum_{i=0}^n \mu^*(A_i)
+\mu^*\left(E \cap \bigcup_{i=0}^nA_i\right) = \sum_{i=0}^n \mu^*(E \cap A_i)
 \end{equation*}
 Consider the base case of $n = 1$, such that:
 \begin{equation*}
-\mu^*(A_0 \cup A_1) = \mu^*((A_0 \cup A_1) \cap A_1) + \mu^*((A_0 \cup A_1) \cap A_1^c) = \mu^*(A_1) + \mu^*(A_0)
+\mu^*(E \cap (A_0 \cup A_1)) = \mu^*((E \cap A_0 \cup E \cap A_1) \cap A_1) + \mu^*((E \cap A_0 \cup E \cap A_1) \cap A_1^c) = \mu^*(E \cap A_1) + \mu^*(E \cap A_0)
 \end{equation*}
 Now assume it holds true for some $n$, then for the $n+1$ case, since $A_{n+1} \in \mathcal{M}$:
 \begin{equation*}
@@ -860,30 +864,205 @@ Nowe we can prove that $\mathcal{M}$ is closed under countable unions. Consider 
 \end{equation*}
 By finite additivity of the outer measure on the algebra $\mathcal{M}$, we have that:
 \begin{equation*}
-= \sum_{i=0}^n\mu^*\left(E \cap A_i \setminus \bigcup_{j=0}^{i-1}A_j\right) + \mu^*\left(E \cap \bigcap_{i=0}^n A_i^c\right)
+\geqslant \sum_{i=0}^n\mu^*\left(E \cap A_i \setminus \bigcup_{j=0}^{i-1}A_j\right) + \mu^*\left(E \cap \bigcap_{n \in \mathbb{N}} A_n^c\right)
 \end{equation*}
 Since this is true for all $n \in \mathbb{N}$, we can take the limit as $n \xrightarrow{} \infty$ and obtain:
 \begin{equation*}
-\mu^*(E) = \sum_{n \in \mathbb{N}}\mu^*\left(E \cap A_n \setminus \bigcup_{i=0}^{n-1} A_i\right) + \mu^*\left(E \cap \bigcap_{n \in \mathbb{N}}A_n^c\right)
+\mu^*(E) \geqslant \sum_{n \in \mathbb{N}}\mu^*\left(E \cap A_n \setminus \bigcup_{i=0}^{n-1} A_i\right) + \mu^*\left(E \cap \bigcap_{n \in \mathbb{N}}A_n^c\right)
 \end{equation*}
 By subadditivity, we can recombine the sum and obtain:
 \begin{equation*}
-\mu^*(E) \geqslant \mu^*\left(E \cap \bigcup_{n \in \mathbb{N}}A_n\right) + \mu^*\left(E \cap \bigcap_{n \in \mathbb{N}}A_n^c\right)
+\geqslant \mu^*\left(E \cap \bigcup_{n \in \mathbb{N}}A_n\right) + \mu^*\left(E \cap \bigcap_{n \in \mathbb{N}}A_n^c\right) \geqslant \mu^*(E)
 \end{equation*}
-Thus $\mathcal{M}$ is a $\sigma$-algebra. We now need to prove that $\mu*$ is a measure on $\mathcal{M}$, for which it suffices to show countable additivity. Consider a disjoint sequence of sets $\{A_n\}_{n \in \mathbb{N}}$.
-
-Then we have that:
+We have shown an important equality, which we can state in full generality. Given some sequence of pairwise disjoint $\mu^*$-measurable sets, we have that:
 \begin{equation*}
-\mu^*\left(\bigcup_{n \in \mathbb{N}}A_n\right) = \sum_{n \in \mathbb{N}}\mu^*(A_n)
+\mu^*\left(E\right) = \mu^*\left(E \cap \bigcup_{n \in \mathbb{N}}A_n\right) + \mu^*\left(E \cap \bigcap_{n \in \mathbb{N}}A_n^c\right) = \sum_{n \in \mathbb{N}}\mu^*(E \cap A_n) + \mu^*\left(E \cap \bigcap_{n \in \mathbb{N}}A_n^c\right)
 \end{equation*}
-which follows from the equality after we took the limit as $n \xrightarrow{} \infty$ in our previous argument.
 
-Now we have that $\mu^*$ is a full measure on the $\sigma$-algebra $\mathcal{M}$. To show it is complete, consider a set $E$ with outer measure of zero. Then taking any arbitrary $A \subseteq X$:
+
+Thus $\mathcal{M}$ is a $\sigma$-algebra. We now need to prove that $\mu^*$ is a measure on $\mathcal{M}$, for which it suffices to show countable additivity. Consider a disjoint sequence of sets $\{A_n\}_{n \in \mathbb{N}}$.
+
+Then we have that their countable union is in the $\sigma$-algebra, so we can apply the measurability property:
 \begin{equation*}
-\mu^*(A) \leqslant \mu^*(A \cap E) + \mu^*(A \cap E^c) \leqslant \mu^*(E) + \mu^*(A \cap E^c) \leqslant \mu^*(A)
+\mu^*\left(\bigcup_{n \in \mathbb{N}}A_n\right) = \mu^*\left(\bigcup_{n \in \mathbb{N}}A_n \cap \bigcup_{n \in \mathbb{N}}A_n\right) + \mu^*\left(\bigcup_{n \in \mathbb{N}}A_n \cap \bigcap_{n \in \mathbb{N}}A_n^c\right)
 \end{equation*}
-thus proving that $E \in \mathcal{M}$.
+\begin{equation*}
+= \sum_{n \in \mathbb{N}}\mu^*(A_n)
+\end{equation*}
+which follows from the highlighted equality.
+
+Now we have that $\mu^*$ is a full measure on the $\sigma$-algebra $\mathcal{M}$. To show it is complete, consider a set $E$ a subset of a null set $N$. Then taking any arbitrary $A \subseteq X$:
+\begin{equation*}
+\mu^*(A) \leqslant \mu^*(A \cap E) + \mu^*(A \cap E^c) \leqslant \mu^*(N) + \mu^*(A \cap E^c) \leqslant \mu^*(A)
+\end{equation*}
+thus proving that $E \in \mathcal{M}$. By monotonicity of measure, we see that $\mu^*(E) = 0$.
 \end{proof}
+
+\begin{defn}[Premeasure]
+We now introduce the concept of a premeasure $\mu_0: \mathcal{A} \xrightarrow{} [0, \infty]$ which is a non-negative function whose domain is an algebra such that:
+\begin{enumerate}
+\item $\mu_0(\varnothing) = 0$
+\item For all sequences $\{A_n\}_{n \in \mathbb{N}} \in \mathcal{A}^\mathbb{N}$:
+\begin{equation*}
+\forall i \neq j: A_i \cap A_j = \varnothing \land \bigcup_{n \in \mathbb{N}}A_n \in \mathcal{A} \implies \mu_0\left(\bigcup_{n \in \mathbb{N}}A_n\right) = \sum_{n \in \mathbb{N}}\mu_0(A_n)
+\end{equation*}
+\end{enumerate}
+Observe that we place the additional sufficiency that the countable union must be in the algebra $\mathcal{A}$. This is not necessary for measures since their domains are $\sigma$-algebras which are automatically closed under countable unions,
+unlike algebras which are only closed under finite unions (and thus intersections).
+\end{defn}
+
+\begin{lem}
+A premeasure $\mu_0$ is finitely subadditive and countable subadditive for collections whose unions belong in the algebra.
+\end{lem}
+\begin{proof}
+Consider a finite collection of subsets in the algebra, $A_0, ..., A_n$. Then we can rewrite their union as a disjoint union:
+\begin{equation*}
+\bigcup_{i=0}^n A_i = \bigcup_{i=0}^n \left(A_i \setminus \bigcup_{j=0}^{i-1}A_j\right)
+\end{equation*}
+Now by closure under countable union and finite set difference, we have each of the terms:
+\begin{equation*}
+A_i \setminus \bigcup_{j=0}^{i-1}A_j \in \mathcal{A}
+\end{equation*}
+so the finite union of those terms is also in the algebra. By countable additivity (which reduces to finite additivity if we fill the remaining sequence with $\varnothing$), we have:
+\begin{equation*}
+\mu_0\left(\bigcup_{i=0}^n A_i\right) = \sum_{i=0}^n \mu_0\left(A_i \setminus \bigcup_{j=0}^{i-1}A_j\right) \leqslant \sum_{i=0}^n \mu_0(A_i)
+\end{equation*}
+Monotonicity follows from non-negativity and finite additivity as we proved for measures. The proof for countable subadditivity is the same as long as the union belongs in the algebra.
+\end{proof}
+
+\begin{lem}
+Given a space $X$ and a premeasure $\mu_0: \mathcal{A} \xrightarrow{} [0, \infty]$, we have that:
+\begin{enumerate}
+\item $\mu^*|_\mathcal{A} = \mu_0$
+\item $\forall A \in \mathcal{A}: A \ \text{is } \mu^*\text{-measurable}$
+\end{enumerate}
+where the outer measure $\mu^*$ is formulated as the infimum of sums of premeasures of covering sequences (view Definition 1.8).
+\end{lem}
+\begin{proof}
+\textbf{Part One:} If we consider some $A \in \mathcal{A}$, then by definition, we see that:
+\begin{equation*}
+\mu^*(A) \leqslant \mu_0(A)
+\end{equation*}
+as $A, \varnothing, \varnothing,...$ is a covering sequence for $A$. Now for the reverse inequality, since $\mu^*(A)$ exists, we have a covering sequence for $A$, such that:
+\begin{equation*}
+A \subseteq \bigcup_{n \in \mathbb{N}}B_n \implies A = A \cap \bigcup_{n \in \mathbb{N}}B_n \in \mathcal{A}
+\end{equation*}
+We can rewrite $A$ as a disjoint union:
+\begin{equation*}
+A = \bigcup_{n \in \mathbb{N}}\left(A \cap B_n \setminus \bigcup_{i=0}^{n-1}B_i\right) \in \mathcal{A}
+\end{equation*}
+So by countable additivity and montonicity, we have that:
+\begin{equation*}
+\mu_0(A) = \sum_{n \in \mathbb{N}}\mu_0\left(A \cap B_n \setminus \bigcup_{i=0}^{n-1}B_i\right) \leqslant \sum_{n \in \mathbb{N}}\mu_0(A \cap B_n) \leqslant \sum_{n \in \mathbb{N}}\mu_0(B_n)
+\end{equation*}
+By the infimum definition of the outer measure $\mu^*$, we see that $\mu_0(A) \leqslant \mu^*(A)$. 
+
+\textbf{Part Two:} We now want to show that:
+\begin{equation*}
+\forall A \in \mathcal{A}, \forall E \subseteq X: \mu^*(E) = \mu^*(E \cap A) + \mu^*(E \cap A^c)
+\end{equation*}
+We have that for all $\epsilon > 0$, there is some covering sequence of $E$ such that:
+\begin{equation*}
+\mu^*(E) + \epsilon \geqslant \sum_{n \in \mathbb{N}}\mu_0(B_n) = \sum_{n \in \mathbb{N}}\mu_0(B_n \cap (A \cup A^c))
+\end{equation*}
+\begin{equation*}
+= \sum_{n \in \mathbb{N}}\mu_0((B_n \cap A) \cup (B_n \cap A^c))
+\end{equation*}
+Now we see that $B_n \cap A \cap B_n \cap A^c = \varnothing$ for all $n \in \mathbb{N}$, so by finite additivity of the premeasure:
+\begin{equation*}
+= \sum_{n \in \mathbb{N}}(\mu_0(B_n \cap A) + \mu_0(B_n \cap A^c))
+\end{equation*}
+Now since the sequence of $B_n$ covered $E$, we have that the sequence of $B_n \cap A$ covers $E \cap A$. Similarly for $E \cap A^c$. Thus by definition of the outer measure:
+\begin{equation*}
+\geqslant \mu^*(E \cap A) + \mu^*(E \cap A^c)
+\end{equation*}
+Since this is true for all $\epsilon > 0$, we have that:
+\begin{equation*}
+\mu^*(E) \geqslant \mu^*(E \cap A) + \mu^*(E \cap A^c)
+\end{equation*}
+The reverse inequality follows from the finite subadditivity of the outer measure $\mu^*$.
+\end{proof}
+
+Now since $\mathcal{A}$ is $\mu^*$-measurable, we have that $\mathcal{A} \subseteq \mathcal{M}$ as defined in the Caratheodory Extension Theorem. Thus tells us that $\mathcal{F}(\mathcal{A}) \subseteq \mathcal{M}$.
+
+As a result, we have that $\mu^*|_{\mathcal{F}(\mathcal{A})}$ is a measure (countable additivity follows from countable additivity on $\mathcal{M}$).
+
+\subsection{The Lebesgue Measure}
+% We define half open intervals as subsets of $\mathbb{R}$ in the form $(a, b]$, $(a, \infty)$, or $(-\infty, a]$ and trivially $\varnothing$, $\mathbb{R}$, where $- \infty \leqslant a < b < \infty$.
+
+% \begin{lem}
+% The collection of finite disjoint unions of half open intervals is an algebra, which we shall call, $\mathcal{I}_h$.
+% \end{lem}
+% \begin{proof}
+% We see that all of $\mathbb{R}$ is in $\mathcal{I}_h$ by definition of a half open interval. Now consider an element in $I_h$, which can be written as a finite union of disjoint half open intervals:
+% \begin{equation*}
+% I_h = \bigcup_{j=0}^nI_j \implies I^c = \bigcap_{j=0}^n I_j^c
+% \end{equation*}
+% Consider any two h-intervals $I_j, I_k$. Then their intersection $I_j, I_k$ is also an h-interval (this is trivial when one interval is a ray). When they are both bounded intervals:
+% \begin{equation*}
+% I_j \cap I_k = (a, b] \cap (c, d]
+% \end{equation*}
+% is either $\varnothing$, or assuming WLOG ($a < c$ and $b < d$), the intersection would be $(c, b]$, which is an h-interval. Similarly, the complement of a bounded h-interval is the finite union of two h-intervals. The complement of the other types of h-intervals is an h-interval.
+
+% Now the complement of the element $I_h$ is the intersection of a finite number of h-intervals, which is an h-interval as we have shown (the two set intersection can be inductively extended). Since $\mathbb{R}$ is an h-interval, we have that it exists in the algebra.
+
+% Finally, consider a finite intersection of h-intervals:
+% \begin{equation*}
+% \bigcap_{j=0}^nI_{h_j} = \bigcap_{j=0}^n \bigcup_{k=0}^{m_{(k)}}I_{k}
+% \end{equation*}
+% where each $I_k$ is an h-interval. Then as the intersection distributes over the union (and we know that the intersection of h-intervals is an h-interval), then each new h-interval is disjoint with the other. Thus finite intersections remain in the algebra and it follows that finite unions do as well.
+
+% The union of a simple countably infinite collection:
+% \begin{equation*}
+% I_j \coloneq \left\{\left(0, 1-\frac{1}{j+1}\right] : j \in \mathbb{N}\right\}
+% \end{equation*}
+% is the interval $(0, 1)$ which shows us that the set is not a $\sigma$-algebra.
+% \end{proof}
+
+\begin{defn}[Semialgebra]
+A semialgebra $\mathcal{S} \subseteq \mathcal{P}(X)$ has the properties:
+\begin{enumerate}
+\item $X \in \mathcal{S}$
+\item Closure under finite intersection:
+\begin{equation*}
+\forall \{A_i\}_{i=0}^n \in \mathcal{S}^{n+1}: \bigcap_{i=0}^n A_i \in \mathcal{S}
+\end{equation*}
+\item Complements as disjoint finite unions:
+\begin{equation*}
+\forall A \in \mathcal{S}, \exists \{B_i\}_{i = 0}^n \in \mathcal{S}^{n+1}, \forall i \neq j: B_i \cap B_j = \varnothing \land A^c = \bigcup_{i=0}^n B_i
+\end{equation*}
+\end{enumerate}
+\end{defn}
+
+\begin{lem}
+We can generate an algebra from a semialgebra $\mathcal{A}(\mathcal{S})$, where:
+\begin{equation*}
+\mathcal{A}(\mathcal{S}) \coloneq \left\{\bigcup_{i=0}^n A_i : (\{A_i\}_{i=0}^n \in \mathcal{S}^{n+1} \land \forall i \neq j: A_i \cap A_j = \varnothing)\right\}
+\end{equation*}
+\end{lem}
+\begin{proof}
+We prove $\mathcal{A}(S)$ is an algebra. Since $X \in \mathcal{S}$, we have that $X \in \mathcal{A}(\mathcal{S})$.
+
+We aim to show that the algebra is closed under complements. Consider some $C \in \mathcal{A}(\mathcal{S})$, then:
+\begin{equation*}
+C = \bigcup_{i=0}^n A_i
+\end{equation*}
+where each of the $A_i$ subsets are pairwise disjoint. Now, taking the complement:
+\begin{equation*}
+C^c = \bigcap_{i=0}^n A_i^c = \bigcap_{i=0}^n \left(\bigcup_{j=0}^m B_j^{(i)}\right)
+\end{equation*}
+where the union is a disjoint union (follows from Property 3 of semialgebras). When we expand the expression, we get unions of finite intersections of these $B_j^{(i)}$ sets (which belong in $\mathcal{S}$ by Property 2).
+By the distributive property of intersections over unions, if you take the intersection of any of two of these finite intersections, we see they are disjoint, thus $C^c \in \mathcal{A}(\mathcal{S})$. %need to prove this better
+
+Now, we can show closure under finite intersections, where:
+\begin{equation*}
+\bigcap_{i=0}^n C_i = \bigcap_{i=0}^n \left(\bigcup_{j=0}^m A_j^{(i)}\right)
+\end{equation*}
+Once again distributing the intersection over the union, we get a union of finite intersections (which belong in $\mathcal{S}$), which we can prove is disjoint in the same manner. Combined with complement, it is closed under finite union.
+
+
+\end{proof}
+
 
 \pagebreak
 
