@@ -454,73 +454,110 @@ This definition of a measure reveals additional properties:
 \end{equation*}
 \end{enumerate}
 \end{lem}
-\begin{proof}
-Take the sets $A, B \setminus A$, then:
-\begin{equation*}
-\mu(B) = \mu(A \cup (B \setminus A)) = \mu(A) + \mu(B \setminus A) \geqslant \mu(A)
-\end{equation*}
-thus proving the first property of non-negativity. Here we used countable additivity with the sequence $A, B \setminus A, \varnothing, \varnothing,...$ to bring about finite additivity. This means the proof also requires
-that the measure $\mu(\varnothing) = 0$.
+% \begin{proof}
+% Take the sets $A, B \setminus A$, then:
+% \begin{equation*}
+% \mu(B) = \mu(A \cup (B \setminus A)) = \mu(A) + \mu(B \setminus A) \geqslant \mu(A)
+% \end{equation*}
+% thus proving the first property of non-negativity. Here we used countable additivity with the sequence $A, B \setminus A, \varnothing, \varnothing,...$ to bring about finite additivity. This means the proof also requires
+% that the measure $\mu(\varnothing) = 0$.
 
-For the second property, we can rewrite the union as the following:
-\begin{equation*}
-\bigcup_{n \in \mathbb{N}}S_n = \bigcup_{n \in \mathbb{N}}\left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right)
-\end{equation*}
-The reverse inclusion is trivial. For the forward inclusion, if $x$ is in the union of $S_n$, then:
-\begin{equation*}
-\exists n \in \mathbb{N}: x \in S_n
-\end{equation*}
-but it might be that $x$ belongs to the intersection of multiple such sets, so by well ordering property and nonemptiness above, we can define:
-\begin{equation*}
-m \coloneq \min\{n \in \mathbb{N}: x \in S_n\}
-\end{equation*}
-So $x \in S_m$ which also tells us that for all $n \leqslant m$ that $x \notin S_n$, so:
-\begin{equation*}
-\exists m \in \mathbb{N}: x \in S_m \setminus \bigcup_{i=0}^{m-1}S_i
-\end{equation*}
-We also have the added benefit that each set difference is disjoint from any other. So:
-\begin{equation*}
-\mu\left(\bigcup_{n \in \mathbb{N}}S_n\right) = \mu\left(\bigcup_{n \in \mathbb{N}} \left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right)\right) = \sum_{n \in \mathbb{N}}\mu\left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right) \leqslant \sum_{n \in \mathbb{N}}\mu(S_n)
-\end{equation*}
-Now observe we can do the following rewrite:
-\begin{equation*}
-\sum_{n \in \mathbb{N}}\mu\left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right) = \lim_{n \xrightarrow{} \infty}\sum_{i=0}^{n}\mu\left(S_i \setminus \bigcup_{j=0}^{i-1}S_j\right)
-\end{equation*}
-Countable additivity gives us finite additivity (simply consider a sequence $A_0, A_1, A_2, ..., A_n, \varnothing, \varnothing,...$), so we can rewrite the sum as:
-\begin{equation*}
-= \lim_{n \xrightarrow{} \infty}\mu\left(\bigcup_{i=0}^n S_i\right) = \mu\left(\bigcup_{n \in \mathbb{N}} S_i\right)
-\end{equation*}
+% For the second property, we can rewrite the union as the following:
+% \begin{equation*}
+% \bigcup_{n \in \mathbb{N}}S_n = \bigcup_{n \in \mathbb{N}}\left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right)
+% \end{equation*}
+% The reverse inclusion is trivial. For the forward inclusion, if $x$ is in the union of $S_n$, then:
+% \begin{equation*}
+% \exists n \in \mathbb{N}: x \in S_n
+% \end{equation*}
+% but it might be that $x$ belongs to the intersection of multiple such sets, so by well ordering property and nonemptiness above, we can define:
+% \begin{equation*}
+% m \coloneq \min\{n \in \mathbb{N}: x \in S_n\}
+% \end{equation*}
+% So $x \in S_m$ which also tells us that for all $n \leqslant m$ that $x \notin S_n$, so:
+% \begin{equation*}
+% \exists m \in \mathbb{N}: x \in S_m \setminus \bigcup_{i=0}^{m-1}S_i
+% \end{equation*}
+% We also have the added benefit that each set difference is disjoint from any other. So:
+% \begin{equation*}
+% \mu\left(\bigcup_{n \in \mathbb{N}}S_n\right) = \mu\left(\bigcup_{n \in \mathbb{N}} \left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right)\right) = \sum_{n \in \mathbb{N}}\mu\left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right) \leqslant \sum_{n \in \mathbb{N}}\mu(S_n)
+% \end{equation*}
+% Now observe we can do the following rewrite:
+% \begin{equation*}
+% \sum_{n \in \mathbb{N}}\mu\left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right) = \lim_{n \xrightarrow{} \infty}\sum_{i=0}^{n}\mu\left(S_i \setminus \bigcup_{j=0}^{i-1}S_j\right)
+% \end{equation*}
+% Countable additivity gives us finite additivity (simply consider a sequence $A_0, A_1, A_2, ..., A_n, \varnothing, \varnothing,...$), so we can rewrite the sum as:
+% \begin{equation*}
+% = \lim_{n \xrightarrow{} \infty}\mu\left(\bigcup_{i=0}^n S_i\right) = \mu\left(\bigcup_{n \in \mathbb{N}} S_i\right)
+% \end{equation*}
 
-The reason why the third and fourth properties are dubbed "continuity" is because they essentially explain a limit exchange under certain sufficient conditions, where:
-\begin{equation*}
-\mu\left(\bigcup_{n \in \mathbb{N}}S_i\right) = \mu\left(\lim_{n \xrightarrow{} \infty}S_n\right) = \lim_{n \xrightarrow{} \infty}\mu(S_n)
-\end{equation*}
-The proof follows simply from our observation before. Due to the nesting where $S_0 \subseteq S_1 \subseteq ...$, we have that:
-\begin{equation*}
-\bigcup_{i=0}^nS_i = S_n
-\end{equation*}
-By the monotonicity property, we have that $\{\mu(S_n)\}_{n \in \mathbb{N}}$ is a non-decreasing sequence, so we can rewrite the limit as:
-\begin{equation*}
-\lim_{n \xrightarrow{} \infty} \mu(S_n) = \sup_{n \in \mathbb{N}}\mu(S_n) 
-\end{equation*}
+% The reason why the third and fourth properties are dubbed "continuity" is because they essentially explain a limit exchange under certain sufficient conditions, where:
+% \begin{equation*}
+% \mu\left(\bigcup_{n \in \mathbb{N}}S_i\right) = \mu\left(\lim_{n \xrightarrow{} \infty}S_n\right) = \lim_{n \xrightarrow{} \infty}\mu(S_n)
+% \end{equation*}
+% The proof follows simply from our observation before. Due to the nesting where $S_0 \subseteq S_1 \subseteq ...$, we have that:
+% \begin{equation*}
+% \bigcup_{i=0}^nS_i = S_n
+% \end{equation*}
+% By the monotonicity property, we have that $\{\mu(S_n)\}_{n \in \mathbb{N}}$ is a non-decreasing sequence, so we can rewrite the limit as:
+% \begin{equation*}
+% \lim_{n \xrightarrow{} \infty} \mu(S_n) = \sup_{n \in \mathbb{N}}\mu(S_n) 
+% \end{equation*}
 
 
-For the fourth property, we use continuity from below. Consider a sequence $S_0 \supseteq S_1 \supseteq ...$. Then we have that $S_0 \setminus S_1 \subseteq S_0 \setminus S_2 \subseteq ...$, which tells us that:
+% For the fourth property, we use continuity from below. Consider a sequence $S_0 \supseteq S_1 \supseteq ...$. Then we have that $S_0 \setminus S_1 \subseteq S_0 \setminus S_2 \subseteq ...$, which tells us that:
+% \begin{equation*}
+% \mu\left(\lim_{n \xrightarrow{} \infty}S_0 \setminus S_n\right) = \lim_{n \xrightarrow{} \infty}\mu(S_0 \setminus S_n) 
+% \end{equation*}
+% Now observe:
+% \begin{equation*}
+% \mu(S_0) = \mu(S_0 \setminus S_n \cup S_n) = \mu(S_0 \setminus S_n) + \mu(S_n) \implies \mu(S_0) - \lim_{n \xrightarrow{} \infty}\mu(S_n) = \lim_{n \xrightarrow{} \infty}\mu(S_0 \setminus S_n)
+% \end{equation*}
+% \begin{equation*}
+% \implies \mu(S_0) - \lim_{n \xrightarrow{} \infty}\mu(S_n) = \mu(S_0 \setminus \cap S_n) = \mu(S_0) - \mu\left(\bigcap_{n \in \mathbb{N}}S_n\right)
+% \end{equation*}
+% and via cancellation we have the desired property. Notice that the argument requires $\mu(S_0) < \infty$. If it were not less than infinity, then it may be possible that even the subsets of $S_0$ have infinite measure, which would mean:
+% \begin{equation*}
+% \lim_{n \xrightarrow{} \infty}\mu(S_n) = \infty
+% \end{equation*}
+% which would give an indeterminate subtraction on the left hand side.
+
+
+% \end{proof}
+\begin{proof}[Monotonicity and Subadditivity]
+Given $A \subseteq B$, consider the disjoint union $(B \setminus A) \cup A$. Then countable addiivity and $\mu(\varnothing) = 0$, gives us that:
 \begin{equation*}
-\mu\left(\lim_{n \xrightarrow{} \infty}S_0 \setminus S_n\right) = \lim_{n \xrightarrow{} \infty}\mu(S_0 \setminus S_n) 
+\mu(B) = \mu((B\setminus A) \cup A) = \mu(B\setminus A) + \mu(A) \geqslant \mu(A)
 \end{equation*}
-Now observe:
+by non-negativity.
+
+Now consider the countable union of subsets $S_n$. We can rewrite the union as a disjoint union:
 \begin{equation*}
-\mu(S_0) = \mu(S_0 \setminus S_n \cup S_n) = \mu(S_0 \setminus S_n) + \mu(S_n) \implies \mu(S_0) - \lim_{n \xrightarrow{} \infty}\mu(S_n) = \lim_{n \xrightarrow{} \infty}\mu(S_0 \setminus S_n)
+\bigcup_{n \in \mathbb{N}}S_n = \bigcup_{n \in \mathbb{N}}\left(S_n \setminus \bigcup_{i=0}^{n-1} S_i\right)
 \end{equation*}
 \begin{equation*}
-\implies \mu(S_0) - \lim_{n \xrightarrow{} \infty}\mu(S_n) = \mu(S_0 \setminus \cap S_n) = \mu(S_0) - \mu\left(\bigcap_{n \in \mathbb{N}}S_n\right)
+\mu\left(\bigcup_{n \in \mathbb{N}}S_n\right) = \sum_{n \in \mathbb{N}}\mu\left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right) \leqslant \sum_{n \in \mathbb{N}}\mu(S_n)
 \end{equation*}
-and via cancellation we have the desired property. Notice that the argument requires $\mu(S_0) < \infty$. If it were not less than infinity, then it may be possible that even the subsets of $S_0$ have infinite measure, which would mean:
+by monotonicity.
+\end{proof}
+
+\begin{proof}[Continuity From Below]
+Now observe the decomposition from the previous step in the subadditivity proof:
 \begin{equation*}
-\lim_{n \xrightarrow{} \infty}\mu(S_n) = \infty
+\sum_{n \in \mathbb{N}}\mu\left(S_n \setminus \bigcup_{i=0}^{n-1}S_i\right) = \lim_{n \xrightarrow{} \infty}\sum_{j=0}^{n}\mu\left(S_j \setminus \bigcup_{i=0}^{j-1}S_i\right)
 \end{equation*}
-which would give an indeterminate subtraction on the left hand side.
+Now the finite sum can be recombined by finite additivity since each subset is disjoint, obtaining:
+\begin{equation*}
+= \lim_{n \xrightarrow{} \infty}\mu\left(\bigcup_{j=0}^n S_j\right) = \mu\left(\bigcup_{n \in \mathbb{N}}S_n\right)
+\end{equation*}
+Continuity from below is a simple application of the fact that the subsets make non-decreasing chain. The finite intersection of those $S_j$ subsets is simply $S_n$, thus:
+\begin{equation*}
+\lim_{n \xrightarrow{} \infty}\mu(S_n) = \mu\left(\bigcup_{n \in \mathbb{N}}S_n\right)
+\end{equation*}
+\end{proof}
+
+\begin{proof}[Continuity From Above, Proof 1]
+We offer two proofs, one using continuity from below and the other using countable additivity. Now consider a non-increasing chain of subsets. 
 \end{proof}
 
 Furthermore, we can provide an equivalent definition for measure which does not require countable additivity:
@@ -1059,11 +1096,48 @@ Now, we can show closure under finite intersections, where:
 \bigcap_{i=0}^n C_i = \bigcap_{i=0}^n \left(\bigcup_{j=0}^m A_j^{(i)}\right)
 \end{equation*}
 Once again distributing the intersection over the union, we get a union of finite intersections (which belong in $\mathcal{S}$), which we can prove is disjoint in the same manner. Combined with complement, it is closed under finite union.
-
-
 \end{proof}
 
+\begin{lem}
+We define a half open interval as an interval $(a, b]$ or $(a, \infty)$ where $-\infty \leqslant a < b < \infty$. We call this the semialgebra of half open intervals or $\mathcal{I}_h$.
+\end{lem}
+\begin{proof}
+We see that $\mathbb{R} \in \mathcal{I}_h$ as the interval $(-\infty, \infty)$. Now consider the intersection of:
+\begin{equation*}
+(a, b] \cap (c, d]
+\end{equation*}
+where, without loss of generality, $a < c$ and $b < d$, then we get the intersection is a half interval $(c, b]$. If one of the half intervals were a ray in the form of $(a, \infty)$ then it is trivial that the intersection is a half interval.
 
+Finally, if we take the complement of a half interval $(a, b]$, we get $(-\infty, a] \cup (b, \infty)$ which is the disjoint union of half intervals, thus in the semialgebra. This property is trivial for a ray.
+\end{proof}
+
+Now we can generate an algebra of half open intervals, which we call $\mathcal{A}(\mathcal{I}_h)$. We can take this one step further and show that the generated sigma algebra is actually the borel sigma algebra.
+Since $\mathcal{I}_h \subseteq \mathcal{A}(\mathcal{I}_h)$, we have that $\mathcal{F}(\mathcal{I}_h) \subseteq \mathcal{F}(\mathcal{A}(\mathcal{I}_h))$. 
+
+For the other inclusion, we see that for all $\mathcal{F}$ such that $\mathcal{I}_h \subseteq \mathcal{F}$, we have that arbitrary countable unions of the elements in $\mathcal{I}_h$ are included in each of these $\sigma$-algebras. Thus:
+\begin{equation*}
+\forall \mathcal{F} \subseteq \mathcal{P}(\mathbb{R}): \mathcal{I}_h \subseteq \mathcal{F} \implies \mathcal{A}(\mathcal{I}_h) \subseteq \mathcal{F}
+\end{equation*} 
+Thus $\mathcal{A}(\mathcal{I}_h) \subseteq \mathcal{F}(\mathcal{I}_h)$, which tells us that $\mathcal{F}(\mathcal{A}(\mathcal{I})_h) \subseteq \mathcal{F}(\mathcal{I}_h)$. Now we defined the Borel $\sigma$-algebra $\mathcal{B}$ as the one generated by open intervals. For any half open interval $(a, b]$:
+\begin{equation*}
+\bigcap_{n \in \mathbb{N}}\left(a, b + \frac{1}{n+1}\right) = (a, b] \in \mathcal{B} \implies \mathcal{I}_h \subseteq \mathcal{B}
+\end{equation*} 
+Thus $\mathcal{F}(\mathcal{I}_h) \subseteq \mathcal{B}$ (we used closure under countable intersections property of $\sigma$-algebras). This also holds for rays. Now consider any open interval $(a, b)$. Then:
+\begin{equation*}
+\bigcup_{n \in \mathbb{N}}\left(a, b - \frac{1}{n+1}\right] = (a, b) \in \mathcal{F}(\mathcal{I}_h)
+\end{equation*}
+which tells us that $\mathcal{F}(\mathcal{I}_h) \subseteq \mathcal{B}$, so we have that $\mathcal{F}(\mathcal{A}(\mathcal{I}_h)) = \mathcal{F}(\mathcal{I}_h) = \mathcal{B}$. The importance of this is the $\sigma$-algebra we will be working on and defining a measure on is still the Borel $\sigma$-algebra.
+
+We now begin to construct the Lebesgue measure.
+\begin{lem}
+Given a semialgebra $\mathcal{S}$ and a function, $l: \mathcal{S} \xrightarrow{} [0, \infty]$, such that:
+\begin{enumerate}
+\item Finitely Additive:
+\begin{equation*}
+\forall \{A_i\}_{i=0}^n \in \mathcal{S}^{n+1}, \forall i \neq j: A_i \cap A_j = \varnothing \implies l\left(\bigcup_{i=0}^n A_i\right) = \sum_{i=0}^n l(A_i)
+\end{equation*}
+\end{enumerate}
+\end{lem}
 \pagebreak
 
 \section{Random Variables and Distributions}
