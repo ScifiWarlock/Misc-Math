@@ -10,6 +10,8 @@
 \usepackage{blindtext}
 \usepackage{amsthm}
 \usepackage{upgreek}
+\usepackage[colorlinks,linkcolor=blue]{hyperref}
+\usepackage[nameinlink]{cleveref}
 \usepackage{hyperref}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
@@ -412,6 +414,7 @@ then we get the set of all canonical basis vectors, which cannot be contained in
 
 \textbf{Durrett 1.1.5:}
 
+\pagebreak
 \subsection{Measure}
 The third and final element of the triple is $P$, which we call the probability measure. A measure is defined as a following:
 \begin{defn}
@@ -431,6 +434,19 @@ This second property will be quite important, and we shall call it countable add
 \end{equation*}
 If this were not true, then we could have had some sequence of $S_n$ in the $\sigma$-algebra where their countably infinite union is not measurable, so property $2$ in this definition would not always hold.
 \end{defn}
+
+\begin{lem}
+Given a measure $\mu$ on a $\sigma$-algebra $\mathcal{F}$:
+\begin{equation*}
+\forall A \subseteq B: \mu(B) < \infty \implies \mu(B \setminus A) = \mu(B) - \mu(A) 
+\end{equation*}
+\end{lem}
+\begin{proof}
+We can write the disjoint union $B = (B \setminus A) \cup A$, so that (using countable additivity and empty sets to get finite additivity):
+\begin{equation*}
+\mu(B) = \mu(B \setminus A) + \mu(A) \implies \mu(B \setminus A) = \mu(B) - \mu(A)
+\end{equation*}
+\end{proof}
 
 
 \begin{lem}
@@ -557,8 +573,76 @@ Continuity from below is a simple application of the fact that the subsets make 
 \end{proof}
 
 \begin{proof}[Continuity From Above, Proof 1]
-We offer two proofs, one using continuity from below and the other using countable additivity. Now consider a non-increasing chain of subsets. 
+We offer two proofs, one using continuity from below and the other using countable additivity. Now consider a non-increasing chain of subsets with $\mu(A_0) < \infty$, then we have that:
+\begin{equation*}
+A_0 \setminus A_0 \subseteq A_0 \setminus A_1 \subseteq A_0 \setminus A_2 \subseteq ...
+\end{equation*}
+since $A_0 \supseteq A_1 \supseteq ...$ tells us that $A_0^c \subseteq A_1^c \subseteq ...$. So applying continuity from above, we have that:
+\begin{equation*}
+\lim_{n \xrightarrow{} \infty}\mu(A_0 \setminus A_n) = \mu\left(\bigcup_{n \in \mathbb{N}}(A_0 \cap A_n^c)\right) = \mu\left(A_0 \setminus \bigcap_{n \in \mathbb{N}}A_n\right)
+\end{equation*}
+Now applying finite additivity to both sides, we obtain:
+\begin{equation*}
+\mu(A_0 \setminus A_n) + \mu(A_n) = \mu(A_0) \land \mu\left(A_0 \setminus \bigcap_{n \in \mathbb{N}}A_n\right) + \mu\left(\bigcap_{n \in \mathbb{N}}A_n\right) = \mu(A_0)
+\end{equation*}
+Now $\mu(A_0) < \infty$ tells us that by monotonicity, $\mu(A_n) < \infty$, so we can subtract on both sides and rewrite our expression as:
+\begin{equation*}
+\lim_{n \xrightarrow{} \infty}(\mu(A_0) - \mu(A_n)) = \mu(A_0) - \mu\left(\bigcap_{n \in \mathbb{N}}A_n\right)
+\end{equation*}
+Thus:
+\begin{equation*}
+\lim_{n \xrightarrow{} \infty}\mu(A_n) = \mu\left(\bigcap_{n \in \mathbb{N}}A_n\right)
+\end{equation*}
+Observe that we dont necessarily require $\mu(A_0) < \infty$. We can have some $m \in \mathbb{N}$ such that $\mu(A_m) < \infty$, which gives us the result:
+\begin{equation*}
+\lim_{n \xrightarrow{} \infty}\mu(A_n) = \mu\left(\bigcap_{n \geqslant m}A_n\right)
+\end{equation*}
+Now if we take some $x$ in the intersection, then:
+\begin{equation*}
+\forall n \geqslant m: x \in A_n \implies x \in A_m \implies \forall j < m: x \in A_n
+\end{equation*}
+by the non-increasing property (the reverse inclusion follows from subset properties). Thus:
+\begin{equation*}
+\lim_{n \xrightarrow{} \infty}\mu(A_n) = \mu\left(\bigcap_{n \geqslant m}A_n\right) = \mu\left(\bigcap_{n \in \mathbb{N}}A_n\right)
+\end{equation*}
 \end{proof}
+
+\begin{proof}[Continuity From Above, Proof 2]
+While it was simple to use continuity from below, it is not required to prove continuity from above. Consider the disjoint union:
+\begin{equation*}
+\bigcup_{n \in \mathbb{N}}A_{n}\setminus A_{n+1} = \bigcup_{n \in \mathbb{N}}A_n \cap \bigcup_{n \in \mathbb{N}}A_{n+1}^c = A_0 \setminus \bigcap_{n \in \mathbb{N}}A_{n+1}
+\end{equation*}
+Then from the previous proof:
+\begin{equation*}
+\bigcap_{n \in \mathbb{N}}A_n = \bigcap_{n \in \mathbb{N}}A_{n+1}
+\end{equation*}
+Now applying countable additivity:
+\begin{equation*}
+\mu\left(\bigcup_{n \in \mathbb{N}}A_n \setminus A_{n+1}\right) = \sum_{n \in \mathbb{N}}\mu(A_n \setminus A_{n+1}) = \lim_{n \xrightarrow{} \infty}\sum_{i=0}^n\mu(A_i \setminus A_{i+1})
+\end{equation*} 
+\begin{equation*}
+= \lim_{n \xrightarrow{} \infty}\mu(A_0 \setminus A_{n+1})
+\end{equation*}
+Applying finite additivity on both sides, we get that:
+\begin{equation*}
+\mu\left(\bigcup_{n \in \mathbb{N}}A_n \setminus A_{n+1}\right) = \mu\left(A_0 \setminus \bigcap_{n \in \mathbb{N}}A_n\right) = \mu(A_0) - \mu\left(\bigcap_{n \in \mathbb{N}}A_n\right)
+\end{equation*}
+Now the proof is the same as the previous one. We can also consider the more general case where $\mu(A_m) < \infty$ and then construct the disjoint union for $n \geqslant m$.
+\end{proof}
+
+The importance of highlighting these two proofs is to draw some important conclusions about sufficient conditions. If we were instead working with a premeasure $\mu_0$ on an algebra, then the sufficient condition is that the countable union must belong to the algebra, $\mathcal{A}$, for continuity from below.
+For continuity from above, one sufficient condition we want is that there exists some $m \in \mathbb{N}$ such that $\mu(A_m) < \infty$. However, we still cannot say:
+\begin{equation*}
+\bigcup_{n \geqslant m}A_n \setminus A_{n+1} = A_m \setminus \bigcap_{n \geqslant m} A_{n+1} \in \mathcal{A}
+\end{equation*}
+So, if we add the condition that:
+\begin{equation*}
+\bigcap_{n \geqslant m}A_{n+1} \in \mathcal{A}
+\end{equation*}
+then since $\{A_n\}_{n \in \mathbb{N}} \in \mathcal{A}^\mathbb{N}$, we have that finite set differences belong in the algebra, thus:
+\begin{equation*}
+A_m \setminus \bigcap_{n \geqslant m}A_{n+1} \in \mathcal{A}
+\end{equation*}
 
 Furthermore, we can provide an equivalent definition for measure which does not require countable additivity:
 \begin{lem}
@@ -593,20 +677,24 @@ So we must assume non-negativity (if we try to prove it via monotonicity, it bec
 \end{equation*}
 
 \end{proof}
-We can equivalently define a measure as:
-\begin{defn}[Alternative Definition of Measure]
-A measure $\mu: \mathcal{F} \xrightarrow{} [0, \infty]$ has the properties:
-\begin{enumerate}
-\item For all finite collections of pairwise disjoint sets $S_0, S_1, ..., S_n$:
+
+Another useful lemma is the following:
+\begin{lem}\label{Lemma 1.7}
+A measure (or premeasure) is countably additive if and only if it is finitely additive and countably subadditive.
+\end{lem}
+\begin{proof}
+$\implies:$ Lemma 1.5 already proved this direction.
+
+$\impliedby:$ Finite additivity provides us with monotonicity, thus, consider a disjoint sequence of sets in the algebra/$\sigma$-algebra:
 \begin{equation*}
-\mu\left(\bigcup_{i=0}^n S_i\right) = \sum_{i=0}^{n}\mu(S_i)
+\mu\left(\bigcup_{n \in \mathbb{N}}A_n\right) \geqslant \mu\left(\bigcup_{i=0}^nA_i\right) = \sum_{i=0}^n \mu(A_i)
 \end{equation*}
-\item For all sequences $\{S_n\}_{n \in \mathbb{N}} \in \mathcal{F}^\mathbb{N}$:
+Since this is true for all $n \in \mathbb{N}$, we can take the limit on the right hand side and combined with countable subadditivity, we obtain:
 \begin{equation*}
-\forall n \in \mathbb{N}: S_n \subseteq S_{n+1} \implies \mu\left(\bigcup_{n \in \mathbb{N}}S_n\right) = \lim_{n \xrightarrow{} \infty}\mu(S_n)
+\lim_{n \xrightarrow{} \infty}\sum_{i=0}^n A_i = \sum_{n \in \mathbb{N}}A_n \leqslant \mu\left(\bigcup_{n \in \mathbb{N}}A_n\right) \leqslant \sum_{n \in \mathbb{N}}A_n
 \end{equation*}
-\end{enumerate}
-\end{defn}
+\end{proof}
+
 We can now make this notion more specific to probability and say:
 \begin{defn}
 A probability measure is a function $P: \mathcal{F} \xrightarrow{} [0, \infty]$ where:
@@ -689,6 +777,7 @@ P(A \cup B) = P(A) + P(B) - P(A \cap B)
 \end{equation*}
 \end{proof}
 
+\pagebreak
 \subsection{Caratheodory Extension Theorem}
 We say that a null set $S \in \mathcal{F}$ is one which has measure $0$. If we consider any subset $P \subseteq S$, then by monotonicity of the measure, we have that:
 \begin{equation*}
@@ -698,7 +787,7 @@ however, $P$ may not be part of $\mathcal{F}$. We note an important property tha
 \begin{equation*}
 \mu\left(\bigcup_{n \in \mathbb{N}}S_n\right) \leqslant \sum_{n \in \mathbb{N}}\mu(S_n) = 0
 \end{equation*}
-which follows from countably subadditivity of the measure (Lemma 1.4.2). 
+which follows from countably subadditivity of the measure (Lemma 1.5.2). 
 
 \begin{defn}
 A measure $\mu$ is complete on a measure space $(X, \mathcal{M}, \mu)$ if its associated $\sigma$-algebra contains all subsets of any null set and if the measure of those subsets is $0$.
@@ -850,7 +939,7 @@ As writing $E = E \cap (A \cup A^c) = (E \cap A) \cup (E \cap A^c)$, we obtain b
 \mu^*(E) \leqslant \mu^*(E \cap A) + \mu^*(E \cap A^c)
 \end{equation*}
 
-\begin{thm}[Caratheodory's Extension Theorem]
+\begin{thm}[Caratheodory's Extension Theorem]\label{Caratheodory's Thm}
 If $\mu^*$ is an outer measure on some space $X$, then:
 \begin{equation*}
 \mathcal{M} \coloneq \{A \subseteq X : (\forall E \subseteq X: \mu^*(E) = \mu^*(E \cap A) + \mu^*(E \cap A^c))\}
@@ -948,26 +1037,7 @@ Observe that we place the additional sufficiency that the countable union must b
 unlike algebras which are only closed under finite unions (and thus intersections).
 \end{defn}
 
-\begin{lem}
-A premeasure $\mu_0$ is finitely subadditive and countable subadditive for collections whose unions belong in the algebra.
-\end{lem}
-\begin{proof}
-Consider a finite collection of subsets in the algebra, $A_0, ..., A_n$. Then we can rewrite their union as a disjoint union:
-\begin{equation*}
-\bigcup_{i=0}^n A_i = \bigcup_{i=0}^n \left(A_i \setminus \bigcup_{j=0}^{i-1}A_j\right)
-\end{equation*}
-Now by closure under countable union and finite set difference, we have each of the terms:
-\begin{equation*}
-A_i \setminus \bigcup_{j=0}^{i-1}A_j \in \mathcal{A}
-\end{equation*}
-so the finite union of those terms is also in the algebra. By countable additivity (which reduces to finite additivity if we fill the remaining sequence with $\varnothing$), we have:
-\begin{equation*}
-\mu_0\left(\bigcup_{i=0}^n A_i\right) = \sum_{i=0}^n \mu_0\left(A_i \setminus \bigcup_{j=0}^{i-1}A_j\right) \leqslant \sum_{i=0}^n \mu_0(A_i)
-\end{equation*}
-Monotonicity follows from non-negativity and finite additivity as we proved for measures. The proof for countable subadditivity is the same as long as the union belongs in the algebra.
-\end{proof}
-
-\begin{lem}
+\begin{lem}\label{Lemma 1.10}
 Given a space $X$ and a premeasure $\mu_0: \mathcal{A} \xrightarrow{} [0, \infty]$, we have that:
 \begin{enumerate}
 \item $\mu^*|_\mathcal{A} = \mu_0$
@@ -1024,7 +1094,8 @@ Now since $\mathcal{A}$ is $\mu^*$-measurable, we have that $\mathcal{A} \subset
 
 As a result, we have that $\mu^*|_{\mathcal{F}(\mathcal{A})}$ is a measure (countable additivity follows from countable additivity on $\mathcal{M}$).
 
-\subsection{The Lebesgue Measure}
+\pagebreak
+\subsection{The Lebesgue-Stieltjes Measure}
 % We define half open intervals as subsets of $\mathbb{R}$ in the form $(a, b]$, $(a, \infty)$, or $(-\infty, a]$ and trivially $\varnothing$, $\mathbb{R}$, where $- \infty \leqslant a < b < \infty$.
 
 % \begin{lem}
@@ -1059,7 +1130,7 @@ As a result, we have that $\mu^*|_{\mathcal{F}(\mathcal{A})}$ is a measure (coun
 \begin{defn}[Semialgebra]
 A semialgebra $\mathcal{S} \subseteq \mathcal{P}(X)$ has the properties:
 \begin{enumerate}
-\item $X \in \mathcal{S}$
+\item $X, \varnothing \in \mathcal{S}$
 \item Closure under finite intersection:
 \begin{equation*}
 \forall \{A_i\}_{i=0}^n \in \mathcal{S}^{n+1}: \bigcap_{i=0}^n A_i \in \mathcal{S}
@@ -1098,7 +1169,7 @@ Now, we can show closure under finite intersections, where:
 Once again distributing the intersection over the union, we get a union of finite intersections (which belong in $\mathcal{S}$), which we can prove is disjoint in the same manner. Combined with complement, it is closed under finite union.
 \end{proof}
 
-\begin{lem}
+\begin{lem}\label{Lemma 1.12}
 We define a half open interval as an interval $(a, b]$ or $(a, \infty)$ where $-\infty \leqslant a < b < \infty$. We call this the semialgebra of half open intervals or $\mathcal{I}_h$.
 \end{lem}
 \begin{proof}
@@ -1129,17 +1200,176 @@ Thus $\mathcal{F}(\mathcal{I}_h) \subseteq \mathcal{B}$ (we used closure under c
 which tells us that $\mathcal{F}(\mathcal{I}_h) \subseteq \mathcal{B}$, so we have that $\mathcal{F}(\mathcal{A}(\mathcal{I}_h)) = \mathcal{F}(\mathcal{I}_h) = \mathcal{B}$. The importance of this is the $\sigma$-algebra we will be working on and defining a measure on is still the Borel $\sigma$-algebra.
 
 We now begin to construct the Lebesgue measure.
-\begin{lem}
-Given a semialgebra $\mathcal{S}$ and a function, $l: \mathcal{S} \xrightarrow{} [0, \infty]$, such that:
+\begin{lem}\label{Lemma 1.13}
+Given a semialgebra $\mathcal{S}$ and a set function, $l: \mathcal{S} \xrightarrow{} [0, \infty]$, such that:
 \begin{enumerate}
+\item $l(\varnothing) = 0$
 \item Finitely Additive:
 \begin{equation*}
 \forall \{A_i\}_{i=0}^n \in \mathcal{S}^{n+1}, \forall i \neq j: A_i \cap A_j = \varnothing \implies l\left(\bigcup_{i=0}^n A_i\right) = \sum_{i=0}^n l(A_i)
 \end{equation*}
+\item Countably subadditive:
+\begin{equation*}
+\forall \{A_n\}_{n \in \mathbb{N}} \in \mathcal{S}^\mathbb{N}: \bigcup_{n \in \mathbb{N}}A_n \in \mathcal{S} \implies l\left(\bigcup_{n \in \mathbb{N}} A_n\right) \leqslant \sum_{n \in \mathbb{N}} l(A_n)
+\end{equation*}
 \end{enumerate}
+Then $l$ extends to a premeasure $\mu_0$ on $\mathcal{A}(\mathcal{S})$ such that:
+\begin{equation*}
+\forall A \in \mathcal{S}: \mu(A) = l(A)
+\end{equation*}
 \end{lem}
+\begin{proof}
+Recall \cref{Lemma 1.7}, which tells us equivalent conditions for a premeasure. We cannot immediately say these hold for a set function $l$, since the semialgebra is not necessarily closed under finite unions. However, an algebra is, so if we are able to upgrade the set function to the algebra, then we can show it is a premeasure.
+
+We define our function on $\mathcal{A}(\mathcal{S})$ as:
+\begin{equation*}
+\forall \{A_i\}_{i=0}^n \in \mathcal{S}^{n+1}, \forall k \neq j: A_k \cap A_j = \varnothing \implies \mu_0\left(\bigcup_{i=0}^n A_i\right) = \sum_{i=0}^{n}l(A_i)
+\end{equation*}
+We first must show that $\mu_0$ is well defined. If we consider any set $A \in \mathcal{A}(\mathcal{S})$, then it is very much possible that:
+\begin{equation*}
+A = \bigcup_{i=0}^n A_i = \bigcup_{j=0}^m B_j
+\end{equation*}
+where both are disjoint unions of elements from the semialgebra. Now observe that:
+\begin{equation*}
+\forall j \in \{0, ..., m\}: B_j = B_j \cap \bigcup_{i=0}^n A_i = \bigcup_{i=0}^n (B_j \cap A_i)
+\end{equation*}
+which is a disjoint union. Thus:
+\begin{equation*}
+\mu_0\left(\bigcup_{j=0}^mB_j\right) = \sum_{j=0}^m l(B_j) = \sum_{j=0}^m l\left(\bigcup_{i=0}^n (B_j \cap A_i)\right)
+\end{equation*}
+By the finite additivity of $l$, we have that:
+\begin{equation*}
+= \sum_{j=0}^m \sum_{i=0}^n l(B_j \cap A_i) = \sum_{i=0}^n \sum_{j=0}^m l(A_i \cap B_j)
+\end{equation*}
+which we obtain by simply reorganizing the terms and the summations. Using finite additivity of $l$ once again:
+\begin{equation*}
+= \sum_{i=0}^n l\left(\bigcup_{j=0}^m (A_i \cap B_j)\right) = \sum_{i=0}^n l(A_i) = \mu_0\left(\bigcup_{i=0}^n A_i\right)
+\end{equation*}
+Now $\mu_0$ is a function on the algebra. Consider two disjoint sets in the algebra, $A, B \in \mathcal{A}(\mathcal{S})$. Then:
+\begin{equation*}
+\mu_0(A \cup B) = \mu_0\left(\bigcup_{i=0}^n A_i \cup \bigcup_{j=0}^mB_j\right)
+\end{equation*}
+where we have that each both unions are disjoint unions of elements in $\mathcal{S}$ by definition, and:
+\begin{equation*}
+A \cap B = \bigcup_{i=0}^n A_i \cap \bigcup_{j=0}^m B_j = \bigcup_{i, j}(A_i \cap B_j) = \varnothing
+\end{equation*}
+This forces each of the $A_i, B_j$ to be disjoint with eachother, so the union of the unions is a disjoint union. Applying the definition of $\mu_0$:
+\begin{equation*}
+\mu_0\left(\bigcup_{i=0}^n A_i \cup \bigcup_{j=0}^mB_j\right) = \sum_{i=0}^n l(A_j) + \sum_{j=0}^{m}l(B_j) = \mu_0(A) + \mu_0(B)
+\end{equation*}
+proving that $\mu_0$ is finitely additive (the proof can be completed via induction).
+
+Now we must prove countably subadditivity of $\mu_0$. Consider some sequence $\{A_n\}_{n \in \mathbb{N}} \in \mathcal{A}(\mathcal{S})^\mathbb{N}$, such that:
+\begin{equation*}
+\bigcup_{n \in \mathbb{N}}A_n \in \mathcal{A}(\mathcal{S})
+\end{equation*}
+then, by definition, there exists some disjoint union of $C_i \in \mathcal{S}$ such that:
+\begin{equation*}
+\bigcup_{n \in \mathbb{N}}A_n = \bigcup_{i=0}^m C_i \implies \mu_0\left(\bigcup_{n \in \mathbb{N}}A_n\right) = \mu_0\left(\bigcup_{i=0}^m C_i\right)
+\end{equation*}
+\begin{equation*}
+= \sum_{i=0}^m l(C_i) = \sum_{i=0}^m l\left(C_i \cap \bigcup_{n \in \mathbb{N}}A_n\right) = \sum_{i=0}^m l\left(\bigcup_{n \in \mathbb{N}}(C_i \cap A_n)\right)
+\end{equation*}
+We have that the countable union belongs in $\mathcal{S}$ since it is simply equal to $C_i$. Thus applying countable subadditivity of $l$:
+\begin{equation*}
+\leqslant \sum_{i=0}^m \sum_{n \in \mathbb{N}}l(C_i \cap A_n)  = \sum_{n \in \mathbb{N}}\sum_{i=0}^n l(A_n \cap C_i)
+\end{equation*}
+which we obtained by rearranging the terms. Now with the following:
+\begin{equation*}
+\forall i \neq j: (A_n \cap C_i) \cap (A_n \cap C_j) = (A_n \cap A_n) \cap (C_i \cap C_j) = A_n \cap \varnothing = \varnothing
+\end{equation*}
+we apply the definition of $\mu_0$:
+\begin{equation*}
+= \sum_{n \in \mathbb{N}}\mu_0\left(A_n \cap \bigcup_{i=0}^m C_i\right) = \sum_{n \in \mathbb{N}}\mu_0(A_n)
+\end{equation*}
+Now it follows from definition that:
+\begin{equation*}
+\forall A \in \mathcal{S}: \mu_0(A) = l(A) \implies \mu_0(\varnothing) = l(\varnothing) = 0
+\end{equation*}
+We finish the argument by using \cref{Lemma 1.7} to show that $\mu_0$ is countably additive, showing it is a premeasure.
+\end{proof}
+
+We now have all the steps to (FINALLY!) construct the Lebesgue-Stieltjes measure. Consider the semialgebra $\mathcal{I}_h$ as per \cref{Lemma 1.12}. We show the following:
+\begin{lem}
+Given a non-decreasing, right continuous function $F: \mathbb{R} \xrightarrow{} \mathbb{R}$, we can define a set function $l: \mathcal{I}_h \xrightarrow{} [0, \infty]$ such that:
+\begin{equation*}
+\forall (a, b] \in \mathcal{I}_h: l(a, b] = F(b) - F(a) \land l(\varnothing) = 0
+\end{equation*}
+AND
+\begin{equation*}
+\forall \{I_j\}_{j=0}^n \in \mathcal{I}_h^{n+1}, \forall u \neq v: I_u \cap I_v = \varnothing \implies l\left(\bigcup_{j=0}^n I_j\right) = \sum_{i=0}^{n}l(I_j)
+\end{equation*}
+We furthermore have that $l$ is finitely additive and countably subadditive, allowing us to extend it to a premeasure $\mu_0$ on $\mathcal{A}(\mathcal{S})$.
+\end{lem}
+\begin{proof}
+Because $F$ is non-decreasing, we see that $l$ is non-negative. Additionally since $F$ is non-decreasing:
+\begin{equation*}
+F(\infty) \coloneq \lim_{x \xrightarrow{} \infty}F(x) = \sup_{x \in \mathbb{R}}F(x)
+\end{equation*}
+and similarly defined by infimum for the limit as $x \xrightarrow{} - \infty$. This allows us to define the value of rays $(-\infty, b], (b, \infty) \in \mathcal{I}_h$ as:
+\begin{equation*}
+\forall (\infty, b], (a, \infty) \in \mathcal{I}_h: l(-\infty, b] = F(b) - F(-\infty) \land l(a, \infty) = F(\infty) - F(a)
+\end{equation*}
+(We do not have indeterminate $\infty - \infty$ situations since $F$ is a map between the reals and not extended reals).
+
+We are given that $l$ is finitely additive, so we must prove that $l$ is countably subadditive. Consider $\{I_n\}_{n \in \mathbb{N}} \in \mathcal{I}_h^\mathbb{N}$ such that:
+\begin{equation*}
+\bigcup_{n \in \mathbb{N}}I_n \in \mathcal{I}_h \implies \bigcup_{n \in \mathbb{N}}I_h = (a, b]
+\end{equation*}
+We assume the union to be the half-interval $(a, b]$ (though the proof is easily extendable to rays). Now define each $I_n \coloneq (a_n, b_n]$. Using right continuity of $F$, we have that:
+\begin{equation*}
+\forall n \in \mathbb{N}, \forall \epsilon > 0, \exists b_n' > b_n: F(b_n') - F(b_n) < \frac{\epsilon}{2^n}
+\end{equation*}
+Similarly there exists some $a'$ such that $F(a') - F(a) < \epsilon$. Now:
+\begin{equation*}
+(a', b] \subseteq [a', b] \subseteq (a, b] \subseteq \bigcup_{n \in \mathbb{N}}(a_n, b_n] \subseteq \bigcup_{n \in \mathbb{N}}(a_n, b_n')
+\end{equation*}
+Since $[a', b]$ is compact, any open cover has a finite subcover, thus:
+\begin{equation*}
+(a', b] \subseteq [a', b] \subseteq \bigcup_{i=0}^m (a_i, b_i') \subseteq \bigcup_{i=0}^m (a_i, b_i']
+\end{equation*}
+\begin{equation*}
+l(a', b] = l\left((a', b] \cap \bigcup_{i=0}^m (a_i, b_i']\right) = l\left(\bigcup_{i=0}^m ((a', b] \cap (a_i, b_i'])\right)
+\end{equation*}
+Now define $(c_i, d_i] \coloneq (a', b] \cap (a_i', b_i']$ and by the properties of $\mathcal{I}_h$, we have that $(c_i, d_i] \in \mathcal{I}_h$. Now consider the ordered set $\{c_i, d_i\} \cup \{a, b\}$ (which has no repeats and the members of which we shall rename to $k_j$). Then:
+\begin{equation*}
+\bigcup_{i=0}^m (c_i, d_i] = \bigcup_{j=0}^{p-1}(k_j, k_{j+1}]
+\end{equation*}
+where the latter is now a disjoint union. By construction, we have that there exists some $0 \leqslant j_i < p_i \leqslant p-1$ such that:
+\begin{equation*}
+\forall i \in \{0, ..., m\}: (c_i, d_i] = \bigcup_{j=j_i}^{p_i - 1}(k_j, k_{j+1}]
+\end{equation*}
+thus:
+\begin{equation*}
+l\left(\bigcup_{i=0}^m (c_i, d_i]\right) = l\left(\bigcup_{j=0}^{p-1}(k_j, k_{j+1}]\right) = \sum_{j=0}^{p-1}l(k_j, k_{j+1}] \leqslant \sum_{i=0}^m \sum_{j=j_i}^{p_i - 1}l(k_j, k_{j+1}]
+\end{equation*}
+which once again by finite additivity and monotonicity (which we can prove from finite additivity):
+\begin{equation*}
+= \sum_{i=0}^m l(c_i, d_i] \leqslant \sum_{i=0}^m l(a_i, b_i'] = \sum_{i=0}^m (F(b_i') - F(a_i))
+\end{equation*}
+Now we have the inequality:
+\begin{equation*}
+F(b) - F(a) - \epsilon \leqslant F(b) - F(a') \leqslant \sum_{i=0}^m (F(b_i') - F(a_i)) \leqslant \sum_{i=0}^m \left(F(b_i) - F(a_i) + \frac{\epsilon}{2^i}\right)
+\end{equation*}
+\begin{equation*}
+F(b) - F(a) - \epsilon \leqslant \sum_{n \in \mathbb{N}}\left(F(b_n)  - F(a_n) + + \frac{\epsilon}{2^n}\right) = \sum_{n \in \mathbb{N}}(F(b_n) - F(a_n)) + 2\epsilon
+\end{equation*}
+\begin{equation*}
+\forall \epsilon > 0: F(b) - F(a) \leqslant \sum_{n \in \mathbb{N}}(F(b_n) - F(a_n)) + 3\epsilon
+\end{equation*}
+proving countable subadditivity for $l$. So by \cref{Lemma 1.13}, we observe that $l$ extends to a premeasure $\mu_0$ on $\mathcal{A}(\mathcal{I}_h)$.
+\end{proof}
+Constructing the measure now is just a matter of applying the theorems in the previous section on the Caratheodory Extension Theorem. We first define our outer measure using the newly constructed premeasure as:
+\begin{equation*}
+\mu^*(A) \coloneq \inf\left\{\sum_{n \in \mathbb{N}}\mu_0(I_n) : \{I_n\}_{n \in \mathbb{N}} \in \mathcal{A}(\mathcal{I}_h)^\mathbb{N} \land A \subseteq \bigcup_{n \in \mathbb{N}}I_n\right\}
+\end{equation*}
+Then by \cref{Lemma 1.10}, we have that $\mu^*|_{\mathcal{A}(\mathcal{I}_h)} = \mu_0$ and that $\mathcal{F}(\mathcal{A}(\mathcal{I}_h)) \subseteq \mathcal{M}$ (or in other words is $\mu^*$-measurable). By \cref{Lemma 1.12}, we know that $\mathcal{F}(\mathcal{A}(\mathcal{I}_h)) = \mathcal{B}$ (the Borel $\sigma$-algebra).
+So we can easily see that $\mu^*|_\mathcal{M}$ being a measure means $\mu^*|_\mathcal{B}$ is a measure which we denote as $\mu_F$ or the Lebesgue-Stieltjes measure! Remember that \cref{Caratheodory's Thm} gave us a complete measure on $\mathcal{M}$ but that is not necessarily true for $\mathcal{B}$ since it is a subset of $\mathcal{M}$.
 \pagebreak
 
+\subsection{Uniqueness Of the Lebesgue-Stieltjes Measure}
+
+\pagebreak
 \section{Random Variables and Distributions}
 
 \end{document}
